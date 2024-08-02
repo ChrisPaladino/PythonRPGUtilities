@@ -5,6 +5,36 @@ import os
 script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
 
+class DataManager:
+    def __init__(self):
+        self.data = {"characters": [], "threads": []}
+
+    def load_from_file(self, file_path):
+        loaded_data = load_json_data(file_path)
+        if loaded_data:
+            self.data.clear()
+            self.data.update(loaded_data)
+
+    def save_to_file(self, file_path):
+        return save_json_data(file_path, self.data)
+
+    def add_item(self, data_type, item):
+        if data_type not in self.data:
+            self.data[data_type] = []
+        if len(self.data[data_type]) < 25 and self.data[data_type].count(item) < 3:
+            self.data[data_type].append(item)
+            return True
+        return False
+
+    def remove_item(self, data_type, item):
+        if data_type in self.data and item in self.data[data_type]:
+            self.data[data_type].remove(item)
+
+    def get_items(self, data_type):
+        return self.data.get(data_type, [])
+
+data_manager = DataManager()
+
 def load_json_data(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
@@ -16,28 +46,34 @@ def load_json_data(file_path):
         print(f"Error decoding JSON from {file_path}.")
         return None
 
-def add_to_general_data(data_type, item):
-    if len(general_data[data_type]) < 25 and general_data[data_type].count(item) < 3:
-        general_data[data_type].append(item)
-        save_json_data('data/data.json', general_data)
-        return True
-    return False
-
-def remove_from_general_data(data_type, item):
-    if item in general_data[data_type]:
-        general_data[data_type].remove(item)
-        save_json_data('data/data.json', general_data)
-
-def get_general_data(data_type):
-    return general_data.get(data_type, [])
-
 def save_json_data(file_path, data):
     try:
         with open(file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4)
         print(f"Data successfully saved to {file_path}.")
+        return True
     except IOError as e:
         print(f"Error saving JSON to {file_path}: {e}")
+        return False
+
+def initialize_data():
+    data_manager.load_from_file('data/data.json')
+
+def get_general_data(data_type):
+    return data_manager.get_items(data_type)
+
+def add_to_general_data(data_type, item):
+    return data_manager.add_item(data_type, item)
+
+def remove_from_general_data(data_type, item):
+    data_manager.remove_item(data_type, item)
+
+def load_campaign(file_path):
+    data_manager.load_from_file(file_path)
+    return data_manager.data
+
+def save_campaign(file_path):
+    return data_manager.save_to_file(file_path)
 
 def get_plot_point(theme, d100_roll):
     if plot_points is None or theme not in plot_points:
@@ -122,7 +158,6 @@ def generate_name():
     return f"{first} {last}"
 
 def check_the_fates_dice(chaos_factor, likelihood):
-    # Mapping of likelihood to its modifier value
     likelihood_modifiers = {
         "Certain": +5,
         "Nearly Certain": +4,
@@ -135,7 +170,6 @@ def check_the_fates_dice(chaos_factor, likelihood):
         "Impossible": -5,
     }
 
-    # Chaos Factor modifiers
     chaos_factor_modifiers = {
         9: +5,
         8: +4,
@@ -151,7 +185,6 @@ def check_the_fates_dice(chaos_factor, likelihood):
     dice1 = random.randint(1, 10)
     dice2 = random.randint(1, 10)
     
-    # Apply both modifiers to the roll
     total_modifier = likelihood_modifiers[likelihood] + chaos_factor_modifiers[chaos_factor]
     total_roll = dice1 + dice2 + total_modifier
     
@@ -169,12 +202,11 @@ def check_the_fates_dice(chaos_factor, likelihood):
     return result, dice1, dice2, total_roll
 
 def select_from_list(data_type):
-    if general_data is None:
-        return "Error loading data."
-    items = list(general_data.get(data_type, []))
+    items = get_general_data(data_type)
+    if not items:
+        return "No items available"
     items += ["Choose character" if data_type == 'characters' else "Choose thread"] * (25 - len(items))
     chosen_item = random.choice(items)
-    items.clear()
     return f"{chosen_item}"
 
 def generate_action_oracle():
@@ -185,7 +217,11 @@ def generate_action_oracle():
     action2 = random.choice(action_oracle_data['action2'])
     return f"Action Oracle: {action1} {action2}"
 
+# Load initial data
 npc_data = load_json_data('data/npc_data.json')
 plot_points = load_json_data('data/plot_points.json')
 action_oracle_data = load_json_data('data/action_oracle.json')
-general_data = load_json_data('data/data.json')
+
+# Initialize data
+initialize_data()
+print(f"Initial data: {data_manager.data}")

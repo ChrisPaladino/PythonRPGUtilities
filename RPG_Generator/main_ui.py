@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import ttk, scrolledtext, messagebox
-from npc_logic import generate_themes, generate_npc, get_une_interaction, select_from_list, generate_action_oracle
-from npc_logic import add_to_general_data, remove_from_general_data, get_general_data, check_the_fates_dice
+from tkinter import ttk, scrolledtext, messagebox, filedialog
+from npc_logic import (generate_themes, generate_npc, get_une_interaction, select_from_list, generate_action_oracle,
+                       add_to_general_data, remove_from_general_data, get_general_data, check_the_fates_dice,
+                       load_campaign, save_campaign, data_manager, initialize_data)
 
 # Only allow one of each window open
 manage_data_window_open = None
@@ -20,9 +21,7 @@ themes_listbox = None  # Global declaration for the themes listbox
 def btn_roll_fate():
     global roll_fate_window_open
 
-    # Check if the window is already open
     if roll_fate_window_open is not None:
-        # Window is already open, you can choose to bring it to focus if needed
         roll_fate_window_open.focus_set()
         roll_fate_window_open.lift()
         return
@@ -32,72 +31,29 @@ def btn_roll_fate():
     roll_fate_window.geometry("230x95")
     roll_fate_window.resizable(False, False)
 
-   # Update the global variable to track that the window is now open
     roll_fate_window_open = roll_fate_window
-
-    # Bind the window destroy event to reset the tracking variable
     roll_fate_window.bind('<Destroy>', lambda e: on_window_close('roll_fate'))
 
-    # Chaos Factor Dropdown
     tk.Label(roll_fate_window, text="Chaos Factor:").grid(row=0, column=0)
-    chaos_factor_var = tk.StringVar(value="5")  # Default value set to 5
-    chaos_factor_options = [str(i) for i in range(1, 10)]  # Create list of options from 1 to 9
+    chaos_factor_var = tk.StringVar(value="5")
+    chaos_factor_options = [str(i) for i in range(1, 10)]
     chaos_factor_dropdown = ttk.Combobox(roll_fate_window, textvariable=chaos_factor_var, values=chaos_factor_options, state="readonly")
     chaos_factor_dropdown.grid(row=0, column=1)
 
-    # Likelihood Dropdown
     tk.Label(roll_fate_window, text="Likelihood:").grid(row=1, column=0)
     likelihood_var = tk.StringVar(value="50/50")
     likelihood_options = ["Certain", "Nearly Certain", "Very Likely", "Likely", "50/50", "Unlikely", "Very Unlikely", "Nearly Impossible", "Impossible"]
     likelihood_dropdown = ttk.Combobox(roll_fate_window, textvariable=likelihood_var, values=likelihood_options, state="readonly")
     likelihood_dropdown.grid(row=1, column=1)
 
-    # Result Display
     result_label = tk.Label(roll_fate_window, text="Result details will appear here")
     result_label.grid(row=3, column=0, columnspan=2)
 
-    # Check The Fates Button Action
     def btn_check_the_fates():
         chaos_factor = int(chaos_factor_var.get())
         likelihood = likelihood_var.get()
         result, dice1, dice2, total_roll = check_the_fates_dice(chaos_factor, likelihood)
-
-        # Calculate modifiers for display
-        chaos_factor_modifiers = {
-            9: +5,
-            8: +4,
-            7: +2,
-            6: +1,
-            5: 0,
-            4: -1,
-            3: -2,
-            2: -4,
-            1: -5,
-        }
-        likelihood_modifiers = {
-            "Certain": +5,
-            "Nearly Certain": +4,
-            "Very Likely": +2,
-            "Likely": +1,
-            "50/50": 0,
-            "Unlikely": -1,
-            "Very Unlikely": -2,
-            "Nearly Impossible": -4,
-            "Impossible": -5,
-        }
-
-        ''' Full results
-        cf_modifier = chaos_factor_modifiers[chaos_factor]
-        likelihood_modifier = likelihood_modifiers[likelihood]
-
-        # Update result label with detailed information
-        result_text = (
-            f"Rolls: {dice1} + {dice2}, "
-            f"CF: {cf_modifier}, Likelihood: {likelihood_modifier}, "
-            f"Total Roll: {total_roll} -> Result: {result}"
-        )
-        '''
-        result_text = (result)
+        result_text = result
         result_label.config(text=result_text)
         
     check_fates_button = tk.Button(roll_fate_window, text="Check The Fates", command=btn_check_the_fates)
@@ -113,89 +69,105 @@ def btn_roll_interaction():
 def btn_manage_lists():
     global manage_data_window_open
 
-    # Check if the window is already open
     if manage_data_window_open is not None:
         manage_data_window_open.focus_set()
         manage_data_window_open.lift()       
         return
+
+    list_manage_window = tk.Toplevel()
+    list_manage_window.title("Manage Data")
+    list_manage_window.geometry("600x525") 
+
+    manage_data_window_open = list_manage_window
+    list_manage_window.bind('<Destroy>', lambda e: on_window_close('manage_data'))
+
+    characters_frame = tk.Frame(list_manage_window)
+    threads_frame = tk.Frame(list_manage_window)
+
+    list_manage_window.grid_columnconfigure(0, weight=1)
+    list_manage_window.grid_columnconfigure(1, weight=1)
+    list_manage_window.grid_rowconfigure(0, weight=1)
+
+    characters_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+    threads_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+
+    characters_frame.grid_rowconfigure(1, weight=1)
+    characters_frame.grid_columnconfigure(0, weight=1)
+    threads_frame.grid_rowconfigure(1, weight=1)
+    threads_frame.grid_columnconfigure(0, weight=1)
+
+    entry_character = tk.Entry(characters_frame, width=50)
+    entry_character.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+   
+    lst_characters = tk.Listbox(characters_frame, selectmode=tk.SINGLE, height=15, width=50)
+    lst_characters.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
+
+    entry_thread = tk.Entry(threads_frame, width=50)
+    entry_thread.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+    
+    lst_threads = tk.Listbox(threads_frame, selectmode=tk.SINGLE, height=15, width=50)
+    lst_threads.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
 
     def update_listbox(listbox_widget, data_type):
         entries = get_general_data(data_type)
         listbox_widget.delete(0, tk.END)
         for index, entry in enumerate(sorted(entries), start=1):
             listbox_widget.insert(tk.END, f"{index}. {entry}")
-            
-    list_manage_window = tk.Toplevel()
-    list_manage_window.title("Manage Data")
-    list_manage_window.geometry("600x525") 
 
-    # Update unique window
-    manage_data_window_open = list_manage_window
-    list_manage_window.bind('<Destroy>', lambda e: on_window_close('manage_data'))
+    def update_listboxes():
+        update_listbox(lst_characters, 'characters')
+        update_listbox(lst_threads, 'threads')
 
-    # Define frames for characters and threads within the management window
-    characters_frame = tk.Frame(list_manage_window)
-    threads_frame = tk.Frame(list_manage_window)
+    def load_campaign_data():
+        file_path = filedialog.askopenfilename(defaultextension=".json", filetypes=[("JSON files", "*.json")])
+        if file_path:
+            loaded_data = load_campaign(file_path)
+            if loaded_data:
+                update_listboxes()
+                messagebox.showinfo("Success", "Campaign loaded successfully!")
+            else:
+                messagebox.showerror("Error", "Failed to load campaign data.")
 
-    # Configure the grid for the management window
-    list_manage_window.grid_columnconfigure(0, weight=1)
-    list_manage_window.grid_columnconfigure(1, weight=1)
-    list_manage_window.grid_rowconfigure(0, weight=1)
+    def save_campaign_data():
+        file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("JSON files", "*.json")])
+        if file_path:
+            print(f"Saving data: {data_manager.data}")  # Debug print
+            success = save_campaign(file_path)
+            if success:
+                messagebox.showinfo("Success", "Campaign saved successfully!")
+            else:
+                messagebox.showerror("Error", "Failed to save campaign data.")
 
-    # Place the frames
-    characters_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
-    threads_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+    load_campaign_button = tk.Button(list_manage_window, text="Load Campaign", command=load_campaign_data)
+    load_campaign_button.grid(row=1, column=0, sticky="ew", padx=10, pady=5)
 
-    # Configure frames to expand with the window
-    characters_frame.grid_rowconfigure(1, weight=1)
-    characters_frame.grid_columnconfigure(0, weight=1)
-    threads_frame.grid_rowconfigure(1, weight=1)
-    threads_frame.grid_columnconfigure(0, weight=1)
+    save_campaign_button = tk.Button(list_manage_window, text="Save Campaign", command=save_campaign_data)
+    save_campaign_button.grid(row=1, column=1, sticky="ew", padx=10, pady=5)
 
-    # Entry for Characters, making it fill the width of the frame
-    entry_character = tk.Entry(characters_frame, width=50)
-    entry_character.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-   
-    # Listbox for Characters, also wider
-    lst_characters = tk.Listbox(characters_frame, selectmode=tk.SINGLE, height=15, width=50)
-    lst_characters.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
+    update_listboxes()
 
-    # Entry for Threads, matching the width
-    entry_thread = tk.Entry(threads_frame, width=50)
-    entry_thread.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-    
-    # Listbox for Threads, with the same width adjustment
-    lst_threads = tk.Listbox(threads_frame, selectmode=tk.SINGLE, height=15, width=50)
-    lst_threads.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
-
-    # Populate the listboxes with initial data
-    update_listbox(lst_characters, 'characters')
-    update_listbox(lst_threads, 'threads')
-
-    # Function to handle listbox selection and populate the entry
     def on_listbox_select(event, entry_widget):
         widget = event.widget
         selection = widget.curselection()
         if selection:
             index = selection[0]
-            value = widget.get(index).split('. ', 1)[-1]  # Extract the entry after the numbering
+            value = widget.get(index).split('. ', 1)[-1]
             entry_widget.delete(0, tk.END)
             entry_widget.insert(0, value)
 
-    # Bind the select event to listboxes
     lst_characters.bind('<<ListboxSelect>>', lambda event: on_listbox_select(event, entry_character))
     lst_threads.bind('<<ListboxSelect>>', lambda event: on_listbox_select(event, entry_thread))
 
     def add_update_entry(data_type, entry_widget, listbox_widget):
         new_entry = entry_widget.get().strip()
         if not new_entry:
-            return  # Ignore empty entries
+            return
 
-        # Attempt to add or update the entry
         success = add_to_general_data(data_type, new_entry)
         
         if success:
-            update_listbox(listbox_widget, data_type)  # Update the listbox with the new data
+            update_listbox(listbox_widget, data_type)
+            print(f"Updated data: {data_manager.data}")  # Debug print
         else:
             current_entries = get_general_data(data_type)
             if len(current_entries) >= 25:
@@ -210,7 +182,6 @@ def btn_manage_lists():
             remove_from_general_data(data_type, selected_text)
             update_listbox(listbox_widget, data_type)
 
-    # Buttons for adding/updating/deleting entries
     tk.Button(characters_frame, text="Add/Update Character", command=lambda: add_update_entry('characters', entry_character, lst_characters)).grid(row=2, column=0, sticky="ew")
     tk.Button(threads_frame, text="Add/Update Thread", command=lambda: add_update_entry('threads', entry_thread, lst_threads)).grid(row=2, column=0, sticky="ew")
     tk.Button(characters_frame, text="Delete Character", command=lambda: delete_entry('characters', lst_characters)).grid(row=3, column=0, sticky="ew")
@@ -230,9 +201,7 @@ def btn_manage_themes():
     global manage_themes_window_open
     global themes_listbox
 
-    # Check if the window is already open
     if manage_themes_window_open is not None:
-        # Window is already open, you can choose to bring it to focus if needed
         manage_themes_window_open.focus_set()
         manage_themes_window_open.lift()
         return
@@ -241,13 +210,9 @@ def btn_manage_themes():
     theme_window.title("Manage Themes")
     theme_window.resizable(False, False)
 
-    # Update the global variable to track that the window is now open
     manage_themes_window_open = theme_window
-
-    # Bind the window destroy event to reset the tracking variable
     theme_window.bind('<Destroy>', lambda e: on_window_close('manage_themes'))
 
-    # Define columns for available and selected themes
     left_frame = tk.Frame(theme_window)
     left_frame.grid(row=0, column=0, padx=5, pady=5)
 
@@ -257,15 +222,12 @@ def btn_manage_themes():
     right_frame = tk.Frame(theme_window)
     right_frame.grid(row=0, column=2, padx=5, pady=5)
 
-    # Listbox for current themes
     lb_current_themes = tk.Listbox(left_frame, height=5)
     lb_current_themes.grid(row=0, column=0, sticky="nsew")
 
-    # Listbox for user-selected themes
     lb_selected_themes = tk.Listbox(right_frame, height=5)
     lb_selected_themes.grid(row=0, column=0, sticky="nsew")
 
-    # Function to add selected theme to the right listbox
     def add_theme():
         selected = lb_current_themes.curselection()
         if selected:
@@ -273,7 +235,6 @@ def btn_manage_themes():
             lb_current_themes.delete(selected)
             lb_selected_themes.insert(tk.END, theme)
 
-    # Function to remove selected theme from the right listbox
     def remove_theme():
         selected = lb_selected_themes.curselection()
         if selected:
@@ -281,7 +242,6 @@ def btn_manage_themes():
             lb_selected_themes.delete(selected)
             lb_current_themes.insert(tk.END, theme)
 
-    # Function to confirm selection and update main UI listbox
     def confirm_selection():
         if lb_selected_themes.size() != 5:
             messagebox.showerror("Error", "You must select exactly 5 unique themes.")
@@ -291,7 +251,6 @@ def btn_manage_themes():
             themes_listbox.insert(tk.END, lb_selected_themes.get(i))
         theme_window.destroy()
 
-    # Buttons to move themes between listboxes
     add_button = tk.Button(middle_frame, text="Add >", command=add_theme)
     add_button.grid(row=0, column=0, pady=5)
     remove_button = tk.Button(middle_frame, text="< Remove", command=remove_theme)
@@ -299,11 +258,9 @@ def btn_manage_themes():
     confirm_button = tk.Button(middle_frame, text="Confirm", command=confirm_selection)
     confirm_button.grid(row=2, column=0, pady=5)
 
-    # Bind double-click events for quick add/remove
     lb_current_themes.bind("<Double-Button-1>", lambda _: add_theme())
     lb_selected_themes.bind("<Double-Button-1>", lambda _: remove_theme())
 
-    # Populate the listbox with themes from the global themes_listbox
     for i in range(themes_listbox.size()):
         lb_current_themes.insert(tk.END, themes_listbox.get(i))
 
@@ -317,14 +274,14 @@ def btn_create_npc():
     output_text.insert(tk.END, npc_description + "\n\n")
     output_text.see(tk.END)
 
-def  btn_choose_character():
+def btn_choose_character():
     selected_character = select_from_list('characters')
     output_text.insert(tk.END, selected_character + "\n\n")
     output_text.see(tk.END)
 
 def btn_generate_themes():
     themes = [themes_listbox.get(i) for i in range(themes_listbox.size())]
-    weights = [40, 30, 20, 8, 2]  # Define weightings for each theme based on their order
+    weights = [40, 30, 20, 8, 2]
     
     theme_results = generate_themes(themes, weights)
     
@@ -345,7 +302,7 @@ def setup_top_frame(root):
     top_frame.grid(row=0, column=0, sticky="nsew")
     top_frame.grid_propagate(False)
 
-    for i in range(4):  # Assuming 4 columns
+    for i in range(4):
         top_frame.columnconfigure(i, weight=1)
 
     setup_column1(top_frame)
@@ -391,7 +348,7 @@ def setup_column2(parent):
     tk.Button(col_frame, text="Roll Fate", command=btn_roll_fate).grid(row=3, column=0, sticky="ew")
 
 def setup_column3(parent):
-    global themes_listbox  # Global declaration within the function
+    global themes_listbox
     col_frame = tk.Frame(parent)
     col_frame.grid(row=0, column=2, sticky="nw", padx=10, pady=10)
 
@@ -418,6 +375,9 @@ root.rowconfigure(1, weight=1)
 # Set up frames and widgets
 top_frame = setup_top_frame(root)
 output_text = setup_bottom_frame(root)
-setup_column3(top_frame)  # Make sure to call this function to set up the global listbox
+
+# Make sure data is initialized before the main loop
+initialize_data()
+print(f"Main UI data: {data_manager.data}")  # Debug print
 
 root.mainloop()
