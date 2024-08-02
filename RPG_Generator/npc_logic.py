@@ -1,6 +1,8 @@
 import json
 import random
 import os
+import tkinter as tk
+from tkinter import filedialog
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
@@ -10,10 +12,15 @@ class DataManager:
         self.data = {"characters": [], "threads": []}
 
     def load_from_file(self, file_path):
-        loaded_data = load_json_data(file_path)
-        if loaded_data:
-            self.data.clear()
-            self.data.update(loaded_data)
+        if file_path:
+            loaded_data = load_json_data(file_path)
+            if loaded_data:
+                self.data.clear()
+                self.data.update(loaded_data)
+            else:
+                print(f"Error loading data from {file_path}. Starting with empty data.")
+        else:
+            print("No file path provided. Starting with empty data.")
 
     def save_to_file(self, file_path):
         return save_json_data(file_path, self.data)
@@ -57,7 +64,18 @@ def save_json_data(file_path, data):
         return False
 
 def initialize_data():
-    data_manager.load_from_file('data/data.json')
+    root = tk.Tk()
+    root.withdraw()  # Hide the main window
+    file_path = filedialog.askopenfilename(
+        title="Select default JSON file",
+        filetypes=[("JSON files", "*.json")]
+    )
+    if file_path:
+        data_manager.load_from_file(file_path)
+    else:
+        print("No file selected. Starting with empty data.")
+    root.destroy()
+    return file_path  # Return the selected file path
 
 def get_general_data(data_type):
     return data_manager.get_items(data_type)
@@ -221,7 +239,3 @@ def generate_action_oracle():
 npc_data = load_json_data('data/npc_data.json')
 plot_points = load_json_data('data/plot_points.json')
 action_oracle_data = load_json_data('data/action_oracle.json')
-
-# Initialize data
-initialize_data()
-print(f"Initial data: {data_manager.data}")

@@ -8,6 +8,7 @@ from npc_logic import (generate_themes, generate_npc, get_une_interaction, selec
 manage_data_window_open = None
 roll_fate_window_open = None
 manage_themes_window_open = None
+selected_file_path = initialize_data()
 
 # Initialize main window
 root = tk.Tk()
@@ -124,14 +125,13 @@ def btn_manage_lists():
             loaded_data = load_campaign(file_path)
             if loaded_data:
                 update_listboxes()
-                messagebox.showinfo("Success", "Campaign loaded successfully!")
+                print(f"Campaign loaded successfully from {file_path}")
             else:
                 messagebox.showerror("Error", "Failed to load campaign data.")
 
     def save_campaign_data():
         file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("JSON files", "*.json")])
         if file_path:
-            print(f"Saving data: {data_manager.data}")  # Debug print
             success = save_campaign(file_path)
             if success:
                 messagebox.showinfo("Success", "Campaign saved successfully!")
@@ -377,7 +377,14 @@ top_frame = setup_top_frame(root)
 output_text = setup_bottom_frame(root)
 
 # Make sure data is initialized before the main loop
-initialize_data()
-print(f"Main UI data: {data_manager.data}")  # Debug print
+def show_startup_message():
+    if selected_file_path:
+        if data_manager.data.get('characters') or data_manager.data.get('threads'):
+            print(f"Data loaded successfully from {selected_file_path}")
+        else:
+            print(f"File selected ({selected_file_path}), but no valid data found. Starting with empty lists.")
+    else:
+        print("No file selected. Starting with empty lists.")
 
+root.after(100, show_startup_message)
 root.mainloop()
