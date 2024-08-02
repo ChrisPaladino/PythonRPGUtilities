@@ -9,6 +9,7 @@ manage_data_window_open = None
 roll_fate_window_open = None
 manage_themes_window_open = None
 selected_file_path = initialize_data()
+global_file_path = None
 
 # Initialize main window
 root = tk.Tk()
@@ -18,6 +19,12 @@ root.title("RPG Generator")
 relationship_var = tk.StringVar()
 demeanor_var = tk.StringVar()
 themes_listbox = None  # Global declaration for the themes listbox
+
+def update_listbox(listbox_widget, data_type):
+    entries = get_general_data(data_type)
+    listbox_widget.delete(0, tk.END)
+    for index, entry in enumerate(sorted(entries), start=1):
+        listbox_widget.insert(tk.END, f"{index}. {entry}")
 
 def btn_roll_fate():
     global roll_fate_window_open
@@ -69,6 +76,7 @@ def btn_roll_interaction():
 
 def btn_manage_lists():
     global manage_data_window_open
+    global global_file_path
 
     if manage_data_window_open is not None:
         manage_data_window_open.focus_set()
@@ -109,21 +117,17 @@ def btn_manage_lists():
     lst_threads = tk.Listbox(threads_frame, selectmode=tk.SINGLE, height=15, width=50)
     lst_threads.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
 
-    def update_listbox(listbox_widget, data_type):
-        entries = get_general_data(data_type)
-        listbox_widget.delete(0, tk.END)
-        for index, entry in enumerate(sorted(entries), start=1):
-            listbox_widget.insert(tk.END, f"{index}. {entry}")
-
     def update_listboxes():
         update_listbox(lst_characters, 'characters')
         update_listbox(lst_threads, 'threads')
 
     def load_campaign_data():
+        global global_file_path
         file_path = filedialog.askopenfilename(defaultextension=".json", filetypes=[("JSON files", "*.json")])
         if file_path:
             loaded_data = load_campaign(file_path)
             if loaded_data:
+                global_file_path = file_path  # Update the global file path
                 update_listboxes()
                 print(f"Campaign loaded successfully from {file_path}")
             else:
@@ -158,34 +162,49 @@ def btn_manage_lists():
     lst_characters.bind('<<ListboxSelect>>', lambda event: on_listbox_select(event, entry_character))
     lst_threads.bind('<<ListboxSelect>>', lambda event: on_listbox_select(event, entry_thread))
 
-    def add_update_entry(data_type, entry_widget, listbox_widget):
-        new_entry = entry_widget.get().strip()
-        if not new_entry:
-            return
-
-        success = add_to_general_data(data_type, new_entry)
-        
-        if success:
-            update_listbox(listbox_widget, data_type)
-            print(f"Updated data: {data_manager.data}")  # Debug print
-        else:
-            current_entries = get_general_data(data_type)
-            if len(current_entries) >= 25:
-                messagebox.showinfo("List Full", "The list can only contain up to 25 entries.")
-            elif current_entries.count(new_entry) >= 3:
-                messagebox.showinfo("Limit Reached", "Each entry can only appear up to 3 times.")
-    
-    def delete_entry(data_type, listbox_widget):
-        selection_index = listbox_widget.curselection()
-        if selection_index:
-            selected_text = listbox_widget.get(selection_index).split('. ', 1)[-1]
-            remove_from_general_data(data_type, selected_text)
-            update_listbox(listbox_widget, data_type)
-
     tk.Button(characters_frame, text="Add/Update Character", command=lambda: add_update_entry('characters', entry_character, lst_characters)).grid(row=2, column=0, sticky="ew")
     tk.Button(threads_frame, text="Add/Update Thread", command=lambda: add_update_entry('threads', entry_thread, lst_threads)).grid(row=2, column=0, sticky="ew")
     tk.Button(characters_frame, text="Delete Character", command=lambda: delete_entry('characters', lst_characters)).grid(row=3, column=0, sticky="ew")
     tk.Button(threads_frame, text="Delete Thread", command=lambda: delete_entry('threads', lst_threads)).grid(row=3, column=0, sticky="ew")
+
+def add_update_entry(data_type, entry_widget, listbox_widget):
+    new_entry = entry_widget.get().strip()
+    if not new_entry:
+        return
+
+    success = add_to_general_data(data_type, new_entry)
+    
+    if success:
+        update_listbox(listbox_widget, data_type)
+        print(f"Updated data: {data_manager.data}")  # Debug print
+        save_current_data()
+    else:
+        current_entries = get_general_data(data_type)
+        if len(current_entries) >= 25:
+            messagebox.showinfo("List Full", "The list can only contain up to 25 entries.")
+        elif current_entries.count(new_entry) >= 3:
+            messagebox.showinfo("Limit Reached", "Each entry can only appear up to 3 times.")
+
+def delete_entry(data_type, listbox_widget):
+    selection_index = listbox_widget.curselection()
+    if selection_index:
+        selected_text = listbox_widget.get(selection_index).split('. ', 1)[-1]
+        remove_from_general_data(data_type, selected_text)
+        update_listbox(listbox_widget, data_type)
+        save_current_data()
+
+def save_current_data(file_path=None):
+    global global_file_path
+    if file_path is None:
+        file_path = global_file_path
+    if file_path:
+        success = save_campaign(file_path)
+        if success:
+            print(f"Campaign saved successfully to {file_path}")
+        else:
+            print("Failed to save campaign data.")
+    else:
+        print("No file currently loaded. Unable to save.")
 
 def on_window_close(window_name):
     global manage_data_window_open, roll_fate_window_open, manage_themes_window_open
@@ -376,11 +395,12 @@ root.rowconfigure(1, weight=1)
 top_frame = setup_top_frame(root)
 output_text = setup_bottom_frame(root)
 
-# Make sure data is initialized before the main loop
 def show_startup_message():
+    global global_file_path
     if selected_file_path:
         if data_manager.data.get('characters') or data_manager.data.get('threads'):
             print(f"Data loaded successfully from {selected_file_path}")
+            global_file_path = selected_file_path  # Set the global file path
         else:
             print(f"File selected ({selected_file_path}), but no valid data found. Starting with empty lists.")
     else:

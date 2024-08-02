@@ -75,7 +75,7 @@ def initialize_data():
     else:
         print("No file selected. Starting with empty data.")
     root.destroy()
-    return file_path  # Return the selected file path
+    return file_path
 
 def get_general_data(data_type):
     return data_manager.get_items(data_type)
