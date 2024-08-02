@@ -173,6 +173,10 @@ def add_update_entry(data_type, entry_widget, listbox_widget):
     if not new_entry:
         return
 
+    current_entries = get_general_data(data_type)
+    print(f"Current number of {data_type}: {len(current_entries)}")
+    print(f"Current entries: {current_entries}")
+
     success = add_to_general_data(data_type, new_entry)
     
     if success:
@@ -180,7 +184,6 @@ def add_update_entry(data_type, entry_widget, listbox_widget):
         print(f"Updated data: {data_manager.data}")  # Debug print
         save_current_data()
     else:
-        current_entries = get_general_data(data_type)
         if len(current_entries) >= 25:
             messagebox.showinfo("List Full", "The list can only contain up to 25 entries.")
         elif current_entries.count(new_entry) >= 3:
