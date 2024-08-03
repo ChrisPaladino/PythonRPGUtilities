@@ -11,6 +11,20 @@ class DataManager:
     def __init__(self):
         self.data = {"characters": [], "threads": []}
 
+    def add_item(self, data_type, item):
+        if data_type not in self.data:
+            self.data[data_type] = []
+        if item not in ["Choose character", "Choose thread"]:
+            if len(self.data[data_type]) < 25:
+                if item not in self.data[data_type]:
+                    self.data[data_type].append(item)
+                    self.data[data_type].sort()  # Sort after adding
+                return True
+        return False
+
+    def get_items(self, data_type):
+        return sorted(self.data.get(data_type, []))  # Return sorted list
+
     def load_from_file(self, file_path):
         if file_path:
             loaded_data = load_json_data(file_path)
@@ -22,23 +36,17 @@ class DataManager:
         else:
             print("No file path provided. Starting with empty data.")
 
-    def save_to_file(self, file_path):
-        return save_json_data(file_path, self.data)
-
-    def add_item(self, data_type, item):
-        if data_type not in self.data:
-            self.data[data_type] = []
-        if len(self.data[data_type]) < 25 and self.data[data_type].count(item) < 3:
-            self.data[data_type].append(item)
-            return True
-        return False
-
     def remove_item(self, data_type, item):
         if data_type in self.data and item in self.data[data_type]:
             self.data[data_type].remove(item)
+            # No need to sort here as it's already sorted
 
-    def get_items(self, data_type):
-        return self.data.get(data_type, [])
+    def save_to_file(self, file_path):
+        sorted_data = {
+            "characters": sorted(self.data["characters"]),
+            "threads": sorted(self.data["threads"])
+        }
+        return save_json_data(file_path, sorted_data)
 
 data_manager = DataManager()
 
@@ -56,7 +64,7 @@ def load_json_data(file_path):
 def save_json_data(file_path, data):
     try:
         with open(file_path, 'w', encoding='utf-8') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4)  # Remove sort_keys=True
         print(f"Data successfully saved to {file_path}.")
         return True
     except IOError as e:
@@ -223,9 +231,11 @@ def select_from_list(data_type):
     items = get_general_data(data_type)
     if not items:
         return "No items available"
-    items += ["Choose character" if data_type == 'characters' else "Choose thread"] * (25 - len(items))
+    if len(items) < 25:
+        placeholder = "Choose character" if data_type == 'characters' else "Choose thread"
+        items = items + [placeholder] * (25 - len(items))
     chosen_item = random.choice(items)
-    return f"{chosen_item}"
+    return chosen_item if chosen_item not in ["Choose character", "Choose thread"] else "No item selected"
 
 def generate_action_oracle():
     if action_oracle_data is None:

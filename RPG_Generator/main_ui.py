@@ -21,11 +21,10 @@ demeanor_var = tk.StringVar()
 themes_listbox = None  # Global declaration for the themes listbox
 
 def update_listbox(listbox_widget, data_type):
-    entries = get_general_data(data_type)
+    entries = sorted(get_general_data(data_type))  # Sort the entries
     listbox_widget.delete(0, tk.END)
-    for index, entry in enumerate(sorted(entries), start=1):
-        if entry != "Choose character" and entry != "Choose thread":
-            listbox_widget.insert(tk.END, f"{index}. {entry}")
+    for index, entry in enumerate(entries, start=1):
+        listbox_widget.insert(tk.END, f"{index}. {entry}")
 
 def btn_roll_fate():
     global roll_fate_window_open

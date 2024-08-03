@@ -1,5 +1,6 @@
 {
     "characters": [
+        "Cipher - Living embodiment of Project Ascendance technology",
         "Crimson Syndicate",
         "Crimson Syndicate",
         "Crimson Syndicate",
@@ -7,20 +8,22 @@
         "Dellika Yeats",
         "FrostGuard",
         "FrostGuard",
+        "Genie - Freelance decker and information broker",
         "Katoo",
         "Katoo",
         "Narteen",
         "Narteen",
         "Silas",
         "Silver Talons",
-        "Toothah",
-        "Cipher - Living embodiment of Project Ascendance technology",
-        "Genie - Freelance decker and information broker"
+        "Toothah"
     ],
     "threads": [
         "Attain all pieces of Project Ascendance",
         "Attain all pieces of Project Ascendance",
         "Attain all pieces of Project Ascendance",
+        "Break into Breva's office at Epis International.",
+        "Clear Dellika's name.",
+        "Decrypt Breva Yeats' thumb drive.",
         "Discussion with Dellika Yeats on their relationship",
         "Main Goal: Transcend humanity",
         "Main Goal: Transcend humanity",
@@ -28,14 +31,6 @@
         "Scope out a 'lazy den' for Narteen",
         "Understand Cipher's purpose",
         "Wanted by FrostGuard",
-        "Wanted by FrostGuard",
-        "Alliance with Delica Yeats",
-        "Choose thread",
-        "Choose thread",
-        "Choose thread",
-        "Choose thread",
-        "Choose thread",
-        "Choose thread",
-        "Choose thread"
+        "Wanted by FrostGuard"
     ]
 }
