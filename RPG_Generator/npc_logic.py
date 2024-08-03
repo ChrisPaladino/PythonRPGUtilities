@@ -74,10 +74,24 @@ def save_json_data(file_path, data):
 def initialize_data():
     root = tk.Tk()
     root.withdraw()  # Hide the main window
+
+    # Get the directory where the script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Set the default directory to the 'data' subfolder
+    default_dir = os.path.join(script_dir, 'data')
+
+    # Create the 'data' directory if it doesn't exist
+    if not os.path.exists(default_dir):
+        os.makedirs(default_dir)
+
+    # Open file dialog with default directory set
     file_path = filedialog.askopenfilename(
         title="Select default JSON file",
+        initialdir=default_dir,
         filetypes=[("JSON files", "*.json")]
     )
+
     if file_path:
         data_manager.load_from_file(file_path)
     else:
