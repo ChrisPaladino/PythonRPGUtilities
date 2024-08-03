@@ -103,7 +103,15 @@ def get_general_data(data_type):
     return data_manager.get_items(data_type)
 
 def add_to_general_data(data_type, item):
-    return data_manager.add_item(data_type, item)
+    if data_type not in data_manager.data:
+        data_manager.data[data_type] = []
+    if item not in ["Choose character", "Choose thread"]:
+        if len(data_manager.data[data_type]) < 25:
+            if data_manager.data[data_type].count(item) < 3:
+                data_manager.data[data_type].append(item)
+                data_manager.data[data_type].sort()  # Sort after adding
+                return True
+    return False    
 
 def remove_from_general_data(data_type, item):
     data_manager.remove_item(data_type, item)
@@ -249,7 +257,7 @@ def select_from_list(data_type):
         placeholder = "Choose character" if data_type == 'characters' else "Choose thread"
         items = items + [placeholder] * (25 - len(items))
     chosen_item = random.choice(items)
-    return chosen_item if chosen_item not in ["Choose character", "Choose thread"] else "No item selected"
+    return chosen_item
 
 def generate_action_oracle():
     if action_oracle_data is None:
