@@ -1,83 +1,72 @@
 import random
 
 class NPC:
-    def __init__(self, name, relationship, personality):
+    def __init__(self, name, relationship):
         self.name = name
-        self.relationship = relationship # -5 to +5
-        self.personality = personality # 'outgoing', 'reserved', 'logical', or 'emotional'
-        
+        self.relationship = relationship  # 1 (hated mortal enemy) to 10 (loyal lover)
+
 class Conversation:
-    def __init__(self, npc, goal, tone):
+    def __init__(self, npc, pc_goal, importance, leverage):
         self.npc = npc
-        self.goal = goal
-        self.tone = tone
-        self.exchanges = 0
-        
-    def initial_reaction(self):
-        roll = random.randint(1, 20) + self.npc.relationship
-        if roll <= 5:
+        self.pc_goal = pc_goal  # "ask" or "offer"
+        self.importance = importance  # 1 to 5
+        self.leverage = leverage  # 1 to 5
+
+    def calculate_yes_chance(self):
+        base_chance = 50  # Start with a 50% base chance
+
+        # Adjust based on PC's goal
+        goal_modifier = -20 if self.pc_goal == "ask" else 20
+
+        # Adjust based on relationship
+        relationship_modifier = (self.npc.relationship - 5.5) * 10
+
+        # Adjust based on importance
+        importance_modifier = (self.importance - 3) * 5
+
+        # Adjust based on leverage
+        leverage_modifier = (self.leverage - 3) * 10
+
+        # Calculate final chance
+        yes_chance = base_chance + goal_modifier + relationship_modifier + importance_modifier + leverage_modifier
+
+        # Ensure the chance is between 0 and 100
+        return max(0, min(100, yes_chance))
+
+    def determine_attitude(self):
+        attitude_score = self.npc.relationship * 10 + random.randint(-10, 10)
+
+        if attitude_score < 20:
             return "Hostile"
-        elif roll <= 10:
-            return "Guarded"
-        elif roll <= 15:
+        elif attitude_score < 40:
+            return "Unfriendly"
+        elif attitude_score < 60:
             return "Neutral"
-        elif roll <= 20:
+        elif attitude_score < 80:
             return "Friendly"
         else:
             return "Very Friendly"
-        
-    def exchange(self):
-        self.exchanges += 1
-        goal_modifier = {"gather info": 0, "persuade": -2, "threaten": -4}.get(self.goal, 0)
-        tone_modifier = {"friendly": 2, "formal": 0, "aggressive": -2}.get(self.tone, 0)
-        
-        if (self.npc.personality == "outgoing" and self.tone == "friendly") or (self.npc.personality == "logical" and self.goal == "gather info"):
-            personality_modifier = 1 
-        else:
-            personality_modifier = 0
 
-        roll = random.randint(1, 20) + goal_modifier + tone_modifier + personality_modifier
-        if roll <= 5:
-            return "Negative"
-        elif roll <= 10:
-            return "Hesitant"
-        elif roll <= 15:
-            return "Neutral"
-        elif roll <= 20:
-            return "Positive"
-        else:
-            return "Very Positive"
-        
-    def outcome(self, result):
-        outcomes = {
-            "Negative": "NPC refuses to share information or comply.",
-            "Hesitant": "NPC shares vague or partial information.",
-            "Neutral": "NPC shares basic information or gives a noncommittal response.",
-            "Positive": "NPC shares detailed information or is inclined to agree.",
-            "Very Positive": "NPC shares detailed information and additional helpful insights, or fully agrees."
-        }
-        return outcomes.get(result, "Unexpected result")
-    
-    def adjust_relationship(self, result):
-        adjustment = {"Negative": -1, "Hesitant": 0, "Neutral": 0, "Positive": 1, "Very Positive": 2}.get(result, 0)
-        self.npc.relationship = max(-5, min(5, self.npc.relationship + adjustment))
-        
-def simulate_conversation(npc, goal, tone, max_exchanges=3):
-    conv = Conversation(npc, goal, tone)
-    print(f"Starting conversation with {npc.name} (Relationship: {npc.relationship}, Personality: {npc.personality})")
-    print(f"Goal: {goal}, Tone: {tone}")
-    print(f"Initial reaction: {conv.initial_reaction()}")
-    
-    for _ in range(max_exchanges):
-        result = conv.exchange()
-        print(f"\nExchange {conv.exchanges}:")
-        print(f"Result: {result}")
-        print(f"Outcome: {conv.outcome(result)}")
-        conv.adjust_relationship(result)
-        print(f"Updated relationship: {conv.npc.relationship}")
-    
-    print(f"\nFinal relationship with {npc.name}: {conv.npc.relationship}")
-        
+def simulate_conversation(npc, pc_goal, importance, leverage):
+    conv = Conversation(npc, pc_goal, importance, leverage)
+    yes_chance = conv.calculate_yes_chance()
+    attitude = conv.determine_attitude()
+
+    print(f"Conversation with {npc.name}")
+    print(f"PC's goal: {'Asking' if pc_goal == 'ask' else 'Offering'}")
+    print(f"Relationship: {npc.relationship}/10")
+    print(f"Importance of the ask/offer: {importance}/5")
+    print(f"PC's leverage over NPC: {leverage}/5")
+    print(f"\nResults:")
+    print(f"Chance to say 'yes': {yes_chance:.1f}%")
+    print(f"NPC's attitude towards PC: {attitude}")
+
 # Example usage
-npc = NPC("Guard Captain", 0, "logical")
-simulate_conversation(npc, "gather info", "formal")
+npc = NPC("Guard Captain", 6)  # Relationship is 6 out of 10
+simulate_conversation(npc, "ask", 3, 2)  # PC is asking, importance is 3/5, leverage is 2/5
+
+npc = NPC("Wife", 10)
+simulate_conversation(npc, "want", 5, 1)
+
+npc = NPC("Enemy", 1)
+simulate_conversation(npc, "have", 5, 5)
