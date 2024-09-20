@@ -1,8 +1,15 @@
 {
-    "characters": [],
+    "characters": [
+        "Gavron",
+        "Onwarren Carr",
+        "Rust Brothers",
+        "Silva"
+    ],
     "threads": [
+        "Capture Valdrik",
         "Find the sorceror's dwarven artifact",
         "Find the sorceror's dwarven artifact",
-        "Find the sorceror's dwarven artifact"
+        "Find the sorceror's dwarven artifact",
+        "Interrogate Silva"
     ]
 }
