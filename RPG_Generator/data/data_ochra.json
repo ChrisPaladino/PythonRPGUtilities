@@ -1,9 +1,22 @@
 {
     "characters": [
-        "Hooded Stranger"
+        "Captain Harlon",
+        "Fingerless Bartender",
+        "Hooded Stranger",
+        "Kerris",
+        "Lady Carrick",
+        "Lord Harvan",
+        "Merchant's Guild",
+        "Tallen"
     ],
     "threads": [
-        "Understand the mystery of the artifact",
+        "Find the hooded stranger",
+        "Get Tallen out of the Famine Court",
+        "Get Tallen out of the Famine Court",
+        "Get Tallen out of the Famine Court",
+        "Plan for the cart",
+        "Reclaim lost glory",
+        "Survive the Apocalypse",
         "Understand the mystery of the artifact",
         "Understand the mystery of the artifact"
     ]
