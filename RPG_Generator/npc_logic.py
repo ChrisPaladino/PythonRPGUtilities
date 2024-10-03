@@ -218,17 +218,31 @@ def check_the_fates_dice(chaos_factor, likelihood):
         "Impossible": -5,
     }
 
+    
     chaos_factor_modifiers = {
-        9: +5,
-        8: +4,
-        7: +2,
-        6: +1,
+        9: +2,
+        8: +1,
+        7: +1,
+        6: 0,
         5: 0,
-        4: -1,
-        3: -2,
-        2: -4,
-        1: -5,
+        4: 0,
+        3: -1,
+        2: -1,
+        1: -2,
     }
+
+# Regular chaos fate chart
+#    chaos_factor_modifiers = {
+#        9: +5,
+#        8: +4,
+#        7: +2,
+#        6: +1,
+#        5: 0,
+#        4: -1,
+#        3: -2,
+#        2: -4,
+#        1: -5,
+#    }
 
     dice1 = random.randint(1, 10)
     dice2 = random.randint(1, 10)
