@@ -218,7 +218,8 @@ def check_the_fates_dice(chaos_factor, likelihood):
         "Impossible": -5,
     }
 
-    
+
+# Low chaos (my default) modifiers    
     chaos_factor_modifiers = {
         9: +2,
         8: +1,
