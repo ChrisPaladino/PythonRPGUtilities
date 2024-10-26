@@ -1,9 +1,11 @@
 {
     "characters": [
-        "Jonah"
+        "Jonah",
+        "Judd",
+        "Marla"
     ],
     "threads": [
-        "Find Jonah",
-        "Trade the deer for supplies"
+        "Convicne Marla to lead Rustpointe",
+        "Find Jonah"
     ]
 }
