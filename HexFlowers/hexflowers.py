@@ -1,45 +1,56 @@
 import tkinter as tk
 from tkinter import ttk
 import random
+import math
 
 class HexflowerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Hexflower Map Generator")
-        
-        # Create frames for weather and terrain hexmaps
-        self.weather_frame = tk.Frame(root)
-        self.weather_frame.grid(row=0, column=0, padx=10, pady=10)
-        
-        self.terrain_frame = tk.Frame(root)
-        self.terrain_frame.grid(row=0, column=1, padx=10, pady=10)
 
-        # Dropdown for seasons
+        # Create a canvas for hexflower
+        self.canvas = tk.Canvas(root, width=400, height=400)
+        self.canvas.grid(row=0, column=0, padx=10, pady=10)
+
+        # Create dropdown for seasons
         self.season_var = tk.StringVar(value="Spring")
-        self.season_dropdown = ttk.Combobox(self.weather_frame, textvariable=self.season_var, values=["Spring", "Summer", "Autumn", "Winter"])
-        self.season_dropdown.grid(row=0, column=0, padx=5, pady=5)
+        self.season_dropdown = ttk.Combobox(root, textvariable=self.season_var, values=["Spring", "Summer", "Autumn", "Winter"])
+        self.season_dropdown.grid(row=1, column=0, padx=5, pady=5)
 
-        # Create hexmap grids
-        self.weather_hexmap = self.create_hexmap(self.weather_frame)
-        self.terrain_hexmap = self.create_hexmap(self.terrain_frame)
+        # Draw hexflower
+        self.hex_size = 30
+        self.hex_positions = self.create_hexflower()
+        self.draw_hexflower()
 
-        # Buttons for rolling dice and setting cell
+        # Roll button
         self.roll_button = tk.Button(root, text="Roll 2d6", command=self.roll_dice)
-        self.roll_button.grid(row=1, column=0, padx=5, pady=5)
+        self.roll_button.grid(row=2, column=0, padx=5, pady=5)
 
-        self.set_cell_button = tk.Button(root, text="Set Cell", command=self.set_cell)
-        self.set_cell_button.grid(row=1, column=1, padx=5, pady=5)
+    def create_hexflower(self):
+        positions = []
+        for q in range(-2, 3):
+            for r in range(-2, 3):
+                if abs(q + r) <= 2:  # Hexflower condition
+                    x = self.hex_size * 3/2 * q
+                    y = self.hex_size * math.sqrt(3) * (r + q/2)
+                    positions.append((x + 200, y + 200))  # Centering the hexflower
+        return positions
 
-    def create_hexmap(self, frame):
-        hexmap = []
-        for row in range(5):
-            hex_row = []
-            for col in range(5):
-                cell = tk.Label(frame, text="", width=10, height=5, borderwidth=2, relief="groove")
-                cell.grid(row=row, column=col, padx=2, pady=2)
-                hex_row.append(cell)
-            hexmap.append(hex_row)
-        return hexmap
+    def draw_hexflower(self):
+        for pos in self.hex_positions:
+            self.draw_hex(pos)
+
+    def draw_hex(self, pos):
+        x, y = pos
+        points = [
+            x + self.hex_size * math.cos(math.radians(angle))
+            for angle in range(0, 360, 60)
+        ]
+        points += [
+            y + self.hex_size * math.sin(math.radians(angle))
+            for angle in range(0, 360, 60)
+        ]
+        self.canvas.create_polygon(points, outline='black', fill='', width=2)
 
     def roll_dice(self):
         roll = random.randint(1, 6) + random.randint(1, 6)
@@ -56,10 +67,6 @@ class HexflowerApp:
             10: "Upper Left", 11: "Upper Left"
         }
         return directions.get(roll, "Invalid Roll")
-
-    def set_cell(self):
-        # Placeholder function to manually set the current cell
-        pass
 
 if __name__ == "__main__":
     root = tk.Tk()
