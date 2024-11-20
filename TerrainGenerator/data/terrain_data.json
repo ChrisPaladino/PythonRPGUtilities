@@ -1,0 +1,123 @@
+{
+    "Plains": {
+      "Plains": 40,
+      "Forest": 20,
+      "Dark Forest": 5,
+      "Hills": 20,
+      "Mountains": 1,
+      "High Mountains": 0,
+      "Lake/River": 10,
+      "Marshlands": 3,
+      "Quagmire": 1,
+      "Ruins": 5
+    },
+    "Forest": {
+      "Plains": 20,
+      "Forest": 40,
+      "Dark Forest": 20,
+      "Hills": 15,
+      "Mountains": 5,
+      "High Mountains": 0,
+      "Lake/River": 10,
+      "Marshlands": 5,
+      "Quagmire": 1,
+      "Ruins": 5
+    },
+    "Dark Forest": {
+      "Plains": 5,
+      "Forest": 40,
+      "Dark Forest": 30,
+      "Hills": 10,
+      "Mountains": 5,
+      "High Mountains": 0,
+      "Lake/River": 5,
+      "Marshlands": 2,
+      "Quagmire": 1,
+      "Ruins": 2
+    },
+    "Hills": {
+      "Plains": 20,
+      "Forest": 15,
+      "Dark Forest": 5,
+      "Hills": 40,
+      "Mountains": 15,
+      "High Mountains": 5,
+      "Lake/River": 5,
+      "Marshlands": 2,
+      "Quagmire": 1,
+      "Ruins": 10
+    },
+    "Mountains": {
+      "Plains": 1,
+      "Forest": 5,
+      "Dark Forest": 2,
+      "Hills": 30,
+      "Mountains": 40,
+      "High Mountains": 15,
+      "Lake/River": 2,
+      "Marshlands": 1,
+      "Quagmire": 0,
+      "Ruins": 4
+    },
+    "High Mountains": {
+      "Plains": 0,
+      "Forest": 1,
+      "Dark Forest": 0,
+      "Hills": 10,
+      "Mountains": 30,
+      "High Mountains": 50,
+      "Lake/River": 1,
+      "Marshlands": 0,
+      "Quagmire": 0,
+      "Ruins": 5
+    },
+    "Lake/River": {
+      "Plains": 20,
+      "Forest": 15,
+      "Dark Forest": 5,
+      "Hills": 10,
+      "Mountains": 1,
+      "High Mountains": 0,
+      "Lake/River": 40,
+      "Marshlands": 10,
+      "Quagmire": 5,
+      "Ruins": 5
+    },
+    "Marshlands": {
+      "Plains": 5,
+      "Forest": 10,
+      "Dark Forest": 2,
+      "Hills": 5,
+      "Mountains": 1,
+      "High Mountains": 0,
+      "Lake/River": 20,
+      "Marshlands": 40,
+      "Quagmire": 15,
+      "Ruins": 2
+    },
+    "Quagmire": {
+      "Plains": 1,
+      "Forest": 5,
+      "Dark Forest": 2,
+      "Hills": 2,
+      "Mountains": 0,
+      "High Mountains": 0,
+      "Lake/River": 10,
+      "Marshlands": 30,
+      "Quagmire": 50,
+      "Ruins": 0
+    },
+    "Ruins": {
+      "Plains": 10,
+      "Forest": 15,
+      "Dark Forest": 5,
+      "Hills": 20,
+      "Mountains": 5,
+      "High Mountains": 1,
+      "Lake/River": 5,
+      "Marshlands": 2,
+      "Quagmire": 1,
+      "Ruins": 40
+    }
+  }
+  

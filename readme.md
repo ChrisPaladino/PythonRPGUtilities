@@ -57,3 +57,58 @@ The Hexflower Map Generator is a Python application designed to assist tabletop 
 
 ## Conclusion
 This document outlines the functional requirements for the Hexflower Map Generator. The goal is to create an engaging and useful tool for tabletop RPG players, enhancing their gameplay experience through random event generation and visual representation of hexflower maps.
+
+# Terrain Generator Algorithm
+
+## Overview
+This algorithm assigns weights to transitions between terrain types based on:
+- Natural geographical transitions (e.g., Plains to Hills).
+- Terrain rarity (e.g., High Mountains are uncommon).
+- Game-specific logic (e.g., Quagmire and Ruins are rare features).
+
+The weights are used for a weighted random selection when generating the next terrain.
+
+## Weighting Rules
+1. **Natural Adjacency**:
+   - Terrains that commonly transition into each other are assigned higher weights.
+   - Example: Plains → Hills (weight = 20) or Forest (weight = 20).
+
+2. **Geographical Rarity**:
+   - Rare terrains like High Mountains or Quagmire have lower weights or are set to 0 for unlikely transitions.
+   - Example: Plains → High Mountains (weight = 0).
+
+3. **Game-Specific Logic**:
+   - Features like Ruins are scattered and uncommon, with moderate weights for all terrains.
+   - Example: Ruins → Plains (weight = 10), Forest (weight = 15).
+
+4. **Self-Transition**:
+   - Each terrain has a chance to remain the same (weight between 30 and 50).
+   - Example: Plains → Plains (weight = 40).
+
+5. **Impossible Transitions**:
+   - Some transitions are impossible (weight = 0).
+   - Example: Plains → High Mountains (weight = 0).
+
+## Suggested Additions/Changes
+- When adding a new terrain:
+  1. Identify its natural neighbors and adjust weights accordingly.
+  2. Assign a rarity factor (common = 30+, rare = <10, impossible = 0).
+  3. Update all related terrains to include the new type.
+- When removing a terrain:
+  1. Remove it from the JSON.
+  2. Reassign its weights proportionally to other terrain types.
+
+## Examples
+### Plains
+- Plains → Plains (40): Common for flatlands.
+- Plains → Hills (20): Nearby rising terrain.
+- Plains → Marshlands (3): Rare wetlands.
+
+### Forest
+- Forest → Forest (40): Dense and continuous.
+- Forest → Dark Forest (20): Gradual thickening of woods.
+- Forest → Lake/River (10): Streams and ponds are common in forests.
+
+## Notes
+- Adjust weights during playtesting for balance.
+- Use dynamic transitions to adapt terrain generation to gameplay needs.
