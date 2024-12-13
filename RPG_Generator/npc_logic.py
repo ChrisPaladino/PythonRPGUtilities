@@ -116,6 +116,31 @@ def add_to_general_data(data_type, item):
 def remove_from_general_data(data_type, item):
     data_manager.remove_item(data_type, item)
 
+def roll_move(stat, modifier):
+    raw_d6 = random.randint(1, 6)
+    action_total = raw_d6 + stat + modifier
+    challenge1 = random.randint(1, 10)
+    challenge2 = random.randint(1, 10)
+
+    if action_total > challenge1 and action_total > challenge2:
+        outcome = "Strong Hit"
+    elif (action_total > challenge1 and action_total <= challenge2) or \
+         (action_total > challenge2 and action_total <= challenge1):
+        outcome = "Weak Hit"
+    else:
+        outcome = "Miss"
+
+    is_match = (challenge1 == challenge2)
+
+    return {
+        'raw_d6': raw_d6,
+        'action_total': action_total,
+        'challenge1': challenge1,
+        'challenge2': challenge2,
+        'outcome': outcome,
+        'is_match': is_match
+    }
+
 def load_campaign(file_path):
     data_manager.load_from_file(file_path)
     return data_manager.data

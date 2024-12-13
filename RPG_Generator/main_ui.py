@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox, filedialog
+from tkinter.font import Font
 from npc_logic import (generate_themes, generate_npc, get_une_interaction, select_from_list, generate_action_oracle,
                        add_to_general_data, remove_from_general_data, get_general_data, check_the_fates_dice,
-                       load_campaign, save_campaign, data_manager, initialize_data)
+                       load_campaign, save_campaign, data_manager, initialize_data, roll_move)
 
 # Only allow one of each window open
 manage_data_window_open = None
@@ -14,6 +15,9 @@ global_file_path = None
 # Initialize main window
 root = tk.Tk()
 root.title("RPG Generator")
+
+# Define fonts after root is created
+bold_font = Font(root, weight="bold")
 
 # Initialize global variables for relationship and demeanor
 relationship_var = tk.StringVar()
@@ -166,6 +170,88 @@ def btn_manage_lists():
     tk.Button(threads_frame, text="Add/Update Thread", command=lambda: add_update_entry('threads', entry_thread, lst_threads)).grid(row=2, column=0, sticky="ew")
     tk.Button(characters_frame, text="Delete Character", command=lambda: delete_entry('characters', lst_characters)).grid(row=3, column=0, sticky="ew")
     tk.Button(threads_frame, text="Delete Thread", command=lambda: delete_entry('threads', lst_threads)).grid(row=3, column=0, sticky="ew")
+
+def btn_roll_move():
+    roll_move_window = tk.Toplevel(root)
+    roll_move_window.title("Roll Move")
+    roll_move_window.geometry("300x280")
+    roll_move_window.resizable(False, False)
+
+    tk.Label(roll_move_window, text="Stat (0 - 3):").grid(row=0, column=0, padx=5, pady=5, sticky="e")
+    stat_var = tk.IntVar(value=0)
+    stat_spin = tk.Spinbox(roll_move_window, from_=0, to=3, textvariable=stat_var)
+    stat_spin.grid(row=0, column=1, padx=5, pady=5, sticky="w")
+
+    tk.Label(roll_move_window, text="Modifier:").grid(row=1, column=0, padx=5, pady=5, sticky="e")
+    mod_var = tk.IntVar(value=0)
+    mod_entry = tk.Entry(roll_move_window, textvariable=mod_var, width=5)
+    mod_entry.grid(row=1, column=1, padx=5, pady=5, sticky="w")
+
+    roll_button = tk.Button(roll_move_window, text="Roll")
+    roll_button.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
+
+    dice_frame = tk.Frame(roll_move_window)
+    dice_frame.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
+
+    d6_label = tk.Label(dice_frame, text="□ ?", font=("Arial", 14))
+    d6_label.grid(row=0, column=0, padx=10, pady=10)
+
+    d10_1_label = tk.Label(dice_frame, text="♦ ?", font=("Arial", 14))
+    d10_1_label.grid(row=0, column=1, padx=10, pady=10)
+
+    d10_2_label = tk.Label(dice_frame, text="♦ ?", font=("Arial", 14))
+    d10_2_label.grid(row=0, column=2, padx=10, pady=10)
+
+    result_label = tk.Label(roll_move_window, text="Result will appear here")
+    result_label.grid(row=4, column=0, columnspan=2, padx=5, pady=10)
+
+    def run_roll():
+        stat = stat_var.get()
+        try:
+            modifier = int(mod_entry.get())
+        except ValueError:
+            modifier = 0
+
+        result = roll_move(stat, modifier)
+
+        raw_d6 = result['raw_d6']
+        action_total = result['action_total']
+        challenge1 = result['challenge1']
+        challenge2 = result['challenge2']
+        outcome = result['outcome']
+        is_match = result['is_match']
+
+        # Update dice labels:
+        # D6 is a square: "□ <number> □"
+        d6_label.config(text=f"□ {raw_d6} □")
+        # D10 is a diamond: "♦ <number> ♦"
+        d10_1_label.config(text=f"♦ {challenge1} ♦")
+        d10_2_label.config(text=f"♦ {challenge2} ♦")
+
+        if outcome == "Strong Hit":
+            outcome_color = "green"
+        elif outcome == "Weak Hit":
+            outcome_color = "goldenrod"
+        else:
+            outcome_color = "red"
+
+        display_outcome = outcome
+        if is_match:
+            display_outcome += " with a match!"
+            result_label.config(font=bold_font)
+        else:
+            result_label.config(font="TkDefaultFont")
+
+        result_text = f"Action: {action_total}\nChallenges: {challenge1}, {challenge2}\n{display_outcome}"
+        result_label.config(text=result_text, fg=outcome_color)
+
+    roll_button.config(command=run_roll)
+
+    # Center the Roll Move window on the main window
+    roll_move_window.update_idletasks()
+    x = root.winfo_x() + (root.winfo_width()//2 - roll_move_window.winfo_width()//2)
+    y = root.winfo_y() + (root.winfo_height()//2 - roll_move_window.winfo_height()//2)
+    roll_move_window.geometry(f"+{x}+{y}")
 
 def add_update_entry(data_type, entry_widget, listbox_widget):
     new_entry = entry_widget.get().strip()
@@ -349,15 +435,22 @@ def setup_column1(parent):
     col_frame = tk.Frame(parent)
     col_frame.grid(row=0, column=0, sticky="nw", padx=10, pady=10)
 
-    tk.Button(col_frame, text="Create NPC", command=btn_create_npc).grid(row=0, column=0, sticky="ew")
-    tk.Button(col_frame, text="Roll Interaction", command=btn_roll_interaction).grid(row=1, column=0, sticky="ew")
+    tk.Button(col_frame, text="Roll Move", command=btn_roll_move).grid(row=0, column=0, sticky="ew", pady=(0,5))
+    tk.Button(col_frame, text="Create NPC", command=btn_create_npc).grid(row=1, column=0, sticky="ew")
+    tk.Button(col_frame, text="Roll Interaction", command=btn_roll_interaction).grid(row=2, column=0, sticky="ew")
 
-    relationship_combobox = ttk.Combobox(col_frame, textvariable=relationship_var, state='readonly', values=["loved", "friendly", "peaceful", "neutral", "distrustful", "hostile", "hated"])
-    relationship_combobox.grid(row=2, column=0, sticky="ew")
+    relationship_combobox = ttk.Combobox(
+        col_frame, textvariable=relationship_var, state='readonly',
+        values=["loved", "friendly", "peaceful", "neutral", "distrustful", "hostile", "hated"]
+    )
+    relationship_combobox.grid(row=3, column=0, sticky="ew")
     relationship_combobox.set("neutral")
 
-    demeanor_combobox = ttk.Combobox(col_frame, textvariable=demeanor_var, state='readonly', values=["scheming", "insane", "friendly", "hostile", "inquisitive", "knowing", "mysterious", "prejudiced"])
-    demeanor_combobox.grid(row=3, column=0, sticky="ew")
+    demeanor_combobox = ttk.Combobox(
+        col_frame, textvariable=demeanor_var, state='readonly',
+        values=["scheming", "insane", "friendly", "hostile", "inquisitive", "knowing", "mysterious", "prejudiced"]
+    )
+    demeanor_combobox.grid(row=4, column=0, sticky="ew")
     demeanor_combobox.set("friendly")
 
 def setup_column2(parent):
