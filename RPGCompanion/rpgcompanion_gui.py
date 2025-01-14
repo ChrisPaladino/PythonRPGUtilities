@@ -6,6 +6,8 @@ class RPGCompanionGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("RPG Dice Roller")
+        self.dice_mode = tk.StringVar(value="Standard")
+        self.cortex_dice_pool = []  # Stores the Cortex dice pool
         self.create_widgets()
 
     def create_widgets(self):
@@ -14,35 +16,55 @@ class RPGCompanionGUI:
         self.main_frame = ttk.Frame(self.root, padding="10")
         self.main_frame.grid(row=0, column=0, sticky=("N", "W", "E", "S"))
 
-        # Title Label
-        self.title_label = ttk.Label(self.main_frame, text="RPG Dice Roller", font=("Arial", 16))
-        self.title_label.grid(row=0, column=0, columnspan=2, pady=5)
+        # Mode Selection
+        self.mode_frame = ttk.LabelFrame(self.main_frame, text="Dice Mode", padding="10")
+        self.mode_frame.grid(row=0, column=0, sticky=("W", "E"))
 
-        # Dice Buttons Frame
-        self.dice_frame = ttk.LabelFrame(self.main_frame, text="Dice Rolls", padding="10")
-        self.dice_frame.grid(row=1, column=0, sticky="W", pady=5)
+        for mode in ["Standard", "Cortex", "Starforged"]:
+            ttk.Radiobutton(
+                self.mode_frame,
+                text=mode,
+                variable=self.dice_mode,
+                value=mode,
+                command=self.update_mode,
+            ).pack(side="left", padx=5, pady=5)
 
-        # Dice Buttons
-        dice_types = ["d4", "d6", "d8", "d10", "d12", "d20", "d100"]
-        for idx, dice in enumerate(dice_types):
-            button = ttk.Button(self.dice_frame, text=dice, command=lambda d=dice: self.roll_dice(d))
-            button.grid(row=idx // 3, column=idx % 3, padx=5, pady=5)
+        # Standard Dice Section
+        self.standard_frame = ttk.LabelFrame(self.main_frame, text="Standard Dice", padding="10")
+        self.standard_frame.grid(row=1, column=0, sticky="W", pady=5)
 
-        # Custom Input Frame
-        self.custom_frame = ttk.LabelFrame(self.main_frame, text="Custom Roll", padding="10")
-        self.custom_frame.grid(row=1, column=1, sticky="E", pady=5)
+        for dice in ["d4", "d6", "d8", "d10", "d12", "d20", "d100"]:
+            ttk.Button(self.standard_frame, text=dice, command=lambda d=dice: self.roll_standard_dice(d)).pack(
+                side="left", padx=5, pady=5
+            )
 
-        self.custom_entry = ttk.Entry(self.custom_frame, width=20)
-        self.custom_entry.grid(row=0, column=0, padx=5, pady=5)
+        # Cortex Dice Section
+        self.cortex_frame = ttk.LabelFrame(self.main_frame, text="Cortex Dice", padding="10")
+        self.cortex_frame.grid(row=2, column=0, sticky=("W", "E"), pady=5)
 
-        self.custom_button = ttk.Button(
-            self.custom_frame, text="Roll", command=self.roll_custom
-        )
-        self.custom_button.grid(row=0, column=1, padx=5, pady=5)
+        self.cortex_pool_label = ttk.Label(self.cortex_frame, text="Dice Pool:")
+        self.cortex_pool_label.grid(row=0, column=0, sticky="W")
+
+        self.cortex_pool_display = ttk.Label(self.cortex_frame, text="", width=50)
+        self.cortex_pool_display.grid(row=0, column=1, sticky="W")
+
+        self.cortex_dice_buttons = ttk.Frame(self.cortex_frame)
+        self.cortex_dice_buttons.grid(row=1, column=0, columnspan=2)
+
+        for dice in ["d4", "d6", "d8", "d10", "d12"]:
+            btn = ttk.Button(
+                self.cortex_dice_buttons,
+                text=f"Add {dice}",
+                command=lambda d=dice: self.add_to_cortex_pool(d),
+            )
+            btn.pack(side="left", padx=5, pady=5)
+
+        self.cortex_roll_button = ttk.Button(self.cortex_frame, text="Roll Pool", command=self.roll_cortex_pool)
+        self.cortex_roll_button.grid(row=2, column=0, columnspan=2, pady=10)
 
         # Output Frame
         self.output_frame = ttk.LabelFrame(self.main_frame, text="Results", padding="10")
-        self.output_frame.grid(row=2, column=0, columnspan=2, sticky=("W", "E"), pady=5)
+        self.output_frame.grid(row=3, column=0, sticky=("W", "E"), pady=5)
 
         self.output_text = tk.Text(self.output_frame, height=10, wrap="word", state="disabled")
         self.output_text.grid(row=0, column=0, sticky=("W", "E"))
@@ -61,16 +83,59 @@ class RPGCompanionGUI:
         )
         self.copy_button.grid(row=0, column=1, padx=5)
 
-    def roll_dice(self, dice):
-        """Handles dice button clicks."""
+        self.update_mode()
+
+    def update_mode(self):
+        """Updates visible frames based on the selected mode."""
+        mode = self.dice_mode.get()
+        self.standard_frame.grid_remove()
+        self.cortex_frame.grid_remove()
+
+        if mode == "Standard":
+            self.standard_frame.grid()
+        elif mode == "Cortex":
+            self.cortex_frame.grid()
+
+    def roll_standard_dice(self, dice):
+        """Handles standard dice rolls."""
         result = RPGCompanionLogic.roll_standard_dice(dice)
         self.display_output(f"Rolled {dice}: {result}\n")
 
-    def roll_custom(self):
-        """Handles custom roll input."""
-        formula = self.custom_entry.get()
-        result = RPGCompanionLogic.roll_custom_formula(formula)
-        self.display_output(f"Rolled {formula}: {result}\n")
+    def add_to_cortex_pool(self, dice):
+        """Adds a die to the Cortex dice pool."""
+        self.cortex_dice_pool.append(dice)
+        self.update_cortex_pool_display()
+
+    def update_cortex_pool_display(self):
+        """Updates the display of the Cortex dice pool."""
+        self.cortex_pool_display.config(text=", ".join(self.cortex_dice_pool))
+
+    def roll_cortex_pool(self):
+        """Rolls the Cortex dice pool and handles the results."""
+        results = RPGCompanionLogic.roll_cortex_pool(self.cortex_dice_pool)
+
+        # Display results with die sizes
+        result_str = "Cortex Roll: " + ", ".join(f"{die}: {value}" for die, value in results["rolls"])
+        self.display_output(f"{result_str}\n")
+
+        # Handle hitches
+        if results["hitches"]:
+            hitches_str = ", ".join(f"{die}: {value}" for die, value in results["hitches"])
+            self.display_output(f"Hitches (cannot be used): {hitches_str}\n")
+
+        # Valid results for selection
+        valid_str = ", ".join(f"{die}: {value}" for die, value in results["valid"])
+        self.display_output(f"Valid Results: {valid_str}\n")
+
+        if len(results["valid"]) >= 2:
+            total = sum(value for _, value in results["valid"][:2])
+            effect_die = results["valid"][2][0] if len(results["valid"]) > 2 else "d4"
+            self.display_output(f"Total: {total}, Effect Die: {effect_die}\n")
+        else:
+            self.display_output("Not enough valid dice for a total and effect die.\n")
+
+        self.cortex_dice_pool.clear()
+        self.update_cortex_pool_display()
 
     def display_output(self, message):
         """Displays output in the text box."""
