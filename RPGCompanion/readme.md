@@ -1,98 +1,67 @@
 # RPG Dice Rolling Program Requirements
-
 ## Overview
-This Python program aims to provide a minimal, discrete, and efficient tool for RPG dice rolling, catering to office workers or individuals in constrained environments. It will focus initially on dice rolling functionality for Cortex (Tales of Xadia), with Starforged support as the next priority.
-
+This Python program aims to provide a minimal, discrete, and efficient tool for RPG dice rolling, catering to office workers or individuals in constrained environments. It will focus initially on dice rolling functionality for a standard set of polyhedral dice with Cortex (Tales of Xadia), with Starforged support as the next priorities.
 ## Functional Requirements
-
 ### Core Features (MVP)
-1. **Dice Rolling:**
-   - Support for standard RPG dice types: d4, d6, d8, d10, d12, d20, d100.
-   - Allow rolling odd dice (e.g., d2, Zocchi dice) and custom input formulas.
-   - Enable users to input and roll custom formulas (e.g., `3d6+2`, `4d6 drop lowest`).
-   - Results should display in a scrollable text box with:
-     - **Clear** button to reset the output.
-     - **Copy** button to copy results to the clipboard.
-
-2. **Graphical Interface:**
-   - Minimalist design using Python's TKinter library.
-   - Grid-based layout for control and scalability.
-   - Buttons for each supported dice type (d4, d6, etc.), represented with clickable dice images/icons.
-   - Input area for manual dice formulas.
-   - Dedicated area to select the system (starting with Cortex, expandable later).
-
-3. **System-Specific Rolls:**
-   - **Priority 1**: Basic dice rolling for Cortex (e.g., click on a dice icon to roll).
-   - **Priority 2**: Add action and challenge dice rolling for Starforged.
-
-4. **Customization:**
-   - Configuration through JSON files for:
-     - Dice rules (e.g., exploding dice, rerolls).
-     - System-specific features (e.g., Starforged results like strong/weak/miss).
-   - JSON files will be manually edited in a text editor (e.g., Notepad++) initially.
-
-### Long-Term Features (Post-MVP)
-1. **Advanced Dice Mechanics:**
-   - Implement advanced dice rolling (e.g., exploding dice, `4d6 drop lowest`, dice pools).
-   - Add support for defining rules for Weak/Strong/Miss in PBTA or Starforged.
-
-2. **System Expansion:**
-   - Enable users to define custom game systems through JSON files.
-   - Add preloaded assets and moves for Starforged and other systems.
-
-3. **Session Tools:**
-   - Note-taking and roll history.
-   - Initiative tracking and campaign management.
-   - Ability to save/load campaign or session states.
-
-4. **Themes & Visual Customization:**
-   - Allow users to customize the interface through JSON-based themes.
-   - Provide curated or shareable themes for personalization.
-
-5. **Character Management:**
-   - Enable users to define and track character attributes, stats, and changes over time.
-   - Display character information in the interface.
-
+- **Code Layout**
+   - Two distinct Python Files. GUI / Interface code should be in a separate Python File from the Logic / Processing file.
+- **Dice Rolling:**
+	- Support for standard RPG dice types: d4, d6, d8, d10, d12, d20, d100
+	- Allow rolling odd dice (e.g., d2, Zocchi dice) and custom input formulas
+	- Allow rolling of Fudge/Fate dice
+	- Assume no number before the "d" to be "1", IE: d8 = 1d8; d4 = 1d4
+	- Enable users to input and roll custom formulas
+- **Custom Formulas: Easy:**
+	- Multiple dice can be rolled without summing by separating them with a comma or semi-colon ie: 1d10, 1d10, 1d6 will roll two 10-sided, one 6-sided and show the results separately
+	- XdY: rolls X number of Y-sided dice and sums them, displaying the result
+	- XdY +/- Z: rolls X number of Y-sided dice, sums them and then adds or subtracts Z
+	- XdYkZh: Keep High: rolls X number of Y-sided dice, and keeps the highest Z of them, then sums and displays the result. (Note Z must be <= X)
+	- XdYkZl: Keep Low: rolls X number of Y-sided dice, and keeps the lowest Z of them, then sums and displays the result. (Note Z must be <= X)
+	- XdY!: Exploding: rolls X number of Y-sided dice, and if all X of them show the highest value (Y), re-roll XdY and add the new total to the sum, continue until the dice no longer explode
+	- Xdf: Fudge/Fate: rolls X number of Fudge Dice (a six-sided dice where two sides are "+", two sides are "-", and two sides are "0"), then sum and display
+	  - XdY>Z: Target Number: rolls X number of Y-sided dice, each die with a value > Z counts as 1 success, sum the successes and show the result
+- **Custom Formulas: Game-Specific:**
+	- (Format TBD): Starforged/Ironsworn: rolls two 10-sided challenge dice and one 6-sided action dice +/- Z, and compares the Action result (action dice +/- Z) against each of the Challenge dice. If Action beats both Challenge dice; show all the dice results and that's a Strong Hit. If Action beats ONE Challenge die; show all the dice results and that's a Weak Hit. If Action beats none of the Challenge dice; show all dice results and that's a MISS.
+	- XaYd: FU Dice: rolls X number of 6-sided Action dice and puts them in a list sorted high-roll to low-roll, and rolls Y number of 6-sided Danger dice and puts them in a list sorted high-roll to low-roll.
+		- If a Danger dice result also exists in the Action dice, then both of those dice are cancelled and cannot be used in the results.
+			- Note: if the Action Dice are [6, 4, 2, 2] and Danger Dice are [2, 1], then only one of the 2s is removed. The result would be: Action [6, 4, 2] and Danger [1]
+		- The highest remaining Action Die determines results: 6 = Strong Hit; 4-5 = Weak Hit; 2-3 = Miss
+			- Note: If 0 Action Dice remain, or if the highest Action Die is 1, then it's a BOTCH
+			- Note: If you get a Strong Hit, then each additional 6 is a Boon. You can have a (theoretical) unlimited number of boons on a roll
+* **Results**:
+	* Results should display in a scrollable text box with two buttons:
+		* **Clear** button to reset the output.
+		- **Copy** button to copy results to the clipboard.
+* **Graphical Interface:**
+	* Minimalist design using Python's TKinter library.
+	* Grid-based layout for control and scalability.
+	* Buttons for each supported dice type (d4, d6, etc.), represented with clickable dice images/icons.
+	* Clear and Copy buttons referenced in Results
+	- Input area for manual dice formulas.
 ## Non-Functional Requirements
-
-1. **Performance:**
-   - Load within 2 seconds on standard hardware.
-   - Render dice rolls and output instantly without lag.
-
-2. **Usability:**
-   - Minimalist design for discreet use.
-   - No dice animations or flashy effects.
-   - Results should be clear and easy to interpret.
-
-3. **Error Handling:**
-   - Basic error messages for invalid inputs or JSON configurations.
-   - Handle unexpected inputs gracefully without crashing.
-
-4. **Expandability:**
-   - Modular design to support additional features or systems in future updates.
-
-5. **Platform:**
-   - Compatible with Python 3.x.
-   - Use only core Python libraries where possible to reduce dependencies.
-
+- **Performance:**
+	- Load within 2 seconds on standard hardware.
+	- Render dice rolls and output instantly without lag.
+* **Usability:**
+	- Minimalist design for discreet use.
+	- No dice animations or flashy effects.
+	- Results should be clear and easy to interpret. The results numbers should be surrounded by the shape of the dice rolled if appropriate (d4, d6, d8, d10, d12, d20, d100)
+* **Error Handling:**
+	* Basic error messages for invalid inputs or JSON configurations.
+	* Handle unexpected inputs gracefully without crashing.
+* **Expandability:**
+	* Modular design to support additional features or systems in future updates.
+* **Platform:**
+	- Compatible with Python 3.x.
+	- Use only core Python libraries where possible to reduce dependencies.
 ## Acceptance Criteria
-
-1. **MVP Delivery:**
-   - Users can roll standard RPG dice (d4, d6, d8, d10, d12, d20, d100) via clickable icons or manual formulas.
-   - Dice results display in a scrollable, clear text box with options to clear or copy results.
-   - Basic JSON configuration for adding dice types or rules.
-
-2. **System-Specific Rolls:**
-   - Cortex dice rolling fully functional.
-   - Basic Starforged action and challenge dice rolling implemented.
-
-3. **Error Handling:**
-   - Program gracefully handles invalid dice inputs or malformed JSON files.
-   - Errors are logged or displayed in a non-intrusive manner.
-
-4. **UI/UX:**
-   - The interface is clean, intuitive, and suitable for discreet use in an office environment.
-   - Rolls and outputs are visible without unnecessary clutter.
-
-## Future Vision
-The program will evolve into a more comprehensive RPG assistant, supporting full character management, system-specific features, and customizable tools for both solo and group play. However, the focus remains on providing a robust and flexible dice roller as the core functionality.
+* **MVP Delivery:**
+	- Users can roll standard RPG dice (d4, d6, d8, d10, d12, d20, d100) via clickable icons or manual formulas.
+	- Dice results display in a scrollable, clear text box with options to clear or copy results.
+	- Basic JSON configuration for adding dice types or rules.
+* **Error Handling:**
+	- Program gracefully handles invalid dice inputs or malformed JSON files.
+	- Errors are logged or displayed in a non-intrusive manner.
+* **UI/UX:**
+	- The interface is clean, intuitive, and suitable for discreet use in an office environment.
+	- Rolls and outputs are visible without unnecessary clutter.
