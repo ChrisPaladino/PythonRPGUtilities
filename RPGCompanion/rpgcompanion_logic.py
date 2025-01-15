@@ -1,5 +1,6 @@
 import random
 
+# Logic Module (rpgcompanion_logic.py)
 class RPGCompanionLogic:
     @staticmethod
     def roll_standard_dice(dice):

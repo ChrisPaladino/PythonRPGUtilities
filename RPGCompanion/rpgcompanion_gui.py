@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from rpgcompanion_logic import RPGCompanionLogic  # Importing logic module
 
+# GUI Module (rpgcompanion_gui.py)
 class RPGCompanionGUI:
     def __init__(self, root):
         self.root = root
@@ -62,9 +63,19 @@ class RPGCompanionGUI:
         self.cortex_roll_button = ttk.Button(self.cortex_frame, text="Roll Pool", command=self.roll_cortex_pool)
         self.cortex_roll_button.grid(row=2, column=0, columnspan=2, pady=10)
 
+        # Custom Formula Section
+        self.custom_frame = ttk.LabelFrame(self.main_frame, text="Custom Formula", padding="10")
+        self.custom_frame.grid(row=3, column=0, sticky=("W", "E"), pady=5)
+
+        self.custom_entry = ttk.Entry(self.custom_frame, width=30)
+        self.custom_entry.grid(row=0, column=0, padx=5, pady=5)
+
+        self.custom_roll_button = ttk.Button(self.custom_frame, text="Roll", command=self.roll_custom_formula)
+        self.custom_roll_button.grid(row=0, column=1, padx=5, pady=5)
+
         # Output Frame
         self.output_frame = ttk.LabelFrame(self.main_frame, text="Results", padding="10")
-        self.output_frame.grid(row=3, column=0, sticky=("W", "E"), pady=5)
+        self.output_frame.grid(row=4, column=0, sticky=("W", "E"), pady=5)
 
         self.output_text = tk.Text(self.output_frame, height=10, wrap="word", state="disabled")
         self.output_text.grid(row=0, column=0, sticky=("W", "E"))
@@ -100,6 +111,12 @@ class RPGCompanionGUI:
         """Handles standard dice rolls."""
         result = RPGCompanionLogic.roll_standard_dice(dice)
         self.display_output(f"Rolled {dice}: {result}\n")
+
+    def roll_custom_formula(self):
+        """Handles custom formula input and rolling."""
+        formula = self.custom_entry.get()
+        result = RPGCompanionLogic.roll_custom_formula(formula)
+        self.display_output(f"Rolled {formula}: {result}\n")
 
     def add_to_cortex_pool(self, dice):
         """Adds a die to the Cortex dice pool."""
@@ -155,6 +172,7 @@ class RPGCompanionGUI:
         self.root.clipboard_append(self.output_text.get("1.0", "end").strip())
         self.root.update()  # Now it stays on the clipboard
 
+# Main Entry Point
 def main():
     root = tk.Tk()
     app = RPGCompanionGUI(root)

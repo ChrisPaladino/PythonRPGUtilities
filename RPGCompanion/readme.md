@@ -47,7 +47,7 @@ This Python program aims to provide a minimal, discrete, and efficient tool for 
 	- No dice animations or flashy effects.
 	- Results should be clear and easy to interpret. The results numbers should be surrounded by the shape of the dice rolled if appropriate (d4, d6, d8, d10, d12, d20, d100)
 * **Error Handling:**
-	* Basic error messages for invalid inputs or JSON configurations.
+	* Basic error messages for invalid inputs
 	* Handle unexpected inputs gracefully without crashing.
 * **Expandability:**
 	* Modular design to support additional features or systems in future updates.
@@ -58,9 +58,8 @@ This Python program aims to provide a minimal, discrete, and efficient tool for 
 * **MVP Delivery:**
 	- Users can roll standard RPG dice (d4, d6, d8, d10, d12, d20, d100) via clickable icons or manual formulas.
 	- Dice results display in a scrollable, clear text box with options to clear or copy results.
-	- Basic JSON configuration for adding dice types or rules.
 * **Error Handling:**
-	- Program gracefully handles invalid dice inputs or malformed JSON files.
+	- Program gracefully handles invalid dice inputs
 	- Errors are logged or displayed in a non-intrusive manner.
 * **UI/UX:**
 	- The interface is clean, intuitive, and suitable for discreet use in an office environment.
