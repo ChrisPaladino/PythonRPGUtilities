@@ -19,7 +19,7 @@ This Python program aims to provide a minimal, discrete, and efficient tool for 
 	- XdYkZl: Keep Low: rolls X number of Y-sided dice, and keeps the lowest Z of them, then sums and displays the result. (Note Z must be <= X)
 	- XdY!: Exploding: rolls X number of Y-sided dice, and if all X of them show the highest value (Y), re-roll XdY and add the new total to the sum, continue until the dice no longer explode
 	- Xdf: Fudge/Fate: rolls X number of Fudge Dice (a six-sided dice where two sides are "+", two sides are "-", and two sides are "0"), then sum and display
-	  - XdY>Z: Target Number: rolls X number of Y-sided dice, each die with a value > Z counts as 1 success, sum the successes and show the result
+	- XdY>Z: Target Number: rolls X number of Y-sided dice, each die with a value > Z counts as 1 success, sum the successes and show the result
 - **Custom Formulas: Game-Specific:**
 	- (Format TBD): Starforged/Ironsworn: rolls two 10-sided challenge dice and one 6-sided action dice +/- Z, and compares the Action result (action dice +/- Z) against each of the Challenge dice. If Action beats both Challenge dice; show all the dice results and that's a Strong Hit. If Action beats ONE Challenge die; show all the dice results and that's a Weak Hit. If Action beats none of the Challenge dice; show all dice results and that's a MISS.
 	- XaYd: FU Dice: rolls X number of 6-sided Action dice and puts them in a list sorted high-roll to low-roll, and rolls Y number of 6-sided Danger dice and puts them in a list sorted high-roll to low-roll.

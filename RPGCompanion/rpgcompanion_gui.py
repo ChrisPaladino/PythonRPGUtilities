@@ -116,6 +116,7 @@ class RPGCompanionGUI:
         """Handles custom formula input and rolling."""
         formula = self.custom_entry.get()
         result = RPGCompanionLogic.roll_custom_formula(formula)
+        # Add "Rolled" prefix here
         self.display_output(f"Rolled {formula}: {result}\n")
 
     def add_to_cortex_pool(self, dice):
