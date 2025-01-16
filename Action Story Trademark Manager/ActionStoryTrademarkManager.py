@@ -41,7 +41,7 @@ class TrademarkManagerApp:
         self.search_entry.bind("<KeyRelease>", self.filter_trademarks)
 
         # Listbox for displaying search results
-        self.trademark_listbox = tk.Listbox(main_frame, height=15)
+        self.trademark_listbox = tk.Listbox(main_frame, height=10)  # Adjusted to show ~10 trademarks
         self.trademark_listbox.pack(fill="both", expand=True, pady=5)
         self.trademark_listbox.bind("<Double-1>", self.view_trademark_details)
 
@@ -78,7 +78,15 @@ class TrademarkManagerApp:
         )
         for trademark in sorted_trademarks:
             display_text = f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
-            if query in display_text.lower():
+            if query in display_text.lower() or any(
+                query in field.lower() for field in [
+                    trademark.get("description", ""),
+                    " ".join(trademark.get("traits", [])),
+                    " ".join(trademark.get("flaws", [])),
+                    " ".join(trademark.get("gear", [])),
+                    " ".join(adv.get("name", "") + " " + adv.get("description", "") for adv in trademark.get("advantages", []))
+                ]
+            ):
                 self.trademark_listbox.insert(tk.END, display_text)
 
     def view_trademark_details(self, event):
