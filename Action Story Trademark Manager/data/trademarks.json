@@ -1,0 +1,717 @@
+{
+    "trademarks": [
+    {
+        "name": "Drone",
+        "source": "Tomorrow City",
+        "type": "Background",
+        "description": "You were born to serve as a factory drone, toiling in the underground engine rooms that keep the city running. You are immensely strong and capable of working for many hours without rest.",
+        "traits": ["Strong", "Endurance", "Repair", "Awareness", "The Great Factory", "Scavenger", "Brawl"],
+        "flaws": ["Dim-witted", "Clumsy", "Always Filthy", "Illiterate"],
+        "gear": ["Dirty Overalls and Cap"],
+        "advantages": [
+            {
+"               name": "I Must Work Harder",
+                "description": "You may spend a Moxie point to completely clear a Dazed, Tired or Weakened Condition as a bonus Free Action."
+            },
+            {
+                "name": "Face in the Crowd",
+                "description": "You look and dress like every other factory worker in the city. You can disappear into groups of drones, factory workers, or the poor with ease. You are difficult to detect until you take an action that draws attention to yourself."
+            },
+            {
+                "name": "Low-light Vision",
+                "description": "You can see in dim, low-light situations as clearly as if the area was well-lit."
+            }
+        ]
+    },
+    {
+        "name": "Riffraff",
+        "source": "Tomorrow City",
+        "type": "Background",
+        "description": "You grew up in the gutters of the metropolis or the shanties of Underside. Your life has been hard and has honed your survival instincts.",
+        "traits": ["Awareness", "Sneak", "Pickpockets", "Run", "Streetwise", "Underside", "Brawl"],
+        "flaws": ["Shifty Eyes", "Always Filthy", "Steals Food", "Nervous Disposition"],
+        "gear": ["Filthy Clothes", "Knife", "Someone’s Tooth"],
+        "advantages": [
+            {
+                "name": "Scrounge",
+                "description": "When you Rest, instead of healing, you can declare that you are looking for a specific piece of gear. Roll a D3 – if the result is higher than the item’s Cost, you find it."
+            },
+            {
+                "name": "Filthy Urchins",
+                "description": "You have a network of contacts who see all sorts of things from the gutter. When you try to get information or gossip from the streets of Rimside or Underside, roll with Mastery."
+            },
+            {
+                "name": "In This Together",
+                "description": "When you are desperate for somewhere to hide out, roll a die. On a 4 or higher, someone in Rimside or Underside will hide, shelter, or feed you. There is always a price."
+            }
+        ]
+    },
+    {
+        "name": "Skyriser",
+        "source": "Tomorrow City",
+        "type": "Background",
+        "description": "You are a member of the city’s elite, born into privilege and able to take advantage of all that entails. You were born to rule and raised to believe that the poor need to toil for their own benefit.",
+        "traits": ["High Society", "Impeccable Style", "Well-educated", "Bureaucracy", "Inner City", "Healthy", "Eye for Detail", "Make Commands Not Requests"],
+        "flaws": ["Arrogant", "Black Sheep", "Soft-looking", "Imposter"],
+        "gear": ["Expensive Clothes", "Cheque Book", "Gold Watch"],
+        "advantages": [
+            {
+                "name": "High Society",
+                "description": "When you enter a social situation involving the wealthy and powerful, you can immediately identify who has the highest social status or most authority. Gain +1 Action Die on your first social interaction with this person."
+            },
+            {
+                "name": "Born to Rule",
+                "description": "When you make Checks to bully or push around minor city officials and bureaucrats, roll with Mastery."
+            },
+            {
+                "name": "Lackey",
+                "description": "You have a bodyguard or personal assistant that is treated as an NPC with Grit 3 and two Tags of your choice. You may purchase gear for them with your Cred. Your Lackey is loyal but will not recklessly endanger themselves. If injured, killed, or lost in some way, you may hire a new lackey during Downtime.\n\nExample lackeys:\n- Assistant: Grit 3, Bureaucracy, Quiet\n- Bodyguard: Grit 3, Brawl, Intimidate\n- Chauffeur: Grit 3, Drive, Etiquette"
+            }
+        ]
+    },
+    {
+        "name": "Wastelander",
+        "source": "Tomorrow City",
+        "type": "Background",
+        "description": "You’re not from around here. You have lived a difficult life in the harsh wastelands, the sodden swamps beneath the city, or some distant land. You are obviously out of place, but sometimes that is an advantage.",
+        "traits": ["Awareness", "Survival", "Endurance", "Hunting", "Shoot", "Wastelands", "Dodge"],
+        "flaws": ["Rough Around the Edges", "Naive", "Wide-eyed Stare", "Uncouth", "Illiterate"],
+        "gear": ["Strange Clothes", "Pocket of Odd Knickknacks"],
+        "advantages": [
+            {
+                "name": "Obvious Outsider",
+                "description": "When you behave weirdly in polite company or are caught somewhere you shouldn’t be or doing something you shouldn’t do, city folk are quick to believe it is because of your wild background and ignorance. Gain +1 Action Die on Checks to convince them so."
+            },
+            {
+                "name": "Stalk",
+                "description": "You are an expert hunter. When you track a target, roll with Mastery."
+            },
+            {
+                "name": "Animal Companion",
+                "description": "You have a small, loyal pet such as a rat, raven, ferret, or cat. You may or may not be able to control the animal. The animal companion is treated as an NPC with Grit 2, the Small Tag and two other Tags of your choice. If it is killed, you suffer the Shaken Condition. You may find and train a new pet during Downtime."
+            }
+        ]
+    },
+    {
+        "name": "Windborn",
+        "source": "Tomorrow City",
+        "type": "Background",
+        "description": "You spent most of your life in a sky colony, perhaps as part of a nomadic airship caravan that traverses the wastes, with sky pirates, or on a floating citadel.",
+        "traits": ["Steady Feet", "Pilot", "Quick and Wiry", "Geography", "Endurance", "Scrounge", "Climb"],
+        "flaws": ["Naive", "Rough Around the Edges", "Arrogant", "Risk-taker"],
+        "gear": ["Warm Jacket", "Goggles", "Rope"],
+        "advantages": [
+            {
+                "name": "Head for Heights",
+                "description": "When making Checks related to moving and working at great heights, roll with Mastery."
+            },
+            {
+                "name": "Ship Gunner",
+                "description": "When you make an attack using a vehicle-mounted weapon, roll with Mastery."
+            },
+            {
+                "name": "Diplomatic Immunity",
+                "description": "You hold an important position in a community outside of Tomorrow City. You can exploit this position to get out of minor misdemeanours and can roll +1 Action Die when leveraging your political credentials."
+            }
+        ]
+    },
+    {
+        "name": "Bold",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You are confident and courageous, with nerves of steel and a can-do attitude. The way you assess a situation, make a plan, and take action often inspires others.",
+        "traits": ["Awareness", "Brave", "Inspiring", "Tenacious", "Command", "Quick Thinking", "Fast Reflexes"],
+        "flaws": ["Death Wish", "Arrogant", "Life is Cheap", "Need to be Loved"],
+        "gear": ["Rugged Jacket", "Satchel"],
+        "advantages": [
+            {
+                "name": "Inspiring",
+                "description": "Once per Scene, after successfully making a Check, you may spend any Boons generated to give other characters Moxie points (one for one). This cannot increase a character’s Moxie point total beyond their starting maximum. You cannot inspire yourself."
+            },
+            {
+                "name": "Steely",
+                "description": "When you resist something frightening or intimidating, roll with Mastery."
+            },
+            {
+                "name": "Into the Breach",
+                "description": "If an ally fails or Botches an attack, you can use your next action to attack the same target with +1 Action Die."
+            }
+        ]
+    },
+    {
+        "name": "Broken",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You were injured and disfigured, perhaps during The Long War, or maybe in a factory accident. Technicians and surgeons put you back together as best they could, but you are a jigsaw of machine and flesh now.",
+        "traits": ["Metal Plates and Screws", "Endurance", "Awareness", "Frightening Appearance", "Unnatural Strength", "Hide", "Iron Will"],
+        "flaws": ["Battle Scars", "A Broken Gait", "Nightmares and Weariness", "Thousand-yard Stare", "Vulnerable to Electro Damage"],
+        "gear": ["Hooded Jacket or Cloak"],
+        "advantages": [
+            {
+                "name": "Mostly Machine",
+                "description": "You can last twice as long without food, water, or oxygen as a normal human can, and are immune to the Poisoned Condition. You recover Damage during rests as normal but cannot benefit from healing. A repair Check can be made to heal Hits or remove Damage from Injuries, in the same way that someone else might receive first aid."
+            },
+            {
+                "name": "Part-Automaton",
+                "description": "You can sense the signals from automatons and can make a Check to gain an impression of their surface-level 'thoughts' (usually their current attitude, mood, or intent)."
+            },
+            {
+                "name": "Auxiliary Limb",
+                "description": "You have either an extra mechanical limb or a detachable hand (choose when you select this Advantage). The extra limb is an arm or tail that ends in a claw that can grip and hold things but cannot attack or perform precise actions. The detachable hand works like a Tiny, Simple robot. You may select this Advantage a second time, taking the alternate option."
+            }
+        ]
+    },
+    {
+        "name": "Caring",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You are incredibly empathetic and seek to ease the suffering of others. You often give freely of whatever resources you have and look out for those who cannot help themselves.",
+        "traits": ["Empathy", "Eye for Detail", "First Aid", "Animal Empathy", "Naturally Calm", "Friendly Smile", "Amateur Psychologist"],
+        "flaws": ["Soft-hearted", "Gullible", "I Will Not Harm a Helpless Person"],
+        "gear": ["A Portion of Coffee", "A Handful of Sweets"],
+        "advantages": [
+            {
+                "name": "Rally",
+                "description": "Once per Scene, you can use a Quick Action to clear a psychological Condition, such as Angry, Shaken, or Dazed, from another character who can see or hear you. You can spend Moxie to rally additional characters (one-for-one) or to clear additional Conditions at the same time. You cannot rally yourself."
+            },
+            {
+                "name": "A Little Kindness",
+                "description": "When you tend to an ally during a Rest, they can remove one additional point of Damage from a single Injury."
+            },
+            {
+                "name": "Calm Under Pressure",
+                "description": "Spend a point of Moxie after you make a Check to negate any Pressure generated by the roll."
+            }
+        ]
+    },
+    {
+        "name": "Charming",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You have an easy charm that draws others in and makes them feel at ease. You have a knack for making suggestions that others find reasonable and tend to get your own way.",
+        "traits": ["Winning Smile", "Persuasive", "Seduction", "Interrogate", "Disguise", "Convincing Liar", "Empathy"],
+        "flaws": ["Caught Up in Your Own Charm", "Lothario", "Weak-willed", "Compulsive Liar"],
+        "gear": ["Mirror", "Nice Clothes"],
+        "advantages": [
+            {
+                "name": "Dreamy",
+                "description": "If you take time to listen to, study, or investigate a target you can adjust your demeanour and appearance to make yourself very appealing to them. Gain +1 Action Die when interacting with the target in social situations until they see through your subterfuge or you cause them harm (physically or emotionally)."
+            },
+            {
+                "name": "Winning Smile",
+                "description": "When you attempt to persuade someone with your charm and magnetism, roll with Mastery."
+            },
+            {
+                "name": "Orator",
+                "description": "You can easily draw a crowd and hold their attention for a short period. While you are speaking to them, they will remain focused on you, unless something loud, dangerous, or disruptive occurs."
+            }
+        ]
+    },
+    {
+        "name": "Genius",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You are incredibly intelligent, well-educated, or wise from life experiences. You have an uncanny ability to retain information and solve problems that others cannot.",
+        "traits": ["Smarts", "Science", "History", "Research", "Exceptional Memory", "Perceptive", "Obscure Facts"],
+        "flaws": ["Arrogant", "Soft-looking", "Curious"],
+        "gear": ["Notepad", "Glasses", "Nice Jacket"],
+        "advantages": [
+            {
+                "name": "Academic Rigour",
+                "description": "When you research information or call on academic knowledge, roll with Mastery."
+            },
+            {
+                "name": "Mastermind",
+                "description": "If you carefully make a plan, spend time preparing, and explain it in detail, any ally who follows through gains Mastery on a single non-combat Check related to the execution of the plan."
+            },
+            {
+                "name": "Tactician",
+                "description": "If you spend a Quick Action assessing a situation and telling an ally exactly where to shoot or how to hit a target, they gain +1 Action Die on their next attack Check."
+            }
+        ]
+    },       
+    {
+        "name": "Huge",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You are big, muscular, and very strong. You can easily lift great weights and regularly engage in physically demanding tasks. While you are tough and strong, you are sometimes not the most graceful of individuals.",
+        "traits": ["Strong", "Dead Lift", "Smash Things", "Tough as Nails", "Fists like Iron", "Intimidate", "Endurance"],
+        "flaws": ["Clumsy", "Graceless", "Don’t Fit into Regular Clothes", "Two Left Feet"],
+        "gear": ["Poorly Fitting Clothes", "Club"],
+        "advantages": [
+            {
+                "name": "Heavy Lifter",
+                "description": "You may ignore the Cumbersome Tag on one item of gear you carry."
+            },
+            {
+                "name": "Iron Sinews",
+                "description": "When performing feats of strength, such as lifting or breaking items, roll with Mastery."
+            },
+            {
+                "name": "Diehard",
+                "description": "Your size and natural constitution make you hard to bring down. You may suffer one additional Injury than your Grit would normally allow."
+            }
+        ]
+    },
+    {
+        "name": "Perceptive",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You notice things that others miss and often have uncanny insights into situations or people. You focus on details, put the pieces together, and always seem to spot vital clues.",
+        "traits": ["Awareness", "Keen Eyes", "Human Lie Detector", "Eye for Detail", "Investigate", "Search", "Asks all the Right Questions"],
+        "flaws": ["Distracted by the Little Things", "A Little Too Blunt", "Obsessed with the Details"],
+        "gear": ["Magnifying Glass", "Notepad", "Pen"],
+        "advantages": [
+            {
+                "name": "Simple Deduction",
+                "description": "When you spend some time observing and analysing a target, you can accurately determine which part of the city they have recently been in and gain a helpful insight about their past, habits, or recent activity."
+            },
+            {
+                "name": "Detail-Oriented",
+                "description": "When you make Checks to spot, notice, or search, roll with Mastery."
+            },
+            {
+                "name": "Danger Sense",
+                "description": "You are never surprised at the start of combat and may instead roll for Initiative as normal."
+            }
+        ]
+    },
+    {
+        "name": "Quick",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You are quick on your feet, fit, and nimble. You act with speed and agility and have excellent hand-eye coordination.",
+        "traits": ["Fleet-footed", "Duck and Weave", "Athletic", "Sleight of Hand", "Alert", "Gymnastics"],
+        "flaws": ["Hot-headed", "Careless", "Butterfingers", "Run at the Mouth"],
+        "gear": ["Loose-fitting Clothes", "Good Shoes"],
+        "advantages": [
+            {
+                "name": "Parkour",
+                "description": "When you make Checks to run, leap, or climb, roll with Mastery."
+            },
+            {
+                "name": "Counterstrike",
+                "description": "When you successfully avoid Harm from a close combat attack, you can spend any Boons generated to inflict 1 Damage on your attacker. You can also spend Moxie to inflict additional Damage, one for one."
+            },
+            {
+                "name": "Quick Hands",
+                "description": "You can make two Free Actions each Turn."
+            }
+        ]
+    },
+    {
+        "name": "Sneaky",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "You are sly and devious by nature, getting by in life with half-truths, stealth, and deception. You have a talent for going unnoticed, tricking others, or getting into places you otherwise shouldn’t be able to.",
+        "traits": ["Awareness", "Stealth", "Sleight of Hand", "Lie to Your Face", "Pickpocket", "Cunning", "Break & Enter"],
+        "flaws": ["Shifty-looking", "Greedy", "Cynical", "Powerful Enemy"],
+        "gear": ["Dark Clothing"],
+        "advantages": [
+            {
+                "name": "One With Shadows",
+                "description": "Whether by natural talent or an affinity with the Pattern, you become virtually undetectable when you remain perfectly still in the shadows, even to mechanical aids such as night-vision goggles and infrared cameras."
+            },
+            {
+                "name": "Natural Born Liar",
+                "description": "When you lie to or deceive someone, roll with Mastery."
+            },
+            {
+                "name": "Sneak Attack",
+                "description": "When you attempt a Take-Down on an unaware target, roll with Mastery."
+            }
+        ]
+    },
+    {
+        "name": "Tainted",
+        "source": "Tomorrow City",
+        "type": "Descriptor",
+        "description": "Exposure to radium, serums, or other chemicals has left you permanently changed. This might be subtle, or could manifest as horrible boils, glowing eyes, or dark pulsing veins.",
+        "traits": ["Tough", "Serum Expert", "Intimidate", "Identify Toxins", "Stealthy", "Notice"],
+        "flaws": ["Frightful Appearance", "Poor Eyesight", "Cynical", "Hates Scientists", "Glows in the Dark"],
+        "gear": ["Concealing Clothes", "Syringe and Glass Vial"],
+        "advantages": [
+            {
+                "name": "Toxin Resistance",
+                "description": "You can spend a Moxie point to clear the Poisoned Condition as a Free Action. In addition, serum side effects with a random duration last half as long as usual (rounding down)."
+            },
+            {
+                "name": "Toxic Blood",
+                "description": "Your blood is either acidic or poisonous (choose when you take this Advantage). You can suffer 1 Damage to draw a vial of blood to use as a tool. Anything that bites you suffers 1 Damage."
+            },
+            {
+                "name": "Mutation",
+                "description": "You have one of the following obvious physical mutations that grants you a bonus Action Die when appropriate:\n- Cat’s Eyes: You have excellent night vision.\n- Gills: You can breathe under water.\n- Huge Ears: You have excellent hearing.\n- Scorched Skin: You have the Resistance (Fire) Tag."
+            }
+        ]
+    },
+    {
+        "name": "Apothecary",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "Part doctor, part alchemist, you are an expert at making serums, tinctures, and salves that enhance a user’s skills or abilities. You work the streets or from hidden laboratories, dispensing aid to whoever needs it.",
+        "traits": ["Serum Expert", "Medicine", "Science", "Poison Expert", "Research", "First Aid", "Forensics", "Calm Under Pressure"],
+        "flaws": ["Soft-hearted", "Blunt", "Squeamish", "Serious Debt"],
+        "gear": ["Surgical Mask", "Syringe", "Doctor’s Bag"],
+        "advantages": [
+            {
+                "name": "Fully Stocked",
+                "description": "You begin a Job with a number of free Serum Spikers equal to your starting Cred. Each is fully stocked with serums."
+            },
+            {
+                "name": "Brewmeister",
+                "description": "During a Rest, or when you have time to work, you can attempt to brew up a specific serum, poison, acid, or similar product. The Danger Rating is equal to the Cost of the chosen serum or tool, and can be further modified by circumstances as normal. A successful Check creates D3 doses. Boons can increase the total doses by +1, or may have other effects."
+            },
+            {
+                "name": "Combat Medic",
+                "description": "When you heal yourself or someone else, roll with Mastery."
+            }
+        ]
+    },
+    {
+        "name": "Aviator",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You’re a pilot, airman, or dirigible sailor. As a veteran of air combat and a bold aviator, you are at home soaring through the skies in anything that can get you there.",
+        "traits": ["Skilled Pilot", "Dogfighting", "Stunt Flying", "Repair", "Dirigibles", "Gunnery", "Quick Reflexes", "Brave"],
+        "flaws": ["Reckless", "Arrogant", "Major Debts", "Dangerous Rival"],
+        "gear": ["Aviator’s Jacket", "Goggles"],
+        "advantages": [
+            {
+                "name": "Aircraft",
+                "description": "You own (or have access to) a Cost 3 dirigible or aircraft, such as a Sky Cab or Stormwind Fighter. If this is damaged or destroyed, you can repair or replace it during Downtime. You may select this Advantage a second time, increasing the value of your personal craft to Cost 5."
+            },
+            {
+                "name": "Dogfighter",
+                "description": "When you make a Manoeuvre Check during dogfights, roll with Mastery."
+            },
+            {
+                "name": "Brace! Brace! Brace!",
+                "description": "You always have time to bail out from a damaged or destroyed vehicle. In addition, when you do, you can spend a Moxie point to survive completely unscathed – tell everyone how you managed this!"
+            }
+        ]
+    },
+    {
+        "name": "Crook",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You are a grifter, thief, or petty criminal, skilled at breaking the law to achieve your goals. You deal in the illicit and have probably been locked up at least once.",
+        "traits": ["Spot Trouble", "Stealthy", "Break & Enter", "Climb", "Criminal Underworld", "Safecracking", "Sleight of Hand"],
+        "flaws": ["Wanted by the Ministry of Peace", "Huge Debts", "Shifty-looking", "Brand (or other mark of a criminal)"],
+        "gear": ["Rumpled Clothes", "Knife"],
+        "advantages": [
+            {
+                "name": "Expert Entry",
+                "description": "When you make a Check to pick locks, override security, or break and enter, roll with Mastery."
+            },
+            {
+                "name": "Easy Mark",
+                "description": "If you have time to observe a target, their habits, and their routines, you can learn a secret or weakness. Gain +1 Action Die when exploiting this weakness."
+            },
+            {
+                "name": "Rogue’s Gallery",
+                "description": "You have met, worked with, and maybe informed on a lot of bad guys. When you encounter a new villain or criminal, you may declare that you have history with them. The GM decides what that history is and how they feel about you."
+            }
+        ]
+    },
+    {
+        "name": "Engineer",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You are a mechanic, grease monkey, demolitions expert, or roughneck responsible for maintaining and repairing city infrastructure, airship engines, or other large machinery.",
+        "traits": ["Repair", "Jury-rig", "Engineering", "Demolitions", "Vehicle Maintenance", "Endurance", "Disable Device"],
+        "flaws": ["Always Filthy", "Blunt", "Butterfingers", "Secretly Worships Moloch"],
+        "gear": ["Dirty Overalls", "Hard Hat", "Headlamp", "Tool Belt"],
+        "advantages": [
+            {
+                "name": "Grease Monkey",
+                "description": "When you attempt to repair or disable vehicles and machines, roll with Mastery."
+            },
+            {
+                "name": "Wreck It",
+                "description": "When you use a Focused Action to attack a vehicle, robot, or automaton, a successful Check deals +1 Damage."
+            },
+            {
+                "name": "Demolitionist",
+                "description": "When using an explosive, you can spend a Moxie point to add one of the following Tags to it: Anti-Material, Electro, Fire, Huge Blast, Radio Detonator, Stun, or Timer."
+            }
+        ]
+    },
+    {
+        "name": "Gadgeteer",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "Part scientist, part engineer, you are a natural at building, repairing, and inventing things. There isn’t a machine you can’t fix or a problem you cannot solve with a little time and a custom-built gadget.",
+        "traits": ["Smart", "Notice", "Robots", "Science", "Repair", "Problem-solving", "Disable Devices", "Gunsmith"],
+        "flaws": ["A Little Too Curious", "Jittery", "Absent-minded", "Better With Machines Than People"],
+        "gear": ["Utility Belt", "Half-finished Blueprints"],
+        "advantages": [
+            {
+                "name": "Inventor",
+                "description": "When you have the time and space to work, and materials to work with, you can build weapons, tools, or new devices. This requires a Check with a base Danger Rating equal to the gear’s Cost. Boons can add more Tags or reduce the build time. A particular success might mean the gadget is free or has a negative Tag, such as Unreliable, One Use, or Dangerous. The base construction time is one hour per point of Cost (so a Cost 2 item will require at least two hours to build)."
+            },
+            {
+                "name": "Gadgets",
+                "description": "As a Free Action, you can spend a Moxie point to declare you have a small, useful item of gear with up to one Tag. The item rarely lasts for long."
+            },
+            {
+                "name": "Bot Builder",
+                "description": "You begin with a single free robot with a Cost equal to your Cred +1. Robots you purchase cost 1 Cred less (to a minimum of 1)."
+            }
+        ]
+    },
+    {
+        "name": "Gargoyle",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You are a vigilante and defender of the weak, haunting the night on the prowl for trouble. You mete out justice where there might otherwise be none.",
+        "traits": ["Stealthy", "Brawl", "Climb", "Awareness", "Investigate", "Shoot", "Dodge", "Intimidate"],
+        "flaws": ["Cynical", "Cold-hearted", "Soft-hearted", "Old Injury"],
+        "gear": ["Baton", "Dark Clothes"],
+        "advantages": [
+            {
+                "name": "Mask",
+                "description": "You wear a frightening Gargoyle Mask. If lost or broken, you can spend a Moxie point during a Rest to repair or replace it.\n\n- Gargoyle Mask: Night Vision, Intimidating, Immunity (Gas)"
+            },
+            {
+                "name": "Whirlwind Attack",
+                "description": "You never suffer a penalty for being outnumbered in close combat. In addition, when fighting Mooks in close combat, gain +1 Action Die."
+            },
+            {
+                "name": "Fear Itself",
+                "description": "When you make a Check to intimidate or frighten someone, roll with Mastery."
+            }
+        ]
+    },
+    {
+        "name": "Gumshoe",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You dig the dirt, find the clues, and seek answers to things that some people would prefer you left alone. You are a private investigator and troubleshooter.",
+        "traits": ["Investigate", "Notice", "Interrogate", "Law", "Follow Leads", "Human Lie Detector", "Brawl", "Shoot"],
+        "flaws": ["Personal Code", "Hard Drinker", "Blunt", "Old Injury"],
+        "gear": ["Trench Coat", "Private Investigator’s License"],
+        "advantages": [
+            {
+                "name": "Just One More Thing",
+                "description": "When you seek information by questioning or interrogating someone, roll with Mastery."
+            },
+            {
+                "name": "Tarnished Badge",
+                "description": "You have close ties to or a helpful contact in the Badges. You can leverage this relationship to learn a piece of inside information, look at reports, get into crime scenes, or even speak to prisoners. There may be a price to pay."
+            },
+            {
+                "name": "Hardboiled",
+                "description": "You’re tough as old boots. You can spend a Moxie point to ignore the effects of a single Injury for the remainder of a Scene."
+            }
+        ]
+    },
+    {
+        "name": "Muckraker",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You’re a reporter, agitator, or neighborhood gossip. You sway opinion, reveal unwanted truths, and inform on current events by digging-up evidence.",
+        "traits": ["Interrogate", "Spin a Tale", "Detect Lies", "Keeps an Eye on the Telecreens", "Investigate", "Persuade", "Notice", "Gossip", "Knows the Ministry of Truth’s Tricks"],
+        "flaws": ["A Little Too Curious", "Reputation for Lying", "Stubborn", "Wanted by the Ministry of Truth"],
+        "gear": ["Notepad and Pen", "Press Pass"],
+        "advantages": [
+            {
+                "name": "Cam-bot",
+                "description": "You have a small spider-legged robot with a camera that can record or project up to 60 seconds of footage (no sound) or send a live signal back to a connected telescreen. If lost or broken, it can be replaced or repaired during Downtime.\n\n- Cam-bot: Small Typical robot (p.117), Record, Project, Climb."
+            },
+            {
+                "name": "Rumour Mill",
+                "description": "When you have time to Rest, you can spread rumours, gossip, and lies instead of healing. On a successful Check, people in a nominated neighborhood believe this information. Boons can increase the number of neighborhoods influenced."
+            },
+            {
+                "name": "People Reader",
+                "description": "When you attempt to determine if a target is lying or their attitude or motivations, roll with Mastery."
+            }
+        ]
+    },
+    {
+        "name": "Scrapper",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You’re a professional fighter, making your living with your fists. You take work where you can get it, competing in the underground fight circuits, bodyguarding the rich and powerful, or doing dirty jobs for dangerous people.",
+        "traits": ["Brawl", "Disarm", "Grapple", "Threaten with Violence", "Dodge a Blow", "Spot a Weakness", "Fight Dirty", "First Aid"],
+        "flaws": ["Soft-hearted", "Blunt", "Squeamish", "Serious Debt", "Criminal Record", "Old Injury"],
+        "gear": ["Boxing Gloves", "Gym Bag"],
+        "advantages": [
+            {
+                "name": "Thumpers",
+                "description": "You are equipped with diesel-powered fighting fists known as Thumpers. If the Thumpers are lost or destroyed, you can repair or replace them during Downtime.\n\n- Thumpers: Powerful, Parry, Demolish Stuff. Choose one of the following Tags for free: Deadly, Electro, Fractal (and Rare), Rapid Fire, or Stun (and Non-Lethal)."
+            },
+            {
+                "name": "Assess An Enemy",
+                "description": "If you spend a Focused Action watching a living opponent, you can identify a weak spot. You roll with Mastery on close combat attacks made against them for the remainder of the Scene or until you assess a new target."
+            },
+            {
+                "name": "Brawler",
+                "description": "When engaged in close combat, you can spend a Moxie Point to make one bonus attack Action in a Turn."
+            }
+        ]
+    },
+    {
+        "name": "Sharpshooter",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You are a gunslinger, sniper, or trick shooter. You are familiar with all manner of firearms and can hit a target at a hundred paces while blindfolded.",
+        "traits": ["Shoot", "Gunnery", "Trick Shot", "Take Cover", "Hide", "Awareness", "Pistols", "Long Shots"],
+        "flaws": ["Show-off", "Bloodthirsty", "Nightmares", "Shaky Hand"],
+        "gear": ["Trench Coat", "Bandolier of Bullets"],
+        "advantages": [
+            {
+                "name": "Special Ammo",
+                "description": "You may spend a Moxie point to load a ranged weapon with special ammo. This lets you add one of the following Tags to the weapon: Accurate, Deadly, Stun, Electro, or Fire. The special ammo lasts until the Scene ends. You decide to load a different special ammo, or you Botch a roll with the weapon."
+            },
+            {
+                "name": "Ricochet",
+                "description": "When making a shooting attack, you may bounce a projectile off hard surfaces. Add +1 Danger Die for each surface you bounce off."
+            },
+            {
+                "name": "Guns Akimbo",
+                "description": "When you shoot with two pistols at the same time, roll with +1 Action Die and deal +1 Damage on a successful attack."
+            }
+        ]
+    },
+    {
+        "name": "Sky Ranger",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You are or were a member of the Sky Ranger Corps; elite warriors who literally flew into the action. You utilise shock and awe to overcome enemies and diffuse situations before they can escalate further.",
+        "traits": ["Duck & Dive", "Swoop", "Shoot", "Brawl", "Pilot", "Breach", "Restrain", "Shock & Awe"],
+        "flaws": ["Overconfident", "Old Injury", "Show-off"],
+        "gear": ["Flight Suit", "Sky Ranger Helmet", "Trench Dagger (counts as a Knife)"],
+        "advantages": [
+            {
+                "name": "Rocket Pack",
+                "description": "You are equipped with a sophisticated rocket pack. If it is lost or damaged, you can repair or replace it during Downtime.\n\n- Rocket Pack: Fly, Fast, Agile, Noisy."
+            },
+            {
+                "name": "Dynamic Entry",
+                "description": "When you enter a room, vehicle, or aircraft with force, any enemies present count as surprised for the first Turn of combat."
+            },
+            {
+                "name": "The High Ground",
+                "description": "When you attack a target from above, roll with Mastery."
+            }
+        ]
+    },
+    {
+        "name": "Veteran",
+        "source": "Tomorrow City",
+        "type": "Occupation",
+        "description": "You saw action during The Long War, probably posted to the front, and bore witness to unspeakable horrors. You are a seasoned soldier and weary veteran.",
+        "traits": ["Shoot", "Fight", "Warfare", "Endurance", "Command", "Drive", "Take Cover", "Run"],
+        "flaws": ["Thousand-yard Stare", "The Shakes", "Nightmares", "Bloodthirsty", "Detached"],
+        "gear": ["Tattered Uniform", "Worthless Medals"],
+        "advantages": [
+            {
+                "name": "Trench Life",
+                "description": "Used to catching some shut eye wherever you can, you gain the benefits of a Rest in just three hours."
+            },
+            {
+                "name": "Serum Soldier",
+                "description": "Soldiers were encouraged to take whatever they had to keep them in fighting condition. Increase the duration of serum effects by +1. Side effect duration is not altered. In addition, you begin each Job with one free Serum Spiker filled with serums."
+            },
+            {
+                "name": "Armour Optimisation",
+                "description": "At the start of a Mission, after you gear up, you may add one of the following Tags to a piece of armour you are equipped with: Resistant (Fire), Resistant (Electro), Immune (Gas), +1 Armour. You may select this Advantage up to three times."
+            }
+        ]
+    },
+    {
+        "name": "Aberration Tracer",
+        "source": "Tomorrow City",
+        "type": "Pattern Weaver",
+        "description": "Part bounty hunter, part killer, you are committed to hunting down and destroying manifestations of the Pattern. You have honed your skills to track and destroy, particularly aberrations and dangerous Pattern users.",
+        "traits": ["Detect the Pattern", "Manifest the Pattern", "Fight Aberrations", "Track Aberrations", "Resist the Pattern", "Brawl", "Shoot", "Aberration Weaknesses"],
+        "flaws": ["Beacon to Aberrations", "Cynical", "Bloodthirsty", "Self-righteous"],
+        "gear": ["Knife", "Rugged Clothes"],
+        "advantages": [
+            {
+                "name": "Fractal Blade",
+                "description": "You can manifest a blade of Pattern energy with a thought, as a Free Action. Taking this Advantage a second time allows you to spend a Moxie point to give a weapon you can see the Fractal Tag for the remainder of the scene.\n\n- Fractal Blade: Parry, Fractal, Powerful, Concealed."
+            },
+            {
+                "name": "Barren",
+                "description": "You can make a Check to create a field where Pattern energy is suppressed. A success creates a field out to Close range around you, and Boons can increase its size or have other effects. Aberrations in the barren field reduce their Danger Rating by one. The field requires a Free Action to maintain each Turn."
+            },
+            {
+                "name": "Pattern Tracing",
+                "description": "When you make a Check to detect the Pattern, follow the trail of Aberrations, or navigate areas warped by the Pattern, roll with Mastery."
+            }
+        ]
+    },
+    {
+        "name": "Metaphysical Geometrist",
+        "source": "Tomorrow City",
+        "type": "Pattern Weaver",
+        "description": "You have explored the city and uncovered the secret paths of the Pattern as it flows through the mortar of buildings, or the spaces between lamp posts. You have learned to move and interact with the world in seemingly impossible ways.",
+        "traits": ["Detect the Pattern", "Manifest the Pattern", "Analyze a Room", "City History", "Secret Paths", "Architecture", "Direction Sense", "Find a Shortcut", "Manipulate the Pattern"],
+        "flaws": ["Fastidious", "Nervous", "Shy", "Weird Vibes", "Easily Distracted"],
+        "gear": ["City Map", "Flashlight"],
+        "advantages": [
+            {
+                "name": "Destination Anywhere",
+                "description": "Before you open a door, you can declare it leads to a room, hallway, or other space familiar to you. The destination must have a door you can enter through. On a successful Check, you are correct and, while the door remains open, you (and others) can step between the locations, no matter the distance between them. Less familiar destinations and places far away are harder to connect."
+            },
+            {
+                "name": "Tesseract",
+                "description": "With a thought, you can open a trans-dimensional space about the size of a small safe or lockbox. You can store and retrieve small items from the tesseract as necessary. Whenever you retrieve an item, roll a D6; on a 1, the space also exits the box. Anything stored in the tesseract exists out of time and space and does not decay or grow old. You may select this Advantage a second time, increasing the size of the tesseract to that of a small closet."
+            },
+            {
+                "name": "Four-dimensional Vision",
+                "description": "Spend a Moxie point to see through the walls of buildings as if you had X-Ray vision. Lasts for up to 1 minute."
+            }
+        ]
+    },
+    {
+        "name": "Symbolist",
+        "source": "Tomorrow City",
+        "type": "Pattern Weaver",
+        "description": "You have learned to manipulate the Pattern through symbols, images, and writing, forcing it to your will. You use these skills to fashion glyphs and marks that benefit or harm others, to change the way objects work, and to interpret symbols and writing.",
+        "traits": ["Detect the Pattern", "Manifest the Pattern", "Resist the Pattern", "Lock & Unlock Things", "Cyphers", "Read Foreign Languages"],
+        "flaws": ["Fastidious", "Obsessive", "Cautious"],
+        "gear": ["Chalk", "Fountain Pen", "Book of Glyphs"],
+        "advantages": [
+            {
+                "name": "Glyph",
+                "description": "You draw a complex symbol on an item of gear or other object, imbuing it with a little Pattern energy. On a successful Check, the item gains one Tag of your choice which will last for up to one Scene. Boons can add more Tags, increase the duration, or have other effects. Tags can be any descriptive effect (such as Locked, Strong, Weakened, Glowing, etc.) or an actual gear Tag."
+            },
+            {
+                "name": "Symbol of Protection",
+                "description": "You can use a Free Action to draw a shield of Pattern energy, granting you one of the following Tags until the beginning of your next Turn: Deflect, Parry, Resistant (Fire), Resistant (Electro). You may spend Moxie to apply additional Tags, one-for-one."
+            },
+            {
+                "name": "Fabricated Image",
+                "description": "You can make a Check to draw an image of an inanimate object on a wall, floor, or other surface. On a success, the drawing takes on a realistic appearance, good enough to pass a cursory glance. Boons can be used to improve the detail or realism, while partial successes indicate the drawing took a long time or has some obvious flaw. The illusion lasts until interacted with or inspected closely."
+            }
+        ]
+    },
+    {
+        "name": "Weird",
+        "source": "Tomorrow City",
+        "type": "Pattern Weaver",
+        "description": "You have a strange affinity with the Pattern and the way it flows around and between people. This gives you uncanny insight into the actions of others but often makes you seem different from the world around you.",
+        "traits": ["Detect the Pattern", "Manifest the Pattern", "Summon Aberrations", "Awareness", "Empathy", "Direction Sense", "Resist the Pattern", "Unsettling Stare", "Alert to Danger"],
+        "flaws": ["Uncomfortable Stare", "Daydreamer", "Creepy Vibes", "Unsettling Aura"],
+        "gear": ["Notebook and pencil"],
+        "advantages": [
+            {
+                "name": "Jinx",
+                "description": "If you have no Moxie points, you may gain one when another player's Check creates Pressure."
+            },
+            {
+                "name": "Pattern Reading",
+                "description": "As a Focused Action, you can make a Check to see and read the Pattern as it flows around a living target. On a success, you gain insight into their current mood, motivations, attitude, or intentions. This knowledge comes to you as impressions of colour, shapes, and feelings and better rolls reveal clearer information."
+            },
+            {
+                "name": "Phase Imp",
+                "description": "You have bonded to an impulsive and chaotic aberration, no larger than your hand. The imp has animal intelligence, Grit 2 and one Tag from the following list: Distracting, Fast, Fly, Impossibly Thin, Sharp Edges, Tough. If you concentrate, you can see through the imp’s eyes, but it doesn’t like it. If the imp dies you suffer the Weakened Condition. You may summon and bond with a new imp during Downtime."
+            }
+        ]
+    }    
+    ]
+}

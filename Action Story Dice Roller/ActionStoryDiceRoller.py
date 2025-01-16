@@ -102,8 +102,8 @@ def roll_dice(n):
 
 # Main application setup
 root = tk.Tk()
-root.title("Dice Roller")
-root.geometry("500x400")
+root.title("Action Story Dice Roller")
+root.geometry("350x350")
 
 # Style Configuration
 style = ttk.Style()
