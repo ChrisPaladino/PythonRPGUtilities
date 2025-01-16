@@ -1,9 +1,13 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
+import os
 
-# Load JSON Data
-JSON_PATH = "data/trademarks.json"
+# Set up relative paths
+script_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_dir)
+JSON_PATH = os.path.join(script_dir, "data", "trademarks.json")
+
 def load_trademarks():
     try:
         with open(JSON_PATH, "r") as file:
@@ -57,26 +61,37 @@ class TrademarkManagerApp:
 
     def populate_trademark_list(self):
         self.trademark_listbox.delete(0, tk.END)
-        for trademark in trademarks_data["trademarks"]:
-            self.trademark_listbox.insert(tk.END, trademark["name"])
+        sorted_trademarks = sorted(
+            trademarks_data["trademarks"],
+            key=lambda t: (t["source"], t["type"], t["name"])
+        )
+        for trademark in sorted_trademarks:
+            display_text = f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
+            self.trademark_listbox.insert(tk.END, display_text)
 
     def filter_trademarks(self, event):
         query = self.search_entry.get().lower()
         self.trademark_listbox.delete(0, tk.END)
-        for trademark in trademarks_data["trademarks"]:
-            if query in trademark["name"].lower() or any(query in field.lower() for field in [
-                " ".join(trademark.get("traits", [])),
-                " ".join(trademark.get("flaws", [])),
-                " ".join(trademark.get("gear", []))
-            ]):
-                self.trademark_listbox.insert(tk.END, trademark["name"])
+        sorted_trademarks = sorted(
+            trademarks_data["trademarks"],
+            key=lambda t: (t["source"], t["type"], t["name"])
+        )
+        for trademark in sorted_trademarks:
+            display_text = f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
+            if query in display_text.lower():
+                self.trademark_listbox.insert(tk.END, display_text)
 
     def view_trademark_details(self, event):
         selected = self.trademark_listbox.curselection()
         if selected:
-            trademark_name = self.trademark_listbox.get(selected)
+            selected_text = self.trademark_listbox.get(selected)
+            source, type_, name = map(str.strip, selected_text.split(":", 2))
             for trademark in trademarks_data["trademarks"]:
-                if trademark["name"] == trademark_name:
+                if (
+                    trademark["source"] == source
+                    and trademark["type"] == type_
+                    and trademark["name"] == name
+                ):
                     self.display_trademark(trademark)
                     break
 
