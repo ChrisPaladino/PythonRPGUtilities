@@ -15,6 +15,8 @@ def determine_result(remaining_action_dice):
                 return "Success"
         elif highest_action_die in (4, 5):
             return "Partial Success"
+        elif highest_action_die == 1:
+            return "BOTCH"
         else:
             return "Failure"
 

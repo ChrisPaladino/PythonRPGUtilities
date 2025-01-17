@@ -30,11 +30,11 @@
         "description": "You grew up in the gutters of the metropolis or the shanties of Underside. Your life has been hard and has honed your survival instincts.",
         "traits": ["Awareness", "Sneak", "Pickpockets", "Run", "Streetwise", "Underside", "Brawl"],
         "flaws": ["Shifty Eyes", "Always Filthy", "Steals Food", "Nervous Disposition"],
-        "gear": ["Filthy Clothes", "Knife", "Someone’s Tooth"],
+        "gear": ["Filthy Clothes", "Knife", "Someone's Tooth"],
         "advantages": [
             {
                 "name": "Scrounge",
-                "description": "When you Rest, instead of healing, you can declare that you are looking for a specific piece of gear. Roll a D3 – if the result is higher than the item’s Cost, you find it."
+                "description": "When you Rest, instead of healing, you can declare that you are looking for a specific piece of gear. Roll a D3 – if the result is higher than the item's Cost, you find it."
             },
             {
                 "name": "Filthy Urchins",
@@ -50,7 +50,7 @@
         "name": "Skyriser",
         "source": "Tomorrow City",
         "type": "Background",
-        "description": "You are a member of the city’s elite, born into privilege and able to take advantage of all that entails. You were born to rule and raised to believe that the poor need to toil for their own benefit.",
+        "description": "You are a member of the city's elite, born into privilege and able to take advantage of all that entails. You were born to rule and raised to believe that the poor need to toil for their own benefit.",
         "traits": ["High Society", "Impeccable Style", "Well-educated", "Bureaucracy", "Inner City", "Healthy", "Eye for Detail", "Make Commands Not Requests"],
         "flaws": ["Arrogant", "Black Sheep", "Soft-looking", "Imposter"],
         "gear": ["Expensive Clothes", "Cheque Book", "Gold Watch"],
@@ -73,14 +73,14 @@
         "name": "Wastelander",
         "source": "Tomorrow City",
         "type": "Background",
-        "description": "You’re not from around here. You have lived a difficult life in the harsh wastelands, the sodden swamps beneath the city, or some distant land. You are obviously out of place, but sometimes that is an advantage.",
+        "description": "You're not from around here. You have lived a difficult life in the harsh wastelands, the sodden swamps beneath the city, or some distant land. You are obviously out of place, but sometimes that is an advantage.",
         "traits": ["Awareness", "Survival", "Endurance", "Hunting", "Shoot", "Wastelands", "Dodge"],
         "flaws": ["Rough Around the Edges", "Naive", "Wide-eyed Stare", "Uncouth", "Illiterate"],
         "gear": ["Strange Clothes", "Pocket of Odd Knickknacks"],
         "advantages": [
             {
                 "name": "Obvious Outsider",
-                "description": "When you behave weirdly in polite company or are caught somewhere you shouldn’t be or doing something you shouldn’t do, city folk are quick to believe it is because of your wild background and ignorance. Gain +1 Action Die on Checks to convince them so."
+                "description": "When you behave weirdly in polite company or are caught somewhere you shouldn't be or doing something you shouldn't do, city folk are quick to believe it is because of your wild background and ignorance. Gain +1 Action Die on Checks to convince them so."
             },
             {
                 "name": "Stalk",
@@ -88,7 +88,7 @@
             },
             {
                 "name": "Animal Companion",
-                "description": "You have a small, loyal pet such as a rat, raven, ferret, or cat. You may or may not be able to control the animal. The animal companion is treated as an NPC with Grit 2, the Small Tag and two other Tags of your choice. If it is killed, you suffer the Shaken Condition. You may find and train a new pet during Downtime."
+                "description": "You have a small, loyal pet such as a rat, raven, ferret, or cat. You may or may not be able to control the animal. The animal companion is treated as an NPC with Grit 2, the Small Tag and two other Tags of your choice. If it is killed, you suffer the Shaken Condition. You may find and train a new pet during Downtime.\n\nExample animal companions:\n- Rat: Grit 2, Small, Quiet, Bite\n- Crow: Grit 2, Small, Fly, Alert\n-Cat: Grit 2, Small, Climb, Silent"
             }
         ]
     },
@@ -126,7 +126,7 @@
         "advantages": [
             {
                 "name": "Inspiring",
-                "description": "Once per Scene, after successfully making a Check, you may spend any Boons generated to give other characters Moxie points (one for one). This cannot increase a character’s Moxie point total beyond their starting maximum. You cannot inspire yourself."
+                "description": "Once per Scene, after successfully making a Check, you may spend any Boons generated to give other characters Moxie points (one for one). This cannot increase a character's Moxie point total beyond their starting maximum. You cannot inspire yourself."
             },
             {
                 "name": "Steely",
@@ -236,7 +236,7 @@
         "type": "Descriptor",
         "description": "You are big, muscular, and very strong. You can easily lift great weights and regularly engage in physically demanding tasks. While you are tough and strong, you are sometimes not the most graceful of individuals.",
         "traits": ["Strong", "Dead Lift", "Smash Things", "Tough as Nails", "Fists like Iron", "Intimidate", "Endurance"],
-        "flaws": ["Clumsy", "Graceless", "Don’t Fit into Regular Clothes", "Two Left Feet"],
+        "flaws": ["Clumsy", "Graceless", "Don't Fit into Regular Clothes", "Two Left Feet"],
         "gear": ["Poorly Fitting Clothes", "Club"],
         "advantages": [
             {
@@ -303,7 +303,7 @@
         "name": "Sneaky",
         "source": "Tomorrow City",
         "type": "Descriptor",
-        "description": "You are sly and devious by nature, getting by in life with half-truths, stealth, and deception. You have a talent for going unnoticed, tricking others, or getting into places you otherwise shouldn’t be able to.",
+        "description": "You are sly and devious by nature, getting by in life with half-truths, stealth, and deception. You have a talent for going unnoticed, tricking others, or getting into places you otherwise shouldn't be able to.",
         "traits": ["Awareness", "Stealth", "Sleight of Hand", "Lie to Your Face", "Pickpocket", "Cunning", "Break & Enter"],
         "flaws": ["Shifty-looking", "Greedy", "Cynical", "Powerful Enemy"],
         "gear": ["Dark Clothing"],
@@ -341,7 +341,7 @@
             },
             {
                 "name": "Mutation",
-                "description": "You have one of the following obvious physical mutations that grants you a bonus Action Die when appropriate:\n- Cat’s Eyes: You have excellent night vision.\n- Gills: You can breathe under water.\n- Huge Ears: You have excellent hearing.\n- Scorched Skin: You have the Resistance (Fire) Tag."
+                "description": "You have one of the following obvious physical mutations that grants you a bonus Action Die when appropriate:\n- Cat's Eyes: You have excellent night vision.\n- Gills: You can breathe under water.\n- Huge Ears: You have excellent hearing.\n- Scorched Skin: You have the Resistance (Fire) Tag."
             }
         ]
     },
@@ -349,10 +349,10 @@
         "name": "Apothecary",
         "source": "Tomorrow City",
         "type": "Occupation",
-        "description": "Part doctor, part alchemist, you are an expert at making serums, tinctures, and salves that enhance a user’s skills or abilities. You work the streets or from hidden laboratories, dispensing aid to whoever needs it.",
+        "description": "Part doctor, part alchemist, you are an expert at making serums, tinctures, and salves that enhance a user's skills or abilities. You work the streets or from hidden laboratories, dispensing aid to whoever needs it.",
         "traits": ["Serum Expert", "Medicine", "Science", "Poison Expert", "Research", "First Aid", "Forensics", "Calm Under Pressure"],
         "flaws": ["Soft-hearted", "Blunt", "Squeamish", "Serious Debt"],
-        "gear": ["Surgical Mask", "Syringe", "Doctor’s Bag"],
+        "gear": ["Surgical Mask", "Syringe", "Doctor's Bag"],
         "advantages": [
             {
                 "name": "Fully Stocked",
@@ -372,10 +372,10 @@
         "name": "Aviator",
         "source": "Tomorrow City",
         "type": "Occupation",
-        "description": "You’re a pilot, airman, or dirigible sailor. As a veteran of air combat and a bold aviator, you are at home soaring through the skies in anything that can get you there.",
+        "description": "You're a pilot, airman, or dirigible sailor. As a veteran of air combat and a bold aviator, you are at home soaring through the skies in anything that can get you there.",
         "traits": ["Skilled Pilot", "Dogfighting", "Stunt Flying", "Repair", "Dirigibles", "Gunnery", "Quick Reflexes", "Brave"],
         "flaws": ["Reckless", "Arrogant", "Major Debts", "Dangerous Rival"],
-        "gear": ["Aviator’s Jacket", "Goggles"],
+        "gear": ["Aviator's Jacket", "Goggles"],
         "advantages": [
             {
                 "name": "Aircraft",
@@ -409,7 +409,7 @@
                 "description": "If you have time to observe a target, their habits, and their routines, you can learn a secret or weakness. Gain +1 Action Die when exploiting this weakness."
             },
             {
-                "name": "Rogue’s Gallery",
+                "name": "Rogue's Gallery",
                 "description": "You have met, worked with, and maybe informed on a lot of bad guys. When you encounter a new villain or criminal, you may declare that you have history with them. The GM decides what that history is and how they feel about you."
             }
         ]
@@ -441,14 +441,14 @@
         "name": "Gadgeteer",
         "source": "Tomorrow City",
         "type": "Occupation",
-        "description": "Part scientist, part engineer, you are a natural at building, repairing, and inventing things. There isn’t a machine you can’t fix or a problem you cannot solve with a little time and a custom-built gadget.",
+        "description": "Part scientist, part engineer, you are a natural at building, repairing, and inventing things. There isn't a machine you can't fix or a problem you cannot solve with a little time and a custom-built gadget.",
         "traits": ["Smart", "Notice", "Robots", "Science", "Repair", "Problem-solving", "Disable Devices", "Gunsmith"],
         "flaws": ["A Little Too Curious", "Jittery", "Absent-minded", "Better With Machines Than People"],
         "gear": ["Utility Belt", "Half-finished Blueprints"],
         "advantages": [
             {
                 "name": "Inventor",
-                "description": "When you have the time and space to work, and materials to work with, you can build weapons, tools, or new devices. This requires a Check with a base Danger Rating equal to the gear’s Cost. Boons can add more Tags or reduce the build time. A particular success might mean the gadget is free or has a negative Tag, such as Unreliable, One Use, or Dangerous. The base construction time is one hour per point of Cost (so a Cost 2 item will require at least two hours to build)."
+                "description": "When you have the time and space to work, and materials to work with, you can build weapons, tools, or new devices. This requires a Check with a base Danger Rating equal to the gear's Cost. Boons can add more Tags or reduce the build time. A particular success might mean the gadget is free or has a negative Tag, such as Unreliable, One Use, or Dangerous. The base construction time is one hour per point of Cost (so a Cost 2 item will require at least two hours to build)."
             },
             {
                 "name": "Gadgets",
@@ -490,7 +490,7 @@
         "description": "You dig the dirt, find the clues, and seek answers to things that some people would prefer you left alone. You are a private investigator and troubleshooter.",
         "traits": ["Investigate", "Notice", "Interrogate", "Law", "Follow Leads", "Human Lie Detector", "Brawl", "Shoot"],
         "flaws": ["Personal Code", "Hard Drinker", "Blunt", "Old Injury"],
-        "gear": ["Trench Coat", "Private Investigator’s License"],
+        "gear": ["Trench Coat", "Private Investigator's License"],
         "advantages": [
             {
                 "name": "Just One More Thing",
@@ -502,7 +502,7 @@
             },
             {
                 "name": "Hardboiled",
-                "description": "You’re tough as old boots. You can spend a Moxie point to ignore the effects of a single Injury for the remainder of a Scene."
+                "description": "You're tough as old boots. You can spend a Moxie point to ignore the effects of a single Injury for the remainder of a Scene."
             }
         ]
     },
@@ -510,8 +510,8 @@
         "name": "Muckraker",
         "source": "Tomorrow City",
         "type": "Occupation",
-        "description": "You’re a reporter, agitator, or neighborhood gossip. You sway opinion, reveal unwanted truths, and inform on current events by digging-up evidence.",
-        "traits": ["Interrogate", "Spin a Tale", "Detect Lies", "Keeps an Eye on the Telecreens", "Investigate", "Persuade", "Notice", "Gossip", "Knows the Ministry of Truth’s Tricks"],
+        "description": "You're a reporter, agitator, or neighborhood gossip. You sway opinion, reveal unwanted truths, and inform on current events by digging-up evidence.",
+        "traits": ["Interrogate", "Spin a Tale", "Detect Lies", "Keeps an Eye on the Telecreens", "Investigate", "Persuade", "Notice", "Gossip", "Knows the Ministry of Truth's Tricks"],
         "flaws": ["A Little Too Curious", "Reputation for Lying", "Stubborn", "Wanted by the Ministry of Truth"],
         "gear": ["Notepad and Pen", "Press Pass"],
         "advantages": [
@@ -533,7 +533,7 @@
         "name": "Scrapper",
         "source": "Tomorrow City",
         "type": "Occupation",
-        "description": "You’re a professional fighter, making your living with your fists. You take work where you can get it, competing in the underground fight circuits, bodyguarding the rich and powerful, or doing dirty jobs for dangerous people.",
+        "description": "You're a professional fighter, making your living with your fists. You take work where you can get it, competing in the underground fight circuits, bodyguarding the rich and powerful, or doing dirty jobs for dangerous people.",
         "traits": ["Brawl", "Disarm", "Grapple", "Threaten with Violence", "Dodge a Blow", "Spot a Weakness", "Fight Dirty", "First Aid"],
         "flaws": ["Soft-hearted", "Blunt", "Squeamish", "Serious Debt", "Criminal Record", "Old Injury"],
         "gear": ["Boxing Gloves", "Gym Bag"],
@@ -709,9 +709,462 @@
             },
             {
                 "name": "Phase Imp",
-                "description": "You have bonded to an impulsive and chaotic aberration, no larger than your hand. The imp has animal intelligence, Grit 2 and one Tag from the following list: Distracting, Fast, Fly, Impossibly Thin, Sharp Edges, Tough. If you concentrate, you can see through the imp’s eyes, but it doesn’t like it. If the imp dies you suffer the Weakened Condition. You may summon and bond with a new imp during Downtime."
+                "description": "You have bonded to an impulsive and chaotic aberration, no larger than your hand. The imp has animal intelligence, Grit 2 and one Tag from the following list: Distracting, Fast, Fly, Impossibly Thin, Sharp Edges, Tough. If you concentrate, you can see through the imp's eyes, but it doesn't like it. If the imp dies you suffer the Weakened Condition. You may summon and bond with a new imp during Downtime."
             }
         ]
-    }    
+    },
+    {
+        "name": "Academic",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You spent your life with your nose buried in books, working as a librarian, teacher, or research assistant. Perhaps you’ve been published. In Hard City, your knowledge might be the only light in a city steeped in shadows, but your naivety could also be your downfall.",
+        "traits": ["Educated", "Research", "Bureaucracy", "Languages", "Bookworm", "Eye for Detail", "Puzzles"],
+        "flaws": ["Absent-minded", "Naive", "Arrogant", "Daydreamer", "Old"],
+        "gear": ["Dog-eared Journal", "Monogrammed Fountain Pen"],
+        "advantages": [
+            {
+                "name": "Peerless Deduction",
+                "description": "Spend a Moxie point to instantly connect clues, solve puzzles, or deduce the next logical step in a mystery. Gain narrative insight or eliminate uncertainty in investigations."
+            },
+            {
+                "name": "Arcane Scholar",
+                "description": "Your deep studies include the occult and forbidden knowledge. You can recognize strange symbols, comprehend unusual texts, or identify supernatural phenomena. Gain a bonus when dealing with mysteries beyond the mundane."
+            },
+            {
+                "name": "Prepared for Anything",
+                "description": "You always seem to have the right book, note, or obscure fact for the situation. Once per session, spend a Moxie point to produce a key piece of information or a vital clue that helps the group."
+            }
+        ]
+      },
+      {
+        "name": "Bureaucrat",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You were a paper-pusher, knowledgeable in how public and private business runs. You may have been a politician, clerk, business owner, secretary, or office manager.",
+        "traits": [
+          "Charm",
+          "Straight-faced Liar",
+          "Bully",
+          "Red Tape",
+          "Make a Deal",
+          "Friends in City Hall",
+          "Falsify Documents"
+        ],
+        "flaws": [
+          "Corrupt",
+          "Major Debts",
+          "Infamous",
+          "Greedy",
+          "Manipulative"
+        ],
+        "gear": [
+          "Briefcase of Confidential Files",
+          "Rolodex with High-Value Contacts"
+        ],
+        "advantages": [
+          {
+            "name": "Grease the Wheels",
+            "description": "Spend a Moxie point to bypass bureaucratic red tape, obtain a permit, or cut through procedural delays instantly."
+          },
+          {
+            "name": "Friends in High Places",
+            "description": "You can call in favors from well-placed contacts in government or business, gaining information or access to restricted areas."
+          },
+          {
+            "name": "Leverage",
+            "description": "You always seem to have dirt on someone. When you attempt to blackmail or coerce someone into compliance, roll with Mastery."
+          }
+        ]
+      },
+      {
+        "name": "Button Man",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You killed people for money, fun, or out of loyalty to a person, organisation, or cause. You were a hitman or professional killer.",
+        "traits": [
+          "Shoot",
+          "Pistols",
+          "Submachine Gun",
+          "Brawl",
+          "Steel-eyed Stare",
+          "Track",
+          "Tough",
+          "Stealth"
+        ],
+        "flaws": [
+          "Wanted",
+          "Dispassionate",
+          "Trigger Happy"
+        ],
+        "gear": [
+          "Worn Leather Gloves",
+          "Black Suit and Tie"
+        ],
+        "advantages": [
+          {
+            "name": "Disappear into the Shadows",
+            "description": "Spend a Moxie point to vanish from the scene, avoiding pursuit or detection in low-light or chaotic environments."
+          },
+          {
+            "name": "Intimidating Presence",
+            "description": "Your cold demeanor and reputation precede you. Wwhen coercing or scaring others into submission, roll with Mastery."
+          },
+          {
+            "name": "Professional Precision",
+            "description": "Spend a Moxie point to negate all penalties for one shot when using a firearm."
+          }
+        ]
+      },
+      {
+        "name": "Clergy",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You were a church official or member of a religious organisation. You may have been a preacher, nun, rabbi, curate, minister, or devout parishioner.",
+        "traits": [
+          "History",
+          "Religion",
+          "Charm",
+          "Empathy",
+          "Friends in High Places",
+          "Perform",
+          "Moral Authority"
+        ],
+        "flaws": [
+          "Holier Than Thou",
+          "Secret Vice",
+          "Meek",
+          "Arrogant"
+        ],
+        "gear": [
+          "Religious Symbol",
+          "Well-worn Religious Text"
+        ],
+        "advantages": [
+          {
+            "name": "Divine Inspiration",
+            "description": "Spend a Moxie point to deliver a speech or sermon that inspires allies, granting them Mastery on their next action."
+          },
+          {
+            "name": "Sanctuary",
+            "description": "Your presence or connection to a church or religious group allows you to secure temporary shelter, supplies, or safe passage."
+          },
+          {
+            "name": "Faith over Fear",
+            "description": "Spend a Moxie point to grant an ally temporary immunity to fear for the duration of a scene."
+          }
+        ]
+      },
+      {
+        "name": "Criminal",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "Whether guilty or not, you’ve done time in the cooler and rubbed shoulders with other criminals. You’re an ex-con.",
+        "traits": [
+          "Blend In",
+          "Spot Trouble",
+          "Hide",
+          "Run",
+          "Brawl",
+          "Criminal Contacts",
+          "Prisons"
+        ],
+        "flaws": [
+          "Known to the Police",
+          "On the Run",
+          "Powerful Enemy",
+          "Stool Pigeon",
+          "Nervous Disposition"
+        ],
+        "gear": [
+          "Lockpicking Tools",
+          "Tatty Jacket with Hidden Pockets"
+        ],
+        "advantages": [
+          {
+            "name": "Street Smarts",
+            "description": "Roll with Mastery when navigating the underworld or dealing with criminal contacts."
+          },
+          {
+            "name": "Smooth Operator",
+            "description": "Roll with Mastery when bluffing or lying to law enforcement or figures of authority."
+          },
+          {
+            "name": "Marked Target",
+            "description": "Spend a Moxie point to designate an enemy as 'marked,' granting your allies a bonus when targeting them."
+          }
+        ]
+      },
+      {
+        "name": "Domestic",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You worked in a large household or establishment such as a hotel. As a housekeeper, maid, nanny, doorman, cleaner, butler, or cook you could see things and go places others couldn’t.",
+        "traits": [
+          "Notice",
+          "Endurance",
+          "Gossip",
+          "Stealth",
+          "Etiquette",
+          "Quick Wits",
+          "Blend In"
+        ],
+        "flaws": [
+          "Clumsy",
+          "Loud Talker",
+          "Sticky Fingers",
+          "Bad References"
+        ],
+        "gear": [
+          "Cleaning Kit",
+          "Silverware Set"
+        ],
+        "advantages": [
+          {
+            "name": "Perfectly Hidden",
+            "description": "You know where and how to stash items where no one will find them."
+          },
+          {
+            "name": "Sharp Ear",
+            "description": "Roll with Mastery to overhear useful gossip or sensitive information while blending in."
+          },
+          {
+            "name": "Discreet Cleaning",
+            "description": "Spend a Moxie point to remove traces of an incident or crime, leaving no evidence behind."
+          }
+        ]
+      },
+      {
+        "name": "Drifter",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You had no permanent residence and got by in life by whatever means necessary. You were a traveller, tramp, or itinerant worker.",
+        "traits": [
+          "Tough",
+          "Well-travelled",
+          "Scrounge",
+          "Repair",
+          "Notice",
+          "Gossip",
+          "Hide"
+        ],
+        "flaws": [
+          "Always Dirty",
+          "On the Run",
+          "Lazy",
+          "Night Terrors"
+        ],
+        "gear": [
+          "Travel Backpack",
+          "Patchy Coat"
+        ],
+        "advantages": [
+          {
+            "name": "Streetwise Survival",
+            "description": "Roll with Mastery to scrounge food, supplies, or shelter in urban environments."
+          },
+          {
+            "name": "Invisible Wanderer",
+            "description": "Spend a Moxie point to disappear into a crowd or avoid attention in a busy area."
+          },
+          {
+            "name": "Hardy Constitution",
+            "description": "Spend a Moxie point to resist the effects of disease, poison, or extreme fatigue."
+          }
+        ]
+      },
+      {
+        "name": "Driver",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You drove for a living, as a chauffeur, cab driver, race car driver, or bus driver. You know your way around an engine, and probably know your old routes well.",
+        "traits": [
+          "Fancy Driving",
+          "Knows a Shortcut",
+          "Tail",
+          "Mechanic",
+          "Quick Reflexes",
+          "Cars"
+        ],
+        "flaws": [
+          "Reckless",
+          "Criminal Record",
+          "Deep in Debt",
+          "Drunk"
+        ],
+        "gear": [
+          "City Map Marked with Shortcuts",
+          "Car Repair Kit"
+        ],
+        "advantages": [
+          {
+            "name": "Pit Crew Expertise",
+            "description": "You can repair a damaged vehicle in half the normal time, provided you have the right tools."
+          },
+          {
+            "name": "Shortcut Mastery",
+            "description": "Spend a Moxie point to take a shortcut and significantly reduce travel time."
+          },
+          {
+            "name": "Road Rage",
+            "description": "Spend a Moxie point to turn your vehicle into a weapon, ramming enemies or obstacles with devastating impact."
+          }
+        ]
+      },
+      {
+        "name": "Goon",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You dealt in violence and intimidation. Perhaps you were a professional fighter, a street thug, or a gang enforcer.",
+        "traits": [
+          "Intimidate",
+          "Brawl",
+          "Dodge",
+          "Take a Hit",
+          "Underworld Contacts",
+          "Break Stuff",
+          "Stare Down"
+        ],
+        "flaws": [
+          "Mean Streak",
+          "Weak-willed",
+          "Soft-hearted",
+          "Wanted"
+        ],
+        "gear": [
+          "Brass Knuckles",
+          "Heavy Steel-toed Boots"
+        ],
+        "advantages": [
+          {
+            "name": "Street Fighter",
+            "description": "Spend a Moxie point to deal additional damage in a fistfight or melee combat."
+          },
+          {
+            "name": "Iron Chin",
+            "description": "Once per scene, you can ignore the effects of a hit or injury that would normally stagger or incapacitate you."
+          },
+          {
+            "name": "Breaking Point",
+            "description": "Spend a Moxie point to destroy a physical object, barrier, or piece of equipment with brute force."
+          }
+        ]
+      },
+      {
+        "name": "Grifter",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You made your way in the world through lies and deceit. You were a swindler, con-artist, cheat, gambler, or charlatan.",
+        "traits": [
+          "Smooth-talker",
+          "Charming",
+          "Looker",
+          "Read a Situation",
+          "Empathy",
+          "Lie",
+          "Sleight of Hand"
+        ],
+        "flaws": [
+          "Greedy",
+          "Wanted",
+          "Smart Mouth"
+        ],
+        "gear": [
+          "Pack of Marked Cards",
+          "Loaded Dice Set"
+        ],
+        "advantages": [
+          {
+            "name": "Silver Tongue",
+            "description": "Roll with Mastery to convince someone of a falsehood or talk your way out of a sticky situation."
+          },
+          {
+            "name": "Hidden in Plain Sight",
+            "description": "Roll with Mastery to blend into a crowd or avoid notice in public settings."
+          },
+          {
+            "name": "Pickpocket Extraordinaire",
+            "description": "Roll with Mastery to steal small items from unsuspecting targets."
+          }
+        ]
+      },
+      {
+        "name": "High Society",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You were born or married into wealth. As part of the social elite, you were a dilettante, trust-fund kid, playboy, or socialite.",
+        "traits": [
+          "Educated",
+          "Family Reputation",
+          "Respectable",
+          "Money",
+          "Charm",
+          "High Society",
+          "Gossip"
+        ],
+        "flaws": [
+          "Family Obligations",
+          "Black Sheep",
+          "Spoiled",
+          "Naive",
+          "Arrogant"
+        ],
+        "gear": [
+          "Gold-plated Lighter",
+          "Designer Watch"
+        ],
+        "advantages": [
+          {
+            "name": "Social Butterfly",
+            "description": "Roll with Mastery to mingle at high-society events and extract useful information."
+          },
+          {
+            "name": "Well-Connected",
+            "description": "When calling in a favor from a wealthy or influential contact, roll with Mastery."
+          },
+          {
+            "name": "Lavish Lifestyle",
+            "description": "Spend a Moxie point to impress someone with your wealth, gaining their favor."
+          }
+        ]
+      },
+      {
+        "name": "Labourer",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You did hard, physical labour, perhaps as a construction worker, gardener, roustabout, farmer, storeman, stevedore, or factory worker.",
+        "traits": [
+          "Endurance",
+          "Strong",
+          "Alert",
+          "Unions",
+          "Handyman",
+          "Athletic",
+          "Brawl"
+        ],
+        "flaws": [
+          "Lazy",
+          "Uneducated",
+          "Pig-headed",
+          "Radicalised"
+        ],
+        "gear": [
+          "Weathered Overalls",
+          "Thermos of Coffee"
+        ],
+        "advantages": [
+          {
+            "name": "Built to Last",
+            "description": "Roll with Mastery to endure physical challenges, such as lifting heavy objects or withstanding environmental hazards."
+          },
+          {
+            "name": "Work Smarter, Not Harder",
+            "description": "Once per session, complete a manual task in half the normal time."
+          },
+          {
+            "name": "Practical Knowledge",
+            "description": "Roll with Mastery to assess or repair machinery, tools, or structural damage."
+          }
+        ]
+      }
     ]
 }

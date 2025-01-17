@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk
 import json
 import os
 
@@ -29,8 +29,15 @@ class TrademarkManagerApp:
         main_frame = ttk.Frame(self.root, padding=10)
         main_frame.pack(fill="both", expand=True)
 
-        # Search Bar
-        search_frame = ttk.Frame(main_frame)
+        # Paned window for resizing
+        paned_window = ttk.PanedWindow(main_frame, orient="vertical")
+        paned_window.pack(fill="both", expand=True)
+
+        # Top frame for search and listbox
+        search_list_frame = ttk.Frame(paned_window)
+        paned_window.add(search_list_frame, weight=1)
+
+        search_frame = ttk.Frame(search_list_frame)
         search_frame.pack(fill="x", pady=5)
 
         search_label = ttk.Label(search_frame, text="Search Trademarks:")
@@ -40,24 +47,23 @@ class TrademarkManagerApp:
         self.search_entry.pack(fill="x", expand=True, side="left", padx=5)
         self.search_entry.bind("<KeyRelease>", self.filter_trademarks)
 
-        # Listbox for displaying search results
-        self.trademark_listbox = tk.Listbox(main_frame, height=10)  # Adjusted to show ~10 trademarks
+        self.trademark_listbox = tk.Listbox(search_list_frame, height=10)
         self.trademark_listbox.pack(fill="both", expand=True, pady=5)
         self.trademark_listbox.bind("<Double-1>", self.view_trademark_details)
 
-        # Detailed Trademark Display
-        details_frame = ttk.LabelFrame(main_frame, text="Trademark Details")
-        details_frame.pack(fill="both", expand=True, pady=5)
+        # Bottom frame for details
+        details_frame = ttk.Frame(paned_window)
+        paned_window.add(details_frame, weight=3)
 
-        self.trademark_details = tk.Text(details_frame, wrap="word", state="disabled", height=10)
+        self.trademark_details = tk.Text(details_frame, wrap="word", state="disabled")
         self.trademark_details.pack(fill="both", expand=True, padx=5, pady=5)
-
-        # Export Button
-        export_button = ttk.Button(main_frame, text="Export Trademark", command=self.export_trademark)
-        export_button.pack(pady=5)
 
         # Populate Listbox with initial data
         self.populate_trademark_list()
+
+        # Enable resizing behavior
+        self.root.columnconfigure(0, weight=1)
+        self.root.rowconfigure(0, weight=1)
 
     def populate_trademark_list(self):
         self.trademark_listbox.delete(0, tk.END)
@@ -119,13 +125,6 @@ class TrademarkManagerApp:
         self.trademark_details.delete("1.0", tk.END)
         self.trademark_details.insert("1.0", details)
         self.trademark_details.config(state="disabled")
-
-    def export_trademark(self):
-        text = self.trademark_details.get("1.0", tk.END).strip()
-        if text:
-            with open("trademark_export.txt", "w") as file:
-                file.write(text)
-            messagebox.showinfo("Export", "Trademark exported to trademark_export.txt")
 
 # Run the Application
 if __name__ == "__main__":
