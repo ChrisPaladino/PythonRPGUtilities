@@ -1165,6 +1165,124 @@
             "description": "Roll with Mastery to assess or repair machinery, tools, or structural damage."
           }
         ]
+      },
+      {
+        "name": "Lawman",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You attempted to uphold the law as a cop, private eye, insurance investigator, government agent, or other member of law enforcement.",
+        "traits": [
+          "Notice",
+          "Gut Instinct",
+          "Shoot",
+          "Intimidate",
+          "Law",
+          "Investigate",
+          "Grapple"
+        ],
+        "flaws": [
+          "Corrupt",
+          "Fired in Disgrace",
+          "Hard Drinker",
+          "Personal Code"
+        ],
+        "gear": [
+          "Worn Badge",
+          "Service Revolver",
+          "Set of Handcuffs"
+        ],
+        "advantages": [
+          {
+            "name": "Instinctive Shot",
+            "description": "Spend a Moxie point to make a quick, reactive shot before an enemy can act."
+          },
+          {
+            "name": "Protect and Serve",
+            "description": "Spend a Moxie point to shield an ally from harm, taking their damage or condition instead."
+          },
+          {
+            "name": "Know the Streets",
+            "description": "Spend a Moxie point to recall useful information about criminal activities, suspects, or local threats."
+          }
+        ]
+      },
+      {
+        "name": "Lawyer",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "You were a legal practitioner. Perhaps you were employed by the city as a prosecutor, or privately by both innocent and guilty parties.",
+        "traits": [
+          "Educated",
+          "Cunning",
+          "Intimidate",
+          "Bureaucracy",
+          "Make a Deal",
+          "Interrogate",
+          "Research"
+        ],
+        "flaws": [
+          "Soft-hearted",
+          "Corrupt",
+          "In the Mob’s Pocket",
+          "Arrogant"
+        ],
+        "gear": [
+          "Briefcase with Documents",
+          "Stylish Suit"
+        ],
+        "advantages": [
+          {
+            "name": "Cross Examination",
+            "description": "Roll with Mastery to unravel a lie or falsehood during a heated conversation or argument."
+          },
+          {
+            "name": "Call in a Favor",
+            "description": "Spend a Moxie point to request help or resources from a powerful or influential contact in the legal world."
+          },
+          {
+            "name": "Sharp Legal Mind",
+            "description": "Roll with Mastery to quickly recall obscure laws, regulations, or cases relevant to the situation."
+          }
+        ]
+      },
+      {
+        "name": "Newshound",
+        "source": "Hard City",
+        "type": "Past",
+        "description": "It was your business to dig up stories through investigation and tenacity. You were probably a reporter, but could have been a spy, snitch, or professional blackmailer.",
+        "traits": [
+          "Investigate",
+          "Photography",
+          "Stealth",
+          "History",
+          "Human Lie Detector",
+          "Notice",
+          "Gossip"
+        ],
+        "flaws": [
+          "Curious",
+          "Overconfident",
+          "Burned Out"
+        ],
+        "gear": [
+          "Vintage Camera with Film",
+          "Pocket-sized Notebook",
+          "Press Badge"
+        ],
+        "advantages": [
+          {
+            "name": "In the Shadows",
+            "description": "Roll with Mastery to avoid notice while tailing or observing someone."
+          },
+          {
+            "name": "Photos Don’t Lie",
+            "description": "Spend a Moxie point to produce photographic evidence that changes the course of a narrative or scene."
+          },
+          {
+            "name": "Expose the Truth",
+            "description": "Spend a Moxie point to reveal a hidden truth about a person, place, or situation, forcing others to confront it."
+          }
+        ]
       }
     ]
 }
