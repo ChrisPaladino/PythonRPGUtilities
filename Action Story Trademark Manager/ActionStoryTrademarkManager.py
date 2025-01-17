@@ -49,7 +49,7 @@ class TrademarkManagerApp:
 
         self.trademark_listbox = tk.Listbox(search_list_frame, height=10)
         self.trademark_listbox.pack(fill="both", expand=True, pady=5)
-        self.trademark_listbox.bind("<Double-1>", self.view_trademark_details)
+        self.trademark_listbox.bind("<<ListboxSelect>>", self.view_trademark_details)
 
         # Bottom frame for details
         details_frame = ttk.Frame(paned_window)
