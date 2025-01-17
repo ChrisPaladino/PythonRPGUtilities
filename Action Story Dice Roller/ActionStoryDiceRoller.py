@@ -25,17 +25,21 @@ def adjust_dice(entry, delta):
         current_value = int(entry.get())
     except ValueError:
         current_value = 0
-    new_value = max(0, min(20, current_value + delta))
+    new_value = max(0, min(10, current_value + delta))  # Max set to 10
     entry.delete(0, tk.END)
     entry.insert(0, str(new_value))
 
-def draw_dice(canvas, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
-    # Draw a label for the dice frame
-    canvas.create_text(
-        x, y, text=label, anchor="nw", font=('Helvetica', 12), fill="black"
-    )
-    y += 30  # Add vertical spacing below the label
+def clear_dice():
+    action_dice_entry.delete(0, tk.END)
+    action_dice_entry.insert(0, "1")
+    danger_dice_entry.delete(0, tk.END)
+    danger_dice_entry.insert(0, "0")
+    result_label.config(text="")
+    canvas.delete("all")
 
+def draw_dice(canvas, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
+    canvas.create_text(x, y, text=label, anchor="nw", font=('Helvetica', 12), fill="black")
+    y += 30
     highest_remaining_die = max(remaining_dice, default=0)
     cancelled_count = {die: cancelled_dice.count(die) for die in set(cancelled_dice)}
 
@@ -51,16 +55,10 @@ def draw_dice(canvas, dice, x, y, dice_size, label, cancelled_dice, remaining_di
             text_color = "white"
             highest_remaining_die = -1
 
-        canvas.create_rectangle(
-            x, y, x + dice_size, y + dice_size,
-            fill=rect_color, outline="black"
-        )
-        canvas.create_text(
-            x + dice_size // 2, y + dice_size // 2,
-            text=str(die), fill=text_color, font=('Helvetica', dice_size // 3)
-        )
-        x += dice_size + 5  # Move right for the next dice
-    return y + dice_size + 20  # Add spacing after the row
+        canvas.create_rectangle(x, y, x + dice_size, y + dice_size, fill=rect_color, outline="black")
+        canvas.create_text(x + dice_size // 2, y + dice_size // 2, text=str(die), fill=text_color, font=('Helvetica', dice_size // 3))
+        x += dice_size + 5
+    return y + dice_size + 20
 
 def process_results(action_dice, danger_dice):
     cancelled_dice = []
@@ -80,10 +78,10 @@ def roll_and_process():
     try:
         num_action_dice = int(action_dice_entry.get())
         num_danger_dice = int(danger_dice_entry.get())
-        if not (0 <= num_action_dice <= 20 and 0 <= num_danger_dice <= 20):
+        if not (0 <= num_action_dice <= 10 and 0 <= num_danger_dice <= 10):
             raise ValueError
     except (ValueError, TypeError):
-        result_label.config(text="Invalid input: Enter a number between 0 and 20 for each dice type.", foreground="red")
+        result_label.config(text="Invalid input: Enter a number between 0 and 10 for each dice type.", foreground="red")
         return
 
     action_dice = roll_dice(num_action_dice)
@@ -93,7 +91,6 @@ def roll_and_process():
 
     result_label.config(text=result, foreground="blue")
 
-    # Draw Action and Danger Dice
     x = 10
     y = 10
     y = draw_dice(canvas, action_dice_sorted, x, y, 25, "Action Dice", cancelled_dice, remaining_action_dice, True)
@@ -105,7 +102,8 @@ def roll_dice(n):
 # Main application setup
 root = tk.Tk()
 root.title("Action Story Dice Roller")
-root.geometry("350x350")
+root.geometry("350x400")
+root.resizable(False, False)  # Make window non-resizable
 
 # Style Configuration
 style = ttk.Style()
@@ -116,12 +114,11 @@ style.configure("TButton", font=("Helvetica", 12))
 input_frame = ttk.Frame(root)
 input_frame.grid(row=0, column=0, columnspan=2, pady=10, sticky="ew")
 
-# Action Dice Input
 action_dice_label = ttk.Label(input_frame, text="Action Dice:")
 action_dice_label.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 
 action_dice_entry = ttk.Entry(input_frame, width=4)
-action_dice_entry.insert(0, "1")  # Default value
+action_dice_entry.insert(0, "1")
 action_dice_entry.grid(row=0, column=1, padx=5, pady=5)
 
 action_dice_plus = ttk.Button(input_frame, text="+", width=2, command=lambda: adjust_dice(action_dice_entry, 1))
@@ -130,12 +127,11 @@ action_dice_plus.grid(row=0, column=2, padx=2)
 action_dice_minus = ttk.Button(input_frame, text="-", width=2, command=lambda: adjust_dice(action_dice_entry, -1))
 action_dice_minus.grid(row=0, column=3, padx=2)
 
-# Danger Dice Input
 danger_dice_label = ttk.Label(input_frame, text="Danger Dice:")
 danger_dice_label.grid(row=1, column=0, padx=5, pady=5, sticky="w")
 
 danger_dice_entry = ttk.Entry(input_frame, width=4)
-danger_dice_entry.insert(0, "0")  # Default value
+danger_dice_entry.insert(0, "0")
 danger_dice_entry.grid(row=1, column=1, padx=5, pady=5)
 
 danger_dice_plus = ttk.Button(input_frame, text="+", width=2, command=lambda: adjust_dice(danger_dice_entry, 1))
@@ -144,22 +140,21 @@ danger_dice_plus.grid(row=1, column=2, padx=2)
 danger_dice_minus = ttk.Button(input_frame, text="-", width=2, command=lambda: adjust_dice(danger_dice_entry, -1))
 danger_dice_minus.grid(row=1, column=3, padx=2)
 
-# Roll Dice Button
 roll_button = ttk.Button(input_frame, text="Roll Dice", command=roll_and_process)
-roll_button.grid(row=0, column=4, rowspan=2, padx=5, pady=5, sticky="ns")
+roll_button.grid(row=0, column=4, padx=5, pady=5)
 
-# Result Label
+clear_button = ttk.Button(input_frame, text="Clear", command=clear_dice)
+clear_button.grid(row=1, column=4, padx=5, pady=5)
+
 result_label = ttk.Label(root, text="", font=("Helvetica", 14))
 result_label.grid(row=1, column=0, columnspan=2, pady=5, padx=10, sticky="w")
 
-# Canvas for dice display
 canvas_frame = ttk.LabelFrame(root, text="Dice Results")
 canvas_frame.grid(row=2, column=0, columnspan=2, pady=5, padx=10, sticky="nsew")
 
-canvas = tk.Canvas(canvas_frame, bg="#f5f5f5")  # Light gray background for clarity
+canvas = tk.Canvas(canvas_frame, bg="#f5f5f5")
 canvas.pack(fill="both", expand=True, padx=5, pady=5)
 
-# Configure resizing behavior
 root.columnconfigure(0, weight=1)
 root.rowconfigure(2, weight=1)
 
