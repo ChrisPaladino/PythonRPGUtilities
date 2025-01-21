@@ -32,6 +32,10 @@
     - **Outcome Assessment:** Evaluate the success level required to pass the selected difficulty:
         - Highlight if the player passed, exceeded, or failed the difficulty.
         - Provide suggestions for mitigating failures or utilizing extra successes.
+7. **Dice Display**
+    - Dice rolls are visually represented as small squares on a canvas.
+    - The squares are sorted in descending order of their values.
+    - Successful rolls (pairs, three-of-a-kind, etc.) are highlighted in green.
 7. **Extra Success Options**
     - Allow extra successes to be spent on:
         - EXTRA BASIC SUCCESS: Quick Action.
