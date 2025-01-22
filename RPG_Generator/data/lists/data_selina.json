@@ -1,18 +1,21 @@
 {
     "characters": [
-        "Black Spikes",
-        "Brutus Kline",
+        "Brutus Kline - Street Doc",
+        "Brutus Kline - Street Doc",
         "Cutter - Leader of Ash Rats",
-        "Gloria Nellti",
-        "Pollenow Goldstein",
-        "Unavian Neumann"
+        "Cutter - Leader of Ash Rats",
+        "Cutter - Leader of Ash Rats",
+        "Gloria Nellti - Organized the Assassination",
+        "Pollenow Goldstein - Bodyguard Colleague",
+        "Unavian Neumann - Assassinated"
     ],
     "threads": [
-        "Cutter - a favor owed",
         "Pollenow - Get leverage on the Neumann family",
         "Retrieve a cache of experimental technology linked to the neumann family",
         "Selina - Gloria's Sigil - Kill Gloria",
         "Selina - Kill Gloria Nellti",
-        "Unavian - Diary entry, shaowy faction dedals"
+        "Selina - What is Saint Yig?",
+        "Selina - What is the magnetic sphere?",
+        "Unavian - Diary entry, shadowy faction dedals"
     ]
 }
