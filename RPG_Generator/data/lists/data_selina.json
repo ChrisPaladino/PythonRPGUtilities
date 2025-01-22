@@ -1,18 +1,19 @@
 {
     "characters": [
         "Brutus Kline - Street Doc",
+        "Brutus Kline - Street Doc",
+        "Cutter - Leader of Ash Rats",
+        "Cutter - Leader of Ash Rats",
         "Cutter - Leader of Ash Rats",
         "Gloria Nellti - Organized the Assassination",
-        "Pollenow Goldstein",
         "Pollenow Goldstein - Bodyguard Colleague",
         "Unavian Neumann - Assassinated"
     ],
     "threads": [
-        "Brutus - Secure rare shipment of medical supplies from a gang",
         "Pollenow - Get leverage on the Neumann family",
         "Retrieve a cache of experimental technology linked to the neumann family",
         "Selina - Gloria's Sigil - Kill Gloria",
         "Selina - Kill Gloria Nellti",
-        "Unavian - Diary entry, shaowy faction dedals"
+        "Unavian - Diary entry, shadowy faction dedals"
     ]
 }
