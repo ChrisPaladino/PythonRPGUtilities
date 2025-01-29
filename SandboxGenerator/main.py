@@ -200,7 +200,13 @@ def debug_draw_flat_topped_hex(canvas, q, r, size=30, offset_x=300, offset_y=300
 
     canvas.create_polygon(corners, fill=fill, outline=outline)
     if text:
-        canvas.create_text(px, py, text=text, font=("Arial", 9, "bold"))
+        canvas.create_text(
+            px + 3, 
+            py - size * 0.4,  # shift upward ~40% of the hex size
+            text=text,
+            font=("Arial", 8, "bold"),
+            anchor="center"
+        )
 
 def draw_hex_map(canvas):
     canvas.delete("all")
