@@ -2,128 +2,233 @@ import tkinter as tk
 import random
 import math
 
-def roll_dice(sides):
+# -------------------------------------------------
+#                BIOME TABLES
+# -------------------------------------------------
+def roll_dice(sides=10):
     return random.randint(1, sides)
 
-def generate_biome(is_starting_hex=False, previous_hex=None):
-    """Generates a biome based on the rules."""
+def generate_starting_biome():
+    """Center hex (#1)."""
     roll = roll_dice(10)
-    print(f"Dice roll: {roll}")  # Debug output
+    if 1 <= roll <= 4:
+        return "Grassland"
+    elif 5 <= roll <= 6:
+        return "Forest"
+    elif 7 <= roll <= 8:
+        return "Hills"
+    elif roll == 9:
+        return "Marsh"
+    else:  # 10
+        return "Mountains"
 
-    if is_starting_hex:
-        if roll in [1, 2, 3, 4]:
-            return "Grassland"
-        elif roll in [5, 6]:
-            return "Forest"
-        elif roll in [7, 8]:
-            return "Hills"
-        elif roll == 9:
-            return "Marsh"
-        else:
-            return "Mountains"
-    else:
-        if roll in [1, 2, 3, 4, 5]:
-            return previous_hex  # Same as previous hex
-        elif roll == 6:
-            return "Grassland"
-        elif roll == 7:
-            return "Forest"
-        elif roll == 8:
-            return "Hills"
-        elif roll == 9:
-            return "Marsh"
-        else:
-            return "Mountains"
-
-def generate_extended_hex_map():
-    """Generates a full extended hex map based on snowflake expansion."""
-    hexes = {}
-
-    def set_biome(x, y, previous_hex=None):
-        if (x, y) not in hexes:
-            hexes[(x, y)] = generate_biome(is_starting_hex=False, previous_hex=previous_hex)
-
-    # Starting hex
-    print("Generating starting hex:")
-    hexes[(0, 0)] = generate_biome(is_starting_hex=True)
-    print(f"Starting hex biome: {hexes[(0, 0)]}")
-
-    # First layer (6 hexes around the starting hex)
-    directions = [
-        (0, -1), (1, -1), (1, 0), (0, 1), (-1, 1), (-1, 0)  # Clockwise directions
-    ]
-
-    for dx, dy in directions:
-        set_biome(dx, dy, previous_hex=hexes[(0, 0)])
-
-    # Second layer (12 hexes)
-    second_layer_directions = [
-        (-1, -2), (0, -2), (1, -2), (2, -1), (2, 0), (2, 1),
-        (1, 2), (0, 2), (-1, 2), (-2, 1), (-2, 0), (-2, -1)
-    ]
-
-    for dx, dy in second_layer_directions:
-        neighbors = [(dx + d[0], dy + d[1]) for d in directions if (dx + d[0], dy + d[1]) in hexes]
-        if neighbors:
-            previous_hex = random.choice([hexes[neighbor] for neighbor in neighbors])
-            set_biome(dx, dy, previous_hex=previous_hex)
-        else:
-            print(f"No neighbors found for hex ({dx}, {dy}), defaulting to 'Grassland'.")
-            set_biome(dx, dy, previous_hex="Grassland")
-
-    return hexes
+def generate_next_biome(previous_biome):
+    """Neighbor hexes (roll 1d10, referencing parent's biome)."""
+    roll = roll_dice(10)
+    if 1 <= roll <= 5:
+        return previous_biome
+    elif roll == 6:
+        return "Grassland"
+    elif roll == 7:
+        return "Forest"
+    elif roll == 8:
+        return "Hills"
+    elif roll == 9:
+        return "Marsh"
+    else:  # 10
+        return "Mountains"
 
 def get_biome_color(biome):
-    """Returns the color associated with a biome."""
-    colors = {
-        "Grassland": "lightgreen",
-        "Forest": "darkgreen",
-        "Hills": "brown",
-        "Marsh": "#6b4423",  # Murky dark green/brown
-        "Mountains": "grey"
-    }
-    return colors.get(biome, "lightblue")
+    """Assign a color for each biome."""
+    return {
+        "Grassland":  "lightgreen",
+        "Forest":     "darkgreen",
+        "Hills":      "brown",
+        "Marsh":      "#6b4423",
+        "Mountains":  "grey"
+    }.get(biome, "lightblue")
 
-def create_hex(canvas, x, y, text, fill="lightblue"):
-    """Creates a hexagon shape on the canvas with flat tops."""
-    size = 30  # Size of the hexagon
-    dx = size * math.sqrt(3) / 2
-    points = [
-        x - size / 2, y - dx,
-        x + size / 2, y - dx,
-        x + size, y,
-        x + size / 2, y + dx,
-        x - size / 2, y + dx,
-        x - size, y
+# -------------------------------------------------
+#        FLAT-TOP COORDINATES & NEIGHBORS
+# -------------------------------------------------
+#
+# We want #2 above #1, sharing a *flat* edge at the top.
+# In a standard flat‐topped axial system, the 6 neighbors
+# (clockwise, starting from top) can be:
+#
+#   #2  (0, -1)
+#   #3  (1, -1)
+#   #4  (1, 0)
+#   #5  (0, 1)
+#   #6  (-1, 1)
+#   #7  (-1, 0)
+#
+FLAT_TOP_NEIGHBORS = [
+    (0, -1),   # top
+    (1, -1),   # top-right
+    (1, 0),    # bottom-right
+    (0, 1),    # bottom
+    (-1, 1),   # bottom-left
+    (-1, 0)    # top-left
+]
+
+def axial_distance(q1, r1, q2, r2):
+    """Hex distance in axial coords."""
+    return (abs(q1 - q2) 
+          + abs(r1 - r2) 
+          + abs((q1 + r1) - (q2 + r2))) // 2
+
+def ring_coordinates(radius):
+    """
+    Return all axial coords at exactly `radius` from (0,0),
+    in clockwise order starting from the 'top' (0, -radius).
+    
+    For a flat‐topped layout, one common approach is:
+      directions = [(1,0),(1,1),(0,1),(-1,0),(-1,-1),(0,-1)]
+    """
+    if radius == 0:
+        return [(0,0)]
+    q, r = 0, -radius
+    results = []
+    directions = [
+        (1, 0),
+        (1, 1),
+        (0, 1),
+        (-1, 0),
+        (-1, -1),
+        (0, -1),
     ]
-    canvas.create_polygon(points, fill=fill, outline="black")
-    canvas.create_text(x, y, text=text, font=("Arial", 8, "bold"))
+    for (dq, dr) in directions:
+        for _ in range(radius):
+            results.append((q, r))
+            q += dq
+            r += dr
+    return results
 
-def display_map():
-    """Displays the hex map in a tkinter canvas."""
-    hex_map = generate_extended_hex_map()
+def find_parent(q, r, hexmap):
+    """
+    For a hex at distance d=2, find its neighbor at distance d-1=1.
+    That neighbor is the 'parent' for biome rolls.
+    """
+    d = axial_distance(0, 0, q, r)
+    for (dq, dr) in FLAT_TOP_NEIGHBORS:
+        nq, nr = q + dq, r + dr
+        if (nq, nr) in hexmap:
+            if axial_distance(0, 0, nq, nr) == d - 1:
+                return (nq, nr)
+    return None
+
+def generate_hex_map_19():
+    """
+    Builds a '19-hex snowflake':
+      - Center (#1)
+      - Ring 1 (#2..#7)
+      - Ring 2 (#8..#19)
+    All using the 'flat‐topped' orientation & numbering
+    in a clockwise loop starting from top.
+    """
+    hexmap = {}
+
+    # Center => #1
+    center_biome = generate_starting_biome()
+    hexmap[(0, 0)] = {
+        "biome": center_biome,
+        "number": 1
+    }
+
+    # Ring 1 => #2..#7
+    ring1 = ring_coordinates(1)  # 6 coords
+    for i, (q, r) in enumerate(ring1):
+        parent_biome = hexmap[(0, 0)]["biome"]
+        new_biome = generate_next_biome(parent_biome)
+        hexmap[(q, r)] = {
+            "biome": new_biome,
+            "number": i+2
+        }
+
+    # Ring 2 => #8..#19
+    ring2 = ring_coordinates(2)  # 12 coords
+    for i, (q, r) in enumerate(ring2):
+        parent_coord = find_parent(q, r, hexmap)
+        if parent_coord:
+            parent_biome = hexmap[parent_coord]["biome"]
+        else:
+            parent_biome = center_biome
+        new_biome = generate_next_biome(parent_biome)
+        hexmap[(q, r)] = {
+            "biome": new_biome,
+            "number": i+8
+        }
+
+    return hexmap
+
+# -------------------------------------------------
+#       DRAWING A FLAT-TOPPED HEX
+# -------------------------------------------------
+def create_flat_topped_hex(canvas, cx, cy, size=30, fill="lightblue", outline="black", text=""):
+    """
+    Draw corners at angles: 0°, 60°, 120°, 180°, 240°, 300° 
+    so that the top edge is fully horizontal.
+    """
+    points = []
+    for angle_deg in [0, 60, 120, 180, 240, 300]:
+        rad = math.radians(angle_deg)
+        x = cx + size * math.cos(rad)
+        y = cy + size * math.sin(rad)
+        points.extend((x, y))
+
+    # Draw the hex polygon
+    canvas.create_polygon(points, fill=fill, outline=outline)
+
+    # Optionally label the center
+    if text:
+        canvas.create_text(cx, cy, text=text, font=("Arial", 9, "bold"))
+
+def axial_to_pixel_flat(q, r, size=30, offset_x=300, offset_y=300):
+    """
+    Convert 'flat-topped' axial coords (q,r) to pixel coords.
+    The standard formula (Red Blob Games):
+      x = offset_x + (3/2 * q * size)
+      y = offset_y + (sqrt(3) * (r + q/2) * size)
+    => ensures that (0, -1) is *directly above* (0,0) 
+       with a shared horizontal edge, not a corner.
+    """
+    x = offset_x + (1.5 * q * size)
+    y = offset_y + (math.sqrt(3) * (r + q/2.0) * size)
+    return x, y
+
+def draw_hex_map(canvas):
+    """Clears & redraws the 19‐hex map with flat‐topped hexes and no gaps."""
     canvas.delete("all")
-
-    # Offset multipliers for positioning hexes
-    offset_x, offset_y = 300, 300
+    hexmap = generate_hex_map_19()
     hex_size = 30
-    for (dx, dy), biome in hex_map.items():
-        x = offset_x + dx * (hex_size * 3 / 2)
-        y = offset_y + dy * (hex_size * math.sqrt(3))
-        create_hex(canvas, x, y, biome, fill=get_biome_color(biome))
 
-# Tkinter setup
-root = tk.Tk()
-root.title("Extended Biome Hex Map Generator")
+    for (q, r), data in hexmap.items():
+        biome  = data["biome"]
+        number = data["number"]
+        px, py = axial_to_pixel_flat(q, r, hex_size, 300, 300)
 
-canvas = tk.Canvas(root, width=700, height=700, bg="white")
-canvas.pack(pady=20, padx=20)
+        create_flat_topped_hex(
+            canvas, px, py, size=hex_size,
+            fill=get_biome_color(biome),
+            text=f"{number}\n{biome}"
+        )
 
-# Generate Button
-try:
-    generate_button = tk.Button(root, text="Generate Extended Hex Map", command=display_map)
-    generate_button.pack()
-except Exception as e:
-    print(f"An error occurred: {e}")
+# -------------------------------------------------
+#               MAIN GUI
+# -------------------------------------------------
+def main():
+    root = tk.Tk()
+    root.title("19-Hex Snowflake (Flat-Topped)")
 
-root.mainloop()
+    btn = tk.Button(root, text="Generate Hex Map",
+                    command=lambda: draw_hex_map(canvas))
+    btn.pack(pady=10)
+
+    canvas = tk.Canvas(root, width=700, height=700, bg="white")
+    canvas.pack(padx=10, pady=10)
+
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
