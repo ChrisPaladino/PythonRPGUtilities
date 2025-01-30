@@ -1,6 +1,7 @@
 import json
 import random
 import os
+import math
 import tkinter as tk
 from tkinter import filedialog
 
@@ -264,15 +265,31 @@ def check_the_fates_dice(chaos_factor, likelihood):
     
     return result, dice1, dice2, total_roll
 
-def select_from_list(data_type):
+def select_from_list(data_type):    
     items = get_general_data(data_type)
     if not items:
         return "No items available"
-    if len(items) < 25:
-        placeholder = "Choose character" if data_type == 'characters' else "Choose thread"
-        items = items + [placeholder] * (25 - len(items))
-    chosen_item = random.choice(items)
-    return chosen_item
+
+    # Number of actual items
+    count = len(items)
+    
+    # Determine the placeholder text depending on the data type
+    placeholder = "Choose character" if data_type == 'characters' else "Choose thread"
+    
+    # Round up count to the next multiple of 5 but cap at 25 (since we never store more than 25)
+    # For example, if count=19 => next multiple of 5 is 20 => total_slots=20
+    total_slots = (math.ceil(count / 5.0) * 5)
+    if total_slots > 25:
+        total_slots = 25
+
+    # Pad with placeholders until we have total_slots entries
+    while len(items) < total_slots:
+        items.append(placeholder)
+
+    # Roll one integer in [0, total_slots-1]
+    roll = random.randint(0, total_slots - 1)
+    
+    return items[roll]
 
 def generate_action_oracle():
     if action_oracle_data is None:
