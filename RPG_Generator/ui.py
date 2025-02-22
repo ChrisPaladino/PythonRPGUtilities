@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox, filedialog
 import time
 from logic import (generate_themes, generate_npc, get_une_interaction, select_from_list,
-                  generate_action_oracle, check_the_fates_dice, determine_result,
+                  generate_action_oracle, check_fate_chart, determine_result,
                   process_results, roll_dice)
 from data_manager import add_to_general_data, remove_from_general_data, get_general_data, load_campaign, save_campaign
 import os
@@ -159,7 +159,7 @@ class RPGApp:
         chars_frame.grid_columnconfigure(0, weight=1)
         chars_frame.grid_rowconfigure(2, weight=1)
 
-        self.char_entry = tk.Entry(chars_frame, width=30, state='normal')  # Explicitly set to normal (editable)
+        self.char_entry = tk.Entry(chars_frame, width=30, state='normal')
         self.char_entry.grid(row=0, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
 
         tk.Button(chars_frame, text="Add/Update Character", command=lambda: self.add_update_entry('characters', self.char_entry, self.lst_chars)).grid(row=1, column=0, sticky="ew", padx=5, pady=2)
@@ -175,7 +175,7 @@ class RPGApp:
         threads_frame.grid_columnconfigure(0, weight=1)
         threads_frame.grid_rowconfigure(2, weight=1)
 
-        self.thread_entry = tk.Entry(threads_frame, width=30, state='normal')  # Explicitly set to normal (editable)
+        self.thread_entry = tk.Entry(threads_frame, width=30, state='normal')
         self.thread_entry.grid(row=0, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
 
         tk.Button(threads_frame, text="Add/Update Thread", command=lambda: self.add_update_entry('threads', self.thread_entry, self.lst_threads)).grid(row=1, column=0, sticky="ew", padx=5, pady=2)
@@ -350,8 +350,8 @@ class RPGApp:
     def btn_roll_fate(self):
         chaos_factor = int(self.chaos_factor_var.get())
         likelihood = self.likelihood_var.get()
-        result, _, _, _ = check_the_fates_dice(chaos_factor, likelihood)
-        self.fate_output.insert(tk.END, f"Fate Result: {result}\n\n")
+        result, roll, _, _ = check_fate_chart(chaos_factor, likelihood)
+        self.fate_output.insert(tk.END, f"Fate Result: {result} (Roll: {roll})\n\n")
         self.fate_output.see(tk.END)
 
     def btn_roll_interaction(self):
