@@ -1,5 +1,5 @@
 {
-    "action": {
+    "Action": {
         "1-8": "CONCLUSION: If this Turning Point is currently a Plotline Development, then it becomes a Plotline Conclusion. Incorporate anything necessary into this Turning Point to end this Plotline and remove it from the Plotlines List. If this Turning Point is a New Plotline or already a Conclusion, then consider this Plot Point a None.",
         "9-24": "NONE: Leave this Plot Point blank and go on to the next Plot Point, unless it would leave you with fewer than 2 Plot Points in this Turning Point, in which case re-roll.",
         "25-26": "A CHARACTER IS ATTACKED IN A NON-LETHAL WAY: A Character is attacked, but the assailant will not attack to kill.",
@@ -45,7 +45,7 @@
         "96-100": "META: This is a special Plot Point category with Plot Points that change the Characters List or combine Plotlines. Go to the Meta Plot Points Table and roll 1d100 on it for your Plot Point."
     },
     
-    "tension": {
+    "Tension": {
         "1-8": "CONCLUSION: If this Turning Point is currently a Plotline Development, then it becomes a Plotline Conclusion. Incorporate anything necessary into this Turning Point to end this Plotline and remove it from the Plotlines List. If this Turning Point is a New Plotline or already a Conclusion, then consider this Plot Point a None.",
         "9-24": "NONE: Leave this Plot Point blank and go on to the next Plot Point, unless it would leave you with fewer than 2 Plot Points in this Turning Point, in which case re-roll.",
         "25-26": "INTO THE UNKNOWN: This Turning Point involves Characters entering a situation with unknown factors. To know the unknown, you have to commit to it. For instance, a magic portal where there is no way of knowing what's on the other side except by walking through it. Or, you discover a machine that is very powerful but you have no idea what it does, except if you turn it on. The only way to discover the unknown is to engage it, when it will be too late if you regret it.",
@@ -106,7 +106,7 @@
         "96-100": "META: This is a special Plot Point category with Plot Points that change the Characters List or combine Plotlines. Go to the Meta Plot Points Table and roll 1d100 on it for your Plot Point."
     },
 
-    "mystery": {
+    "Mystery": {
         "1-8": "CONCLUSION: If this Turning Point is currently a Plotline Development, then it becomes a Plotline Conclusion. Incorporate anything necessary into this Turning Point to end this Plotline and remove it from the Plotlines List. If this Turning Point is a New Plotline or already a Conclusion, then consider this Plot Point a None.",
         "9-24": "NONE: Leave this Plot Point blank and go on to the next Plot Point, unless it would leave you with fewer than 2 Plot Points in this Turning Point, in which case re-roll.",
         "25-26": "INTO THE UNKNOWN: This Turning Point involves Characters entering a situation with unknown factors. To know the unknown, you have to commit to it. For instance, a magic portal where there is no way of knowing what's on the other side except by walking through it. Or, you discover a machine that is very powerful but you have no idea what it does, except if you turn it on. The only way to discover the unknown is to engage it, when it will be too late if you regret it.",
@@ -160,7 +160,7 @@
         "96-100": "META: This is a special Plot Point category with Plot Points that change the Characters List or combine Plotlines. Go to the Meta Plot Points Table and roll 1d100 on it for your Plot Point."
     },
 
-    "social": {
+    "Social": {
         "1-8": "CONCLUSION: If this Turning Point is currently a Plotline Development, then it becomes a Plotline Conclusion. Incorporate anything necessary into this Turning Point to end this Plotline and remove it from the Plotlines List. If this Turning Point is a New Plotline or already a Conclusion, then consider this Plot Point a None.",
         "9-24": "NONE: Leave this Plot Point blank and go on to the next Plot Point, unless it would leave you with fewer than 2 Plot Points in this Turning Point, in which case re-roll.",
         "25-26": "OUTCAST: A Character is considered an outcast by other Characters for some reason. Maybe the Character is part of an ethnic group that is disliked in the area, or perhaps the Character is popularly believed to be the perpetrator of a heinous crime.",
@@ -214,7 +214,7 @@
         "96-100": "META: This is a special Plot Point category with Plot Points that change the Characters List or combine Plotlines. Go to the Meta Plot Points Table and roll 1d100 on it for your Plot Point."
     },
 
-    "personal": {
+    "Personal": {
         "1-8": "CONCLUSION: If this Turning Point is currently a Plotline Development, then it becomes a Plotline Conclusion. Incorporate anything necessary into this Turning Point to end this Plotline and remove it from the Plotlines List. If this Turning Point is a New Plotline or already a Conclusion, then consider this Plot Point a None.",
         "9-24": "NONE: Leave this Plot Point blank and go on to the next Plot Point, unless it would leave you with fewer than 2 Plot Points in this Turning Point, in which case re-roll.",
         "25-26": "PERSUASION: A Character tries to persuade another Character to do something. This persuasion can take many forms, from pleading with them to threatening them, for instance.",

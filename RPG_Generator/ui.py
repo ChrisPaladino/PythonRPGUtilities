@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, scrolledtext, messagebox, filedialog
+from tkinter import ttk, scrolledtext, messagebox, filedialog  # Added filedialog here
 import time
 from logic import (generate_themes, generate_npc, get_une_interaction, select_from_list,
                   generate_action_oracle, check_fate_chart, determine_result,
@@ -16,6 +16,7 @@ class RPGApp:
         self.windows = {'manage_themes': None}
         self.relationship_var = tk.StringVar(value="neutral")
         self.demeanor_var = tk.StringVar(value="friendly")
+        self.theme_order = ["Action", "Mystery", "Personal", "Social", "Tension"]  # Default theme order
         self.themes_listbox = None
 
         self.root.geometry("600x700")
@@ -67,26 +68,74 @@ class RPGApp:
         )
 
     def update_all_lists(self):
-        if self.themes_listbox:
-            self.themes_listbox.delete(0, tk.END)
-            for theme in ["action", "mystery", "personal", "social", "tension"]:
-                self.themes_listbox.insert(tk.END, theme)
+        """Update the themes listbox with the current theme order."""
+        self.themes_listbox.delete(0, tk.END)
+        for theme in self.theme_order:
+            self.themes_listbox.insert(tk.END, theme)
+
+    def move_theme_up(self):
+        """Move the selected theme up in the list."""
+        try:
+            selection = self.themes_listbox.curselection()
+            if not selection or selection[0] == 0:
+                return
+            index = selection[0]
+            self.theme_order[index], self.theme_order[index - 1] = self.theme_order[index - 1], self.theme_order[index]
+            self.update_all_lists()
+            self.themes_listbox.selection_clear(0, tk.END)
+            self.themes_listbox.selection_set(index - 1)
+            self.themes_listbox.see(index - 1)
+        except:
+            messagebox.showwarning("Warning", "Please select a theme to move.")
+
+    def move_theme_down(self):
+        """Move the selected theme down in the list."""
+        try:
+            selection = self.themes_listbox.curselection()
+            if not selection or selection[0] == len(self.theme_order) - 1:
+                return
+            index = selection[0]
+            self.theme_order[index], self.theme_order[index + 1] = self.theme_order[index + 1], self.theme_order[index]
+            self.update_all_lists()
+            self.themes_listbox.selection_clear(0, tk.END)
+            self.themes_listbox.selection_set(index + 1)
+            self.themes_listbox.see(index + 1)
+        except:
+            messagebox.showwarning("Warning", "Please select a theme to move.")
+
+    def reset_theme_order(self):
+        """Reset the theme order to the default (Action, Mystery, Personal, Social, Tension)."""
+        self.theme_order = ["Action", "Mystery", "Personal", "Social", "Tension"]
+        self.update_all_lists()
 
     def setup_themes_tab(self):
         control_frame = tk.Frame(self.themes_tab)
         control_frame.pack(pady=10, padx=10, fill="x")
 
-        tk.Button(control_frame, text="Manage Themes", command=self.btn_manage_themes).grid(row=0, column=0, padx=5, pady=5)
-        tk.Button(control_frame, text="Generate Themes", command=self.btn_generate_themes).grid(row=0, column=1, padx=5, pady=5)
-        tk.Button(control_frame, text="Clear Output", command=lambda: self.themes_output.delete(1.0, tk.END)).grid(row=0, column=2, padx=5, pady=5)
+        # Reordering controls and listbox
+        reorder_frame = tk.Frame(control_frame)
+        reorder_frame.pack(fill="x", pady=5)
 
-        self.themes_listbox = tk.Listbox(self.themes_tab, height=5)
-        self.themes_listbox.pack(pady=10, padx=10, fill="x")
+        self.themes_listbox = tk.Listbox(reorder_frame, height=5, selectmode=tk.SINGLE)
+        self.themes_listbox.pack(side=tk.LEFT, padx=5, fill="y")
+        self.update_all_lists()  # Initialize with default order
 
+        # Reordering buttons
+        button_frame = tk.Frame(reorder_frame)
+        button_frame.pack(side=tk.LEFT, padx=5)
+        ttk.Button(button_frame, text="Move Up", command=self.move_theme_up).pack(pady=2)
+        ttk.Button(button_frame, text="Move Down", command=self.move_theme_down).pack(pady=2)
+        ttk.Button(button_frame, text="Reset Order", command=self.reset_theme_order).pack(pady=2)
+
+        # Action buttons
+        action_frame = tk.Frame(control_frame)
+        action_frame.pack(fill="x", pady=5)
+        tk.Button(action_frame, text="Generate Themes", command=self.btn_generate_themes).pack(side=tk.LEFT, padx=5)
+        tk.Button(action_frame, text="Clear Output", command=lambda: self.themes_output.delete(1.0, tk.END)).pack(side=tk.LEFT, padx=5)
+
+        # Output area
         self.themes_output = scrolledtext.ScrolledText(self.themes_tab, wrap=tk.WORD, height=20, width=70)
         self.themes_output.pack(fill="both", expand=True, padx=10, pady=10)
-
-        self.update_all_lists()
 
     def setup_fate_tab(self):
         control_frame = tk.Frame(self.fate_tab)
@@ -282,64 +331,10 @@ class RPGApp:
         self.fate_output.see(tk.END)
 
     # Themes Methods
-    def btn_manage_themes(self):
-        if self.windows['manage_themes']:
-            self.windows['manage_themes'].focus_set()
-            self.windows['manage_themes'].lift()
-            return
-        window = tk.Toplevel(self.root)
-        window.title("Manage Themes")
-        window.resizable(False, False)
-        self.windows['manage_themes'] = window
-        window.bind('<Destroy>', lambda e: self.on_window_close('manage_themes'))
-
-        left_frame = tk.Frame(window)
-        middle_frame = tk.Frame(window)
-        right_frame = tk.Frame(window)
-        left_frame.grid(row=0, column=0, padx=5, pady=5)
-        middle_frame.grid(row=0, column=1, padx=5, pady=5)
-        right_frame.grid(row=0, column=2, padx=5, pady=5)
-
-        lb_current_themes = tk.Listbox(left_frame, height=5)
-        lb_current_themes.grid(row=0, column=0, sticky="nsew")
-        lb_selected_themes = tk.Listbox(right_frame, height=5)
-        lb_selected_themes.grid(row=0, column=0, sticky="nsew")
-
-        def add_theme():
-            selected = lb_current_themes.curselection()
-            if selected:
-                theme = lb_current_themes.get(selected)
-                lb_current_themes.delete(selected)
-                lb_selected_themes.insert(tk.END, theme)
-
-        def remove_theme():
-            selected = lb_selected_themes.curselection()
-            if selected:
-                theme = lb_selected_themes.get(selected)
-                lb_selected_themes.delete(selected)
-                lb_current_themes.insert(tk.END, theme)
-
-        def confirm_selection():
-            if lb_selected_themes.size() != 5:
-                messagebox.showerror("Error", "You must select exactly 5 unique themes.")
-                return
-            self.themes_listbox.delete(0, tk.END)
-            for i in range(lb_selected_themes.size()):
-                self.themes_listbox.insert(tk.END, lb_selected_themes.get(i))
-            window.destroy()
-
-        tk.Button(middle_frame, text="Add >", command=add_theme).grid(row=0, column=0, pady=5)
-        tk.Button(middle_frame, text="< Remove", command=remove_theme).grid(row=1, column=0, pady=5)
-        tk.Button(middle_frame, text="Confirm", command=confirm_selection).grid(row=2, column=0, pady=5)
-        lb_current_themes.bind("<Double-Button-1>", lambda _: add_theme())
-        lb_selected_themes.bind("<Double-Button-1>", lambda _: remove_theme())
-
-        for i in range(self.themes_listbox.size()):
-            lb_current_themes.insert(tk.END, self.themes_listbox.get(i))
-
     def btn_generate_themes(self):
+        """Generate themes based on the current order in the listbox."""
         themes = [self.themes_listbox.get(i) for i in range(self.themes_listbox.size())]
-        weights = [40, 30, 20, 8, 2]
+        weights = [40, 30, 20, 8, 2]  # Default weights (highest for first theme, lowest for last)
         results = generate_themes(themes, weights)
         self.themes_output.delete(1.0, tk.END)
         for result in results:
