@@ -3,13 +3,12 @@ import math
 import os
 from data_manager import load_json_data
 
-# Load JSON files
 script_dir = os.path.dirname(os.path.abspath(__file__))
 npc_data = load_json_data(os.path.join(script_dir, "data", "npc_data.json"))
 plot_points = load_json_data(os.path.join(script_dir, "data", "plot_points.json"))
 action_oracle_data = load_json_data(os.path.join(script_dir, "data", "action_oracle.json"))
 
-# Dice Rolling Logic (from ActionStoryDiceRoller)
+# Dice Rolling Logic
 def determine_result(remaining_action_dice):
     if not remaining_action_dice:
         return "BOTCH"
@@ -35,30 +34,7 @@ def process_results(action_dice, danger_dice):
 def roll_dice(n):
     return [random.randint(1, 6) for _ in range(n)]
 
-def draw_dice(canvas, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
-    canvas.create_text(x, y, text=label, anchor="nw", font=('Helvetica', 14, 'bold'), fill="#E0E0E0")
-    y += 35
-    highest_remaining_die = max(remaining_dice, default=0)
-    cancelled_count = {die: cancelled_dice.count(die) for die in set(cancelled_dice)}
-
-    for die in dice:
-        rect_color = "#404040"
-        text_color = "#E0E0E0"
-        if die in cancelled_count and cancelled_count[die] > 0:
-            rect_color = "#D32F2F"
-            text_color = "white"
-            cancelled_count[die] -= 1
-        elif is_action and die == highest_remaining_die and die in remaining_dice:
-            rect_color = "#388E3C"
-            text_color = "white"
-
-        canvas.create_rectangle(x, y, x + dice_size, y + dice_size, fill=rect_color, outline="#606060")
-        canvas.create_text(x + dice_size // 2, y + dice_size // 2, text=str(die), fill=text_color, font=('Helvetica', dice_size // 3, 'bold'))
-        x += dice_size + 5
-    
-    return y + dice_size + 20
-
-# Generator Logic (from your original)
+# Generator Logic
 def get_une_interaction(npc_relationship, npc_demeanor):
     if npc_data is None:
         return "Error loading NPC data."
