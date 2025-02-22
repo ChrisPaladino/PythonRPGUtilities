@@ -94,106 +94,106 @@ def generate_name():
 
 # New Fate Chart Logic (Normal-Chaos, using 1d100, corrected ranges)
 def check_fate_chart(chaos_factor, likelihood):
-    # Define the Fate Chart ranges for Normal-Chaos (Chaos Factor 1-9, percentile 01-100)
+    # Define the Fate Chart ranges for Mid-Chaos (Chaos Factor 1-9, percentile 01-100)
     fate_chart = {
         "Certain": {
-            1: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 92), "Exceptional No": range(92, 101)},
-            2: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 95), "Exceptional No": range(95, 101)},
-            3: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 97), "Exceptional No": range(97, 101)},
-            4: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 99), "Exceptional No": range(99, 101)},
-            5: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 100), "Exceptional No": range(100, 101)},
-            6: {"Exceptional Yes": range(1, 20), "Yes": range(20, 96), "No": range(96, 101), "Exceptional No": []},
-            7: {"Exceptional Yes": range(1, 21), "Yes": range(21, 100), "No": [], "Exceptional No": []},  # X means impossible
-            8: {"Exceptional Yes": range(1, 21), "Yes": range(21, 100), "No": [], "Exceptional No": []},  # X means impossible
-            9: {"Exceptional Yes": range(1, 21), "Yes": range(21, 100), "No": [], "Exceptional No": []}  # X means impossible
+            1: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
+            2: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 98), "Exceptional No": range(98, 101)},  # 01-17 18-85 86-97 98-100
+            3: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 98), "Exceptional No": range(98, 101)},  # 01-17 18-85 86-97 98-100
+            4: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 99), "Exceptional No": range(99, 101)},  # 01-18 19-90 91-98 99-100
+            5: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 99), "Exceptional No": range(99, 101)},  # 01-18 19-90 91-98 99-100
+            6: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 99), "Exceptional No": range(99, 101)},  # 01-18 19-90 91-98 99-100
+            7: {"Exceptional Yes": range(1, 20), "Yes": range(20, 96), "No": range(96, 100), "Exceptional No": range(100, 101)},  # 01-19 20-95 96-99 100-100
+            8: {"Exceptional Yes": range(1, 20), "Yes": range(20, 96), "No": range(96, 100), "Exceptional No": range(100, 101)},  # 01-19 20-95 96-99 100-100
+            9: {"Exceptional Yes": range(1, 21), "Yes": range(21, 100), "No": range(100, 101), "Exceptional No": []},  # 01-20 21-99 100-100 x
         },
         "Nearly Certain": {
-            1: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 89), "Exceptional No": range(89, 101)},
-            2: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 92), "Exceptional No": range(92, 101)},
-            3: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 95), "Exceptional No": range(95, 101)},
-            4: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 97), "Exceptional No": range(97, 101)},
-            5: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 99), "Exceptional No": range(99, 101)},
-            6: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 100), "Exceptional No": range(100, 101)},
-            7: {"Exceptional Yes": range(1, 20), "Yes": range(20, 96), "No": range(96, 101), "Exceptional No": []},
-            8: {"Exceptional Yes": range(1, 21), "Yes": range(21, 100), "No": [], "Exceptional No": []},  # X means impossible
-            9: {"Exceptional Yes": range(1, 21), "Yes": range(21, 100), "No": [], "Exceptional No": []}  # X means impossible
+            1: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
+            2: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
+            3: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
+            4: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 98), "Exceptional No": range(98, 101)},  # 01-17 18-85 86-97 98-100
+            5: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 98), "Exceptional No": range(98, 101)},  # 01-17 18-85 86-97 98-100
+            6: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 98), "Exceptional No": range(98, 101)},  # 01-17 18-85 86-97 98-100
+            7: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 99), "Exceptional No": range(99, 101)},  # 01-18 19-90 91-98 99-100
+            8: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 99), "Exceptional No": range(99, 101)},  # 01-18 19-90 91-98 99-100
+            9: {"Exceptional Yes": range(1, 20), "Yes": range(20, 96), "No": range(96, 100), "Exceptional No": range(100, 101)},  # 01-19 20-95 96-99 100-100
         },
         "Very Likely": {
-            1: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 87), "Exceptional No": range(87, 101)},
-            2: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 89), "Exceptional No": range(89, 101)},
-            3: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 92), "Exceptional No": range(92, 101)},
-            4: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 95), "Exceptional No": range(95, 101)},
-            5: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 97), "Exceptional No": range(97, 101)},
-            6: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 99), "Exceptional No": range(99, 101)},
-            7: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 100), "Exceptional No": range(100, 101)},
-            8: {"Exceptional Yes": range(1, 20), "Yes": range(20, 96), "No": range(96, 101), "Exceptional No": []},
-            9: {"Exceptional Yes": range(1, 21), "Yes": range(21, 100), "No": [], "Exceptional No": []}  # X means impossible
+            1: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
+            2: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
+            3: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
+            4: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
+            5: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
+            6: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
+            7: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 98), "Exceptional No": range(98, 101)},  # 01-17 18-85 86-97 98-100
+            8: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 98), "Exceptional No": range(98, 101)},  # 01-17 18-85 86-97 98-100
+            9: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 99), "Exceptional No": range(99, 101)},  # 01-18 19-90 91-98 99-100
         },
         "Likely": {
-            1: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 85), "Exceptional No": range(85, 101)},
-            2: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 87), "Exceptional No": range(87, 101)},
-            3: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 89), "Exceptional No": range(89, 101)},
-            4: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 92), "Exceptional No": range(92, 101)},
-            5: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 95), "Exceptional No": range(95, 101)},
-            6: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 97), "Exceptional No": range(97, 101)},
-            7: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 99), "Exceptional No": range(99, 101)},
-            8: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 100), "Exceptional No": range(100, 101)},
-            9: {"Exceptional Yes": range(1, 20), "Yes": range(20, 96), "No": range(96, 101), "Exceptional No": []}
+            1: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
+            2: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
+            3: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
+            4: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
+            5: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
+            6: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
+            7: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
+            8: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
+            9: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 98), "Exceptional No": range(98, 101)},  # 01-17 18-85 86-97 98-100
         },
         "50/50": {
-            1: {"Exceptional Yes": range(1, 3), "Yes": range(3, 11), "No": range(11, 83), "Exceptional No": range(83, 101)},
-            2: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 85), "Exceptional No": range(85, 101)},
-            3: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 87), "Exceptional No": range(87, 101)},
-            4: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 89), "Exceptional No": range(89, 101)},
-            5: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 92), "Exceptional No": range(92, 101)},
-            6: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 95), "Exceptional No": range(95, 101)},
-            7: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 97), "Exceptional No": range(97, 101)},
-            8: {"Exceptional Yes": range(1, 18), "Yes": range(18, 86), "No": range(86, 99), "Exceptional No": range(99, 101)},
-            9: {"Exceptional Yes": range(1, 19), "Yes": range(19, 91), "No": range(91, 100), "Exceptional No": range(100, 101)}
+            1: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
+            2: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
+            3: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
+            4: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
+            5: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
+            6: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
+            7: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
+            8: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
+            9: {"Exceptional Yes": range(1, 16), "Yes": range(16, 76), "No": range(76, 96), "Exceptional No": range(96, 101)},  # 01-15 16-75 76-95 96-100
         },
         "Unlikely": {
-            1: {"Exceptional Yes": [], "Yes": range(1, 2), "No": range(2, 6), "Exceptional No": range(6, 101)},  # X means impossible
-            2: {"Exceptional Yes": [], "Yes": range(1, 3), "No": range(3, 11), "Exceptional No": range(11, 101)},
-            3: {"Exceptional Yes": [], "Yes": range(1, 4), "No": range(4, 16), "Exceptional No": range(16, 101)},
-            4: {"Exceptional Yes": [], "Yes": range(1, 6), "No": range(6, 26), "Exceptional No": range(26, 101)},
-            5: {"Exceptional Yes": [], "Yes": range(1, 8), "No": range(8, 36), "Exceptional No": range(36, 101)},
-            6: {"Exceptional Yes": [], "Yes": range(1, 11), "No": range(11, 51), "Exceptional No": range(51, 101)},
-            7: {"Exceptional Yes": [], "Yes": range(1, 14), "No": range(14, 66), "Exceptional No": range(66, 101)},
-            8: {"Exceptional Yes": [], "Yes": range(1, 16), "No": range(16, 76), "Exceptional No": range(76, 101)},
-            9: {"Exceptional Yes": [], "Yes": range(1, 18), "No": range(18, 86), "Exceptional No": range(86, 101)}
+            1: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 84), "Exceptional No": range(84, 101)},  # 01-03 04-15 16-83 84-100
+            2: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
+            3: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
+            4: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
+            5: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
+            6: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
+            7: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
+            8: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
+            9: {"Exceptional Yes": range(1, 14), "Yes": range(14, 66), "No": range(66, 94), "Exceptional No": range(94, 101)},  # 01-13 14-65 66-93 94-100
         },
         "Very Unlikely": {
-            1: {"Exceptional Yes": [], "Yes": [], "No": range(1, 81), "Exceptional No": range(81, 101)},  # X means impossible
-            2: {"Exceptional Yes": [], "Yes": range(1, 2), "No": range(2, 6), "Exceptional No": range(6, 101)},
-            3: {"Exceptional Yes": [], "Yes": range(1, 3), "No": range(3, 11), "Exceptional No": range(11, 101)},
-            4: {"Exceptional Yes": [], "Yes": range(1, 4), "No": range(4, 16), "Exceptional No": range(16, 101)},
-            5: {"Exceptional Yes": [], "Yes": range(1, 6), "No": range(6, 26), "Exceptional No": range(26, 101)},
-            6: {"Exceptional Yes": [], "Yes": range(1, 8), "No": range(8, 36), "Exceptional No": range(36, 101)},
-            7: {"Exceptional Yes": [], "Yes": range(1, 11), "No": range(11, 51), "Exceptional No": range(51, 101)},
-            8: {"Exceptional Yes": [], "Yes": range(1, 14), "No": range(14, 66), "Exceptional No": range(66, 101)},
-            9: {"Exceptional Yes": [], "Yes": range(1, 16), "No": range(16, 76), "Exceptional No": range(76, 101)}
+            1: {"Exceptional Yes": range(1, 3), "Yes": range(3, 11), "No": range(11, 83), "Exceptional No": range(83, 101)},  # 01-02 03-10 11-82 83-100
+            2: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 84), "Exceptional No": range(84, 101)},  # 01-03 04-15 16-83 84-100
+            3: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 84), "Exceptional No": range(84, 101)},  # 01-03 04-15 16-83 84-100
+            4: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
+            5: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
+            6: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
+            7: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
+            8: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
+            9: {"Exceptional Yes": range(1, 11), "Yes": range(11, 51), "No": range(51, 91), "Exceptional No": range(91, 101)},  # 01-10 11-50 51-90 91-100
         },
         "Nearly Impossible": {
-            1: {"Exceptional Yes": [], "Yes": [], "No": range(1, 81), "Exceptional No": range(81, 101)},  # X means impossible
-            2: {"Exceptional Yes": [], "Yes": [], "No": range(1, 81), "Exceptional No": range(81, 101)},  # X means impossible
-            3: {"Exceptional Yes": [], "Yes": range(1, 2), "No": range(2, 6), "Exceptional No": range(6, 101)},
-            4: {"Exceptional Yes": [], "Yes": range(1, 3), "No": range(3, 11), "Exceptional No": range(11, 101)},
-            5: {"Exceptional Yes": [], "Yes": range(1, 4), "No": range(4, 16), "Exceptional No": range(16, 101)},
-            6: {"Exceptional Yes": [], "Yes": range(1, 6), "No": range(6, 26), "Exceptional No": range(26, 101)},
-            7: {"Exceptional Yes": [], "Yes": range(1, 8), "No": range(8, 36), "Exceptional No": range(36, 101)},
-            8: {"Exceptional Yes": [], "Yes": range(1, 11), "No": range(11, 51), "Exceptional No": range(51, 101)},
-            9: {"Exceptional Yes": [], "Yes": range(1, 14), "No": range(14, 66), "Exceptional No": range(66, 101)}
+            1: {"Exceptional Yes": range(1, 2), "Yes": range(2, 6), "No": range(6, 82), "Exceptional No": range(82, 101)},  # 01-01 02-05 06-81 82-100
+            2: {"Exceptional Yes": range(1, 3), "Yes": range(3, 11), "No": range(11, 83), "Exceptional No": range(83, 101)},  # 01-02 03-10 11-82 83-100
+            3: {"Exceptional Yes": range(1, 3), "Yes": range(3, 11), "No": range(11, 83), "Exceptional No": range(83, 101)},  # 01-02 03-10 11-82 83-100
+            4: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 84), "Exceptional No": range(84, 101)},  # 01-03 04-15 16-83 84-100
+            5: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 84), "Exceptional No": range(84, 101)},  # 01-03 04-15 16-83 84-100
+            6: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 84), "Exceptional No": range(84, 101)},  # 01-03 04-15 16-83 84-100
+            7: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
+            8: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
+            9: {"Exceptional Yes": range(1, 8), "Yes": range(8, 36), "No": range(36, 88), "Exceptional No": range(88, 101)},  # 01-07 08-35 36-87 88-100
         },
         "Impossible": {
-            1: {"Exceptional Yes": [], "Yes": range(1, 2), "No": range(2, 82), "Exceptional No": range(82, 101)},  # X 1 81
-            2: {"Exceptional Yes": [], "Yes": [], "No": range(1, 81), "Exceptional No": range(81, 101)},  # X 1 81
-            3: {"Exceptional Yes": [], "Yes": [], "No": range(1, 81), "Exceptional No": range(81, 101)},  # X 1 81
-            4: {"Exceptional Yes": [], "Yes": range(1, 2), "No": range(2, 6), "Exceptional No": range(6, 101)},
-            5: {"Exceptional Yes": [], "Yes": range(1, 3), "No": range(3, 11), "Exceptional No": range(11, 101)},
-            6: {"Exceptional Yes": [], "Yes": range(1, 4), "No": range(4, 16), "Exceptional No": range(16, 101)},
-            7: {"Exceptional Yes": [], "Yes": range(1, 6), "No": range(6, 26), "Exceptional No": range(26, 101)},
-            8: {"Exceptional Yes": [], "Yes": range(1, 8), "No": range(8, 36), "Exceptional No": range(36, 101)},
-            9: {"Exceptional Yes": [], "Yes": range(1, 11), "No": range(11, 51), "Exceptional No": range(51, 101)}
+            1: {"Exceptional Yes": [], "Yes": range(1, 2), "No": range(2, 81), "Exceptional No": range(81, 101)},  # x 01-01 02-80 81-100
+            2: {"Exceptional Yes": range(1, 2), "Yes": range(2, 6), "No": range(6, 82), "Exceptional No": range(82, 101)},  # 01-01 02-05 06-81 82-100
+            3: {"Exceptional Yes": range(1, 2), "Yes": range(2, 6), "No": range(6, 82), "Exceptional No": range(82, 101)},  # 01-01 02-05 06-81 82-100
+            4: {"Exceptional Yes": range(1, 3), "Yes": range(3, 11), "No": range(11, 83), "Exceptional No": range(83, 101)},  # 01-02 03-10 11-82 83-100
+            5: {"Exceptional Yes": range(1, 3), "Yes": range(3, 11), "No": range(11, 83), "Exceptional No": range(83, 101)},  # 01-02 03-10 11-82 83-100
+            6: {"Exceptional Yes": range(1, 3), "Yes": range(3, 11), "No": range(11, 83), "Exceptional No": range(83, 101)},  # 01-02 03-10 11-82 83-100
+            7: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 84), "Exceptional No": range(84, 101)},  # 01-03 04-15 16-83 84-100
+            8: {"Exceptional Yes": range(1, 4), "Yes": range(4, 16), "No": range(16, 84), "Exceptional No": range(84, 101)},  # 01-03 04-15 16-83 84-100
+            9: {"Exceptional Yes": range(1, 6), "Yes": range(6, 26), "No": range(26, 86), "Exceptional No": range(86, 101)},  # 01-05 06-25 26-85 86-100
         }
     }
 
