@@ -116,7 +116,7 @@ class RPGApp:
 
         tk.Label(fate_frame, text="Chaos Factor:").grid(row=0, column=0, padx=5, pady=5)
         self.chaos_factor_var = tk.StringVar(value="5")
-        ttk.Combobox(fate_frame, textvariable=self.chaos_factor_var, values=[str(i) for i in range(1, 10)], state="readonly").grid(row=0, column=1, padx=5, pady=5)
+        ttk.Combobox(fate_frame, textvariable=self.chaos_factor_var, values=[str(i) for i in range(1, 10)], state="readonly", width=4).grid(row=0, column=1, padx=5, pady=5)
 
         tk.Label(fate_frame, text="Likelihood:").grid(row=0, column=2, padx=5, pady=5)
         self.likelihood_var = tk.StringVar(value="50/50")
@@ -183,7 +183,7 @@ class RPGApp:
         self.danger_dice_entry.insert(0, "0")
         self.dice_result_label.config(text="")
         self.dice_canvas.delete("all")
-        self.dice_canvas.config(height=0)  # Collapse on clear
+        self.dice_canvas.config(height=0)
 
     def draw_dice(self, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
         self.dice_canvas.create_text(x, y, text=label, anchor="nw", font=('Helvetica', 14, 'bold'))
@@ -235,7 +235,7 @@ class RPGApp:
         x, y = 10, 10
         y = self.draw_dice(action_dice_sorted, x, y, 30, "Action Dice", cancelled_dice, remaining_action_dice, True)
         y = self.draw_dice(danger_dice_sorted, x, y, 30, "Danger Dice", cancelled_dice, [], False)
-        self.dice_canvas.config(height=y)  # Expand to show results
+        self.dice_canvas.config(height=y)
         for _ in range(6):
             self.dice_canvas.update()
             time.sleep(0.02)
