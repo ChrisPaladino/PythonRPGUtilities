@@ -46,10 +46,6 @@ class DataManager:
             print(f"Error saving {file_path}: {e}")
             return False
 
-# Remove the global data_manager instance
-# data_manager = DataManager()
-
-# Update functions to accept a data_manager parameter
 def add_to_general_data(data_manager, data_type, item):
     return data_manager.add_item(data_type, item)
 

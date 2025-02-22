@@ -3,14 +3,38 @@ import math
 import os
 from data_manager import load_json_data
 
-# Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Load JSON files from the data directory relative to this script
 npc_data = load_json_data(os.path.join(script_dir, "data", "npc_data.json"))
 plot_points = load_json_data(os.path.join(script_dir, "data", "plot_points.json"))
 action_oracle_data = load_json_data(os.path.join(script_dir, "data", "action_oracle.json"))
 
+# Dice Rolling Logic
+def determine_result(remaining_action_dice):
+    if not remaining_action_dice:
+        return "BOTCH"
+    highest = max(remaining_action_dice)
+    if highest == 6:
+        boons = remaining_action_dice.count(6) - 1
+        return f"Success with {boons} BOON(s)" if boons > 0 else "Success"
+    if highest in (4, 5):
+        return "Partial Success"
+    return "BOTCH" if highest == 1 else "Failure"
+
+def process_results(action_dice, danger_dice):
+    cancelled_dice = []
+    action_dice.sort(reverse=True)
+    danger_dice.sort(reverse=True)
+    remaining_action_dice = action_dice.copy()
+    for danger_die in danger_dice:
+        if danger_die in remaining_action_dice:
+            remaining_action_dice.remove(danger_die)
+            cancelled_dice.append(danger_die)
+    return action_dice, danger_dice, cancelled_dice, remaining_action_dice
+
+def roll_dice(n):
+    return [random.randint(1, 6) for _ in range(n)]
+
+# Generator Logic
 def get_une_interaction(npc_relationship, npc_demeanor):
     if npc_data is None:
         return "Error loading NPC data."
@@ -92,9 +116,9 @@ def check_the_fates_dice(chaos_factor, likelihood):
         result = "No"
     return result, dice1, dice2, total_roll
 
-def select_from_list(data_manager, data_type):  # Added data_manager parameter
+def select_from_list(data_manager, data_type):
     from data_manager import get_general_data
-    items = get_general_data(data_manager, data_type)  # Use data_manager instance
+    items = get_general_data(data_manager, data_type)
     if not items:
         return "No items available"
     count = len(items)
