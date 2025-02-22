@@ -13,7 +13,7 @@ class RPGApp:
         self.root.title("RPG Generator")
         self.data_manager = data_manager
         self.file_path = None
-        self.windows = {'manage_data': None, 'manage_themes': None}
+        self.windows = {'manage_themes': None}
         self.relationship_var = tk.StringVar(value="neutral")
         self.demeanor_var = tk.StringVar(value="friendly")
         self.themes_listbox = None
@@ -43,8 +43,14 @@ class RPGApp:
         self.file_path = self.prompt_initial_file()
         if self.file_path and self.data_manager.load_from_file(self.file_path):
             self.update_status(f"Data loaded from {self.file_path}")
+            # Populate listboxes immediately after loading data
+            self.update_listbox(self.lst_chars, 'characters')
+            self.update_listbox(self.lst_threads, 'threads')
         else:
             self.update_status("No file selected. Starting with empty lists.")
+            # Populate empty listboxes if no file loaded
+            self.update_listbox(self.lst_chars, 'characters')
+            self.update_listbox(self.lst_threads, 'threads')
         self.update_all_lists()
 
     def update_status(self, message):
@@ -86,7 +92,6 @@ class RPGApp:
         control_frame = tk.Frame(self.fate_tab)
         control_frame.pack(pady=10, padx=10, fill="x")
 
-        # Dice Rolling Section
         tk.Label(control_frame, text="Action Dice:").grid(row=0, column=0, padx=5, pady=5)
         self.action_dice_entry = ttk.Entry(control_frame, width=4)
         self.action_dice_entry.insert(0, "1")
@@ -107,10 +112,9 @@ class RPGApp:
         self.dice_result_label = tk.Label(self.fate_tab, text="", font=("Helvetica", 12, "bold"))
         self.dice_result_label.pack(pady=5)
 
-        self.dice_canvas = tk.Canvas(self.fate_tab, height=0)  # Initially collapsed
+        self.dice_canvas = tk.Canvas(self.fate_tab, height=0)
         self.dice_canvas.pack(fill="x", padx=10, pady=5)
 
-        # Fate Section
         fate_frame = tk.LabelFrame(self.fate_tab, text="Fate Check")
         fate_frame.pack(pady=5, padx=10, fill="x")
 
@@ -124,7 +128,6 @@ class RPGApp:
 
         ttk.Button(fate_frame, text="Roll Fate", command=self.btn_roll_fate).grid(row=0, column=4, padx=10, pady=5)
 
-        # Interaction Section
         interaction_frame = tk.LabelFrame(self.fate_tab, text="NPC Interaction")
         interaction_frame.pack(pady=5, padx=10, fill="x")
 
@@ -134,7 +137,6 @@ class RPGApp:
                      values=["scheming", "insane", "friendly", "hostile", "inquisitive", "knowing", "mysterious", "prejudiced"]).grid(row=0, column=1, padx=5, pady=5)
         ttk.Button(interaction_frame, text="Roll Interaction", command=self.btn_roll_interaction).grid(row=0, column=2, padx=10, pady=5)
 
-        # Other Buttons
         other_frame = tk.Frame(self.fate_tab)
         other_frame.pack(pady=5, padx=10, fill="x")
         tk.Button(other_frame, text="Action Oracle", command=self.btn_action_oracle).grid(row=0, column=0, padx=5, pady=5)
@@ -145,26 +147,63 @@ class RPGApp:
         self.fate_output.pack(fill="both", expand=True, padx=10, pady=10)
 
     def setup_chars_tab(self):
-        control_frame = tk.Frame(self.chars_tab)
-        control_frame.pack(pady=10, padx=10, fill="x")
+        main_frame = tk.Frame(self.chars_tab)
+        main_frame.pack(pady=10, padx=10, fill="both", expand=True)
+        main_frame.grid_columnconfigure(0, weight=1)
+        main_frame.grid_columnconfigure(1, weight=1)
+        main_frame.grid_rowconfigure(1, weight=1)
 
-        tk.Button(control_frame, text="Manage Data", command=self.btn_manage_lists).grid(row=0, column=0, padx=5, pady=5)
-        tk.Button(control_frame, text="Choose Character", command=self.btn_choose_character).grid(row=0, column=1, padx=5, pady=5)
-        tk.Button(control_frame, text="Choose Thread", command=self.btn_choose_thread).grid(row=0, column=2, padx=5, pady=5)
+        # Characters Section
+        chars_frame = tk.LabelFrame(main_frame, text="Characters")
+        chars_frame.grid(row=0, column=0, rowspan=2, sticky="nsew", padx=5, pady=5)
+        chars_frame.grid_columnconfigure(0, weight=1)
+        chars_frame.grid_rowconfigure(2, weight=1)
 
-        tk.Label(control_frame, text="New Character:").grid(row=1, column=0, padx=5, pady=5)
-        self.char_entry = ttk.Entry(control_frame, width=20)
-        self.char_entry.grid(row=1, column=1, padx=5, pady=5)
-        ttk.Button(control_frame, text="Add", command=lambda: self.add_item("characters")).grid(row=1, column=2, padx=5, pady=5)
+        self.char_entry = tk.Entry(chars_frame, width=30, state='normal')  # Explicitly set to normal (editable)
+        self.char_entry.grid(row=0, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
 
-        tk.Label(control_frame, text="New Thread:").grid(row=2, column=0, padx=5, pady=5)
-        self.thread_entry = ttk.Entry(control_frame, width=20)
-        self.thread_entry.grid(row=2, column=1, padx=5, pady=5)
-        ttk.Button(control_frame, text="Add", command=lambda: self.add_item("threads")).grid(row=2, column=2, padx=5, pady=5)
+        tk.Button(chars_frame, text="Add/Update Character", command=lambda: self.add_update_entry('characters', self.char_entry, self.lst_chars)).grid(row=1, column=0, sticky="ew", padx=5, pady=2)
+        tk.Button(chars_frame, text="Delete Character", command=lambda: self.delete_entry('characters', self.lst_chars)).grid(row=1, column=1, sticky="ew", padx=5, pady=2)
 
-        self.chars_output = scrolledtext.ScrolledText(self.chars_tab, wrap=tk.WORD, height=20, width=70)
-        self.chars_output.pack(fill="both", expand=True, padx=10, pady=10)
-        self.update_campaign_display()
+        self.lst_chars = tk.Listbox(chars_frame, selectmode=tk.SINGLE)
+        self.lst_chars.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=5, pady=2)
+        self.lst_chars.bind('<<ListboxSelect>>', lambda event: self.on_listbox_select(event, self.char_entry))
+
+        # Threads Section
+        threads_frame = tk.LabelFrame(main_frame, text="Threads")
+        threads_frame.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=5, pady=5)
+        threads_frame.grid_columnconfigure(0, weight=1)
+        threads_frame.grid_rowconfigure(2, weight=1)
+
+        self.thread_entry = tk.Entry(threads_frame, width=30, state='normal')  # Explicitly set to normal (editable)
+        self.thread_entry.grid(row=0, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+
+        tk.Button(threads_frame, text="Add/Update Thread", command=lambda: self.add_update_entry('threads', self.thread_entry, self.lst_threads)).grid(row=1, column=0, sticky="ew", padx=5, pady=2)
+        tk.Button(threads_frame, text="Delete Thread", command=lambda: self.delete_entry('threads', self.lst_threads)).grid(row=1, column=1, sticky="ew", padx=5, pady=2)
+
+        self.lst_threads = tk.Listbox(threads_frame, selectmode=tk.SINGLE)
+        self.lst_threads.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=5, pady=2)
+        self.lst_threads.bind('<<ListboxSelect>>', lambda event: self.on_listbox_select(event, self.thread_entry))
+
+        # Choose Buttons and Output
+        control_frame = tk.Frame(main_frame)
+        control_frame.grid(row=2, column=0, columnspan=2, pady=5, sticky="ew")
+        tk.Button(control_frame, text="Choose Character", command=self.btn_choose_character).grid(row=0, column=0, padx=5, pady=5)
+        tk.Button(control_frame, text="Choose Thread", command=self.btn_choose_thread).grid(row=0, column=1, padx=5, pady=5)
+        tk.Button(control_frame, text="Clear Output", command=lambda: self.chars_output.delete(1.0, tk.END)).grid(row=0, column=2, padx=5, pady=5)
+
+        self.chars_output = scrolledtext.ScrolledText(main_frame, wrap=tk.WORD, height=10, width=70)
+        self.chars_output.grid(row=3, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
+
+        # Load/Save Buttons
+        button_frame = tk.Frame(main_frame)
+        button_frame.grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
+        tk.Button(button_frame, text="Load Campaign", command=self.load_campaign).grid(row=0, column=0, padx=5, pady=5)
+        tk.Button(button_frame, text="Save Campaign", command=self.save_campaign).grid(row=0, column=1, padx=5, pady=5)
+
+        # Ensure listboxes are populated on startup (already handled in __init__)
+        self.update_listbox(self.lst_chars, 'characters')
+        self.update_listbox(self.lst_threads, 'threads')
 
     # Dice Methods
     def adjust_dice(self, entry, delta):
@@ -195,11 +234,11 @@ class RPGApp:
             rect_color = "grey"
             text_color = "black"
             if die in cancelled_count and cancelled_count[die] > 0:
-                rect_color = "#D32F2F"  # Red for cancelled
+                rect_color = "#D32F2F"
                 text_color = "white"
                 cancelled_count[die] -= 1
             elif is_action and die == highest_remaining_die and die in remaining_dice:
-                rect_color = "#388E3C"  # Green for highest remaining
+                rect_color = "#388E3C"
                 text_color = "white"
 
             self.dice_canvas.create_rectangle(x, y, x + dice_size, y + dice_size, fill=rect_color, outline="black")
@@ -331,59 +370,6 @@ class RPGApp:
         self.fate_output.see(tk.END)
 
     # Characters & Threads Methods
-    def btn_manage_lists(self):
-        if self.windows['manage_data']:
-            self.windows['manage_data'].focus_set()
-            self.windows['manage_data'].lift()
-            return
-        window = tk.Toplevel(self.root)
-        window.title("Manage Data")
-        window.geometry("600x525")
-        window.resizable(True, True)
-        self.windows['manage_data'] = window
-        window.bind('<Destroy>', lambda e: self.on_window_close('manage_data'))
-
-        main_frame = tk.Frame(window, padx=10, pady=10)
-        main_frame.pack(fill=tk.BOTH, expand=True)
-        main_frame.grid_columnconfigure(0, weight=1)
-        main_frame.grid_columnconfigure(1, weight=1)
-        main_frame.grid_rowconfigure(0, weight=1)
-
-        characters_frame = tk.Frame(main_frame)
-        threads_frame = tk.Frame(main_frame)
-        characters_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
-        threads_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
-
-        characters_frame.grid_columnconfigure(0, weight=1)
-        characters_frame.grid_rowconfigure(1, weight=1)
-        threads_frame.grid_columnconfigure(0, weight=1)
-        threads_frame.grid_rowconfigure(1, weight=1)
-
-        entry_character = tk.Entry(characters_frame)
-        entry_character.grid(row=0, column=0, sticky="ew", padx=5, pady=2)
-        lst_characters = tk.Listbox(characters_frame, selectmode=tk.SINGLE)
-        lst_characters.grid(row=1, column=0, sticky="nsew", padx=5, pady=2)
-        tk.Button(characters_frame, text="Add/Update Character", command=lambda: self.add_update_entry('characters', entry_character, lst_characters)).grid(row=2, column=0, sticky="ew", pady=2)
-        tk.Button(characters_frame, text="Delete Character", command=lambda: self.delete_entry('characters', lst_characters)).grid(row=3, column=0, sticky="ew", pady=2)
-
-        entry_thread = tk.Entry(threads_frame)
-        entry_thread.grid(row=0, column=0, sticky="ew", padx=5, pady=2)
-        lst_threads = tk.Listbox(threads_frame, selectmode=tk.SINGLE)
-        lst_threads.grid(row=1, column=0, sticky="nsew", padx=5, pady=2)
-        tk.Button(threads_frame, text="Add/Update Thread", command=lambda: self.add_update_entry('threads', entry_thread, lst_threads)).grid(row=2, column=0, sticky="ew", pady=2)
-        tk.Button(threads_frame, text="Delete Thread", command=lambda: self.delete_entry('threads', lst_threads)).grid(row=3, column=0, sticky="ew", pady=2)
-
-        button_frame = tk.Frame(main_frame)
-        button_frame.grid(row=1, column=0, columnspan=2, sticky="ew", pady=5)
-        tk.Button(button_frame, text="Load Campaign", command=self.load_campaign).grid(row=0, column=0, sticky="ew", padx=5)
-        tk.Button(button_frame, text="Save Campaign", command=self.save_campaign).grid(row=0, column=1, sticky="ew", padx=5)
-
-        self.update_listbox(lst_characters, 'characters')
-        self.update_listbox(lst_threads, 'threads')
-
-        lst_characters.bind('<<ListboxSelect>>', lambda event: self.on_listbox_select(event, entry_character))
-        lst_threads.bind('<<ListboxSelect>>', lambda event: self.on_listbox_select(event, entry_thread))
-
     def btn_choose_character(self):
         result = select_from_list(self.data_manager, 'characters')
         self.chars_output.insert(tk.END, result + "\n\n")
@@ -394,7 +380,6 @@ class RPGApp:
         self.chars_output.insert(tk.END, result + "\n\n")
         self.chars_output.see(tk.END)
 
-    # Utility Methods
     def update_listbox(self, listbox_widget, data_type):
         entries = sorted(get_general_data(self.data_manager, data_type))
         listbox_widget.delete(0, tk.END)
@@ -408,6 +393,8 @@ class RPGApp:
             value = widget.get(selection[0]).split('. ', 1)[-1]
             entry_widget.delete(0, tk.END)
             entry_widget.insert(0, value)
+            # Ensure the entry remains editable
+            entry_widget.config(state='normal')
 
     def add_update_entry(self, data_type, entry_widget, listbox_widget):
         new_entry = entry_widget.get().strip()
@@ -419,7 +406,6 @@ class RPGApp:
             self.update_listbox(listbox_widget, data_type)
             self.save_current_data_silently()
             self.update_status(f"Updated {data_type}: {new_entry}")
-            self.update_campaign_display()
         else:
             current_entries = get_general_data(self.data_manager, data_type)
             if len(current_entries) >= 25:
@@ -435,7 +421,6 @@ class RPGApp:
             self.update_listbox(listbox_widget, data_type)
             self.save_current_data_silently()
             self.update_status(f"Deleted {data_type}: {selected_text}")
-            self.update_campaign_display()
 
     def save_current_data_silently(self):
         if self.file_path and save_campaign(self.data_manager, self.file_path):
@@ -452,7 +437,8 @@ class RPGApp:
         )
         if file_path and load_campaign(self.data_manager, file_path):
             self.file_path = file_path
-            self.update_campaign_display()
+            self.update_listbox(self.lst_chars, 'characters')
+            self.update_listbox(self.lst_threads, 'threads')
             self.update_status(f"Campaign loaded from {file_path}")
         else:
             messagebox.showerror("Error", "Failed to load campaign data.")
@@ -467,20 +453,9 @@ class RPGApp:
         if file_path and save_campaign(self.data_manager, file_path):
             self.file_path = file_path
             self.update_status(f"Campaign saved to {file_path}")
-            messagebox.showinfo("Success", "Campaign saved successfully!")
-
-    def add_item(self, data_type):
-        entry = self.char_entry if data_type == "characters" else self.thread_entry
-        item = entry.get()
-        if add_to_general_data(self.data_manager, data_type, item):
-            entry.delete(0, tk.END)
-            self.update_campaign_display()
-
-    def update_campaign_display(self):
-        self.chars_output.delete(1.0, tk.END)
-        chars = "\n".join(self.data_manager.get_items("characters"))
-        threads = "\n".join(self.data_manager.get_items("threads"))
-        self.chars_output.insert(tk.END, f"Characters:\n{chars}\n\nThreads:\n{threads}")
+            messagebox.showinfo("Success", "Campaign saved to new location or updated existing file!")
+        else:
+            messagebox.showerror("Error", "Failed to save campaign data.")
 
     def on_window_close(self, window_name):
         self.windows[window_name] = None
