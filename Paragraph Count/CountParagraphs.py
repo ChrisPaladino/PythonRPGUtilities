@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-def count_paragraphs():
+def count_paragraphs(*args):
     # Get all the text from the Text widget (from index "1.0" up to "end") and strip whitespace
     text_content = text_box.get("1.0", tk.END).strip()
     
@@ -18,7 +18,7 @@ root.title("Paragraph Counter")
 
 # Make the rows and columns expandable
 root.rowconfigure(0, weight=1)        # The row with the Text widget
-root.rowconfigure(1, weight=0)        # The row with the button/label
+root.rowconfigure(1, weight=0)        # The row with the label
 root.columnconfigure(0, weight=1)     # First column
 root.columnconfigure(1, weight=1)     # Second column, so label can resize if needed
 
@@ -26,13 +26,15 @@ root.columnconfigure(1, weight=1)     # Second column, so label can resize if ne
 text_box = tk.Text(root, wrap="word")  # wrap="word" for neat wrapping
 text_box.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
 
-# Create a button to trigger the paragraph count
-count_button = ttk.Button(root, text="Count Paragraphs", command=count_paragraphs)
-count_button.grid(row=1, column=0, padx=10, pady=10, sticky="e")
+# Bind the KeyRelease event to update paragraph count in real-time
+text_box.bind("<KeyRelease>", count_paragraphs)
 
 # Create a label to show results, also let it expand horizontally if needed
-result_label = ttk.Label(root, text="Number of paragraphs: 0")
+result_label = ttk.Label(root, text="Number of paragraphs (split by newlines): 0")
 result_label.grid(row=1, column=1, padx=10, pady=10, sticky="w")
+
+# Initial call to set the count at startup
+count_paragraphs()
 
 # Start the Tkinter event loop
 root.mainloop()
