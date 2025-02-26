@@ -92,7 +92,6 @@ def generate_name():
     first, last = random.sample(npc_data['names'], 2)
     return f"{first} {last}"
 
-# New Fate Chart Logic (Normal-Chaos, using 1d100, corrected ranges)
 def check_fate_chart(chaos_factor, likelihood):
     # Define the Fate Chart ranges for Mid-Chaos (Chaos Factor 1-9, percentile 01-100)
     fate_chart = {
@@ -277,11 +276,16 @@ def generate_npc():
     npc_age, age_category = generate_npc_age()
     return f"NPC: {npc_name}, the {sex}, {age_category} ({npc_age}), {modifier} {noun}, wants to {motivationverb1} {motivationnoun1}, and {motivationverb2} {motivationnoun2}."
 
-def generate_name():
+def generate_name():  # Added default None to match your signature
     if npc_data is None:
         return "Error loading NPC data."
-    first, last = random.sample(npc_data['names'], 2)
-    return f"{first} {last}"
+    
+    # Randomly choose number of pulls (1-4) with weighted probabilities
+    pulls = random.choices([1, 2, 3, 4], weights=[20, 45, 25, 10], k=1)[0]
+    
+    # Pull that many unique names from the list and join them
+    name_parts = random.sample(npc_data['names'], pulls)
+    return "".join(name_parts)  # No spaces, single-word name
 
 def generate_themes(themes_listbox, weights):
     weighted_theme_selection = random.choices(themes_listbox, weights, k=5)
