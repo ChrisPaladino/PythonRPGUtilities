@@ -3,14 +3,11 @@ from tkinter import ttk
 import pyttsx3
 import re
 import threading
-import time
 
 # Initialize the TTS engine
 engine = pyttsx3.init()
 is_speaking = False
 stop_event = threading.Event()
-pause_event = threading.Event()
-current_position = 0  # Tracks character position in text
 
 def clean_text(text):
     """Remove markup symbols but keep the enclosed text."""
@@ -40,87 +37,45 @@ def count_paragraphs(*args):
     else:
         result_label.config(text="Number of paragraphs (split by newlines): 0")
 
-def split_into_sentences(text):
-    """Split text into sentences for finer control."""
-    # Simple sentence splitting (improve with regex or NLP if needed)
-    return [s.strip() for s in re.split(r'(?<=[.!?])\s+', text) if s.strip()]
-
 def speak_text_thread():
-    """Run TTS in a thread with real-time updates and pause/resume."""
-    global is_speaking, current_position
+    """Run TTS in a thread with play/stop."""
+    global is_speaking
     text_content = text_box.get("1.0", tk.END).strip()
     if not text_content or is_speaking:
         return
     
     is_speaking = True
     stop_event.clear()
-    pause_event.clear()
     
-    sentences = split_into_sentences(text_content)
-    total_text = " ".join(sentences)  # Reconstruct full text for position tracking
+    # Set properties before speaking
+    engine.setProperty('rate', speed_scale.get())
+    engine.setProperty('volume', volume_scale.get())
+    engine.setProperty('voice', voices[voice_menu.current()].id)
     
-    if current_position > 0:
-        # Resume from paused position
-        remaining_text = total_text[current_position:]
-        sentences = split_into_sentences(remaining_text)
-    else:
-        remaining_text = total_text
+    engine.say(text_content)
+    engine.runAndWait()  # Blocking call, but in a thread
     
-    for sentence in sentences:
-        if stop_event.is_set():
-            break
-        if pause_event.is_set():
-            current_position = total_text.index(sentence, current_position if current_position > 0 else 0)
-            break
-        
-        # Apply properties before speaking each sentence
-        engine.setProperty('rate', speed_scale.get())
-        engine.setProperty('volume', volume_scale.get())
-        engine.setProperty('voice', voices[voice_menu.current()].id)
-        
-        engine.say(sentence)
-        engine.startLoop(False)
-        while engine.isBusy() and not stop_event.is_set() and not pause_event.is_set():
-            engine.iterate()
-            root.update()
-            time.sleep(0.05)  # 50ms delay for responsiveness
-        engine.endLoop()
-        
-        if not pause_event.is_set() and not stop_event.is_set():
-            current_position += len(sentence) + 1  # +1 for space
-    
-    if stop_event.is_set() or not pause_event.is_set():
-        current_position = 0  # Reset on stop or full completion
+    if stop_event.is_set():
+        engine.stop()  # Ensure queue is cleared
     is_speaking = False
 
 def speak_text():
-    """Start or resume speaking."""
+    """Start speaking."""
     global is_speaking
     if not is_speaking:
         threading.Thread(target=speak_text_thread, daemon=True).start()
-    elif pause_event.is_set():
-        pause_event.clear()  # Resume from paused state
-        threading.Thread(target=speak_text_thread, daemon=True).start()
 
 def stop_speaking():
-    """Stop the TTS and reset position."""
-    global is_speaking, current_position
+    """Stop the TTS."""
+    global is_speaking
     if is_speaking:
         stop_event.set()
-        engine.stop()
+        engine.stop()  # Stop current speech and clear queue
         is_speaking = False
-        current_position = 0
-        pause_event.clear()
-
-def pause_speaking():
-    """Pause the TTS at current position."""
-    global is_speaking
-    if is_speaking and not pause_event.is_set():
-        pause_event.set()
 
 # Create the main window
 root = tk.Tk()
-root.title("Paragraph Counter with Text-to-Speech")
+root.title("Paragraph Counter with pyttsx3")
 
 root.rowconfigure(0, weight=1)
 root.rowconfigure(1, weight=0)
@@ -162,9 +117,6 @@ speak_button.pack(side=tk.LEFT, padx=5)
 
 stop_button = ttk.Button(controls_frame, text="Stop", command=stop_speaking)
 stop_button.pack(side=tk.LEFT, padx=5)
-
-pause_button = ttk.Button(controls_frame, text="Pause", command=pause_speaking)
-pause_button.pack(side=tk.LEFT, padx=5)
 
 count_paragraphs()
 root.mainloop()
