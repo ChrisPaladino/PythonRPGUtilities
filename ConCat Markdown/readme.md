@@ -1,14 +1,21 @@
 # ConCat Markdown
+
 A simple Python script to concatenate all Markdown (`.md`) files from an Obsidian vault (or any folder) into a single Markdown file, preserving folder-based ordering and adding page breaks for easy PDF export.
+
 ## Purpose
+
 This tool was built to suit my personal Obsidian workflow, where I organize notes in numerically prefixed folders (e.g., `1-Sessions`, `2-PCs`, `3-NPCs`, `8-Locations`). It combines all `.md` files into one large file, using filenames as headers, while respecting the natural folder hierarchy—perfect for exporting to PDF or archiving.
+
 ## Features
+
 - **Folder-Based Sorting**: Files are appended in the order of their folder structure (e.g., `1-Sessions/Session 001.md` before `2-PCs/Uthgar.md`).
 - **Clean Headers**: Uses only the filename (e.g., `Session 001`, not `1-Sessions/Session 001`) as the `# Heading`.
 - **Page Breaks**: Inserts `<div style="page-break-after: always;"></div>` between files for PDF compatibility (works with tools like Pandoc).
 - **GUI Selection**: Uses Tkinter to let you pick the source folder and output file via a file dialog.
 - **Obsidian-Friendly**: Ignores hidden folders (e.g., `.obsidian`) and files (e.g., `.hidden.md`).
+
 ## Example
+
 Given this folder structure:
 vault/
 ├── 1-Sessions/
@@ -21,6 +28,7 @@ vault/
     └── Blackthorn.md
 
 The output file (`unified_notes.md`) will look like:
+
 ```markdown
 
 # Session 001
@@ -38,24 +46,36 @@ The output file (`unified_notes.md`) will look like:
 # Blackthorn
 [content from Blackthorn.md]
 ```
+
 ## Requirements
+
 - Python 3.x
--  Tkinter (usually included with Python)
+- Tkinter (usually included with Python)
+
 ## Usage
+
 1. Clone or download this repository.
 2. Run the script:
 3. Select your Obsidian vault folder (or any folder with .md files) in the dialog.
 4. Choose where to save the unified Markdown file (defaults to unified_notes.md).
 5. Check the console for confirmation or error messages.
+
 ## Installation
+
 No special installation needed—just ensure Python is installed on your system:
-# Verify Python and Tkinter
+
+## Verify Python and Tkinter
+
 python --version
 python -m tkinter
 Then run the script directly.
+
 ## Notes
+
 - Sorting: Relies on alphanumeric folder/file naming (e.g., 1-Sessions before 2-PCs). Adjust your folder names for desired order.
 - Page Breaks: The HTML div works with some PDF converters (e.g., Pandoc). For other tools, you might need to tweak the separator.
 - Error Handling: Skips problematic files (e.g., permission issues) and logs errors to the console.
+
 ## Contributing
+
 Feel free to fork this repo and submit pull requests if you’d like to adapt it for your own workflow! Suggestions for improvements are welcome.
