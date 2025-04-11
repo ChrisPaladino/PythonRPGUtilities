@@ -1283,6 +1283,29 @@
             "description": "Spend a Moxie point to reveal a hidden truth about a person, place, or situation, forcing others to confront it."
           }
         ]
-      }
+      },
+        {
+            "name": "Urban Explorer",
+            "source": "AI Created",
+            "type": "Occupation",
+            "description": "You map the forgotten tunnels, abandoned buildings, and hidden passages of the city. Part cartographer, part daredevil, you've developed a knack for finding your way through the most treacherous urban terrain.",
+            "traits": ["Climbing", "Urban Navigation", "Notice", "Athletics", "Stealth", "Engineering", "Survival", "City History"],
+            "flaws": ["Risk-taker", "Claustrophobia", "Obsessive", "Wanted by City Authorities"],
+            "gear": ["Climbing Gear", "Hand-drawn Maps", "Sturdy Boots"],
+            "advantages": [
+                {
+                    "name": "Urban Pathfinder",
+                    "description": "When you make Checks to navigate or find your way through urban environments, roll with Mastery."
+                },
+                {
+                    "name": "Hidden Route",
+                    "description": "Spend a Moxie point to declare you know a secret path or shortcut through any urban area you've previously visited."
+                },
+                {
+                    "name": "Danger Sense",
+                    "description": "You can sense structural instabilities. When in danger from collapsing buildings, traps, or falling hazards, you get a warning just before they occur."
+                }
+            ]
+        }
     ]
 }
