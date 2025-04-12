@@ -456,7 +456,7 @@
             },
             {
                 "name": "Bot Builder",
-                "description": "You begin with a single free robot with a Cost equal to your Cred +1. Robots you purchase cost 1 Cred less (to a minimum of 1)."
+                "description": "You begin with a single free robot (with 1 Tag: Small or Utility) with a Cost equal to your Cred +1. Robots you purchase cost 1 Cred less (to a minimum of 1)."
             }
         ]
     },
@@ -1306,6 +1306,1222 @@
                     "description": "You can sense structural instabilities. When in danger from collapsing buildings, traps, or falling hazards, you get a warning just before they occur."
                 }
             ]
+        },
+        {
+            "name": "Performer",
+            "source": "Hard City",
+            "type": "Past",
+            "description": "You were a professional entertainer, such as a musician, actor, singer, rodeo clown, or circus performer.",
+            "traits": ["Perform", "Charm", "Make a Scene", "Notice", "Empathy", "Deception", "Triple Threat"],
+            "flaws": ["Attention-seeker", "Addiction", "Blacklisted"],
+            "gear": [
+                "Makeup Kit",
+                "Signature Instrument",
+                "Performer's Costume"
+            ],
+            "advantages": [
+                {
+                    "name": "Stage Presence",
+                    "description": "When making an entrance into any social situation, you can spend a Moxie point to ensure all eyes are on you. For the next few minutes, you are the center of attention and can control the emotional tone of the room."
+                },
+                {
+                    "name": "Method Actor",
+                    "description": "You can convincingly impersonate someone after observing them for at least a minute. When attempting to mimic someone's voice, mannerisms, or general appearance, roll with Mastery."
+                },
+                {
+                    "name": "The Show Must Go On",
+                    "description": "You can spend a Moxie point to ignore the effects of a single Injury or negative Condition for the duration of a scene, channeling the performer's ability to continue despite adversity."
+                }
+            ]
+        },
+        {
+            "name": "Physician",
+            "source": "Hard City",
+            "type": "Past",
+            "description": "You were a medical professional. You might have been a doctor, surgeon, nurse, paramedic, or a veterinarian.",
+            "traits": ["Medicine", "First Aid", "Diagnose", "Science", "Psychology", "Forensics", "Research"],
+            "flaws": ["Soft-hearted", "Blunt", "Squeamish", "Serious Debt"],
+            "gear": [
+                "Medical Bag",
+                "Prescription Pad",
+                "Surgical Tools"
+            ],
+            "advantages": [
+                {
+                    "name": "Trauma Specialist",
+                    "description": "When treating serious injuries or performing emergency medical procedures, roll with Mastery."
+                },
+                {
+                    "name": "Bedside Manner",
+                    "description": "You know how to calm and reassure patients. You can remove a psychological Condition (such as Shaken, Angry, or Dazed) from an ally during a Rest."
+                },
+                {
+                    "name": "Medical Authority",
+                    "description": "Your professional demeanor commands respect. Spend a Moxie point to gain access to restricted areas, information, or resources by invoking your medical expertise."
+                }
+            ]
+        },
+        {
+            "name": "Veteran",
+            "source": "Hard City",
+            "type": "Past",
+            "description": "You saw action in a major conflict. You might have been a soldier, sailor, officer, or other war veteran.",
+            "traits": ["Shoot", "Endurance", "Duck for Cover", "Give Orders", "Spot Trouble", "Military Organizations", "Calm Under Pressure"],
+            "flaws": ["Old Injury", "Night Terrors", "Old", "Thousand-yard Stare"],
+            "gear": [
+                "Military ID Tags",
+                "Combat Knife",
+                "Weathered Uniform Jacket"
+            ],
+            "advantages": [
+                {
+                    "name": "Combat Instinct",
+                    "description": "Your battlefield experience keeps you alive. You are never surprised at the start of combat and may roll for Initiative as normal."
+                },
+                {
+                    "name": "Hardened",
+                    "description": "When you make Checks to resist fear, intimidation, or psychological pressure, roll with Mastery."
+                },
+                {
+                    "name": "Unit Cohesion",
+                    "description": "Spend a Moxie point to coordinate your allies in combat. Each ally gains +1 Action Die on their next combat Check."
+                }
+            ]
+        },
+        {
+            "name": "Charmer",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "You use your silver tongue and/or good looks to manipulate others and get what you want. You are a spy, honey-trap, or grifter.",
+            "traits": ["Fast-talker", "Charming", "Looker", "Read a Situation", "Empathy", "Straight-faced Liar", "Distract", "Seduce", "Disguise"],
+            "flaws": ["Overconfident", "Smart Mouth", "Sleazy", "Recognisable"],
+            "gear": [
+                "Designer Clothes",
+                "Expensive Watch",
+                "Collection of Fake IDs"
+            ],
+            "advantages": [
+                {
+                    "name": "Silver Tongue",
+                    "description": "When you attempt to persuade, deceive, or seduce someone through conversation, roll with Mastery."
+                },
+                {
+                    "name": "Perfect Read",
+                    "description": "Spend a Moxie point to instantly determine a person's desires, fears, or vulnerabilities after speaking with them for a few minutes."
+                },
+                {
+                    "name": "Social Chameleon",
+                    "description": "You can blend into any social setting or group. When attempting to fit in or avoid standing out in a social situation, roll with Mastery."
+                }
+            ]
+        },
+        {
+            "name": "Defender",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "You're a bodyguard, enforcer, or tough guy. Whether out of loyalty or compassion, you make it your duty to protect others from harm.",
+            "traits": ["Brawl", "Take a Hit", "Disarm", "Fight Defensively", "Dodge", "Subdue", "Intimidate", "Spot Danger", "Quick reflexes"],
+            "flaws": ["Has a Code", "Old Injury", "Sucker for a Sob Story"],
+            "gear": [
+                "Reinforced Jacket",
+                "Brass Knuckles",
+                "Handcuffs"
+            ],
+            "advantages": [
+                {
+                    "name": "Watchful Guardian",
+                    "description": "When making Checks to spot danger or threats to someone under your protection, roll with Mastery."
+                },
+                {
+                    "name": "Take the Hit",
+                    "description": "Spend a Moxie point to redirect an attack that would hit an adjacent ally to yourself instead."
+                },
+                {
+                    "name": "Intimidating Presence",
+                    "description": "Your protective stance is unmistakable. Spend a Moxie point to give potential attackers pause, forcing them to make a difficult Check to target anyone you're actively protecting."
+                }
+            ]
+        },
+        {
+            "name": "Enforcer",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "You achieve your goals through violence and intimidation. You are often called a thug, gunman, or goon.",
+            "traits": ["Fight", "Shoot", "Threaten with Violence", "Dodge", "Take a Hit", "Intimidate", "Break Stuff", "Nerves of Steel"],
+            "flaws": ["Heartless", "Soft-hearted", "Wanted"],
+            "gear": [
+                "Heavy Pistol",
+                "Lead Pipe",
+                "Bulletproof Vest"
+            ],
+            "advantages": [
+                {
+                    "name": "Fear Factor",
+                    "description": "When you attempt to intimidate someone through the threat of violence, roll with Mastery."
+                },
+                {
+                    "name": "Last Man Standing",
+                    "description": "When you are the only one still fighting on your side, gain +1 Action Die to all combat Checks."
+                },
+                {
+                    "name": "Professional Violence",
+                    "description": "Spend a Moxie point to deal an additional point of Damage on a successful attack, representing your expertise at causing harm."
+                }
+            ]
+        },
+        {
+            "name": "Infiltrator",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "You can get into (and out of) places that others cannot. You might be a burglar, spy, or snoop.",
+            "traits": ["Stealthy", "Agile", "Break & Enter", "Hide", "Safe-cracker", "Escape", "Disguise", "Climb", "Counterfeit"],
+            "flaws": ["Criminal Record", "Lack of Trust", "Kleptomaniac"],
+            "gear": [
+                "Lockpick Set",
+                "Rope and Grappling Hook",
+                "Glass Cutter"
+            ],
+            "advantages": [
+                {
+                    "name": "Ghost",
+                    "description": "When making Checks to move silently or remain unseen, roll with Mastery."
+                },
+                {
+                    "name": "Case the Joint",
+                    "description": "After observing a location for at least 10 minutes, you can identify security weaknesses, guard patterns, and optimal entry points. Gain +1 Action Die when planning or executing a break-in at that location."
+                },
+                {
+                    "name": "Hidden Compartment",
+                    "description": "You have a secret pocket or compartment in your clothing that is virtually undetectable during searches. Items stored there will not be found unless you are completely stripped."
+                }
+            ]
+        },
+        {
+            "name": "Investigator",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "Whether an insurance man, PI, gumshoe, or shamus, you look for answers and seek truths.",
+            "traits": ["Investigate", "Notice", "Interrogate", "Law", "Follow Leads", "Human Lie Detector", "Shoot"],
+            "flaws": ["Personal Code", "Hard Drinker", "Reckless", "Heart of Gold"],
+            "gear": [
+                "Camera",
+                "Tape Recorder",
+                "Private Investigator License"
+            ],
+            "advantages": [
+                {
+                    "name": "Keen Eye for Detail",
+                    "description": "You notice things others miss. When searching a scene for clues or evidence, roll with Mastery."
+                },
+                {
+                    "name": "Follow the Money",
+                    "description": "When investigating financial crimes, corruption, or following a money trail, gain +1 Action Die."
+                },
+                {
+                    "name": "Intuitive Leap",
+                    "description": "Once per scene, spend a Moxie point to make a connection between seemingly unrelated clues, receiving a vital insight from the GM."
+                }
+            ]
+        },
+        {
+            "name": "Leader",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "You're a natural leader and organiser, adept at getting things done. You're the mastermind, the chief, or the sarge.",
+            "traits": ["Smart", "Command", "Calm a Situation", "Make a Plan", "Communicate", "Empathy", "Inspire Others", "Bully", "Charm"],
+            "flaws": ["Cares Too Damn Much", "People are Pawns", "Over-thinker"],
+            "gear": [
+                "Notebook of Plans",
+                "Whistle",
+                "Symbol of Authority"
+            ],
+            "advantages": [
+                {
+                    "name": "Tactical Genius",
+                    "description": "When you create and explain a plan before a mission or conflict, allies who follow your plan gain +1 Action Die on their first check during execution."
+                },
+                {
+                    "name": "Delegate",
+                    "description": "You know how to leverage others' strengths. Once per scene, you can designate an ally to perform a task with Mastery on their next related Check."
+                },
+                {
+                    "name": "Inspiring Presence",
+                    "description": "Your allies gain +1 Action Die on Checks to resist fear, intimidation, or demoralization while they can see or hear you."
+                }
+            ]
+        },
+        {
+            "name": "Negotiator",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "As a fixer, broker, or mediator you make deals, cut through red tape, and solve problems that others do not have the resources or contacts to handle.",
+            "traits": ["Smooth-talker", "Make a Deal", "Bureaucracy", "Detail-oriented", "Sense Motives", "Empathy", "Web of Contacts", "Persuade", "Straight-faced Liar"],
+            "flaws": ["Bad Reputation", "Coward", "Greedy", "Sucker for a Sob Story"],
+            "gear": [
+                "Ledger Book",
+                "Bottle of Fine Whiskey",
+                "Burner Phone"
+            ],
+            "advantages": [
+                {
+                    "name": "Deal Maker",
+                    "description": "When negotiating terms, prices, or arrangements, roll with Mastery."
+                },
+                {
+                    "name": "Contact Broker",
+                    "description": "You don't need to know everyone—you just need to know who knows them. Once per session, you can find someone who can connect you to a person, organization, or resource you need."
+                },
+                {
+                    "name": "Silver Tongue",
+                    "description": "When attempting to persuade someone through rational argument or emotional appeal, roll with Mastery."
+                }
+            ]
+        },
+        {
+            "name": "Researcher",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "You use your brains, not so much your brawn. You're an academic, scientist, or 'whiz'.",
+            "traits": ["Educated", "Focused", "Well-read", "Analyse", "Research", "Notice", "Science", "Forensics", "Investigate"],
+            "flaws": ["Arrogant", "Weakling", "Absent-minded", "Fastidious"],
+            "gear": [
+                "Reference Books",
+                "Scientific Calculator",
+                "Laboratory Equipment"
+            ],
+            "advantages": [
+                {
+                    "name": "Scholarly Expertise",
+                    "description": "When researching information or recalling academic knowledge, roll with Mastery."
+                },
+                {
+                    "name": "Analytical Mind",
+                    "description": "Spend a Moxie point to instantly analyze a complex system, code, or pattern, revealing its underlying structure or meaning."
+                },
+                {
+                    "name": "Scientific Method",
+                    "description": "When given time to systematically test a theory or hypothesis, you can spend a Moxie point to confirm whether it's correct or not, receiving valuable information either way."
+                }
+            ]
+        },
+        {
+            "name": "Tinkerer",
+            "source": "Hard City",
+            "type": "Present",
+            "description": "A technician, engineer, mechanic, or specialist in a technical field. You build, fix, invent, and destroy things.",
+            "traits": ["Analyse", "Repair", "Notice", "Engineering", "Demolitions", "Jury-rig", "Wiretapping", "Cunning"],
+            "flaws": ["Risk-taker", "Short-tempered", "Overly cautious", "Always Dirty"],
+            "gear": [
+                "Tool Kit",
+                "Blueprints and Schematics",
+                "Insulated Work Gloves"
+            ],
+            "advantages": [
+                {
+                    "name": "Improvise Solution",
+                    "description": "When jury-rigging a solution to a technical problem with limited resources, roll with Mastery."
+                },
+                {
+                    "name": "Technical Insight",
+                    "description": "After examining a machine, device, or system for a minute, spend a Moxie point to understand exactly how it works, including any weaknesses or ways to disable it."
+                },
+                {
+                    "name": "Inventor's Spark",
+                    "description": "Once per session, you can declare that you've been working on a prototype device that's perfectly suited to the current situation. Work with the GM to define its capabilities and limitations."
+                }
+            ]
+        },
+        {
+            "name": "Analytical",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You take in all the details around you and process them like a machine.",
+            "traits": ["Notice", "Eye for Detail", "Make Connections", "It's the Little Things That Matter", "Focused"],
+            "flaws": ["Blunt", "Daydreamer", "Fastidious"],
+            "gear": [
+                "Notebook and Pen",
+                "Voice Recorder",
+                "Camera"
+            ],
+            "advantages": [
+                {
+                    "name": "Pattern Recognition",
+                    "description": "When analyzing patterns, codes, or seemingly unrelated clues, roll with Mastery."
+                },
+                {
+                    "name": "Photographic Memory",
+                    "description": "You can perfectly recall any detail you've specifically observed. When remembering specific details about something you've seen, roll with Mastery."
+                },
+                {
+                    "name": "Instant Analysis",
+                    "description": "After observing a crime scene, person, or situation for just a minute, you can spend a Moxie point to ask the GM three specific questions about what you're observing, receiving truthful answers."
+                }
+            ]
+        },
+        {
+            "name": "Athlete",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You are physically fit and healthy. Perhaps you once played professional ball, or maybe you just look after yourself properly.",
+            "traits": ["Healthy", "Sports", "Strong", "Run", "Leap", "Climb", "Wrestle", "Brawl"],
+            "flaws": ["Addiction", "Overconfident", "Show-off"],
+            "gear": [
+                "Athletic Shoes",
+                "Sports Equipment",
+                "Protein Supplements"
+            ],
+            "advantages": [
+                {
+                    "name": "Peak Physical Condition",
+                    "description": "When performing feats of athleticism, endurance, or physical prowess, roll with Mastery."
+                },
+                {
+                    "name": "Second Wind",
+                    "description": "Once per scene, spend a Moxie point to instantly recover from physical exhaustion, clearing the Tired or Weakened Condition."
+                },
+                {
+                    "name": "Push the Limits",
+                    "description": "Spend a Moxie point to accomplish a physical feat that would normally be beyond human capability, such as an exceptional jump, lift, or burst of speed."
+                }
+            ]
+        },
+        {
+            "name": "Badge",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You have an official-looking badge – it might even be real.",
+            "traits": ["Loosen Lips", "A Little Authority", "Impersonate a Police Officer", "Open Doors"],
+            "flaws": ["Animosity of the Local Police", "Disgraced Officer"],
+            "gear": [
+                "Official-looking Badge",
+                "Fake ID",
+                "Police Radio"
+            ],
+            "advantages": [
+                {
+                    "name": "Flash the Badge",
+                    "description": "When using your badge to gain access, information, or cooperation from civilians, roll with Mastery."
+                },
+                {
+                    "name": "Borrowed Authority",
+                    "description": "Spend a Moxie point to make a civilian comply with a direct order, as if you had legitimate authority over them."
+                },
+                {
+                    "name": "Inside Knowledge",
+                    "description": "You understand police procedures and protocols. When navigating police bureaucracy or predicting police actions, roll with Mastery."
+                }
+            ]
+        },
+        {
+            "name": "Boiler",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "A well-maintained motor car, perhaps with a few upgrades.",
+            "traits": ["Fast", "Handling", "Secret Compartment", "Room for a Body", "Well-built", "Armoured"],
+            "flaws": ["Bad Gearbox", "Stolen", "Easily Recognised", "Small"],
+            "gear": [
+                "Spare Parts",
+                "Toolbox",
+                "Maintenance Manual"
+            ],
+            "advantages": [
+                {
+                    "name": "Getaway Vehicle",
+                    "description": "When driving to escape pursuit or danger, roll with Mastery."
+                },
+                {
+                    "name": "Hidden Modifications",
+                    "description": "Your car has concealed upgrades. Spend a Moxie point to reveal a useful feature such as reinforced bumpers, hidden weapons, or enhanced engine performance for one scene."
+                },
+                {
+                    "name": "Reliable Start",
+                    "description": "Your car always starts on the first try, even in extreme conditions or when it would normally be disabled. If the car is completely destroyed, you can acquire a new one during Downtime."
+                }
+            ]
+        },
+        {
+            "name": "Brave",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You've been through hell and come out all the stronger.",
+            "traits": ["Unflinching", "Tough", "Intimidate", "Inspire", "Willpower", "Optimistic"],
+            "flaws": ["Reckless", "Overconfident", "Phobia"],
+            "gear": [
+                "Lucky Token",
+                "Scars with Stories",
+                "Flask of Liquid Courage"
+            ],
+            "advantages": [
+                {
+                    "name": "Lead by Example",
+                    "description": "When you face danger head-on, you inspire others. Allies who witness your brave act gain +1 Action Die on their next Check to overcome the same threat."
+                },
+                {
+                    "name": "Stare Down Danger",
+                    "description": "You can spend a Moxie point to overcome your natural instinct for self-preservation, allowing you to take actions that normal people would find impossible due to fear."
+                },
+                {
+                    "name": "Inspiring Courage",
+                    "description": "Your bravery is contagious. Once per scene, you can remove the Shaken or Frightened Condition from an ally who can see or hear you."
+                }
+            ]
+        },
+        {
+            "name": "Dirty Fighter",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "When things come to blows, you're not adverse to hitting low.",
+            "traits": ["Brawl", "Take a Hit", "Low Blows", "Distract", "Kick", "Tackle", "Knives", "Backstab"],
+            "flaws": ["Coward", "Bully", "Bad Reputation"],
+            "gear": [
+                "Brass Knuckles",
+                "Concealed Blade",
+                "Pocket Full of Sand"
+            ],
+            "advantages": [
+                {
+                    "name": "Cheap Shot",
+                    "description": "Spend a Moxie point to make a surprise attack against an opponent who's focused on someone else, dealing +1 Damage on a successful hit."
+                },
+                {
+                    "name": "Improvised Weapon",
+                    "description": "You can effectively weaponize ordinary objects found in your environment. When using improvised weapons, you do not suffer the usual penalties."
+                },
+                {
+                    "name": "Dirty Trick",
+                    "description": "Once per combat, you can spend a Moxie point to momentarily disable an opponent with a particularly underhanded move, causing them to lose their next action."
+                }
+            ]
+        },
+        {
+            "name": "Educated",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You are very well educated, probably a university graduate.",
+            "traits": ["Well-read", "General Knowledge", "History", "Languages", "Persuade", "Research"],
+            "flaws": ["Arrogant", "Soft-looking", "Curious"],
+            "gear": [
+                "University Tie or Pin",
+                "Reading Glasses",
+                "Journal of Academic Notes"
+            ],
+            "advantages": [
+                {
+                    "name": "Multilingual",
+                    "description": "You speak several languages fluently. When attempting to communicate in foreign languages or translate texts, roll with Mastery."
+                },
+                {
+                    "name": "Critical Analysis",
+                    "description": "Spend a Moxie point to identify the weakness or flaw in an argument, plan, or system after studying it briefly."
+                },
+                {
+                    "name": "Well-Researched",
+                    "description": "Once per session, you can declare that you've previously researched a relevant topic, allowing you to ask the GM a specific question that your character would know the answer to."
+                }
+            ]
+        },
+        {
+            "name": "Everyman",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You're an average Joe, apparently unremarkable in every way.",
+            "traits": ["Likeable", "Empathy", "Blend into a Crowd", "Forgettable Face", "Gossip", "Brave"],
+            "flaws": ["Forgettable", "97-pound Weakling", "Ambitious", "Always Friend-zoned"],
+            "gear": [
+                "Plain Clothes",
+                "Common Brand Cigarettes",
+                "Ordinary Wristwatch"
+            ],
+            "advantages": [
+                {
+                    "name": "Hide in Plain Sight",
+                    "description": "When attempting to go unnoticed in public places, roll with Mastery."
+                },
+                {
+                    "name": "Underestimated",
+                    "description": "People rarely see you as a threat. Once per scene, you can surprise someone who has dismissed you, gaining Mastery on an action they weren't expecting from you."
+                },
+                {
+                    "name": "Reliable Gut Feeling",
+                    "description": "Your street smarts and everyday wisdom give you good instincts. Once per session, you can ask the GM if something feels 'off' or suspicious, and receive an honest answer."
+                }
+            ]
+        },
+        {
+            "name": "Famous",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You've been in the papers – maybe even in the movies!",
+            "traits": ["Easily Recognised", "Persuade", "Distract", "Instant Invitation", "Do You Know Who I Am?"],
+            "flaws": ["Narcissist", "Attention-seeker", "Owned by the Studio"],
+            "gear": [
+                "Expensive Sunglasses",
+                "Latest Fashion Outfit",
+                "Press Clippings"
+            ],
+            "advantages": [
+                {
+                    "name": "Adoring Fans",
+                    "description": "Spend a Moxie point to find an admirer in any public place who is willing to do you a small favor or provide assistance."
+                },
+                {
+                    "name": "Center of Attention",
+                    "description": "You can create a distraction by simply making your presence known. When you need to draw attention away from allies or other events, roll with Mastery."
+                },
+                {
+                    "name": "VIP Treatment",
+                    "description": "Your fame opens doors. Spend a Moxie point to gain access to an exclusive venue, event, or person that would normally be off-limits."
+                }
+            ]
+        },
+        {
+            "name": "Femme Fatale",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You know how to use your sex appeal to manipulate others and get your own way.",
+            "traits": ["Sex Appeal", "Seduction", "Cunning", "Strong-willed", "Persuade"],
+            "flaws": ["Unreliable", "Irresponsible", "Selfish"],
+            "gear": [
+                "Alluring Perfume",
+                "Provocative Attire",
+                "Hidden Knife in Garter"
+            ],
+            "advantages": [
+                {
+                    "name": "Irresistible Charm",
+                    "description": "When attempting to seduce or manipulate someone who could be attracted to you, roll with Mastery."
+                },
+                {
+                    "name": "Deadly Distraction",
+                    "description": "You can use your charms to create the perfect diversion. Spend a Moxie point to completely distract a susceptible target for several minutes, allowing allies to act unnoticed."
+                },
+                {
+                    "name": "Playing the Victim",
+                    "description": "You can convincingly appear helpless or in distress when needed. When feigning vulnerability to manipulate others into helping you, roll with Mastery."
+                }
+            ]
+        },
+        {
+            "name": "Heir to a Fortune",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You've got money, or you will have soon.",
+            "traits": ["Credit", "Club Member", "Do You Know Who My Daddy Is?", "Educated", "Get an Invitation"],
+            "flaws": ["Spoiled", "Family Obligations", "Black Sheep", "Huge Debts"],
+            "gear": [
+                "Gold Watch",
+                "Expensive Suit/Dress",
+                "Family Signet Ring"
+            ],
+            "advantages": [
+                {
+                    "name": "Family Connections",
+                    "description": "Your family name opens doors. When attempting to access exclusive venues or meet influential people, roll with Mastery."
+                },
+                {
+                    "name": "Emergency Fund",
+                    "description": "Once per session, you can access your family's resources to obtain a piece of expensive equipment, pay off a debt, or fund an operation without any Check required."
+                },
+                {
+                    "name": "Family Lawyer",
+                    "description": "Spend a Moxie point to get out of legal trouble, have charges reduced, or secure release from custody through your family's legal connections."
+                }
+            ]
+        },
+        {
+            "name": "Huge",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You're big – really big.",
+            "traits": ["Strong", "Fists Like Ham Hocks", "Take a Hit", "Tall", "Intimidate", "Brawl"],
+            "flaws": ["Dumb as a Rock", "Always the First Target", "Clumsy", "Big Softy"],
+            "gear": [
+                "Oversized Clothes",
+                "Massive Belt",
+                "Knuckle Wraps"
+            ],
+            "advantages": [
+                {
+                    "name": "Brute Strength",
+                    "description": "When performing feats of raw strength like breaking barriers or lifting heavy objects, roll with Mastery."
+                },
+                {
+                    "name": "Imposing Presence",
+                    "description": "Your size alone is intimidating. When attempting to frighten or intimidate others through physical presence, roll with Mastery."
+                },
+                {
+                    "name": "Thick Skinned",
+                    "description": "Your size gives you natural resilience. Once per scene, you can reduce the damage from a physical attack by 2."
+                }
+            ]
+        },
+        {
+            "name": "Infamous",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You have a bad reputation. Maybe you deserve it, maybe you don't, but you can leverage it for advantage.",
+            "traits": ["Easily Recognised", "Intimidate", "Distract", "Friends in Low Places"],
+            "flaws": ["Powerful Enemy", "Bad Reputation", "Low Self-esteem", "Poor Impulse Control"],
+            "gear": [
+                "Contraband",
+                "Hidden Weapon",
+                "Falsified ID"
+            ],
+            "advantages": [
+                {
+                    "name": "Feared Reputation",
+                    "description": "When attempting to intimidate someone who has heard of you, roll with Mastery."
+                },
+                {
+                    "name": "Underworld Connections",
+                    "description": "You have contacts among criminals and lowlifes. When seeking information or assistance from the criminal element, roll with Mastery."
+                },
+                {
+                    "name": "Criminal Legend",
+                    "description": "Once per session, you can spread a rumor about yourself that people will believe, enhancing your infamous reputation in a way that benefits your current situation."
+                }
+            ]
+        },
+        {
+            "name": "Knife Fighter",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You have a knack with blades.",
+            "traits": ["Quick Strike", "Knife Throwing", "Disarm", "Crippling Strike", "Backstab", "Intimidate"],
+            "flaws": ["Bloodthirsty", "Mean Streak", "Scrawny"],
+            "gear": [
+                "Collection of Knives",
+                "Whetstone",
+                "Arm Sheath",
+                "Ankle Holster"
+            ],
+            "advantages": [
+                {
+                    "name": "Precision Cut",
+                    "description": "When making targeted attacks with a knife, roll with Mastery."
+                },
+                {
+                    "name": "Always Armed",
+                    "description": "You can conceal knives on your person with exceptional skill. When hiding blades or being searched for weapons, roll with Mastery."
+                },
+                {
+                    "name": "Bleeding Wound",
+                    "description": "When you successfully hit an opponent with a blade, spend a Moxie point to inflict a Bleeding condition that causes ongoing damage until treated."
+                }
+            ]
+        },
+        {
+            "name": "Laboratory",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You have access to a state-of-the-art laboratory or research facility.",
+            "traits": ["Research", "Analyse", "Chemistry", "Forensics", "Science", "Well-stocked"],
+            "flaws": ["Public Building", "Limited Resources", "Maintenance"],
+            "gear": [
+                "Safety Goggles",
+                "Collection of Chemicals",
+                "Research Notes"
+            ],
+            "advantages": [
+                {
+                    "name": "Chemical Concoction",
+                    "description": "Given time in your lab, you can create useful chemical compounds. Spend a Moxie point to produce a specific substance needed for your current situation."
+                },
+                {
+                    "name": "Forensic Expertise",
+                    "description": "You can derive extraordinary information from minimal evidence. When examining crime scenes or physical evidence, gain +1 Action Die."
+                },
+                {
+                    "name": "Experimental Equipment",
+                    "description": "Your lab contains specialized tools and devices. Once per session, you can declare your lab has a particular piece of equipment that's perfectly suited to your current investigation."
+                }
+            ]
+        },
+        {
+            "name": "Weasel",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You're small and devious.",
+            "traits": ["Little", "Cunning", "Hide", "Run", "Straight-faced Liar", "Low Blows"],
+            "flaws": ["Untrustworthy", "Easy Target", "Weak Constitution"],
+            "gear": [
+                "Concealed Blade",
+                "Small Flask of Moonshine",
+                "Ratty Clothes with Hidden Pockets"
+            ],
+            "advantages": [
+                {
+                    "name": "Slip Away",
+                    "description": "When attempting to escape bonds, tight spaces, or someone's grasp, roll with Mastery."
+                },
+                {
+                    "name": "Small Target",
+                    "description": "Your diminutive size makes you harder to hit. You gain +1 Armor against ranged attacks from medium or long distance."
+                },
+                {
+                    "name": "Convincing Innocence",
+                    "description": "You can play on your small stature to appear harmless. When attempting to convince others of your innocence or harmlessness, roll with Mastery."
+                }
+            ]
+        },
+        {
+            "name": "Looks",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You're very attractive – and you know it.",
+            "traits": ["Sex Appeal", "Distract", "Persuade", "Charm", "Straight-faced Liar", "Get an Answer", "Perform", "Gossip"],
+            "flaws": ["Unwanted Admirer", "Famous", "Vain"],
+            "gear": [
+                "Designer Clothes",
+                "Expensive Cologne/Perfume",
+                "Compact Mirror"
+            ],
+            "advantages": [
+                {
+                    "name": "Disarming Smile",
+                    "description": "When attempting to persuade someone through charm and attractiveness, roll with Mastery."
+                },
+                {
+                    "name": "Perfect Distraction",
+                    "description": "You can use your appearance to create diversions. Spend a Moxie point to distract guards or onlookers, giving allies a chance to act unnoticed."
+                },
+                {
+                    "name": "Social Butterfly",
+                    "description": "Your attractiveness opens doors. Once per session, you can gain access to an exclusive venue or person through your looks and charm alone."
+                }
+            ]
+        },
+        {
+            "name": "Marksman",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You're a capable shot and familiar with a variety of firearms.",
+            "traits": ["Quick Draw", "Precise Aim", "Trick Shots", "Firearm Maintenance", "Steady Hands", "Long Shot"],
+            "flaws": ["Show-off", "Pacifist", "Personal Code"],
+            "gear": [
+                "Precision Pistol",
+                "Custom Holster",
+                "Rifle Scope"
+            ],
+            "advantages": [
+                {
+                    "name": "Trick Shot",
+                    "description": "Spend a Moxie point to make an impossible shot, such as shooting around corners, hitting multiple targets with one bullet, or shooting a weapon out of someone's hand."
+                },
+                {
+                    "name": "Focused Calm",
+                    "description": "In combat situations, you maintain perfect composure. Ignore penalties for stress, distractions, or environmental factors when making ranged attacks."
+                },
+                {
+                    "name": "Weapon Expert",
+                    "description": "You can quickly assess and adapt to any firearm. When using an unfamiliar gun for the first time, you do not suffer the usual penalties."
+                }
+            ]
+        },
+        {
+            "name": "Married to the Mob",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "For whatever reason, you have close ties to local gangsters.",
+            "traits": ["Criminal Contacts", "Tough Reputation", "Friends in High places", "Knows Where the Bodies Are Buried", "Straight-faced Liar", "Gossip"],
+            "flaws": ["Powerful Enemy", "Mean Streak", "Secret Identity"],
+            "gear": [
+                "Protection Money",
+                "Untraceable Gun",
+                "Family Ring"
+            ],
+            "advantages": [
+                {
+                    "name": "Family Protection",
+                    "description": "When dealing with local criminals who know your connections, roll with Mastery to avoid trouble or gain cooperation."
+                },
+                {
+                    "name": "Call in a Favor",
+                    "description": "Spend a Moxie point to have mob associates perform a service for you, such as providing information, applying pressure to someone, or offering protection."
+                },
+                {
+                    "name": "The Offer They Can't Refuse",
+                    "description": "Spend a Moxie point to intimidate someone through your mob connections, making them cooperate out of fear of reprisal."
+                }
+            ]
+        },
+        {
+            "name": "Numbers Man",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You have a head for numbers, facts, and figures.",
+            "traits": ["Human Calculator", "Accounting", "Eye for Detail", "Tax Law", "Card Counting", "Maths is at the Heart of Everything", "Notice"],
+            "flaws": ["Socially Awkward", "Takes Things Too Literally"],
+            "gear": [
+                "Pocket Calculator",
+                "Ledger Book",
+                "Statistical Reference Manual"
+            ],
+            "advantages": [
+                {
+                    "name": "Money Trail",
+                    "description": "You can follow financial records to uncover hidden connections. When investigating financial crimes or tracking money, roll with Mastery."
+                },
+                {
+                    "name": "Statistical Analysis",
+                    "description": "Spend a Moxie point to analyze patterns and predict the most likely outcome of a situation based on available data."
+                },
+                {
+                    "name": "Numerical Memory",
+                    "description": "You perfectly recall any numbers you've seen, including addresses, phone numbers, safe combinations, and account details."
+                }
+            ]
+        },
+        {
+            "name": "Sleight of Hand",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "You're an amateur magician, or a skilled thief.",
+            "traits": ["Card Tricks", "Pickpocket", "Palm Object", "The Ol' Switcheroo", "Notice"],
+            "flaws": ["Criminal Record", "Greedy"],
+            "gear": [
+                "Deck of Cards",
+                "Coins for Tricks",
+                "Hidden Pockets"
+            ],
+            "advantages": [
+                {
+                    "name": "Nimble Fingers",
+                    "description": "When picking pockets or manipulating small objects without being noticed, roll with Mastery."
+                },
+                {
+                    "name": "Misdirection",
+                    "description": "You excel at drawing attention away from your true actions. When creating diversions or distractions, roll with Mastery."
+                },
+                {
+                    "name": "Quick Change",
+                    "description": "You can swap one small item for another without detection. Spend a Moxie point to replace an object someone is holding or wearing with something similar."
+                }
+            ]
+        },
+        {
+            "name": "Tough as Nails",
+            "source": "Hard City",
+            "type": "Perk",
+            "description": "Maybe you're big, maybe you're not, but it takes a lot to bring you down.",
+            "traits": ["Take a Hit", "Drinks Like a Fish", "Shrug it Off", "Grit", "Can-do Spirit", "Endurance", "Roll with the Punches"],
+            "flaws": ["Ugly as Sin", "Old Injury", "Punches First & Asks Questions Later"],
+            "gear": [
+                "Flask of Strong Liquor",
+                "Worn Leather Jacket",
+                "Bandages and Tape"
+            ],
+            "advantages": [
+                {
+                    "name": "Shrug It Off",
+                    "description": "Once per scene, spend a Moxie point to ignore the effects of an Injury for the remainder of the scene."
+                },
+                {
+                    "name": "Pain Tolerance",
+                    "description": "When making Checks to resist pain, torture, or continue functioning while injured, roll with Mastery."
+                },
+                {
+                    "name": "Second Wind",
+                    "description": "When reduced to your last point of Grit, you automatically clear the Tired or Weakened Condition if you're suffering from either."
+                }
+            ]
+        },
+        {
+            "name": "Swamp Scout",
+            "source": "Masters of the Universe",
+            "type": "Background",
+            "description": "You were born and raised in the murky wetlands of Eternia, developing an intimate knowledge of these territories and the natural skills to thrive there.",
+            "traits": ["Swim", "Hide", "Stealth", "Wetland Navigation", "Animal Empathy", "Climb", "Spot Danger", "Endurance"],
+            "flaws": ["Fish Out of Water", "Damp Aura", "Territorial", "Easily Distracted by Shiny Tech"],
+            "gear": [
+                "Waterproof Satchel",
+                "Beast Hide Cloak",
+                "Marsh Herb Poultice"
+            ],
+            "advantages": [
+                {
+                    "name": "Born to the Muck",
+                    "description": "When navigating, hiding, or tracking in swamp or wetland environments, roll with Mastery."
+                },
+                {
+                    "name": "Mire Mastery",
+                    "description": "You can move at full speed through mud, shallow water, and difficult wetland terrain where others would be slowed or trapped. Additionally, you can spend a Moxie point to extend this benefit to an ally for one scene."
+                },
+                {
+                    "name": "Swamp Camouflage",
+                    "description": "When you take a moment to cover yourself with natural wetland materials, you become nearly invisible in swamp environments. As long as you remain still or move very slowly, even technological sensors have difficulty detecting you."
+                }
+            ]
+        },
+        {
+            "name": "Tech Saboteur",
+            "source": "Masters of the Universe",
+            "type": "Occupation",
+            "description": "You've learned to repurpose, dismantle, and sabotage Eternian technology through intuition and trial-and-error.",
+            "traits": ["Repair", "Sabotage", "Jury-rig", "Cybernetic Interface", "Detect Weakpoints", "Demolitions", "Analyze Tech", "Quick Fingers"],
+            "flaws": ["Cybernetic Glitches", "Obsessed with Gadgets", "Risk-taker", "Tri-Klops' Hit List"],
+            "gear": [
+                "Makeshift Tool Kit",
+                "Scavenged Power Cells",
+                "EMP Micro-charges"
+            ],
+            "advantages": [
+                {
+                    "name": "Improvised Solutions",
+                    "description": "You can create functional devices from scrap and salvage. When crafting makeshift tools or devices under pressure, roll with Mastery."
+                },
+                {
+                    "name": "System Disruptor",
+                    "description": "Once per scene, you can spend a Moxie point to cause a nearby piece of technology to malfunction in a way that benefits you, creating a distraction, opening a locked door, or temporarily disabling a weapon."
+                },
+                {
+                    "name": "Quick Fix",
+                    "description": "You can repair damaged technology in half the normal time. The repair may not be pretty, but it works—at least until the end of the scene. Permanent repairs still require proper time and materials."
+                }
+            ]
+        },
+        {
+            "name": "Rebel Heart",
+            "source": "Masters of the Universe",
+            "type": "Descriptor",
+            "description": "You've dedicated yourself to opposing tyranny supporting rebellion. Your charm, resourcefulness, and unwavering loyalty make you a valuable agent of resistance.",
+            "traits": ["Charm", "Inspire Others", "Adaptable", "Hide in Plain Sight", "Quick Thinking", "Resist Interrogation", "Rebellion Contacts", "Lie Convincingly"],
+            "flaws": ["Unrequited Love", "Haunted by the Past", "Overprotective", "Impulsive"],
+            "gear": [
+                "Rebellion Insignia (hidden)",
+                "Coded Message System",
+                "Emergency Rations"
+            ],
+            "advantages": [
+                {
+                    "name": "Heart of the Rebellion",
+                    "description": "Your passionate belief in the cause inspires others. Once per scene, you can rally an ally who can hear you, removing a psychological Condition such as Shaken, Dazed, or Frightened."
+                },
+                {
+                    "name": "Former Pawn's Insight",
+                    "description": "Your time serving Skeletor gives you valuable knowledge. When predicting the actions of Skeletor's forces or navigating locations controlled by his minions, roll with Mastery."
+                },
+                {
+                    "name": "Infectious Charm",
+                    "description": "Your natural charisma can win over even skeptics. When attempting to persuade someone to support the rebellion or at least look the other way, roll with Mastery."
+                }
+            ]
+        },
+        {
+            "name": "Rusted Relic Claw",
+            "source": "Masters of the Universe",
+            "type": "Descriptor",
+            "description": "Your right arm is a salvaged cybernetic claw, a hulking piece of technology that's part ancient Eternian relic, part Horde tech. Though rusted and patchwork, it grants you extraordinary strength and unique abilities that allow you to interface with machinery in ways others cannot.",
+            "traits": ["Unnatural Strength", "Tech Interface", "Crushing Grip", "Mechanical Intuition", "Intimidate", "Demolish", "Detect Energy Fields", "Weather Prediction"],
+            "flaws": ["Malfunctions at Worst Times", "Power Fluctuations", "Loud Servos", "Vulnerable to EMP", "Skeletor's Tech Signature"],
+            "gear": [
+                "Replacement Power Cells",
+                "Claw Maintenance Tools",
+                "Interface Adapters"
+            ],
+            "advantages": [
+                {
+                    "name": "Tech Communion",
+                    "description": "Your claw can directly interface with Eternian and Horde technology. When attempting to access, control, or extract data from technological systems, roll with Mastery."
+                },
+                {
+                    "name": "Crushing Force",
+                    "description": "When using your mechanical claw to break objects, bend metal, or force open barriers, roll with Mastery. Additionally, your claw attacks gain the 'Powerful' tag."
+                },
+                {
+                    "name": "Emergency Overcharge",
+                    "description": "In desperate situations, you can overload your claw's power systems. Spend a Moxie point to perform a devastating attack or extraordinary feat of strength. After using this ability, your claw is temporarily weakened (reduced effectiveness) until you can make repairs during a Rest."
+                }
+            ]
+        },
+        {
+            "name": "Swamp Trickster",
+            "source": "Masters of the Universe",
+            "type": "Background",
+            "description": "Born in the tangled, murky wetlands of Eternia, you’ve learned to thrive where others falter. The swamps shaped you into a nimble, cunning survivor—part scavenger, part prankster—equally at home dodging predators or outwitting foes. Your webbed feet and sly instincts make you a natural at slipping through danger, leaving only ripples and laughter behind.",
+            "traits": [
+                "Swim",
+                "Stealth",
+                "Climb",
+                "Awareness",
+                "Scrounge",
+                "Wetland Navigation",
+                "Charm"
+            ],
+            "flaws": [
+                "Fish Out of Water",
+                "Impulsive",
+                "Guilty Past",
+                "Sticky Fingers"
+            ],
+            "gear": [
+                "Waterproof Cloak",
+                "Red Bandana",
+                "Pouch of Marsh Herbs"
+            ],
+            "advantages": [
+                {
+                    "name": "Muck Mirage",
+                    "description": "Spend a Moxie point to blend into swampy terrain or murky water, becoming nearly invisible to the naked eye and basic tech sensors for one Turn. You can move slowly while hidden, but attacking or rapid movement breaks the effect."
+                },
+                {
+                    "name": "Slippery Escape",
+                    "description": "When you make Checks to evade capture, slip through tight spaces, or escape restraints in wet or muddy conditions, roll with Mastery."
+                },
+                {
+                    "name": "Swamp’s Bounty",
+                    "description": "You can find edible plants, clean water, or useful salvage in any wetland with a few minutes of effort, even if it seems barren to others."
+                }
+            ]
+        },
+        {
+            "name": "Rebel Saboteur",
+            "source": "Masters of the Universe",
+            "type": "Occupation",
+            "description": "You’re a thorn in Skeletor’s side, a rebel who turns Horde tech against its masters. As a scout and saboteur for Teela’s resistance, you infiltrate enemy lines, rig traps, and dismantle machines with a mix of swamp-smarts and stolen know-how. Your mischief is your weapon, and every explosion you set off is a step toward redemption.",
+            "traits": [
+                "Sabotage",
+                "Stealthy",
+                "Jury-rig",
+                "Awareness",
+                "Rebellion Contacts",
+                "Quick Thinking",
+                "Trap-setting",
+                "Brawl"
+            ],
+            "flaws": [
+                "Wanted by Skeletor",
+                "Reckless",
+                "Tri-Klops’ Grudge",
+                "Haunted by Betrayal"
+            ],
+            "gear": [
+                "Scavenged Tool Kit",
+                "EMP Grenade (One Use)",
+                "Rebel Codebook"
+            ],
+            "advantages": [
+                {
+                    "name": "Tech Takedown",
+                    "description": "When you make Checks to sabotage or disable Horde or Eternian technology, roll with Mastery."
+                },
+                {
+                    "name": "Boom and Scatter",
+                    "description": "Spend a Moxie point to rig a piece of nearby tech or terrain into a trap as a Quick Action. On a successful Check, it triggers when an enemy approaches, dealing 1 Damage and causing the Dazed Condition."
+                },
+                {
+                    "name": "Rebel’s Gambit",
+                    "description": "When you take a risky action to aid the rebellion (like drawing enemy attention), you gain +1 Action Die on your next Check if it directly benefits your allies."
+                }
+            ]
+        },
+        {
+            "name": "Claw of the Outcast",
+            "source": "Masters of the Universe",
+            "type": "Descriptor",
+            "description": "Your right arm ends in a rusted cybernetic claw, a relic of your time under Skeletor’s thumb, now repurposed for the fight against him. It’s a bulky, noisy thing—equal parts strength and glitch—but it’s yours, a symbol of your defiance and a tool to smash through obstacles. To some, it’s a mark of shame; to you, it’s proof you’ve clawed your way back.",
+            "traits": [
+                "Unnatural Strength",
+                "Tech Interface",
+                "Intimidate",
+                "Demolish",
+                "Quick Fingers",
+                "Mechanical Intuition",
+                "Endurance"
+            ],
+            "flaws": [
+                "Loud Servos",
+                "Malfunctions at Worst Times",
+                "Skeletor’s Tech Signature",
+                "Self-conscious"
+            ],
+            "gear": [
+                "Rusted Cybernetic Claw",
+                "Spare Power Cell"
+            ],
+            "advantages": [
+                {
+                    "name": "Claw Smash",
+                    "description": "Spend a Moxie point to deliver a crushing blow with your claw, dealing +1 Damage and breaking through a mundane barrier (door, wall, etc.) or stunning a mechanical foe for one Turn."
+                },
+                {
+                    "name": "Junk Sync",
+                    "description": "You can interface your claw with broken or abandoned tech to glean basic information (e.g., last user, purpose) or activate it briefly for one simple function, if it’s not completely destroyed."
+                },
+                {
+                    "name": "Grip of Grit",
+                    "description": "When you make Checks to grapple, hold, or lift with your claw, roll with Mastery."
+                }
+            ]
+        },
+        {
+          "name": "Swampborn",
+          "source": "Shattered Eternia",
+          "type": "Background",
+          "description": "You were born in the muck and raised by reeds and rain. You know how to vanish into mist, breathe through a reed, and lead your pursuers into the belly of a bog-beast. The swamp is your mother—and she doesn’t take kindly to strangers.",
+          "traits": ["Swim", "Survival", "Stealth", "Awareness", "Scavenge", "Climb", "Set Traps"],
+          "flaws": ["Always Damp", "Mistrusts Outsiders", "Shrouded Reputation", "Feels Responsible for Kin"],
+          "gear": ["Swamp-hide Cloak", "Bog Knife", "Bundle of Traps & Lures"],
+          "advantages": [
+            {
+              "name": "Mirewalker",
+              "description": "You can move through swamp, mud, or overgrown terrain without penalty. You can also hold your breath for an extended time and swim silently when undisturbed."
+            },
+            {
+              "name": "Swamp Traps",
+              "description": "During a Rest, you may prepare up to 2 simple traps. Spend a Moxie to trigger one at a key moment—immobilizing, disorienting, or distracting a foe."
+            },
+            {
+              "name": "Bog Ghost",
+              "description": "When you Hide or attempt to escape pursuit in natural terrain, roll with Mastery."
+            }
+          ]
+        },
+        {
+          "name": "Patchwork Cyborg",
+          "source": "Shattered Eternia",
+          "type": "Descriptor",
+          "description": "Your body remembers the weight of chains and circuit-welders. Altered and augmented by the regime, your cyber-claw is both curse and tool. You’ve reclaimed your metal as your own—but it still hums with ghosts.",
+          "traits": ["Endurance", "Jury-Rig", "Disable Device", "Claw Combat", "Unnatural Strength", "Repair", "Resist Pain"],
+          "flaws": ["Glitches Under Pressure", "Disturbing Scar Tissue", "Self-Doubt", "Hunted by the Horde"],
+          "gear": ["Rusted Cyber-Claw (Powerful, Multi-tool, Unstable)", "Tinker's Satchel"],
+          "advantages": [
+            {
+              "name": "Cyber Claw Utility",
+              "description": "Your claw can function as a grappling hook, cutting torch, or blunt-force tool. Once per scene, you may perform an otherwise impossible mechanical task (e.g., tear through metal, punch through a wall)."
+            },
+            {
+              "name": "Glitch Surge",
+              "description": "Spend a Moxie point to ignore all Conditions affecting you for one Turn, as your systems override pain and fatigue."
+            },
+            {
+              "name": "Reclaimed Tech",
+              "description": "You may make a Check to disable or hijack old Horde technology, gaining insight or limited control if successful."
+            }
+          ]
+        },
+        {
+          "name": "Trickster Scout",
+          "source": "Shattered Eternia",
+          "type": "Occupation",
+          "description": "You run where others slog, climb where others stumble, and laugh where others curse. You’re a saboteur, scout, and mischief-maker for the rebellion—unpredictable, indispensable, and probably climbing something right now.",
+          "traits": ["Acrobatics", "Sleight of Hand", "Sabotage", "Dodge", "Awareness", "Disguise", "Tinker"],
+          "flaws": ["Can't Resist a Dare", "Flirts with Death (and Everyone Else)", "Needs to Prove Himself"],
+          "gear": ["Red Bandana (Lucky)", "Rebel Toolkit", "Flash-bang Marble"],
+          "advantages": [
+            {
+              "name": "Dirty Tricks",
+              "description": "When you fight an unaware or distracted enemy, deal +1 Damage and gain +1 Action Die on the attack."
+            },
+            {
+              "name": "Vanishing Act",
+              "description": "Once per scene, when outnumbered or surrounded, spend a Moxie point to escape, vanish, or reappear from an unexpected angle."
+            },
+            {
+              "name": "Improvised Sabotage",
+              "description": "During a scene, you can declare that you rigged or tampered with a nearby mechanism earlier. Spend a Moxie to trigger a minor explosion, disable a system, or force an unexpected malfunction."
+            }
+          ]
         }
     ]
 }
