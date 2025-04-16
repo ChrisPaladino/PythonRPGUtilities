@@ -270,29 +270,17 @@ class RPGApp:
         entry.delete(0, tk.END)
         entry.insert(0, str(new_value))
 
-    def on_die_click(self, event):
-        # Check if mastery has already been used
+    def on_die_click(self, die_index):
         if self.mastery_used:
             return
-            
-        # Get the tag of the clicked item
-        current_tags = self.dice_canvas.gettags('current')
-        if not current_tags or not any(tag.startswith('action_die_') for tag in current_tags):
-            return
-            
-        # Find the action die tag and extract the index
-        action_die_tag = next((tag for tag in current_tags if tag.startswith('action_die_')), None)
-        if not action_die_tag:
-            return
-            
-        die_index = int(action_die_tag.split('_')[-1])
+        
         die_value = self.action_dice_values[die_index]
         
         # Show confirmation dialog
         confirm = messagebox.askyesno("Roll with Mastery", f"Roll with Mastery for die with value {die_value}?")
         if not confirm:
             return
-            
+        
         # Reroll the selected die
         self.action_dice_values[die_index] = roll_dice(1)[0]
         
@@ -338,7 +326,10 @@ class RPGApp:
         y += 35
         highest_remaining_die = max(remaining_dice, default=0)
         cancelled_count = {die: cancelled_dice.count(die) for die in set(cancelled_dice)}
-
+        
+        if is_action:
+            self.action_dice_tags = []  # Reset tags for Action Dice
+        
         for i, die in enumerate(dice):
             rect_color = "grey"
             text_color = "black"
@@ -352,19 +343,14 @@ class RPGApp:
                 rect_color = "#388E3C"
                 text_color = "white"
             
-            # Add tags for action dice to enable clicking
             if is_action:
                 tag = f"action_die_{i}"
                 tags = (tag,)
-                # Store the tag for later reference
-                if i < len(self.action_dice_tags):
-                    self.action_dice_tags[i] = tag
-                else:
-                    self.action_dice_tags.append(tag)
+                self.action_dice_tags.append(tag)
             else:
                 tag = f"danger_die_{i}"
                 tags = (tag,)
-
+            
             rect_id = self.dice_canvas.create_rectangle(x, y, x + dice_size, y + dice_size, 
                                         fill=rect_color, outline="black", tags=tags)
             text_id = self.dice_canvas.create_text(x + dice_size // 2, y + dice_size // 2, 
@@ -372,9 +358,8 @@ class RPGApp:
                                     font=('Helvetica', dice_size // 3, 'bold'),
                                     tags=tags)
             
-            # Bind click event only to action dice and only if mastery hasn't been used
             if is_action and not self.mastery_used:
-                self.dice_canvas.tag_bind(tag, '<Button-1>', self.on_die_click)
+                self.dice_canvas.tag_bind(tag, '<Button-1>', lambda event, idx=i: self.on_die_click(idx))
             
             x += dice_size + 5
         
@@ -402,20 +387,16 @@ class RPGApp:
         self.mastery_used = False
         self.action_dice_tags = []
 
-        # Roll dice and store the values
+        # Roll dice
         action_dice = roll_dice(num_action_dice)
         danger_dice = roll_dice(num_danger_dice)
         
-        # Store the original dice values for rerolling with mastery
-        self.action_dice_values = action_dice.copy()
-        self.danger_dice_values = danger_dice.copy()
-        
-        # Process the dice
+        # Process the dice (sorts and cancels)
         action_dice_sorted, danger_dice_sorted, cancelled_dice, remaining_action_dice = process_results(action_dice.copy(), danger_dice.copy())
         
-        # Store the SORTED dice values for rerolling with mastery
-        self.action_dice_values = action_dice_sorted.copy()  # Store SORTED dice
-        self.danger_dice_values = danger_dice_sorted.copy()  # Store SORTED dice
+        # Store sorted dice values for display and rerolling
+        self.action_dice_values = action_dice_sorted.copy()
+        self.danger_dice_values = danger_dice_sorted.copy()
         
         result = determine_result(remaining_action_dice)
 
