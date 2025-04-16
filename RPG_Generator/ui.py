@@ -372,14 +372,6 @@ class RPGApp:
                 tag = f"danger_die_{i}"
                 tags = (tag,)
             
-            # Draw the die
-            rect_id = self.dice_canvas.create_rectangle(x, y, x + dice_size, y + dice_size, 
-                                                    fill=rect_color, outline="black", tags=tags)
-            text_id = self.dice_canvas.create_text(x + dice_size // 2, y + dice_size // 2, 
-                                                text=str(die), fill=text_color, 
-                                                font=('Helvetica', dice_size // 3, 'bold'),
-                                                tags=tags)
-            
             # Bind click event for action dice if Mastery hasn't been used
             if is_action and not self.mastery_used:
                 self.dice_canvas.tag_bind(tag, '<Button-1>', lambda event, idx=i: self.on_die_click(idx))
