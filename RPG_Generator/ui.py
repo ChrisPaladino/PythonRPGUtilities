@@ -19,6 +19,12 @@ class RPGApp:
         self.theme_order = ["Action", "Mystery", "Personal", "Social", "Tension"]  # Default theme order
         self.themes_listbox = None
 
+        # Initialize variables for Rolling with Mastery feature
+        self.action_dice_values = []
+        self.danger_dice_values = []
+        self.action_dice_tags = []
+        self.mastery_used = False
+
         self.root.geometry("600x700")
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
@@ -264,6 +270,54 @@ class RPGApp:
         entry.delete(0, tk.END)
         entry.insert(0, str(new_value))
 
+    def on_die_click(self, event):
+        # Check if mastery has already been used
+        if self.mastery_used:
+            return
+            
+        # Get the tag of the clicked item
+        current_tags = self.dice_canvas.gettags('current')
+        if not current_tags or not any(tag.startswith('action_die_') for tag in current_tags):
+            return
+            
+        # Find the action die tag and extract the index
+        action_die_tag = next((tag for tag in current_tags if tag.startswith('action_die_')), None)
+        if not action_die_tag:
+            return
+            
+        die_index = int(action_die_tag.split('_')[-1])
+        die_value = self.action_dice_values[die_index]
+        
+        # Show confirmation dialog
+        confirm = messagebox.askyesno("Roll with Mastery", f"Roll with Mastery for die with value {die_value}?")
+        if not confirm:
+            return
+            
+        # Reroll the selected die
+        self.action_dice_values[die_index] = roll_dice(1)[0]
+        
+        # Re-run the cancellation logic
+        action_dice_sorted, danger_dice_sorted, cancelled_dice, remaining_action_dice = process_results(
+            self.action_dice_values.copy(), self.danger_dice_values.copy())
+        result = determine_result(remaining_action_dice)
+        
+        # Update the result label
+        self.dice_result_label.config(text=result)
+        
+        # Redraw the dice
+        self.dice_canvas.delete("all")
+        x, y = 10, 10
+        y = self.draw_dice(action_dice_sorted, x, y, 30, "Action Dice", cancelled_dice, remaining_action_dice, True)
+        y = self.draw_dice(danger_dice_sorted, x, y, 30, "Danger Dice", cancelled_dice, [], False)
+        self.dice_canvas.config(height=y)
+        
+        # Add result to the output
+        self.fate_output.insert(tk.END, f"Mastery Reroll Result: {result}\n\n")
+        self.fate_output.see(tk.END)
+        
+        # Mark mastery as used
+        self.mastery_used = True
+
     def clear_dice(self):
         self.action_dice_entry.delete(0, tk.END)
         self.action_dice_entry.insert(0, "1")
@@ -273,15 +327,23 @@ class RPGApp:
         self.dice_canvas.delete("all")
         self.dice_canvas.config(height=0)
 
+        # Reset Rolling with Mastery state
+        self.action_dice_values = []
+        self.danger_dice_values = []
+        self.action_dice_tags = []
+        self.mastery_used = False
+
     def draw_dice(self, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
         self.dice_canvas.create_text(x, y, text=label, anchor="nw", font=('Helvetica', 14, 'bold'))
         y += 35
         highest_remaining_die = max(remaining_dice, default=0)
         cancelled_count = {die: cancelled_dice.count(die) for die in set(cancelled_dice)}
 
-        for die in dice:
+        for i, die in enumerate(dice):
             rect_color = "grey"
             text_color = "black"
+            tags = ()
+            
             if die in cancelled_count and cancelled_count[die] > 0:
                 rect_color = "#D32F2F"
                 text_color = "white"
@@ -289,9 +351,31 @@ class RPGApp:
             elif is_action and die == highest_remaining_die and die in remaining_dice:
                 rect_color = "#388E3C"
                 text_color = "white"
+            
+            # Add tags for action dice to enable clicking
+            if is_action:
+                tag = f"action_die_{i}"
+                tags = (tag,)
+                # Store the tag for later reference
+                if i < len(self.action_dice_tags):
+                    self.action_dice_tags[i] = tag
+                else:
+                    self.action_dice_tags.append(tag)
+            else:
+                tag = f"danger_die_{i}"
+                tags = (tag,)
 
-            self.dice_canvas.create_rectangle(x, y, x + dice_size, y + dice_size, fill=rect_color, outline="black")
-            self.dice_canvas.create_text(x + dice_size // 2, y + dice_size // 2, text=str(die), fill=text_color, font=('Helvetica', dice_size // 3, 'bold'))
+            rect_id = self.dice_canvas.create_rectangle(x, y, x + dice_size, y + dice_size, 
+                                        fill=rect_color, outline="black", tags=tags)
+            text_id = self.dice_canvas.create_text(x + dice_size // 2, y + dice_size // 2, 
+                                    text=str(die), fill=text_color, 
+                                    font=('Helvetica', dice_size // 3, 'bold'),
+                                    tags=tags)
+            
+            # Bind click event only to action dice and only if mastery hasn't been used
+            if is_action and not self.mastery_used:
+                self.dice_canvas.tag_bind(tag, '<Button-1>', self.on_die_click)
+            
             x += dice_size + 5
         
         return y + dice_size + 20
@@ -314,9 +398,25 @@ class RPGApp:
             self.dice_result_label.config(text="No dice to roll!")
             return
 
+        # Reset mastery state
+        self.mastery_used = False
+        self.action_dice_tags = []
+
+        # Roll dice and store the values
         action_dice = roll_dice(num_action_dice)
         danger_dice = roll_dice(num_danger_dice)
+        
+        # Store the original dice values for rerolling with mastery
+        self.action_dice_values = action_dice.copy()
+        self.danger_dice_values = danger_dice.copy()
+        
+        # Process the dice
         action_dice_sorted, danger_dice_sorted, cancelled_dice, remaining_action_dice = process_results(action_dice.copy(), danger_dice.copy())
+        
+        # Store the SORTED dice values for rerolling with mastery
+        self.action_dice_values = action_dice_sorted.copy()  # Store SORTED dice
+        self.danger_dice_values = danger_dice_sorted.copy()  # Store SORTED dice
+        
         result = determine_result(remaining_action_dice)
 
         self.dice_result_label.config(text=result)
@@ -329,6 +429,10 @@ class RPGApp:
             time.sleep(0.02)
         self.fate_output.insert(tk.END, f"Dice Result: {result}\n\n")
         self.fate_output.see(tk.END)
+
+        # If there are no action dice, disable mastery
+        if num_action_dice == 0:
+            self.mastery_used = True
 
     # Themes Methods
     def btn_generate_themes(self):
