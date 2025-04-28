@@ -348,7 +348,7 @@ class RPGApp:
             rect_color = "grey"
             text_color = "black"
             tags = []
-            
+
             # Set background color based on die status
             if die in cancelled_count and cancelled_count[die] > 0:
                 rect_color = "#D32F2F"  # Red for cancelled
@@ -357,12 +357,11 @@ class RPGApp:
             elif is_action and die == highest_remaining_die and die in remaining_dice:
                 rect_color = "#388E3C"  # Green for highest remaining
                 text_color = "white"
-            
+
             # Override font color for Mastery-rerolled die
             if is_action and self.mastery_die_index is not None and i == self.mastery_die_index and self.mastery_used:
-                print(f"Applying blue font for die index {i}, value {die}")
                 text_color = "blue"  # Blue font for Mastery-rerolled die
-            
+
             # Set up tags for interaction
             if is_action:
                 tag = f"action_die_{i}"
@@ -371,12 +370,17 @@ class RPGApp:
             else:
                 tag = f"danger_die_{i}"
                 tags = (tag,)
-            
+
+            # **DRAW THE RECTANGLE AND NUMBER**
+            self.dice_canvas.create_rectangle(x, y, x + dice_size, y + dice_size, fill=rect_color, tags=tags)
+            self.dice_canvas.create_text(x + dice_size // 2, y + dice_size // 2, text=str(die), fill=text_color, font=('Helvetica', 16, 'bold'), tags=tags)
+
             # Bind click event for action dice if Mastery hasn't been used
             if is_action and not self.mastery_used:
                 self.dice_canvas.tag_bind(tag, '<Button-1>', lambda event, idx=i: self.on_die_click(idx))
-            
+
             x += dice_size + 5
+
         
         return y + dice_size + 20
 
