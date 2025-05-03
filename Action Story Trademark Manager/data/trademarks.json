@@ -1286,7 +1286,7 @@
       },
         {
             "name": "Urban Explorer",
-            "source": "AI Created",
+            "source": "Homebrew",
             "type": "Occupation",
             "description": "You map the forgotten tunnels, abandoned buildings, and hidden passages of the city. Part cartographer, part daredevil, you've developed a knack for finding your way through the most treacherous urban terrain.",
             "traits": ["Climbing", "Urban Navigation", "Notice", "Athletics", "Stealth", "Engineering", "Survival", "City History"],
@@ -2227,236 +2227,8 @@
             ]
         },
         {
-            "name": "Swamp Scout",
-            "source": "Masters of the Universe",
-            "type": "Background",
-            "description": "You were born and raised in the murky wetlands of Eternia, developing an intimate knowledge of these territories and the natural skills to thrive there.",
-            "traits": ["Swim", "Hide", "Stealth", "Wetland Navigation", "Animal Empathy", "Climb", "Spot Danger", "Endurance"],
-            "flaws": ["Fish Out of Water", "Damp Aura", "Territorial", "Easily Distracted by Shiny Tech"],
-            "gear": [
-                "Waterproof Satchel",
-                "Beast Hide Cloak",
-                "Marsh Herb Poultice"
-            ],
-            "advantages": [
-                {
-                    "name": "Born to the Muck",
-                    "description": "When navigating, hiding, or tracking in swamp or wetland environments, roll with Mastery."
-                },
-                {
-                    "name": "Mire Mastery",
-                    "description": "You can move at full speed through mud, shallow water, and difficult wetland terrain where others would be slowed or trapped. Additionally, you can spend a Moxie point to extend this benefit to an ally for one scene."
-                },
-                {
-                    "name": "Swamp Camouflage",
-                    "description": "When you take a moment to cover yourself with natural wetland materials, you become nearly invisible in swamp environments. As long as you remain still or move very slowly, even technological sensors have difficulty detecting you."
-                }
-            ]
-        },
-        {
-            "name": "Tech Saboteur",
-            "source": "Masters of the Universe",
-            "type": "Occupation",
-            "description": "You've learned to repurpose, dismantle, and sabotage Eternian technology through intuition and trial-and-error.",
-            "traits": ["Repair", "Sabotage", "Jury-rig", "Cybernetic Interface", "Detect Weakpoints", "Demolitions", "Analyze Tech", "Quick Fingers"],
-            "flaws": ["Cybernetic Glitches", "Obsessed with Gadgets", "Risk-taker", "Tri-Klops' Hit List"],
-            "gear": [
-                "Makeshift Tool Kit",
-                "Scavenged Power Cells",
-                "EMP Micro-charges"
-            ],
-            "advantages": [
-                {
-                    "name": "Improvised Solutions",
-                    "description": "You can create functional devices from scrap and salvage. When crafting makeshift tools or devices under pressure, roll with Mastery."
-                },
-                {
-                    "name": "System Disruptor",
-                    "description": "Once per scene, you can spend a Moxie point to cause a nearby piece of technology to malfunction in a way that benefits you, creating a distraction, opening a locked door, or temporarily disabling a weapon."
-                },
-                {
-                    "name": "Quick Fix",
-                    "description": "You can repair damaged technology in half the normal time. The repair may not be pretty, but it works—at least until the end of the scene. Permanent repairs still require proper time and materials."
-                }
-            ]
-        },
-        {
-            "name": "Rebel Heart",
-            "source": "Masters of the Universe",
-            "type": "Descriptor",
-            "description": "You've dedicated yourself to opposing tyranny supporting rebellion. Your charm, resourcefulness, and unwavering loyalty make you a valuable agent of resistance.",
-            "traits": ["Charm", "Inspire Others", "Adaptable", "Hide in Plain Sight", "Quick Thinking", "Resist Interrogation", "Rebellion Contacts", "Lie Convincingly"],
-            "flaws": ["Unrequited Love", "Haunted by the Past", "Overprotective", "Impulsive"],
-            "gear": [
-                "Rebellion Insignia (hidden)",
-                "Coded Message System",
-                "Emergency Rations"
-            ],
-            "advantages": [
-                {
-                    "name": "Heart of the Rebellion",
-                    "description": "Your passionate belief in the cause inspires others. Once per scene, you can rally an ally who can hear you, removing a psychological Condition such as Shaken, Dazed, or Frightened."
-                },
-                {
-                    "name": "Former Pawn's Insight",
-                    "description": "Your time serving Skeletor gives you valuable knowledge. When predicting the actions of Skeletor's forces or navigating locations controlled by his minions, roll with Mastery."
-                },
-                {
-                    "name": "Infectious Charm",
-                    "description": "Your natural charisma can win over even skeptics. When attempting to persuade someone to support the rebellion or at least look the other way, roll with Mastery."
-                }
-            ]
-        },
-        {
-            "name": "Rusted Relic Claw",
-            "source": "Masters of the Universe",
-            "type": "Descriptor",
-            "description": "Your right arm is a salvaged cybernetic claw, a hulking piece of technology that's part ancient Eternian relic, part Horde tech. Though rusted and patchwork, it grants you extraordinary strength and unique abilities that allow you to interface with machinery in ways others cannot.",
-            "traits": ["Unnatural Strength", "Tech Interface", "Crushing Grip", "Mechanical Intuition", "Intimidate", "Demolish", "Detect Energy Fields", "Weather Prediction"],
-            "flaws": ["Malfunctions at Worst Times", "Power Fluctuations", "Loud Servos", "Vulnerable to EMP", "Skeletor's Tech Signature"],
-            "gear": [
-                "Replacement Power Cells",
-                "Claw Maintenance Tools",
-                "Interface Adapters"
-            ],
-            "advantages": [
-                {
-                    "name": "Tech Communion",
-                    "description": "Your claw can directly interface with Eternian and Horde technology. When attempting to access, control, or extract data from technological systems, roll with Mastery."
-                },
-                {
-                    "name": "Crushing Force",
-                    "description": "When using your mechanical claw to break objects, bend metal, or force open barriers, roll with Mastery. Additionally, your claw attacks gain the 'Powerful' tag."
-                },
-                {
-                    "name": "Emergency Overcharge",
-                    "description": "In desperate situations, you can overload your claw's power systems. Spend a Moxie point to perform a devastating attack or extraordinary feat of strength. After using this ability, your claw is temporarily weakened (reduced effectiveness) until you can make repairs during a Rest."
-                }
-            ]
-        },
-        {
-            "name": "Swamp Trickster",
-            "source": "Masters of the Universe",
-            "type": "Background",
-            "description": "Born in the tangled, murky wetlands of Eternia, you’ve learned to thrive where others falter. The swamps shaped you into a nimble, cunning survivor—part scavenger, part prankster—equally at home dodging predators or outwitting foes. Your webbed feet and sly instincts make you a natural at slipping through danger, leaving only ripples and laughter behind.",
-            "traits": [
-                "Swim",
-                "Stealth",
-                "Climb",
-                "Awareness",
-                "Scrounge",
-                "Wetland Navigation",
-                "Charm"
-            ],
-            "flaws": [
-                "Fish Out of Water",
-                "Impulsive",
-                "Guilty Past",
-                "Sticky Fingers"
-            ],
-            "gear": [
-                "Waterproof Cloak",
-                "Red Bandana",
-                "Pouch of Marsh Herbs"
-            ],
-            "advantages": [
-                {
-                    "name": "Muck Mirage",
-                    "description": "Spend a Moxie point to blend into swampy terrain or murky water, becoming nearly invisible to the naked eye and basic tech sensors for one Turn. You can move slowly while hidden, but attacking or rapid movement breaks the effect."
-                },
-                {
-                    "name": "Slippery Escape",
-                    "description": "When you make Checks to evade capture, slip through tight spaces, or escape restraints in wet or muddy conditions, roll with Mastery."
-                },
-                {
-                    "name": "Swamp’s Bounty",
-                    "description": "You can find edible plants, clean water, or useful salvage in any wetland with a few minutes of effort, even if it seems barren to others."
-                }
-            ]
-        },
-        {
-            "name": "Rebel Saboteur",
-            "source": "Masters of the Universe",
-            "type": "Occupation",
-            "description": "You’re a thorn in Skeletor’s side, a rebel who turns Horde tech against its masters. As a scout and saboteur for Teela’s resistance, you infiltrate enemy lines, rig traps, and dismantle machines with a mix of swamp-smarts and stolen know-how. Your mischief is your weapon, and every explosion you set off is a step toward redemption.",
-            "traits": [
-                "Sabotage",
-                "Stealthy",
-                "Jury-rig",
-                "Awareness",
-                "Rebellion Contacts",
-                "Quick Thinking",
-                "Trap-setting",
-                "Brawl"
-            ],
-            "flaws": [
-                "Wanted by Skeletor",
-                "Reckless",
-                "Tri-Klops’ Grudge",
-                "Haunted by Betrayal"
-            ],
-            "gear": [
-                "Scavenged Tool Kit",
-                "EMP Grenade (One Use)",
-                "Rebel Codebook"
-            ],
-            "advantages": [
-                {
-                    "name": "Tech Takedown",
-                    "description": "When you make Checks to sabotage or disable Horde or Eternian technology, roll with Mastery."
-                },
-                {
-                    "name": "Boom and Scatter",
-                    "description": "Spend a Moxie point to rig a piece of nearby tech or terrain into a trap as a Quick Action. On a successful Check, it triggers when an enemy approaches, dealing 1 Damage and causing the Dazed Condition."
-                },
-                {
-                    "name": "Rebel’s Gambit",
-                    "description": "When you take a risky action to aid the rebellion (like drawing enemy attention), you gain +1 Action Die on your next Check if it directly benefits your allies."
-                }
-            ]
-        },
-        {
-            "name": "Claw of the Outcast",
-            "source": "Masters of the Universe",
-            "type": "Descriptor",
-            "description": "Your right arm ends in a rusted cybernetic claw, a relic of your time under Skeletor’s thumb, now repurposed for the fight against him. It’s a bulky, noisy thing—equal parts strength and glitch—but it’s yours, a symbol of your defiance and a tool to smash through obstacles. To some, it’s a mark of shame; to you, it’s proof you’ve clawed your way back.",
-            "traits": [
-                "Unnatural Strength",
-                "Tech Interface",
-                "Intimidate",
-                "Demolish",
-                "Quick Fingers",
-                "Mechanical Intuition",
-                "Endurance"
-            ],
-            "flaws": [
-                "Loud Servos",
-                "Malfunctions at Worst Times",
-                "Skeletor’s Tech Signature",
-                "Self-conscious"
-            ],
-            "gear": [
-                "Rusted Cybernetic Claw",
-                "Spare Power Cell"
-            ],
-            "advantages": [
-                {
-                    "name": "Claw Smash",
-                    "description": "Spend a Moxie point to deliver a crushing blow with your claw, dealing +1 Damage and breaking through a mundane barrier (door, wall, etc.) or stunning a mechanical foe for one Turn."
-                },
-                {
-                    "name": "Junk Sync",
-                    "description": "You can interface your claw with broken or abandoned tech to glean basic information (e.g., last user, purpose) or activate it briefly for one simple function, if it’s not completely destroyed."
-                },
-                {
-                    "name": "Grip of Grit",
-                    "description": "When you make Checks to grapple, hold, or lift with your claw, roll with Mastery."
-                }
-            ]
-        },
-        {
           "name": "Swampborn",
-          "source": "Shattered Eternia",
+          "source": "Homebrew",
           "type": "Background",
           "description": "You were born in the muck and raised by reeds and rain. You know how to vanish into mist, breathe through a reed, and lead your pursuers into the belly of a bog-beast. The swamp is your mother—and she doesn’t take kindly to strangers.",
           "traits": ["Swim", "Survival", "Stealth", "Awareness", "Scavenge", "Climb", "Set Traps"],
@@ -2479,12 +2251,12 @@
         },
         {
           "name": "Patchwork Cyborg",
-          "source": "Shattered Eternia",
+          "source": "Homebrew",
           "type": "Descriptor",
           "description": "Your body remembers the weight of chains and circuit-welders. Altered and augmented by the regime, your cyber-claw is both curse and tool. You’ve reclaimed your metal as your own—but it still hums with ghosts.",
           "traits": ["Endurance", "Jury-Rig", "Disable Device", "Claw Combat", "Unnatural Strength", "Repair", "Resist Pain"],
           "flaws": ["Glitches Under Pressure", "Disturbing Scar Tissue", "Self-Doubt", "Hunted by the Horde"],
-          "gear": ["Rusted Cyber-Claw (Powerful, Multi-tool, Unstable)", "Tinker's Satchel"],
+          "gear": ["Rusted Toolkit", "Tinker's Satchel", "Scrap Goggles"],
           "advantages": [
             {
               "name": "Cyber Claw Utility",
@@ -2502,7 +2274,7 @@
         },
         {
           "name": "Trickster Scout",
-          "source": "Shattered Eternia",
+          "source": "Homebrew",
           "type": "Occupation",
           "description": "You run where others slog, climb where others stumble, and laugh where others curse. You’re a saboteur, scout, and mischief-maker for the rebellion—unpredictable, indispensable, and probably climbing something right now.",
           "traits": ["Acrobatics", "Sleight of Hand", "Sabotage", "Dodge", "Awareness", "Disguise", "Tinker"],
@@ -2522,6 +2294,245 @@
               "description": "During a scene, you can declare that you rigged or tampered with a nearby mechanism earlier. Spend a Moxie to trigger a minor explosion, disable a system, or force an unexpected malfunction."
             }
           ]
+        },
+          {
+            "name": "Shadowless Thief",
+            "description": "You slip between the cracks where light dares not follow.",
+            "source": "Homebrew",
+            "type": "Descriptor",
+            "traits": [
+              "Silent Movement",
+              "Lockpicking",
+              "Pickpocketing",
+              "Sleight of Hand",
+              "Shadow Manipulation (Advanced)",
+              "Dodge",
+              "Awareness"
+            ],
+            "advantages": [
+              {
+                "name": "Vanishing Act",
+                "description": "Spend a Moxie point when you make a successful Move or Dodge Check during a chase to immediately vanish from sight, avoiding all pursuit. You can only use this once per Scene."
+              },
+              {
+                "name": "Still Hands",
+                "description": "When you make a Check requiring precise handwork — such as picking locks, sleight of hand, or pickpocketing — roll with Mastery."
+              },
+              {
+                "name": "Absorb Locks",
+                "description": "Once per Scene, you can absorb and permanently jam a simple mechanical lock (such as a door or padlock) by touching it and focusing. The lock becomes unusable without being broken or magically repaired."
+              }
+            ],
+            "gear": [
+              "Soft-soled Boots",
+              "Bracers with Hidden Pockets",
+              "Shadow-dyed Cloak"
+            ],
+            "flaws": [
+              "Fragile Body",
+              "Sticky Fingers",
+              "Photophobia"
+            ]
+          },
+          {
+            "name": "Hollow Vessel",
+            "description": "The emptiness inside is both your curse and your strength.",
+            "source": "Homebrew",
+            "type": "Descriptor",
+            "traits": [
+              "Concealed Storage (Body)",
+              "Silent Footsteps",
+              "Echo Sense",
+              "Eerie Presence",
+              "Hollow Reflexes",
+              "Unnatural Balance"
+            ],
+            "advantages": [
+              {
+                "name": "Empty Chest",
+                "description": "You can smuggle large or fragile items inside your hollow frame. You suffer no penalties for carrying concealed cargo unless searched by supernatural means."
+              },
+              {
+                "name": "Whisper Breather",
+                "description": "You can breathe so quietly that you are undetectable by any sense of hearing, even enhanced senses. This affects only hearing-based detection."
+              },
+              {
+                "name": "Resonant Strike",
+                "description": "Spend a Moxie point when you succeed on a close-combat attack to unbalance your target. The target becomes Dazed until the end of their next Turn."
+              }
+            ],
+            "gear": [
+              "Hollowbone Dagger",
+              "Whisper Mask",
+              "Worn Traveler’s Cloak"
+            ],
+            "flaws": [
+              "Starving Emptiness",
+              "Unsettling Aura",
+              "Hollow Echoes"
+            ]
+          },
+          {
+            "name": "Reflection Taker",
+            "description": "Mirrors are weapons, and faces are currency.",
+            "source": "Homebrew",
+            "type": "Descriptor",
+            "traits": [
+              "Reflection Theft",
+              "Illusion Creation",
+              "Identity Erasure",
+              "Doppelgänger Bargains",
+              "Memory Distortion",
+              "Reflected Reflexes"
+            ],
+            "advantages": [
+              {
+                "name": "Mirrortrap",
+                "description": "Once per Scene, when you interact with a target via any reflective surface (mirror, water, polished metal), you may spend 1 Moxie to destabilize their reflection. Until the end of the Scene, the GM may impose penalties on their Awareness, Movement, or Coordination."
+              },
+              {
+                "name": "False Image",
+                "description": "Spend 1 Moxie to create a brief illusory double nearby. It lasts until touched, attacked, or revealed by an opposed Awareness Check."
+              },
+              {
+                "name": "Face Stealer",
+                "description": "Once per Scene, after observing a target’s reflection closely, you may mimic their face, voice, and mannerisms for the rest of the Scene. No Check is required unless closely scrutinized."
+              }
+            ],
+            "gear": [
+              "Shardmirror Amulet",
+              "Glassknife",
+              "Whisperglass Mirror"
+            ],
+            "flaws": [
+              "No True Reflection",
+              "Splintered Memories"
+            ]
+          },
+        {
+          "name": "Inkweaver Surgeon",
+          "description": "Your hands rewrite the body, and your tattoos tell living tales.",
+          "source": "Homebrew",
+          "type": "Descriptor",
+          "traits": [
+            "Wound Relocation",
+            "Tattoo Healing",
+            "Fleshcrafting",
+            "Battlefield Triage",
+            "Transfer Suffering",
+            "Surgery",
+            "Lore: Flesh and Blood",
+            "Tactile Awareness"
+          ],
+          "advantages": [
+            {
+              "name": "Living Bandages",
+              "description": "Spend 1 Moxie to instantly stabilize a wounded ally at Near range by animating your enchanted bandages. This prevents Bleeding Out or escalating Conditions, but does not restore Health."
+            },
+            {
+              "name": "Gift the Pain",
+              "description": "When you make a successful close-combat touch attack, you may spend 1 Moxie to transfer an injury or Condition you have absorbed onto the target. The target suffers the same effect until healed."
+            },
+            {
+              "name": "Wound Reader",
+              "description": "When you study a person’s scars or injuries up close, you may ask the GM one question about their past, vulnerabilities, or hidden weaknesses without requiring a roll."
+            }
+          ],
+          "gear": [
+            "Satchel of Laughing Bandages",
+            "Surgical Inkknife",
+            "Bone Needle Kit"
+          ],
+          "flaws": [
+            "Scar-Eater’s Hunger",
+            "Traitor Tattoos",
+            "Stained Reputation",
+            "Ink Betrayal"
+          ]
+        },
+        {
+          "name": "Echo-Seer",
+          "description": "You see not the flesh—but the echoes of every pain it has endured.",
+          "source": "Homebrew",
+          "type": "Descriptor",
+          "traits": [
+            "Echo Vision",
+            "Aura Perception",
+            "Blind Combat Reflexes",
+            "Ghost Sense",
+            "Memory Tether",
+            "Uncanny Hearing",
+            "Lore: Spirits and Echoes",
+            "Silent Movement"
+          ],
+          "advantages": [
+            {
+              "name": "Memory Echo",
+              "description": "Spend 1 Moxie to replay the strongest emotional imprint left behind in a location or object. You may ask the GM one question about what occurred here recently — focusing on trauma, betrayal, or sudden violence."
+            },
+            {
+              "name": "Aura Flare",
+              "description": "Spend 1 Moxie to unleash a psychic surge of suffering. All enemies within Near range must succeed on a Will or Resolve Check or suffer the Dazed Condition until the end of their next Turn."
+            },
+            {
+              "name": "Phantom Companion",
+              "description": "Once per session, you may call on the aid of a lingering ghost you once healed. The GM will grant you a small favor — such as a warning, distraction, or minor environmental manipulation."
+            }
+          ],
+          "gear": [
+            "Echo Lens",
+            "Whisperband",
+            "Tuning Fork Pendant"
+          ],
+          "flaws": [
+            "Pain Drunk",
+            "Memory Backlash",
+            "Ghost-Haunted",
+            "Fractured Focus"
+          ]
+        },
+        {
+          "name": "Cursed Healer",
+          "description": "To save a life is to take on a piece of its destiny.",
+          "source": "Homebrew",
+          "type": "Descriptor",
+          "traits": [
+            "Healing Touch (with a cost)",
+            "Fate Entanglement",
+            "Cursed Knowledge",
+            "Empathic Echoes",
+            "Shadow Healing",
+            "Lore: Curses and Destinies",
+            "Willpower",
+            "Ritual Healing"
+          ],
+          "advantages": [
+            {
+              "name": "Borrowed Talents",
+              "description": "Once per session, after healing someone, you may access one of their Skills or Traits for the rest of the Scene. The GM will approve or suggest an appropriate ability based on the healed character."
+            },
+            {
+              "name": "Shared Burden",
+              "description": "When an ally within Near range would take Damage, you may spend 1 Moxie to absorb half the Damage yourself (rounded up). You must be aware of the attack and capable of reaching them."
+            },
+            {
+              "name": "Destiny Scar",
+              "description": "When you heal a target, you may mark them with a faint scar of fate. Until the end of the next day, you can sense their general well-being (healthy, wounded, dying) and rough direction regardless of distance."
+            }
+          ],
+          "gear": [
+            "Inkblood Needle",
+            "Fatebound Ring",
+            "Vial of Blood-ink"
+          ],
+          "flaws": [
+            "Voice of the Damned",
+            "Guilt Collector",
+            "Threadbare Fate",
+            "Resonant Sorrow"
+          ]
         }
+
+
     ]
 }
