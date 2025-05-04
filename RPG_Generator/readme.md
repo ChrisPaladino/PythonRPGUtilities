@@ -88,6 +88,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 - Randomization: Uses Python’s random module for dice rolls, NPC generation, and selections. Results are pseudo-random.
 - GUI: Tkinter provides a simple, cross-platform interface. The window is fixed at 600x700 pixels with scrollable output areas.
 - Error Handling: Includes basic error handling for file operations and user input (e.g., invalid dice counts).
+- Building: pyinstaller --onefile --add-data "data/lists;data/lists" --windowed main.py
 
 ## Example JSON File Structures
 
