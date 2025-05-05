@@ -6,10 +6,10 @@ def unify_markdown_files(folder_path, output_file_path):
     markdown_files = []
     for root, dirs, files in os.walk(folder_path):
         # Filter out hidden or special directories (e.g., .obsidian, _trash)
-        dirs[:] = [d for d in dirs if not d.startswith('.') and not d.startswith('_')]
+        dirs[:] = [d for d in dirs if not d.startswith('.') and not d.startswith('_')]  # Exclude hidden and underscored folders
         
         for file in files:
-            if file.endswith('.md') and not file.startswith('.'):  # Exclude hidden .md files
+            if file.endswith('.md') and not file.startswith('.') and not file.startswith('_'):  # Exclude hidden and underscored .md files
                 full_path = os.path.join(root, file)
                 markdown_files.append(full_path)
     

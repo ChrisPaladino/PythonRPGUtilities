@@ -12,25 +12,29 @@ This tool was built to suit my personal Obsidian workflow, where I organize note
 - **Clean Headers**: Uses only the filename (e.g., `Session 001`, not `1-Sessions/Session 001`) as the `# Heading`.
 - **Page Breaks**: Inserts `<div style="page-break-after: always;"></div>` between files for PDF compatibility (works with tools like Pandoc).
 - **GUI Selection**: Uses Tkinter to let you pick the source folder and output file via a file dialog.
-- **Obsidian-Friendly**: Ignores hidden folders (e.g., `.obsidian`) and files (e.g., `.hidden.md`).
+- **Obsidian-Friendly**: Ignores hidden or special folders (e.g., `.obsidian`, `_trash`) and files (e.g., `.hidden.md`, `_notes.md`) that start with a period (`.`) or underscore (`_`).
 
 ## Example
 
 Given this folder structure:
 vault/
 ├── 1-Sessions/
-│   └── Session 001.md
+│   └── Session 001.md
 ├── 2-PCs/
-│   └── Uthgar.md
+│   └── Uthgar.md
 ├── 3-NPCs/
-│   └── Elaris.md
-└── 8-Locations/
-    └── Blackthorn.md
+│   └── Elaris.md
+├── 8-Locations/
+│   └── Blackthorn.md
+├── .obsidian/
+│   └── config
+├── _trash/
+│   └── old_note.md
+└── .hidden.md
 
-The output file (`unified_notes.md`) will look like:
+The output file (`unified_notes.md`) will include only the non-hidden, non-underscored `.md` files:
 
 ```markdown
-
 # Session 001
 [content from Session 001.md]
 <div style="page-break-after: always;"></div>
@@ -47,6 +51,8 @@ The output file (`unified_notes.md`) will look like:
 [content from Blackthorn.md]
 ```
 
+Files like .hidden.md and folders like .obsidian or _trash (and their contents) are skipped.
+
 ## Requirements
 
 - Python 3.x
@@ -54,27 +60,30 @@ The output file (`unified_notes.md`) will look like:
 
 ## Usage
 
-1. Clone or download this repository.
-2. Run the script:
-3. Select your Obsidian vault folder (or any folder with .md files) in the dialog.
-4. Choose where to save the unified Markdown file (defaults to unified_notes.md).
-5. Check the console for confirmation or error messages.
+Clone or download this repository.
+Run the script:
+Select your Obsidian vault folder (or any folder with .md files) in the dialog.
+Choose where to save the unified Markdown file (defaults to unified_notes.md).
+Check the console for confirmation or error messages.
 
 ## Installation
 
-No special installation needed—just ensure Python is installed on your system:
+- No special installation needed—just ensure Python is installed on your system:
+- Verify Python and Tkinter
 
-## Verify Python and Tkinter
-
+```bash
 python --version
 python -m tkinter
+```
+
 Then run the script directly.
 
 ## Notes
 
 - Sorting: Relies on alphanumeric folder/file naming (e.g., 1-Sessions before 2-PCs). Adjust your folder names for desired order.
-- Page Breaks: The HTML div works with some PDF converters (e.g., Pandoc). For other tools, you might need to tweak the separator.
+- Page Breaks: The HTML <div> works with some PDF converters (e.g., Pandoc). For other tools, you might need to tweak the separator.
 - Error Handling: Skips problematic files (e.g., permission issues) and logs errors to the console.
+- Ignored Files/Folders: Folders and files starting with . or _ (e.g., .obsidian, _trash, .hidden.md, _notes.md) are automatically skipped to avoid processing hidden or temporary content.
 
 ## Contributing
 
