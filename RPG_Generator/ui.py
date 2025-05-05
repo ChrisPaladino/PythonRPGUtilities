@@ -25,6 +25,7 @@ class RPGApp:
         self.action_dice_tags = []
         self.mastery_used = False
         self.mastery_die_index = None # Track which die was rerolled with mastery
+        self.mastery_die_value = None  # Track the value of the rerolled die
 
         self.root.geometry("600x700")
         self.root.columnconfigure(0, weight=1)
@@ -291,7 +292,8 @@ class RPGApp:
 
         # Reroll the selected die
         self.action_dice_values[die_index] = roll_dice(1)[0]
-        print(f"Rerolled die {die_index} to new value {self.action_dice_values[die_index]}")
+        self.mastery_die_value = self.action_dice_values[die_index]
+        print(f"Rerolled die {die_index} to new value {self.mastery_die_value}, mastery_die_index={self.mastery_die_index}")
 
         # Mark mastery as used
         self.mastery_used = True
@@ -300,7 +302,19 @@ class RPGApp:
         # Re-run the cancellation logic
         action_dice_sorted, danger_dice_sorted, cancelled_dice, remaining_action_dice = process_results(
             self.action_dice_values.copy(), self.danger_dice_values.copy())
+        
+        # Calculate uncancelled Danger Dice
+        remaining_danger_dice = self.danger_dice_values.copy()
+        for action_die in self.action_dice_values:
+            if action_die in remaining_danger_dice:
+                remaining_danger_dice.remove(action_die)
+        
+        # Count uncancelled 6s for Pressure
+        pressure_increase = remaining_danger_dice.count(6)
+        
         result = determine_result(remaining_action_dice)
+        if pressure_increase > 0:
+            result = f"{result}; Pressure +{pressure_increase}"
         
         # Update the result label
         self.dice_result_label.config(text=result)
@@ -311,10 +325,13 @@ class RPGApp:
         y = self.draw_dice(action_dice_sorted, x, y, 30, "Action Dice", cancelled_dice, remaining_action_dice, True)
         y = self.draw_dice(danger_dice_sorted, x, y, 30, "Danger Dice", cancelled_dice, [], False)
         self.dice_canvas.config(height=y)
-        self.dice_canvas.update()  # Force canvas refresh
+        self.dice_canvas.update()
         
         # Add result to the output
-        self.fate_output.insert(tk.END, f"Mastery Reroll Result: {result}\n\n")
+        self.fate_output.insert(tk.END, f"Mastery Reroll Result: {result}\n")
+        if pressure_increase > 0:
+            self.fate_output.insert(tk.END, f"Pressure: +{pressure_increase}\n")
+        self.fate_output.insert(tk.END, "\n")
         self.fate_output.see(tk.END)
 
     def clear_dice(self):
@@ -331,10 +348,11 @@ class RPGApp:
         self.danger_dice_values = []
         self.action_dice_tags = []
         self.mastery_used = False
+        self.mastery_die_value = None  # Reset mastery die value
         self.mastery_die_index = None # Reset the mastery die index / selection
 
     def draw_dice(self, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
-        print(f"Drawing dice: is_action={is_action}, label={label}, mastery_used={self.mastery_used}, mastery_die_index={self.mastery_die_index}")
+        print(f"Drawing dice: is_action={is_action}, label={label}, mastery_used={self.mastery_used}, mastery_die_index={self.mastery_die_index}, mastery_die_value={self.mastery_die_value}")
         self.dice_canvas.create_text(x, y, text=label, anchor="nw", font=('Helvetica', 14, 'bold'))
         y += 35
         highest_remaining_die = max(remaining_dice, default=0)
@@ -358,9 +376,10 @@ class RPGApp:
                 rect_color = "#388E3C"  # Green for highest remaining
                 text_color = "white"
 
-            # Override font color for Mastery-rerolled die
-            if is_action and self.mastery_die_index is not None and i == self.mastery_die_index and self.mastery_used:
+            # Override font color for Mastery-rerolled die based on value
+            if is_action and self.mastery_die_value is not None and die == self.mastery_die_value and self.mastery_used:
                 text_color = "blue"  # Blue font for Mastery-rerolled die
+                print(f"Applied blue font to die {i} with value {die}")
 
             # Set up tags for interaction
             if is_action:
@@ -380,7 +399,6 @@ class RPGApp:
                 self.dice_canvas.tag_bind(tag, '<Button-1>', lambda event, idx=i: self.on_die_click(idx))
 
             x += dice_size + 5
-
         
         return y + dice_size + 20
 
@@ -405,7 +423,8 @@ class RPGApp:
         # Reset mastery state
         self.mastery_used = False
         self.action_dice_tags = []
-        self.mastery_die_index = None # Reset the mastery die
+        self.mastery_die_index = None
+        self.mastery_die_value = None
 
         # Roll dice
         action_dice = roll_dice(num_action_dice)
@@ -414,11 +433,22 @@ class RPGApp:
         # Process the dice (sorts and cancels)
         action_dice_sorted, danger_dice_sorted, cancelled_dice, remaining_action_dice = process_results(action_dice.copy(), danger_dice.copy())
         
+        # Calculate uncancelled Danger Dice
+        remaining_danger_dice = danger_dice.copy()
+        for action_die in action_dice:
+            if action_die in remaining_danger_dice:
+                remaining_danger_dice.remove(action_die)
+        
+        # Count uncancelled 6s for Pressure
+        pressure_increase = remaining_danger_dice.count(6)
+        
         # Store sorted dice values for display and rerolling
         self.action_dice_values = action_dice_sorted.copy()
         self.danger_dice_values = danger_dice_sorted.copy()
         
         result = determine_result(remaining_action_dice)
+        if pressure_increase > 0:
+            result = f"{result}; Pressure +{pressure_increase}"
 
         self.dice_result_label.config(text=result)
         x, y = 10, 10
@@ -428,7 +458,10 @@ class RPGApp:
         for _ in range(6):
             self.dice_canvas.update()
             time.sleep(0.02)
-        self.fate_output.insert(tk.END, f"Dice Result: {result}\n\n")
+        self.fate_output.insert(tk.END, f"Dice Result: {result}\n")
+        if pressure_increase > 0:
+            self.fate_output.insert(tk.END, f"Pressure: +{pressure_increase}\n")
+        self.fate_output.insert(tk.END, "\n")
         self.fate_output.see(tk.END)
 
         # If there are no action dice, disable mastery

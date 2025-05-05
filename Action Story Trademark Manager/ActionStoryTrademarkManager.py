@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import json
 import os
+import unicodedata
 
 # Set up relative paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -10,9 +11,23 @@ JSON_PATH = os.path.join(script_dir, "data", "trademarks.json")
 
 def load_trademarks():
     try:
-        with open(JSON_PATH, "r") as file:
-            return json.load(file)
+        with open(JSON_PATH, "r", encoding="utf-8") as file:
+            data = json.load(file)
+            for tm in data.get("trademarks", []):
+                tm.setdefault("name", "Unknown")
+                tm.setdefault("source", "Unknown")
+                tm.setdefault("type", "Unknown")
+                tm.setdefault("description", "")
+                tm.setdefault("traits", [])
+                tm.setdefault("flaws", [])
+                tm.setdefault("gear", [])
+                tm.setdefault("advantages", [])
+            return data
     except FileNotFoundError:
+        messagebox.showerror("Error", f"Could not find {JSON_PATH}")
+        return {"trademarks": []}
+    except json.JSONDecodeError:
+        messagebox.showerror("Error", "Invalid JSON format in trademarks.json")
         return {"trademarks": []}
 
 trademarks_data = load_trademarks()
@@ -47,8 +62,17 @@ class TrademarkManagerApp:
         self.search_entry.pack(fill="x", expand=True, side="left", padx=5)
         self.search_entry.bind("<KeyRelease>", self.filter_trademarks)
 
-        self.trademark_listbox = tk.Listbox(search_list_frame, height=10)
-        self.trademark_listbox.pack(fill="both", expand=True, pady=5)
+        # Listbox with scrollbar
+        listbox_frame = ttk.Frame(search_list_frame)
+        listbox_frame.pack(fill="both", expand=True, pady=5)
+
+        scrollbar = ttk.Scrollbar(listbox_frame, orient="vertical")
+        self.trademark_listbox = tk.Listbox(
+            listbox_frame, yscrollcommand=scrollbar.set, height=10
+        )
+        scrollbar.config(command=self.trademark_listbox.yview)
+        scrollbar.pack(side="right", fill="y")
+        self.trademark_listbox.pack(fill="both", expand=True)
         self.trademark_listbox.bind("<<ListboxSelect>>", self.view_trademark_details)
 
         # Bottom frame for details
@@ -65,6 +89,10 @@ class TrademarkManagerApp:
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
 
+    def normalize_text(self, text):
+        """Normalize Unicode characters to ASCII-compatible forms."""
+        return unicodedata.normalize("NFKC", str(text))
+
     def populate_trademark_list(self):
         self.trademark_listbox.delete(0, tk.END)
         sorted_trademarks = sorted(
@@ -72,8 +100,10 @@ class TrademarkManagerApp:
             key=lambda t: (t["source"], t["type"], t["name"])
         )
         for trademark in sorted_trademarks:
-            display_text = f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
+            display_text = f"{self.normalize_text(trademark['source'])}: {self.normalize_text(trademark['type'])}: {self.normalize_text(trademark['name'])}"
             self.trademark_listbox.insert(tk.END, display_text)
+        if not sorted_trademarks:
+            self.display_trademark({"name": "No Data", "description": "No trademarks available."})
 
     def filter_trademarks(self, event):
         query = self.search_entry.get().lower()
@@ -82,10 +112,11 @@ class TrademarkManagerApp:
             trademarks_data["trademarks"],
             key=lambda t: (t["source"], t["type"], t["name"])
         )
+        matches = []
         for trademark in sorted_trademarks:
-            display_text = f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
+            display_text = f"{self.normalize_text(trademark['source'])}: {self.normalize_text(trademark['type'])}: {self.normalize_text(trademark['name'])}"
             if query in display_text.lower() or any(
-                query in field.lower() for field in [
+                query in self.normalize_text(field).lower() for field in [
                     trademark.get("description", ""),
                     " ".join(trademark.get("traits", [])),
                     " ".join(trademark.get("flaws", [])),
@@ -93,7 +124,10 @@ class TrademarkManagerApp:
                     " ".join(adv.get("name", "") + " " + adv.get("description", "") for adv in trademark.get("advantages", []))
                 ]
             ):
+                matches.append(display_text)
                 self.trademark_listbox.insert(tk.END, display_text)
+        if not matches:
+            self.display_trademark({"name": "No Results", "description": "No trademarks match the search criteria."})
 
     def view_trademark_details(self, event):
         selected = self.trademark_listbox.curselection()
@@ -102,23 +136,25 @@ class TrademarkManagerApp:
             source, type_, name = map(str.strip, selected_text.split(":", 2))
             for trademark in trademarks_data["trademarks"]:
                 if (
-                    trademark["source"] == source
-                    and trademark["type"] == type_
-                    and trademark["name"] == name
+                    self.normalize_text(trademark["source"]) == source
+                    and self.normalize_text(trademark["type"]) == type_
+                    and self.normalize_text(trademark["name"]) == name
                 ):
                     self.display_trademark(trademark)
-                    break
+                    return
+            self.display_trademark({"name": "Not Found", "description": "No matching trademark found."})
 
     def display_trademark(self, trademark):
-        details = f"Name: {trademark['name']}\n"
-        details += f"Source: {trademark['source']}\n"
-        details += f"Type: {trademark['type']}\n"
-        details += f"Description: {trademark['description']}\n\n"
-        details += "Traits:\n" + "\n".join(f"- {trait}" for trait in trademark.get("traits", [])) + "\n\n"
-        details += "Flaws:\n" + "\n".join(f"- {flaw}" for flaw in trademark.get("flaws", [])) + "\n\n"
-        details += "Gear:\n" + "\n".join(f"- {gear}" for gear in trademark.get("gear", [])) + "\n\n"
+        details = f"Name: {self.normalize_text(trademark.get('name', ''))}\n"
+        details += f"Source: {self.normalize_text(trademark.get('source', ''))}\n"
+        details += f"Type: {self.normalize_text(trademark.get('type', ''))}\n"
+        details += f"Description: {self.normalize_text(trademark.get('description', ''))}\n\n"
+        details += "Traits:\n" + "\n".join(f"- {self.normalize_text(trait)}" for trait in trademark.get("traits", [])) + "\n\n"
+        details += "Flaws:\n" + "\n".join(f"- {self.normalize_text(flaw)}" for flaw in trademark.get("flaws", [])) + "\n\n"
+        details += "Gear:\n" + "\n".join(f"- {self.normalize_text(gear)}" for gear in trademark.get("gear", [])) + "\n\n"
         details += "Advantages:\n" + "\n".join(
-            f"- {adv['name']}: {adv['description']}" for adv in trademark.get("advantages", [])
+            f"- {self.normalize_text(adv.get('name', ''))}: {self.normalize_text(adv.get('description', ''))}" 
+            for adv in trademark.get("advantages", [])
         )
 
         self.trademark_details.config(state="normal")
