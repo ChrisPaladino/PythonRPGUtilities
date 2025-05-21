@@ -717,7 +717,7 @@
         "name": "Academic",
         "source": "Hard City",
         "type": "Past",
-        "description": "You spent your life with your nose buried in books, working as a librarian, teacher, or research assistant. Perhaps you’ve been published. In Hard City, your knowledge might be the only light in a city steeped in shadows, but your naivety could also be your downfall.",
+        "description": "You spent your life with your nose buried in books, working as a librarian, teacher, or research assistant. Perhaps you've been published. In Hard City, your knowledge might be the only light in a city steeped in shadows, but your naivety could also be your downfall.",
         "traits": ["Educated", "Research", "Bureaucracy", "Languages", "Bookworm", "Eye for Detail", "Puzzles"],
         "flaws": ["Absent-minded", "Naive", "Arrogant", "Daydreamer", "Old"],
         "gear": ["Dog-eared Journal", "Monogrammed Fountain Pen"],
@@ -858,7 +858,7 @@
         "name": "Criminal",
         "source": "Hard City",
         "type": "Past",
-        "description": "Whether guilty or not, you’ve done time in the cooler and rubbed shoulders with other criminals. You’re an ex-con.",
+        "description": "Whether guilty or not, you've done time in the cooler and rubbed shoulders with other criminals. You're an ex-con.",
         "traits": [
           "Blend In",
           "Spot Trouble",
@@ -898,7 +898,7 @@
         "name": "Domestic",
         "source": "Hard City",
         "type": "Past",
-        "description": "You worked in a large household or establishment such as a hotel. As a housekeeper, maid, nanny, doorman, cleaner, butler, or cook you could see things and go places others couldn’t.",
+        "description": "You worked in a large household or establishment such as a hotel. As a housekeeper, maid, nanny, doorman, cleaner, butler, or cook you could see things and go places others couldn't.",
         "traits": [
           "Notice",
           "Endurance",
@@ -1223,7 +1223,7 @@
         "flaws": [
           "Soft-hearted",
           "Corrupt",
-          "In the Mob’s Pocket",
+          "In the Mob's Pocket",
           "Arrogant"
         ],
         "gear": [
@@ -1275,7 +1275,7 @@
             "description": "Roll with Mastery to avoid notice while tailing or observing someone."
           },
           {
-            "name": "Photos Don’t Lie",
+            "name": "Photos Don't Lie",
             "description": "Spend a Moxie point to produce photographic evidence that changes the course of a narrative or scene."
           },
           {
@@ -2230,7 +2230,7 @@
           "name": "Swampborn",
           "source": "Homebrew",
           "type": "Background",
-          "description": "You were born in the muck and raised by reeds and rain. You know how to vanish into mist, breathe through a reed, and lead your pursuers into the belly of a bog-beast. The swamp is your mother—and she doesn’t take kindly to strangers.",
+          "description": "You were born in the muck and raised by reeds and rain. You know how to vanish into mist, breathe through a reed, and lead your pursuers into the belly of a bog-beast. The swamp is your mother—and she doesn't take kindly to strangers.",
           "traits": ["Swim", "Survival", "Stealth", "Awareness", "Scavenge", "Climb", "Set Traps"],
           "flaws": ["Always Damp", "Mistrusts Outsiders", "Shrouded Reputation", "Feels Responsible for Kin"],
           "gear": ["Swamp-hide Cloak", "Bog Knife", "Bundle of Traps & Lures"],
@@ -2253,7 +2253,7 @@
           "name": "Patchwork Cyborg",
           "source": "Homebrew",
           "type": "Descriptor",
-          "description": "Your body remembers the weight of chains and circuit-welders. Altered and augmented by the regime, your cyber-claw is both curse and tool. You’ve reclaimed your metal as your own—but it still hums with ghosts.",
+          "description": "Your body remembers the weight of chains and circuit-welders. Altered and augmented by the regime, your cyber-claw is both curse and tool. You've reclaimed your metal as your own—but it still hums with ghosts.",
           "traits": ["Endurance", "Jury-Rig", "Disable Device", "Claw Combat", "Unnatural Strength", "Repair", "Resist Pain"],
           "flaws": ["Glitches Under Pressure", "Disturbing Scar Tissue", "Self-Doubt", "Hunted by the Horde"],
           "gear": ["Rusted Toolkit", "Tinker's Satchel", "Scrap Goggles"],
@@ -2276,7 +2276,7 @@
           "name": "Trickster Scout",
           "source": "Homebrew",
           "type": "Occupation",
-          "description": "You run where others slog, climb where others stumble, and laugh where others curse. You’re a saboteur, scout, and mischief-maker for the rebellion—unpredictable, indispensable, and probably climbing something right now.",
+          "description": "You run where others slog, climb where others stumble, and laugh where others curse. You're a saboteur, scout, and mischief-maker for the rebellion—unpredictable, indispensable, and probably climbing something right now.",
           "traits": ["Acrobatics", "Sleight of Hand", "Sabotage", "Dodge", "Awareness", "Disguise", "Tinker"],
           "flaws": ["Can't Resist a Dare", "Flirts with Death (and Everyone Else)", "Needs to Prove Himself"],
           "gear": ["Red Bandana (Lucky)", "Rebel Toolkit", "Flash-bang Marble"],
@@ -2364,7 +2364,7 @@
             "gear": [
               "Hollowbone Dagger",
               "Whisper Mask",
-              "Worn Traveler’s Cloak"
+              "Worn Traveler's Cloak"
             ],
             "flaws": [
               "Starving Emptiness",
@@ -2396,7 +2396,7 @@
               },
               {
                 "name": "Face Stealer",
-                "description": "Once per Scene, after observing a target’s reflection closely, you may mimic their face, voice, and mannerisms for the rest of the Scene. No Check is required unless closely scrutinized."
+                "description": "Once per Scene, after observing a target's reflection closely, you may mimic their face, voice, and mannerisms for the rest of the Scene. No Check is required unless closely scrutinized."
               }
             ],
             "gear": [
@@ -2435,7 +2435,7 @@
             },
             {
               "name": "Wound Reader",
-              "description": "When you study a person’s scars or injuries up close, you may ask the GM one question about their past, vulnerabilities, or hidden weaknesses without requiring a roll."
+              "description": "When you study a person's scars or injuries up close, you may ask the GM one question about their past, vulnerabilities, or hidden weaknesses without requiring a roll."
             }
           ],
           "gear": [
@@ -2444,7 +2444,7 @@
             "Bone Needle Kit"
           ],
           "flaws": [
-            "Scar-Eater’s Hunger",
+            "Scar-Eater's Hunger",
             "Traitor Tattoos",
             "Stained Reputation",
             "Ink Betrayal"
@@ -2590,7 +2590,7 @@
           ],
           "advantages": [
             {
-              "name": "Nature’s Remedy",
+              "name": "Nature's Remedy",
               "description": "During a Rest, you may prepare one minor curative: a basic salve, antidote, stimulant, or painkiller. At any time, you may spend 1 Moxie to rapidly concoct one such item without resting."
             },
             {
@@ -2598,18 +2598,18 @@
               "description": "When attempting to calm, guide, or hide among natural animals, roll with Mastery."
             },
             {
-              "name": "Nature’s Favor",
+              "name": "Nature's Favor",
               "description": "Spend 1 Moxie to subtly call upon the natural world for aid. Nearby plants, creatures, or elements intervene on your behalf—blocking attacks, opening paths, causing distractions, or warning of unseen threats. The GM describes how nature responds."
             }
           ],
           "gear": [
             "Satchel of Herbcraft",
             "Grove Pendant",
-            "Warden’s Staff"
+            "Warden's Staff"
           ],
           "flaws": [
-            "Greenblood’s Prejudice",
-            "Nature’s Call",
+            "Greenblood's Prejudice",
+            "Nature's Call",
             "Untamed Power",
             "Wanderer's Heart"
           ]
@@ -2646,7 +2646,7 @@
           "gear": [
             "Omen Deck",
             "Wildbound Satchel",
-            "Traveler’s Toolkit"
+            "Traveler's Toolkit"
           ],
           "flaws": [
             "Cursed Curiosity",
@@ -2678,18 +2678,18 @@
               "description": "You roll with Mastery on Willpower Checks made to resist mental influence or emotional corruption."
             },
             {
-              "name": "Confessor’s Voice",
+              "name": "Confessor's Voice",
               "description": "You gain +1 Action Die when trying to compel guilt-ridden or doubting NPCs to hesitate, confess, or reveal hidden fears."
             }
           ],
           "gear": [
             "Vow Sigil",
             "Cloth of Binding",
-            "Traveler’s Pack"
+            "Traveler's Pack"
           ],
           "flaws": [
             "Tormented by Doubt",
-            "Rival Knight’s Lies"
+            "Rival Knight's Lies"
           ]
         },
         {
@@ -2712,7 +2712,7 @@
             },
             {
               "name": "Living Shield",
-              "description": "Once per scene, when you would take Damage from a physical attack, you may spend 1 Moxie to negate the Damage completely."
+              "description": "Once per turn, when you would take Damage from a physical attack, you may spend 1 Moxie to negate the Damage completely."
             },
             {
               "name": "Command the Verdant Host",
@@ -2745,7 +2745,7 @@
           ],
           "advantages": [
             {
-              "name": "Spirits’ Whisper",
+              "name": "Spirits' Whisper",
               "description": "Gain +1 Action Die when making Checks to track, scout, or locate hidden things in natural terrain."
             },
             {
@@ -2754,18 +2754,18 @@
             },
             {
               "name": "Summon Small Beasts",
-              "description": "Once per scene, summon a swarm of woodland creatures. They can inflict the Hindered Condition or create a distraction (GM’s choice)."
+              "description": "Once per scene, summon a swarm of woodland creatures. They can inflict the Hindered Condition or create a distraction (GM's choice)."
             }
           ],
           "gear": [
             "Spiritwood Token",
             "Thornwoven Cloak",
-            "Trailbinder’s Satchel"
+            "Trailbinder's Satchel"
           ],
           "flaws": [
             "Fading Bond",
             "Unwelcome in Cities",
-            "Nature’s Fury"
+            "Nature's Fury"
           ]
         }
     ]
