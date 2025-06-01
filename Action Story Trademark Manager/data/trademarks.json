@@ -2767,6 +2767,128 @@
             "Unwelcome in Cities",
             "Nature's Fury"
           ]
+        },
+        {
+            "name": "Street Mage",
+            "source": "Homebrew",
+            "type": "Occupation",
+            "description": "You learned magic in alleyways and backrooms, from smugglers, cults, and grimoires traded for blood. Your spells are dirty, fast, and effective — magic as survival, not scholarship.",
+            "traits": [
+                "Power Bolt",
+                "Knock",
+                "Streetwise",
+                "Intimidate",
+                "Ritual Casting",
+                "Awareness",
+                "Hide",
+                "Scrounge"
+            ],
+            "flaws": [
+                "Eyes Glow When Angry",
+                "Known to Magical Authorities",
+                "Ritual Addict",
+                "Dangerous Rival"
+            ],
+            "gear": [
+                "Chalk Circle burned into a piece of cardboard",
+                "Spray-painted sigil hoodie",
+                "Empty vials smelling faintly of ozone"
+            ],
+            "advantages": [
+                {
+                    "name": "Arcane Backlash",
+                    "description": "When you suffer a physical attack, you may spend 1 Moxie to lash out instinctively with raw magical energy. Your attacker suffers 1 Damage as a burst of fire, static, or force explodes from your aura."
+                },
+                {
+                    "name": "Battle Mage",
+                    "description": "When casting a spell while directly threatened in combat, roll with Mastery."
+                },
+                {
+                    "name": "Ritual Cache",
+                    "description": "Once per Job, you may spend 1 Moxie to declare you prepared a ritual beforehand that grants 1 temporary magical Tag (e.g., Barrier, Concealed, Fire) to a chosen object or location."
+                }
+            ]
+        },
+        {
+            "name": "Astral Perception",
+            "source": "Homebrew",
+            "type": "Descriptor",
+            "description": "You see the astral plane like others see graffiti — everywhere, layered across the world. The colors of souls, the stench of spells, the burn of Pattern scars: you can’t turn it off, and sometimes, it sees you back.",
+            "traits": [
+              "Aura Sense",
+              "Pattern Awareness",
+              "Empathy",
+              "Detect Magic",
+              "Cold Read",
+              "Analyze Energy",
+              "Resist the Pattern"
+            ],
+            "flaws": [
+              "Eyes Unfocus When Reading Auras",
+              "Jumps at Ghosts",
+              "Unnerving Stare",
+              "Distracted by Astral Movement"
+            ],
+            "gear": [
+              "Veil Glass Pendant",
+              "Salt ring in a bottle cap",
+              "Fingertip gloves (to avoid touching too much)"
+            ],
+            "advantages": [
+              {
+                "name": "Astral Projection",
+                "description": "Spend a Moxie point to leave your body and scout in the astral plane. You gain +1 Action Die on Checks to detect wards, spirits, or magical threats."
+              },
+              {
+                "name": "Second Sight",
+                "description": "You can sense the presence and shape of nearby active magic, even through solid objects—but only for moments at a time."
+              },
+              {
+                "name": "Spirit Echo",
+                "description": "When in a place where death or intense magic occurred, you may make a Check to witness a lingering astral impression of the event. On a success, you learn a hidden detail about what occurred."
+              }
+            ]
+        },
+        {
+            "name": "Forgotten Adept",
+            "source": "Homebrew",
+            "type": "Background",
+            "description": "You weren’t trained in a tower or taught by mentors. You found fragments in burned books and half-finished tattoos. Your magic is pieced together, practical, and powered by raw intent more than tradition.",
+            "traits": [
+              "Occult Lore",
+              "Scrounge",
+              "Improvised Casting",
+              "Arcane Symbolism",
+              "Makeshift Tools",
+              "Eye for Detail",
+              "Survive on Nothing",
+              "Forgotten Languages"
+            ],
+            "flaws": [
+              "Self-taught Arrogance",
+              "Lacks Formal Terminology",
+              "Can’t Read Standard Grimoires",
+              "Bound to a Spirit That Sometimes Talks Back"
+            ],
+            "gear": [
+              "Scrap-bound spellbook",
+              "Bone-carved focus ring",
+              "Journal full of arcane graffiti"
+            ],
+            "advantages": [
+              {
+                "name": "Old Knowledge",
+                "description": "Roll with Mastery when deciphering arcane texts, ancient glyphs, or forgotten rituals."
+              },
+              {
+                "name": "Patchwork Magic",
+                "description": "When casting without proper components or under duress, you may spend 1 Moxie to ignore penalties for being unprepared."
+              },
+              {
+                "name": "Jury-Rigged Ritual",
+                "description": "During a Rest, you may construct a simple magical ward or effect using junk and salvage. On a success, the ritual works with one Tag (GM decides specifics)."
+              }
+            ]
         }
     ]
 }
