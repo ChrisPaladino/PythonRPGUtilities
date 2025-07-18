@@ -1,0 +1,132 @@
+{
+    "[role]Aggressor[/role]": {
+        "Attack": {
+            "1": "Strike defensively (give a weak harmful status, and gain [status]parry[/status] or [status]guarded[/status])",
+            "2": "Strike with force (give a harmful status such as [status]wounded[/status])",
+            "3": "Lash out with a violent strike (give a strong harmful status, but gain [status]exposed[/status])"
+        },
+        "Maneuver": {
+            "4": "Put in a compromised position (negative positional status such as prone) or block movement (Blocked)",
+            "5": "Disarm or lower defenses (scratch a tag or reduce a positive status) or strike with fear or confusion ([status]intimidated[/status] or [status]confused[/status])"
+        },
+        "Rally": {
+            "6": "Reinforcements arrive (New Challenge or increase Might)"
+        }
+    },
+    "[role]Charge[/role]": {
+        "Follow": {
+            "1": "Make too much noise or distract (Exposure, remove [status]hidden[/status] or [status]distracted[/status])",
+            "2": "Suddenly be gone, having been separated from the Hero or wandered off (Complication)"
+        },
+        "Blunder": {
+            "3": "Move right into the path of danger (Complication, or gain [status]exposed[/status] or [status]panicked[/status])",
+            "4": "Scream for help (Exposure, New Challenge, or give [status]compelled-to-help[/status])",
+            "5": "Become captured, trapped, or entangled (gain [status]restrained[/status])"
+        },
+        "Be Hurt": {
+            "6": "Suffer harm or injury, possibly fatal (gain a harmful status, or Ill Tidings)"
+        }
+    },
+    "[role]Countdown[/role]": {
+        "Get Worse": {
+            "1": "Advance (gain [status]progress[/status])",
+            "2": "Advance aggressively, harming any opposition (gain [status]progress[/status] and give a harmful status)",
+            "3": "Worsen in an obvious and terrifying way (gain [status]progress[/status] and give [status]worried[/status] or [status]scared[/status])"
+        },
+        "Break Out": {
+            "4": "Shatter through a hinderance (scratch tags or remove hindering statuses)"
+        },
+        "Defend": {
+            "5": "Summon a new defender (New Challenge or increase Might of defenders)",
+            "6": "A defender of the process attacks (roll on [role]Aggressor[/role] or [role]Influence[/role])"
+        }
+    },
+    "[role]Influence[/role]": {
+        "Entice": {
+            "1": "Make an impression 9gain [status]friendly[/status] or give [status]curious[/status])",
+            "2": "Discern or reveal a secret or weakness (Exposre and gain a tag for it)",
+            "3": "Attract, offering something desired (give a compelling status such as [status]interested[/status] or [status]beguiled[/status], or gain a desireable tag)"
+        },
+        "Convince": {
+            "4": "Disarm resistance or sow self-doubt (scratch a tag or reduce a positive status)",
+            "5": "Strongly [role]Influence[/role] (give a compelling status such as [status]convinced[/status] or [status]tempted[/status])",
+            "6": "Make a deal or press to choose (give [status]indebted[/status] and a desired tag, or Force The Hero To Choose)"
+        }
+    },
+    "[role]Mystery[/role]": {
+        "1": "Conditions worsen, making revealing the truth harder (gain obscuring status or tag such as [status]foggy-2[/status] or [tag]disturbed evidence[/tag])",
+        "2": "A useful source of information runs dry or is exhausted (scratch a tag)",
+        "3": "Clues are inconclusive or only part-true (Yes, But...)",
+        "4": "The truth is slipping away (gain [status]confounding[/status], or give the witness [status]tight-lipped[/status] or [status]bewitched[/status])",
+        "5": "The investigators pay a price: [status]frustrated[/status] by lack of progress, [status]shocked[/status] by what htey find, etc.",
+        "6": "A vital clue or witness escapes the investigators (New Challenge with the Quarry role) or someone steps up to repel the investigators (New Challenge with the [role]Aggressor[/role] role)"
+    },
+    "[role]Obstacle[/role]": {
+        "1": "A possible way through is sealed, blocked or ruined (Blocked)",
+        "2": "Become (or be revealed to be) more difficult to pass (gain a positive status or tag such as [tag]steep incline[/tag], [tag]covered in brambles[/tag], [status]flaming-3[/status])",
+        "3": "Harm someone interacting with it or attempting to pass (give a harmful status)",
+        "4": "Break a tool, exhaust a resource, or make a useful skill irrelevant (reduce a resource status or scratch a tag)",
+        "5": "Entangle, web, paralyze, or otherwise restrain passers-through (give [status]restrained[/status])",
+        "6": "Summon or spawn guardians (New Challenge, with the [role]Aggressor[/role] or [role]Watcher[/role] role)"
+    },
+    "[role]Pursuer[/role]": {
+        "Give Chase": {
+            "1": "Draw closer and closer (add a status on the [limit]catch[/limit] or [limit]track[/limit] Limit)",
+            "2": "Gain momentum (gain [status]speeding[/status], and add a status on the [limit]catch[/limit] or [limit]track[/limit] Limit)",
+            "3": "Overcome an obstacle (scratch an obstacle tag and add a status on the [limit]catch[/limit] or [limit]track[/limit] Limit)"
+        },
+        "Hinder": {
+            "4": "Force the quarry to slow or reveal itself (give a hindering status, such as [status]hobbled[/status] or [status]slow[/status], or scratch a movement, mount, or transport tag)",
+            "5": "Create an obstacle up ahead or steer the chase into one (create an obstacle tag)",
+            "6": "Maneuver to block escape in a specific path (Blocked)"
+        }
+    },
+    "[role]Quarry[/role]": {
+        "Flee": {
+            "1": "Move further away (add a status on the [limit]outrun[/limit] or [limit]escape[/limit] Limit)",
+            "2": "Gain momentum or mask their tracks (gain [status]speeding[/status] or [status]hidden[/status], and add a status on the [limit]outrun[/limit] or [limit]escape[/limit] Limit)",
+            "3": "Clear an obstacle (scratch an obstacle tag and add a status on the [limit]outrun[/limit] or [limit]escape[/limit] Limit)"
+        },
+        "Hinder": {
+            "4": "Slow or confuse the pursuer with diversions or by impairing abilities (give a hindering status or scratch a tag)",
+            "5": "Put an obstacle in the pursuer's path (create an obstacle tag)",
+            "6": "Draw another party into the chase (New Challenge)"
+        }
+    },
+    "[role]Sapper[/role]": {
+        "Measure": {
+            "1": "Identify a Hero's weakness (Exposure or give a negative tag) or break their defenses (scratch a tag)",
+            "2": "Find an [status]advantageous-position[/status] or hide in the shadows or on the fringes (gain [status]hidden[/status])"
+        },
+        "Weaken": {
+            "3": "Harry the Hero or sap their strength (give a hindering status such as [status]drained[/status], [status]despaired[/status], [status]hobbled[/status], [status]weakened[/status], [status]exposed[/status], etc.)",
+            "4": "Deplete an important resource (reduce a resource status, such as [status]supplies[/status], or give a scarcity status, such as [status]low-on-arrows[/status])",
+            "5": "Sabotage a useful ability, item, position, or process (scratch a tag, reduce a positive status, or set back a progress status)",
+            "6": "Put an obstacle in a Hero's path (create an obstacle tag)"
+        }
+    },
+    "[role]Support[/role]": {
+        "Aid": {
+            "1": "Empower their allies (give [status]inspired[/status], [status]confident[/status], [status]energized[/status], etc., or increase their Might)",
+            "2": "Protect their allies, block an attack, or create cover (give a defensive status such as [status]guarded[/status] or warded, or cover tags such as [tag]barricade[/tag], or Blocked)",
+            "3": "Heal their allies or restore their strength (reduce a hindering or harmful status)",
+            "4": "Recover their allies' abilities (restore a Challenge's original tags)",
+            "5": "Grant their allies a new asset or ability (create a tag)",
+            "6": "Restore or replace a fallen ally (New Challenge: bring a defeated Challenge back)"
+        }
+    },
+    "[role]Watcher[/role]": {
+        "Patrol": {
+            "1": "Notice something that makes them agitated or vigilant (gain alert or suspicious)",
+            "2": "Spot its quarry, or find evidence of activity (Exposure)"
+        },
+        "Close In": {
+            "3": "Remove obstacles in their path to the truth (remove a concealing tag or status, such as [tag]disguise[/tag], [status]hidden[/status], or [status]mysterious[/status])",
+            "4": "Close down a path of escape or evasion (Blocked)"
+        },
+        "Study": {
+            "5": "Reveal vital information about their quarry or their plans (Exposure, and remove preparedness statuses or tags)",
+            "6": "Figure out their quarry's next move (Exposure and gain [status]prepared[/status])"
+        }
+    }
+}

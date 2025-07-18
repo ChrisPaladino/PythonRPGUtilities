@@ -1,0 +1,47 @@
+{
+    "11-14": {
+        "Act I": "The Heroes' home is facing a never before seen danger.",
+        "Act II": "The greater world is dangerous.",
+        "Act III": "The Great Danger has the power to reach their end goal and is making final preparations."
+    },
+    "15-22": {
+        "Act I": "The dangers are caused by a common source.",
+        "Act II": "Some of the greater world's dangers can also become allies, tools, lore, etc.",
+        "Act III": "The Great Danger has certain attributes that make it invincible or unstoppable."
+    },
+    "23-26": {
+        "Act I": "The source of the danger is nearby.",
+        "Act II": "The Heroes must grow in order to face the world's mighty dangers.",
+        "Act III": "The Great Danger has a vulnerability or weakness."
+    },
+    "31-34": {
+        "Act I": "The Heroes are unequipped to deal with this danger.",
+        "Act II": "All dangers faced so far have an immensely powerful common source - the Great Danger.",
+        "Act III": "Overcoming a specific Agent will weaken or expose the Great Danger in a specific way."
+    },
+    "35-42": {
+        "Act I": "Someone nearby has the greater knowledge needed to face the danger.",
+        "Act II": "Many places are threatened by the Great Danger, like the Heroes' home.",
+        "Act III": "A unique place, item, ability, or ally can exploit the Great Danger's weaknesses."
+    },
+    "43-46": {
+        "Act I": "A hidden strength or resource can help the Heroes overcome the danger.",
+        "Act II": "The Great Danger has noticed the Heroes and seeks to stop them.",
+        "Act III": "The path to overcoming the Great Danger demands an equally great price or sacrifice."
+    },
+    "51-54": {
+        "Act I": "A dangerous undertaking is needed to find a way to overcome the danger.",
+        "Act II": "The Great Danger has a specific end goal toward which it strives.",
+        "Act III": "A price that the Hero is unwilling to pay may be traded for another, but arranging this is extremely difficult."
+    },
+    "55-62": {
+        "Act I": "This danger originates from a bigger threat to the Heroes' way of life.",
+        "Act II": "Some of the Great Danger's power is carried by powerful places, creatures, or beings - the Agents.",
+        "Act III": "The Great Danger will launch its final stroke imminently."
+    },
+    "63-66": {
+        "Act I": "A greater threat will produce more dangers if the Heroes don't rise to meet it.",
+        "Act II": "There is a way to overcome or circumvent one of the Great Danger's chief Agents.",
+        "Act III": "The Heroes are now able to approach the Great Danger and make their attempt to stop it."
+    }
+}

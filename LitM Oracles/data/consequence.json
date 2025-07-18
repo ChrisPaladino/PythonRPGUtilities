@@ -1,0 +1,90 @@
+{
+    "11-14": {
+        "Consequence": "A NEW DANGER: The Hero ran into a new Challenge or a new Threat from an existing Challenge. (New Challenge, Complication, optionally give the Hero surprised)",
+        "Specific": {
+            "1": "Hero is [status]surprised[/status] or [status]unprepared[/status]",
+            "2": "Hero is [status]startled[/status] or [status]scared[/status]",
+            "3": "Hero is [status]exposed[/status] or [status]distracted[/status]",
+            "4": "Scratch ally [tag]tag(s)[/tag]",
+            "5": "Scratch Hero [tag]tool[/tag] or [tag]weapon[/tag]",
+            "6": "Scratch Hero [tag]ability[/tag]"
+        }
+    },
+    "15-22": {
+        "Consequence": "COLLATERAL DAMAGE: The action unintentionally affects something or someone that the Hero did not want to affect. (Give an ally a negative status or scratch their tags, Ill Tidings)",
+        "Specific": {
+            "1": "Ally is [status]wounded[/status]",
+            "2": "Ally suffers effects of action",
+            "3": "Scratch ally [tag]tool[/tag] or [tag]weapon[/tag]",
+            "4": "Scratch useful scene tag",
+            "5": "Create [tag]obstacle[/tag] or [tag]hazard[/tag]",
+            "6": "An innocent is hurt (Ill Tidings)"
+        }
+    },
+    "23-26": {
+        "Consequence": "EXPOSURE: The Hero betrays vital information to their adversaries such as their location, identity, intentions, or plan of action. (Exposure, give the Challenge an advantageous tag or status)",
+        "Specific": {
+            "1": "Hero's location",
+            "2": "Hero's abilities",
+            "3": "Hero's intentions",
+            "4": "Hero's weaknesses",
+            "5": "Hero's identity",
+            "6": "Reroll and apply to ally"
+        }
+    },
+    "31-34": {
+        "Consequence": "EXPENDITURE: The Hero expends resources (stamina, arrows, ingredients, mana, etc.). (Scratch a tag, give a negative status like exhausted, or reduce the Hero's resource status like mana)",
+        "Specific": {
+            "1": "Hero is [status]tired[/status]",
+            "2": "Scratch Hero [tag]tool[/tag] or [tag]weapon[/tag]",
+            "3": "Hero is [status]low-on-[resource][/status]",
+            "4": "Hero is [status]disheartened[/status]",
+            "5": "Reduce Hero positive [status]status[/status]",
+            "6": "Roll again twice"
+        }
+    },
+    "43-46": {
+        "Consequence": "IMPERFECT EXECUTION: The Hero didn't get everything they wanted out of the action. (Yes, but... add a negative story tag or status)",
+        "Specific": {
+            "1": "Shoddy (add negative tag)",
+            "2": "Incomplete or spotty",
+            "3": "Unreliable or chancy",
+            "4": "Expires sooner than expected",
+            "5": "Vague, indefinite, or indecisive",
+            "6": "Roll again and also [status]seems-fine[/status]"
+        }
+    },
+    "51-54": {
+        "Consequence": "LOSS OF ADVANTAGE: The Hero lost an advantage they previously had or worked to achieve. (Remove or reduce a Hero's beneficial status or scratch their beneficial tags)",
+        "Specific": {
+            "1": "Scratch Hero [tag]tool[/tag] or [tag]weapon[/tag]",
+            "2": "Reduce Hero positive [status]status[/status]",
+            "3": "Lose favorable position",
+            "4": "Block best path to goal ([tag]Blocked[/tag])",
+            "5": "Reduce opponent negative [status]status[/status]",
+            "6": "Scratch positive scene tag"
+        }
+    },
+    "55-62": {
+        "Consequence": "SIDE EFFECTS: The Hero's action had unexpected or unwanted results. (Create a negative tag in the scene or give the Hero a negative status or tag)",
+        "Specific": {
+            "1": "Hero is [status]distracted[/status]",
+            "2": "Hero is [status]restrained[/status]",
+            "3": "Hero is [status]humiliated[/status]",
+            "4": "Hero is [status]wanted[/status] or [status]marked[/status]",
+            "5": "Create [tag]obstacle[/tag] or [tag]hazard[/tag]",
+            "6": "Scratch Hero [tag]ability[/tag]"
+        }
+    },
+    "63-66": {
+        "Consequence": "WASTED TIME: The Hero spent too much time on this action, allowing other negative complications to unfold. (Advance a progress status, Block a missed course of action, make the conditions worse with tags or Complications)",
+        "Specific": {
+            "1": "It's too late to... ([tag]Blocked[/tag])",
+            "2": "Hero and allies are [status]tired[/status]",
+            "3": "[role]A New Danger[/role] (see above)",
+            "4": "Create a negative conditions tag",
+            "5": "An opponent advances ([role]Comp[/role])",
+            "6": "[status]time-passes-1[/status]. At tier 4, roll again but make it much worse."
+        }
+    }
+}
