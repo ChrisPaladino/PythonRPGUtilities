@@ -400,31 +400,39 @@ def show_yesno(frame):
 
     def roll_and_display():
         try:
-            power = int(power_entry.get())
+            power = int(power_var.get())
         except ValueError:
-            result_var.set("Enter a valid integer for Power.")
+            result_var.set("Select a valid Power Modifier.")
             return
 
-        roll = roll_2d6() + power
-        if roll <= 2:
+        base_roll = roll_2d6()
+        total = base_roll + power
+        modifier_str = f"+{power}" if power >= 0 else f"{power}"  # format +2 or -3
+
+        if total <= 2:
             result = "Extreme No"
-        elif 3 <= roll <= 6:
+        elif 3 <= total <= 6:
             result = "No"
-        elif 7 <= roll <= 9:
+        elif 7 <= total <= 9:
             result = "Complicated (Yes with caveat or No with complication)"
-        elif 10 <= roll <= 11:
+        elif 10 <= total <= 11:
             result = "Yes"
         else:
             result = "Extreme Yes"
 
-        result_var.set(f"You rolled: {roll} → {result}")
+        result_var.set(f"You rolled: {total} ({base_roll}{modifier_str}) →  {result}")
 
     ttk.Label(frame, text="Yes/No Oracle", font=("Arial", 14)).pack(pady=10)
 
     ttk.Label(frame, text="Power Modifier:").pack(pady=5)
-    power_entry = ttk.Entry(frame)
-    power_entry.insert(0, "0")  # Default to 0
-    power_entry.pack(pady=5)
+    power_var = tk.StringVar(value="0")
+    power_dropdown = ttk.Combobox(
+        frame,
+        textvariable=power_var,
+        values=[str(i) for i in range(-4, 5)],  # -4 to +4
+        state="readonly"
+    )
+    power_dropdown.pack(pady=5)
 
     roll_button = ttk.Button(frame, text="Roll 2d6 + Power", command=roll_and_display)
     roll_button.pack(pady=10)
@@ -432,7 +440,6 @@ def show_yesno(frame):
     result_var = tk.StringVar()
     result_label = ttk.Label(frame, textvariable=result_var, wraplength=600)
     result_label.pack(pady=10)
-
 
 def show_placeholder(frame, name):
     clear_frame(frame)
