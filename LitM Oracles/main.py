@@ -234,25 +234,33 @@ def roll_2d6():
 
 def roll_challenge_action(role_override=None):
     """Rolls a challenge action. Randomly picks a role unless overridden."""
-    role = role_override or random.choice(list(challenge_action_data.keys()))
-    role_data = challenge_action_data[role]
+    if role_override:
+        # User picked a role, find matching JSON key
+        json_keys = challenge_action_data.keys()
+        role_lookup = next((k for k in json_keys if k.replace("[role]", "").replace("[/role]", "") == role_override), None)
+        if role_lookup is None:
+            return (role_override, None, "?", f"(Role '{role_override}' not found in challenge_action.json)")
+    else:
+        # Randomly pick JSON key directly
+        role_lookup = random.choice(list(challenge_action_data.keys()))
+
+    # Clean name for display
+    display_role = role_lookup.replace("[role]", "").replace("[/role]", "")
+
+    role_data = challenge_action_data[role_lookup]
     roll = str(roll_d6())
 
     if isinstance(role_data, dict):
-        # Check if this role has subcategories (like Aggressor, Charge, etc.)
         for sub_category, outcomes in role_data.items():
             if isinstance(outcomes, dict) and roll in outcomes:
-                return (role, sub_category, roll, outcomes[roll])
-        # Flat roles (like Mystery, Obstacle)
+                return (display_role, sub_category, roll, outcomes[roll])
         if roll in role_data:
-            return (role, None, roll, role_data[roll])
+            return (display_role, None, roll, role_data[roll])
     else:
-        # Direct flat mapping fallback
         if roll in role_data:
-            return (role, None, roll, role_data[roll])
+            return (display_role, None, roll, role_data[roll])
 
-    # Fallback in case of no matching entry
-    return (role, None, roll, "(No entry for this roll)")
+    return (display_role, None, roll, "(No entry for this roll)")
 
 def show_profile_builder(frame):
     clear_frame(frame)
@@ -308,7 +316,14 @@ def show_profile_builder(frame):
     ttk.Label(frame, text="Select Role (or leave Random):").pack(pady=5)
     role_var = tk.StringVar()
     role_dropdown = ttk.Combobox(frame, textvariable=role_var, state="readonly")
-    role_dropdown["values"] = ["Random"] + list(challenge_action_data.keys())
+
+    clean_roles = []
+    for r in challenge_action_data.keys():
+        # Strip [role]...[/role] if present
+        clean_r = r.replace("[role]", "").replace("[/role]", "")
+        clean_roles.append(clean_r)
+    role_dropdown["values"] = ["Random"] + clean_roles   
+    
     role_dropdown.current(0)  # Set default to "Random"
     role_dropdown.pack(pady=5)
 

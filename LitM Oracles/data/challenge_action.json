@@ -43,7 +43,7 @@
     },
     "[role]Influence[/role]": {
         "Entice": {
-            "1": "Make an impression 9gain [status]friendly[/status] or give [status]curious[/status])",
+            "1": "Make an impression (gain [status]friendly[/status] or give [status]curious[/status])",
             "2": "Discern or reveal a secret or weakness (Exposre and gain a tag for it)",
             "3": "Attract, offering something desired (give a compelling status such as [status]interested[/status] or [status]beguiled[/status], or gain a desireable tag)"
         },
@@ -59,7 +59,7 @@
         "3": "Clues are inconclusive or only part-true (Yes, But...)",
         "4": "The truth is slipping away (gain [status]confounding[/status], or give the witness [status]tight-lipped[/status] or [status]bewitched[/status])",
         "5": "The investigators pay a price: [status]frustrated[/status] by lack of progress, [status]shocked[/status] by what htey find, etc.",
-        "6": "A vital clue or witness escapes the investigators (New Challenge with the Quarry role) or someone steps up to repel the investigators (New Challenge with the [role]Aggressor[/role] role)"
+        "6": "A vital clue or witness escapes the investigators (New Challenge with the [role]Quarry[/role] role) or someone steps up to repel the investigators (New Challenge with the [role]Aggressor[/role] role)"
     },
     "[role]Obstacle[/role]": {
         "1": "A possible way through is sealed, blocked or ruined (Blocked)",
