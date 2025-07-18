@@ -2,8 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 import json
 import os
+import random
 
-from utils.dice import roll_d66, roll_2d6
+from utils.dice import roll_d66, roll_2d6, roll_d6
 
 # Load Oracle Data
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -37,6 +38,7 @@ def roll_category(data, category_name, depth=0):
         return f"{category_name} (Rolled {key}, Rerolled):\n{result1}\n{result2}"
     else:
         return f"{category_name} (Rolled {key}):\n{result}"
+
 
 # --- Oracle Panels ---
 def show_interpretive(frame):
@@ -96,6 +98,64 @@ def show_conflict(frame):
 
     roll_button = ttk.Button(frame, text="Roll Conflict Oracle", command=roll_and_display)
     roll_button.pack(pady=10)
+
+    # Scrollable text box
+    result_frame = ttk.Frame(frame)
+    result_frame.pack(fill="both", expand=True, padx=10, pady=10)
+
+    scrollbar = ttk.Scrollbar(result_frame)
+    scrollbar.pack(side="right", fill="y")
+
+    result_textbox = tk.Text(
+        result_frame,
+        wrap="word",
+        font=("Courier", 10),
+        yscrollcommand=scrollbar.set,
+        state="disabled"
+    )
+    result_textbox.pack(fill="both", expand=True)
+    scrollbar.config(command=result_textbox.yview)
+
+
+def show_profile_builder(frame):
+    clear_frame(frame)
+
+    def build_profile():
+        # STEP 2: Challenge Rating
+        challenge_rating = roll_d6()
+        if challenge_rating == 6:
+            challenge_rating = 5  # Treat 6 as 5
+        results = [f"Step 2: Challenge Rating (Rolled {challenge_rating}) → {challenge_rating}"]
+
+        # STEP 3: Limits
+        hard = challenge_rating + 1
+        medium = challenge_rating
+        easy = challenge_rating - 1 if challenge_rating - 1 > 0 else None
+        limits = [f"Hard: {hard}", f"Medium: {medium}"]
+        if easy:
+            limits.append(f"Easy: {easy}")
+        results.append("Step 3: Limits\n" + "\n".join(limits))
+
+        # STEP 4: Tags & Statuses (placeholder random generation)
+        tags = [f"Tag {i+1}" for i in range(challenge_rating)]
+        statuses = [f"Status Tier {i+1}" for i in range(challenge_rating)]
+        results.append("Step 4: Tags & Statuses\n" +
+                       "Tags: " + ", ".join(tags) +
+                       "\nStatuses: " + ", ".join(statuses))
+
+        # STEP 5: Threats & Consequences (placeholder)
+        results.append("Step 5: Threats & Consequences\n(This step requires Challenge Action Oracle)")
+
+        # Display results
+        result_textbox.config(state="normal")
+        result_textbox.delete("1.0", tk.END)
+        result_textbox.insert(tk.END, "\n\n".join(results))
+        result_textbox.config(state="disabled")
+
+    ttk.Label(frame, text="Profile Builder", font=("Arial", 14)).pack(pady=10)
+
+    build_button = ttk.Button(frame, text="Build Profile", command=build_profile)
+    build_button.pack(pady=10)
 
     # Scrollable text box
     result_frame = ttk.Frame(frame)
@@ -180,7 +240,7 @@ oracle_buttons = [
     ("Interpretive", show_interpretive),
     ("Yes/No", show_yesno),
     ("Conflict", show_conflict),
-    ("Profile Builder", lambda f: show_placeholder(f, "Profile Builder")),
+    ("Profile Builder", show_profile_builder),
     ("Challenge Action", lambda f: show_placeholder(f, "Challenge Action")),
     ("Consequence", lambda f: show_placeholder(f, "Consequence")),
     ("Revelations", lambda f: show_placeholder(f, "Revelations")),
