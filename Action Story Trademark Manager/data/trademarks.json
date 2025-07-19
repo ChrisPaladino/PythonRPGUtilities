@@ -3963,7 +3963,7 @@
             ],
             "gear": [
                 "Perfume that smells like roses and lightning",
-                "Star-shaped nipple piercings (magically bonded)",
+                "Star-shaped jewelry",
                 "Love notes hidden under cushions"
             ],
             "advantages": [
@@ -4084,8 +4084,8 @@
             ],
             "gear": [
                 "Coffee mug with a chip in the handle",
-                "Bench press PR logbook",
-                "Jeannie’s favorite candle he keeps on his nightstand"
+                "Moleskin notebook",
+                "Small momento"
             ],
             "advantages": [
                 {
@@ -4125,7 +4125,7 @@
             ],
             "gear": [
                 "Old family ring that gets warm around magic",
-                "Tattoo over his heart that glows during Jeannie’s spells",
+                "Photo of Family Crest",
                 "Tarnished page from a genealogy record he won’t read"
             ],
             "advantages": [
@@ -4140,6 +4140,169 @@
                 {
                     "name": "Unmarked, Unmade",
                     "description": "You cannot be permanently magically branded, marked, or geotagged. Any such effect wears off at the end of the Scene or is blocked entirely if you spend a Moxie point."
+                }
+            ]
+        },
+        {
+            "name": "Strong as an Ox",
+            "source": "Homebrew",
+            "type": "Descriptor",
+            "description": "Your strength is legendary. You lift what others cannot, break what seems unbreakable, and stand like a stone against any tide. But great brawn often brings great consequences.",
+            "traits": [
+                "Lift Heavy Loads",
+                "Block a Blow",
+                "Hurl Something Heavy",
+                "Test of Strength",
+                "Holds and Grapples",
+                "Smash Structural Weak Points",
+                "Smash it Loudly"
+            ],
+            "flaws": [
+                "Unintentional Breakage",
+                "Ridiculed as a Brute",
+                "Exhausts Easily After Extreme Feats",
+                "Overconfidence Against Reinforced Steel"
+            ],
+            "gear": [
+                "Iron-banded club or stone hammer",
+                "Thick leather bracers from a fallen foe",
+                "Bag of climbing chalk"
+            ],
+            "advantages": [
+                {
+                    "name": "Mighty Heave",
+                    "description": "Spend 1 Moxie to lift, shove, or hold something beyond normal human limits for one Scene. This includes bracing a collapsing structure, hurling a boulder, or carrying three wounded allies at once."
+                },
+                {
+                    "name": "Iron Grip",
+                    "description": "When grappling or restraining an enemy, roll with Mastery."
+                },
+                {
+                    "name": "Muscle Memory",
+                    "description": "Once per Scene, when you fail a physical Check, you may reroll if brute strength would plausibly help."
+                }
+            ]
+        },
+        {
+            "name": "Outcast",
+            "source": "Homebrew",
+            "type": "Background",
+            "description": "You live apart from society’s walls — an outsider by blood, choice, or circumstance. Their rules are not yours, and their scorn is an old companion. Freedom tastes sweeter than acceptance ever could.",
+            "traits": [
+                "Downtrodden Fellowship",
+                "Read a Person",
+                "Avoid Attention",
+                "Place of Congregation",
+                "Free of Social Norms",
+                "See Through Their Masks",
+                "Befriend a Normie",
+                "I Am Who I Am"
+            ],
+            "flaws": [
+                "Poor and Resource-Starved",
+                "Noticeably Different",
+                "Segregated by Prejudice",
+                "Ostracized from Formal Authority"
+            ],
+            "gear": [
+                "A tattered cloak that blends with any crowd",
+                "Wooden bowl for alms",
+                "Carved token of your tribe or people"
+            ],
+            "advantages": [
+                {
+                    "name": "Invisible Among Them",
+                    "description": "Roll with Mastery to avoid notice in crowds or populated spaces."
+                },
+                {
+                    "name": "Hard Lessons",
+                    "description": "Once per Job, when suffering from prejudice or ostracism, gain 1 Moxie and advantage on your next Check."
+                },
+                {
+                    "name": "The Outsider’s Insight",
+                    "description": "When observing someone for a few moments, ask the GM one question about their intent or hidden flaw and receive a truthful answer."
+                }
+            ]
+        },
+        {
+            "name": "Formidable Weaponmaster",
+            "source": "Homebrew",
+            "type": "Occupation",
+            "description": "You and your weapon are one. Each strike is poetry, each parry a song of survival. You’ve fought long enough to know the weight of blood and the importance of balance.",
+            "traits": [
+                "Weapon Maintenance",
+                "Pierce Defenses",
+                "Brandish Weapon",
+                "Poised Focus",
+                "Perfect Parry or Deflect",
+                "Precision Strike",
+                "Study Fighting Style",
+                "Blind Fighting"
+            ],
+            "flaws": [
+                "Exposed Flank in Overcommitment",
+                "Has a Tell",
+                "Overrun by Many Enemies",
+                "Vindictive Vanquished Foes"
+            ],
+            "gear": [
+                "Well-crafted Weapon (choose one: sword, axe, spear, etc.)",
+                "Sharpening stone and oil cloth",
+                "Scarred scabbard with talisman"
+            ],
+            "advantages": [
+                {
+                    "name": "Deadly Precision",
+                    "description": "Roll with Mastery when making a precision strike against a known foe or weak point."
+                },
+                {
+                    "name": "Flow Like Water",
+                    "description": "Spend 1 Moxie to deflect or negate one melee hit that would otherwise connect."
+                },
+                {
+                    "name": "Weapon Savant",
+                    "description": "Once per Scene, declare you know a weakness in an opponent’s fighting style; you or an ally gain +1 Action Die on attacks against them for the Scene."
+                }
+            ]
+        },
+        {
+            "name": "Protect the Land",
+            "source": "Homebrew",
+            "type": "Descriptor",
+            "description": "The wind whispers secrets to you. The soil feeds your strength. You are kin to beasts and thorn alike, and those who harm the land will find no mercy under your watch.",
+            "traits": [
+                "Love for All Living Things",
+                "Frighten Invaders",
+                "Call Upon the Beasts",
+                "Nourishment from the Land",
+                "Unharmed by Beasts",
+                "Familiar Terrain",
+                "Commune with Nature",
+                "Regrow Deforested Tracts"
+            ],
+            "flaws": [
+                "Malign Forces Target You",
+                "Lacks Cunning in Courtly Affairs",
+                "Wrathful Nature Spirits",
+                "Taken by Sorrow for a Blighted Land"
+            ],
+            "gear": [
+                "Hand-carved cudgel (shillelagh)",
+                "Leather pouch of healing herbs",
+                "Necklace of teeth from beasts you’ve tamed"
+            ],
+            "advantages": [
+                {
+                    "name": "Beast’s Bond",
+                    "description": "Spend 1 Moxie to call a nearby wild creature to aid you for a Scene. The animal acts with Loyalty (Grit 2)."
+                },
+                {
+                    "name": "Rooted in the Earth",
+                    "description": "Roll with Mastery when resisting movement, magical displacement, or intimidation while in natural terrain."
+                },
+                {
+                    "name": "Wrath of the Wild",
+                    "description": "Once per Scene, unleash a primal roar or ritual that frightens enemies within Close range for 1 Turn."
                 }
             ]
         }
