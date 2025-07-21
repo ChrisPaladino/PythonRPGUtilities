@@ -43,6 +43,17 @@
             "6": "Roll again twice"
         }
     },
+    "35-42": {
+        "Consequence": "HARM: The Hero was harmed during the course of their action. (Give a negative status such as [status]bleeding[/status], [status]burned[/status], [status]upset[/status])",
+        "Specific": {
+            "1": "Hero is [status]wounded[/status] or [status]bleeding[/status]",
+            "2": "Hero is [status]humiliated[/status] or [status]embarrassed[/status]",
+            "3": "Hero is [status]burned[/status] or [status]poisoned[/status]",
+            "4": "Hero becomes [status]sick[/status]",
+            "5": "Hero is [status]knocked-back[/status] or [status]prone[/status]",
+            "6": "Hero must pay ([status]short-on-coin[/status])"
+        }
+    },
     "43-46": {
         "Consequence": "IMPERFECT EXECUTION: The Hero didn't get everything they wanted out of the action. (Yes, but... add a negative story tag or status)",
         "Specific": {
