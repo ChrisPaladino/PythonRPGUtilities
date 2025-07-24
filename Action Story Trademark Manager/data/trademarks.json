@@ -4305,6 +4305,126 @@
                     "description": "Once per Scene, unleash a primal roar or ritual that frightens enemies within Close range for 1 Turn."
                 }
             ]
+        },
+        {
+            "name": "Bounty Hunter",
+            "source": "Homebrew",
+            "type": "Occupation",
+            "description": "You hunt people for money — fugitives, deserters, war criminals, deadbeats, or the occasional innocent caught in the crossfire. You don’t ask questions unless they pay extra. You track your quarry across borders and badlands, through burned-out starports and borderworld bunkers. What matters is the bounty, the job, and getting out alive.",
+            "traits": [
+                "Shoot",
+                "Grapple",
+                "Notice",
+                "Awareness",
+                "Climb",
+                "Survival",
+                "Interrogate"
+            ],
+            "flaws": [
+                "Lone Wolf",
+                "Trust is a Liability",
+                "Cold Professionalism",
+                "Target of a Past Mark"
+            ],
+            "gear": [
+                "Modular Armor Plate",
+                "Personal Tracking Fob",
+                "Restraint Cuffs or Dart-Injector Restraints"
+            ],
+            "advantages": [
+                {
+                    "name": "No Place to Hide",
+                    "description": "When you enter a new settlement or starport, you may ask the GM: “Where is my quarry likely to be?” The GM must answer with a clear lead or impression — even if it’s a trap."
+                },
+                {
+                    "name": "Bring 'Em In Cold",
+                    "description": "When you successfully take down a target using force, and your goal was to capture, not kill, you may spend 1 Moxie to automatically restrain or subdue them — no further roll required."
+                },
+                {
+                    "name": "Tracking Fob",
+                    "description": "You carry a personal fob or signature tracker keyed to your quarry. Once per job, spend a Moxie to reveal their general direction or recent location, even across star systems."
+                }
+            ]
+        },
+        {
+            "name": "Silver Tongue",
+            "source": "Homebrew",
+            "type": "Descriptor",
+            "description": "You talk like the credits are already yours. Some call it charisma, others call it lies — but whatever it is, it gets results. You can bluff your way into a fortress, out of a standoff, or through the hangar gates before anyone checks your ID.",
+            "traits": [
+                "Smooth Talker",
+                "Convincing Liar",
+                "Read a Crowd",
+                "Empathy",
+                "Disguise",
+                "Persuasive",
+                "Knows What People Want"
+            ],
+            "flaws": [
+                "Compulsive Liar",
+                "Soft Spot for the Desperate",
+                "Can't Shut Up",
+                "Burned Too Many Bridges"
+            ],
+            "gear": [
+                "Clean-but-worn Officer’s Jacket",
+                "Forged Identification",
+                "Designer Cigarette Case"
+            ],
+            "advantages": [
+                {
+                    "name": "Fast Talk",
+                    "description": "When you're under scrutiny or threat, you may roll with Mastery to buy yourself or an ally a few seconds of confusion or delay."
+                },
+                {
+                    "name": "Flash the Badge",
+                    "description": "Spend a Moxie to impersonate authority convincingly enough to override routine checks, gain temporary access, or make someone hesitate."
+                },
+                {
+                    "name": "The Long Con",
+                    "description": "When you lie to the same target over time (a Scene or longer), you may gain +1 Action Die on future social interactions until they catch on."
+                }
+            ]
+        },
+        {
+            "name": "Code of Honor",
+            "source": "Tomorrow City",
+            "type": "Descriptor",
+            "description": "You live by rules — your own. Maybe it’s a code passed down. Maybe it’s the last thing keeping you from becoming a monster. But it’s there. And it binds you tighter than most laws.",
+            "traits": [
+                "Command",
+                "Empathy",
+                "Awareness",
+                "Presence",
+                "Make a Deal",
+                "Read Intentions",
+                "Inspire Loyalty"
+            ],
+            "flaws": [
+                "Bound by the Code",
+                "Won’t Harm the Helpless",
+                "Judgmental",
+                "Prone to Lone Sacrifices"
+            ],
+            "gear": [
+                "Worn Insignia or Token",
+                "Personal Rulebook (mental or literal)",
+                "Unregistered Comms Chip"
+            ],
+            "advantages": [
+                {
+                    "name": "Oathbound",
+                    "description": "When you uphold your personal code at cost to yourself, gain +1 Moxie (once per Scene)."
+                },
+                {
+                    "name": "Not That Kind of Killer",
+                    "description": "Spend 1 Moxie to avoid killing someone in a lethal moment (redirect, disable, or hold back) — even if the hit would normally be fatal."
+                },
+                {
+                    "name": "The Hard Choice",
+                    "description": "Once per Job, ask the GM to present a moral dilemma. If you follow your code instead of the easy way out, gain a Boon."
+                }
+            ]
         }
     ]
 }
