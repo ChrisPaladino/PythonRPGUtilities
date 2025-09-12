@@ -25,6 +25,7 @@ class RPGApp:
         self.action_dice_tags = []
         self.mastery_used = False
         self.mastery_die_index = None # Track which die was rerolled with mastery
+        self.mastery_is_action = None
         self.mastery_die_value = None  # Track the value of the rerolled die
 
         self.root.geometry("600x700")
@@ -272,67 +273,68 @@ class RPGApp:
         entry.delete(0, tk.END)
         entry.insert(0, str(new_value))
 
-    def on_die_click(self, die_index):
+    def on_die_click(self, die_index, is_action):
         if self.mastery_used:
             print("Mastery already used, cannot reroll again")
             return
-        
-        die_value = self.action_dice_values[die_index]
-        print(f"Clicked die index {die_index} with value {die_value}")
-        
-        # Show confirmation dialog
-        confirm = messagebox.askyesno("Roll with Mastery", f"Roll with Mastery for die with value {die_value}?")
+
+        if is_action:
+            die_value = self.action_dice_values[die_index]
+        else:
+            die_value = self.danger_dice_values[die_index]
+
+        confirm = messagebox.askyesno(
+            "Roll with Mastery",
+            f"Roll with Mastery for {'Action' if is_action else 'Danger'} die with value {die_value}?"
+        )
         if not confirm:
             print("Mastery reroll cancelled by user")
             return
-        
-        # Track which die was rerolled with Mastery
+
+        # Track *which die and type* was rerolled!
         self.mastery_die_index = die_index
-        print(f"Set mastery_die_index to {self.mastery_die_index}")
+        self.mastery_is_action = is_action
 
-        # Reroll the selected die
-        self.action_dice_values[die_index] = roll_dice(1)[0]
-        self.mastery_die_value = self.action_dice_values[die_index]
-        print(f"Rerolled die {die_index} to new value {self.mastery_die_value}, mastery_die_index={self.mastery_die_index}")
+        # Reroll it
+        if is_action:
+            self.action_dice_values[die_index] = roll_dice(1)[0]
+            self.mastery_die_value = self.action_dice_values[die_index]
+        else:
+            self.danger_dice_values[die_index] = roll_dice(1)[0]
+            self.mastery_die_value = self.danger_dice_values[die_index]
 
-        # Mark mastery as used
         self.mastery_used = True
-        print(f"Set mastery_used to {self.mastery_used}")
 
-        # Re-run the cancellation logic
+        # Rerun dice logic
         action_dice_sorted, danger_dice_sorted, cancelled_dice, remaining_action_dice = process_results(
-            self.action_dice_values.copy(), self.danger_dice_values.copy())
-        
-        # Calculate uncancelled Danger Dice
+            self.action_dice_values.copy(), self.danger_dice_values.copy()
+        )
+
         remaining_danger_dice = self.danger_dice_values.copy()
         for action_die in self.action_dice_values:
             if action_die in remaining_danger_dice:
                 remaining_danger_dice.remove(action_die)
-        
-        # Count uncancelled 6s for Pressure
+
         pressure_increase = remaining_danger_dice.count(6)
-        
         result = determine_result(remaining_action_dice)
         if pressure_increase > 0:
             result = f"{result}; Pressure +{pressure_increase}"
-        
-        # Update the result label
+
         self.dice_result_label.config(text=result)
-        
-        # Redraw the dice
+
         self.dice_canvas.delete("all")
         x, y = 10, 10
         y = self.draw_dice(action_dice_sorted, x, y, 30, "Action Dice", cancelled_dice, remaining_action_dice, True)
         y = self.draw_dice(danger_dice_sorted, x, y, 30, "Danger Dice", cancelled_dice, [], False)
         self.dice_canvas.config(height=y)
         self.dice_canvas.update()
-        
-        # Add result to the output
+
         self.fate_output.insert(tk.END, f"Mastery Reroll Result: {result}\n")
         if pressure_increase > 0:
             self.fate_output.insert(tk.END, f"Pressure: +{pressure_increase}\n")
         self.fate_output.insert(tk.END, "\n")
         self.fate_output.see(tk.END)
+
 
     def clear_dice(self):
         self.action_dice_entry.delete(0, tk.END)
@@ -350,6 +352,7 @@ class RPGApp:
         self.mastery_used = False
         self.mastery_die_value = None  # Reset mastery die value
         self.mastery_die_index = None # Reset the mastery die index / selection
+        self.mastery_is_action = None # whether it's action or danger
 
     def draw_dice(self, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
         print(f"Drawing dice: is_action={is_action}, label={label}, mastery_used={self.mastery_used}, mastery_die_index={self.mastery_die_index}, mastery_die_value={self.mastery_die_value}")
@@ -360,47 +363,51 @@ class RPGApp:
         
         if is_action:
             self.action_dice_tags = []  # Reset tags for Action Dice
-        
+
         for i, die in enumerate(dice):
-            # Default colors
             rect_color = "grey"
             text_color = "black"
-            tags = []
 
             # Set background color based on die status
             if die in cancelled_count and cancelled_count[die] > 0:
-                rect_color = "#D32F2F"  # Red for cancelled
+                rect_color = "#D32F2F"
                 text_color = "white"
                 cancelled_count[die] -= 1
             elif is_action and die == highest_remaining_die and die in remaining_dice:
-                rect_color = "#388E3C"  # Green for highest remaining
+                rect_color = "#388E3C"
                 text_color = "white"
 
-            # Override font color for Mastery-rerolled die based on value
-            if is_action and self.mastery_die_value is not None and die == self.mastery_die_value and self.mastery_used:
-                text_color = "blue"  # Blue font for Mastery-rerolled die
-                print(f"Applied blue font to die {i} with value {die}")
+            # BLUE for the rerolled die (mastery)
+            if (
+                self.mastery_used
+                and self.mastery_die_index is not None
+                and self.mastery_is_action is not None
+                and i == self.mastery_die_index
+                and is_action == self.mastery_is_action
+            ):
+                text_color = "blue"
+                print(f"Applied blue font to {'Action' if is_action else 'Danger'} die {i} (mastery rerolled)")
 
             # Set up tags for interaction
             if is_action:
                 tag = f"action_die_{i}"
-                tags = (tag,)
                 self.action_dice_tags.append(tag)
             else:
                 tag = f"danger_die_{i}"
-                tags = (tag,)
+            tags = (tag,)
 
-            # **DRAW THE RECTANGLE AND NUMBER**
+            # Draw dice
             self.dice_canvas.create_rectangle(x, y, x + dice_size, y + dice_size, fill=rect_color, tags=tags)
             self.dice_canvas.create_text(x + dice_size // 2, y + dice_size // 2, text=str(die), fill=text_color, font=('Helvetica', 16, 'bold'), tags=tags)
 
-            # Bind click event for action dice if Mastery hasn't been used
-            if is_action and not self.mastery_used:
-                self.dice_canvas.tag_bind(tag, '<Button-1>', lambda event, idx=i: self.on_die_click(idx))
+            # Bind click for mastery if not used
+            if not self.mastery_used:
+                self.dice_canvas.tag_bind(tag, '<Button-1>', lambda event, idx=i, is_act=is_action: self.on_die_click(idx, is_act))
 
             x += dice_size + 5
-        
-        return y + dice_size + 20
+
+        return y + dice_size + 20  # Make sure this is outside the for-loop!
+
 
     def roll_and_process(self):
         self.dice_canvas.delete("all")
@@ -424,6 +431,7 @@ class RPGApp:
         self.mastery_used = False
         self.action_dice_tags = []
         self.mastery_die_index = None
+        self.mastery_is_action = None
         self.mastery_die_value = None
 
         # Roll dice
