@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext
 
+# ------------------ Core Data ------------------
+
 SUIT_DOMAIN = {
     "Clubs": "Physical (appearance, existence)",
     "Diamonds": "Technical (mental, operation)",
@@ -10,9 +12,11 @@ SUIT_DOMAIN = {
     "Hearts": "Social (personal, connection)"
 }
 
+# Card ranks in display order and mapping to OPSE labels
 RANKS = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 SUITS = ["Clubs", "Diamonds", "Spades", "Hearts"]
 
+# Action Focus (by RANK)
 ACTION_FOCUS = {
     "2": "Seek",
     "3": "Oppose",
@@ -29,6 +33,7 @@ ACTION_FOCUS = {
     "A": "Deceive"
 }
 
+# Detail Focus (by RANK)
 DETAIL_FOCUS = {
     "2": "Small",
     "3": "Large",
@@ -45,6 +50,7 @@ DETAIL_FOCUS = {
     "A": "Unique"
 }
 
+# Topic Focus (by RANK)
 TOPIC_FOCUS = {
     "2": "Current Need",
     "3": "Allies",
@@ -61,6 +67,7 @@ TOPIC_FOCUS = {
     "A": "The PCs"
 }
 
+# Tables (d6-based) -----------------------------
 SCENE_COMPLICATION = {
     1: "Hostile forces oppose you",
     2: "An obstacle blocks your way",
@@ -97,6 +104,7 @@ FAILURE_MOVES = {
     6: "Foreshadow Trouble"
 }
 
+# Oracle (How) d6 mapping
 ORACLE_HOW = {
     1: "Surprisingly lacking",
     2: "Less than expected",
@@ -106,12 +114,14 @@ ORACLE_HOW = {
     6: "Extraordinary"
 }
 
+# Yes/No thresholds by likelihood (use one d6 for answer and one d6 for modifier)
 YESNO_THRESH = {
     "Likely": 3,
     "Even": 4,
     "Unlikely": 5
 }
 
+# Mod die (d6): 1 = "but…", 2-5 nothing, 6 = "and…"
 def yesno_modifier(mod_die):
     if mod_die == 1:
         return "but…"
@@ -120,6 +130,7 @@ def yesno_modifier(mod_die):
     else:
         return ""
 
+# Plot Hook
 PLOT_OBJECTIVE = {
     1: "Eliminate a threat",
     2: "Learn the truth",
@@ -145,6 +156,7 @@ PLOT_REWARDS = {
     6: "A unique item of power"
 }
 
+# NPC Generator
 NPC_IDENTITY = {
     "2": "Outlaw",
     "3": "Drifter",
@@ -186,6 +198,7 @@ NPC_FEATURE = {
     6: "Unexpected age or origin"
 }
 
+# Dungeon Crawler
 DUNGEON_LOCATION = {
     1: "Typical area",
     2: "Transitional area",
@@ -219,6 +232,7 @@ DUNGEON_TOTAL_EXITS = {
     6: "2 additional exits"
 }
 
+# Hex Crawler
 HEX_TERRAIN = {
     1: "Same as current hex",
     2: "Same as current hex",
@@ -252,6 +266,8 @@ HEX_EVENT = {
     6: "RANDOM EVENT then SET THE SCENE"
 }
 
+# ------------------ Deck Model ------------------
+
 class Deck:
     def __init__(self):
         self.cards = []
@@ -263,6 +279,7 @@ class Deck:
         for s in SUITS:
             for r in RANKS:
                 self.cards.append((r, s))
+        # Add two Jokers
         self.cards.append(("Joker", "Black"))
         self.cards.append(("Joker", "Red"))
         random.shuffle(self.cards)
@@ -280,6 +297,8 @@ class Deck:
         self.discard = []
         random.shuffle(self.cards)
 
+# ------------------ Utility Rolls ------------------
+
 def d6():
     return random.randint(1, 6)
 
@@ -292,7 +311,9 @@ def d12():
 def flip_coin():
     return random.choice(["Heads", "Tails"])
 
+# Optional: simulate card-based tables with dice
 def dice_to_card():
+    # Rank via d12; suit via d4. On a 12, flip coin to choose Q or K (per optional rule).
     rank_roll = d12()
     suit_roll = d4()
     if rank_roll == 12:
@@ -306,14 +327,17 @@ def dice_to_card():
         suit = SUITS[suit_roll - 1]
         return (rank, suit)
 
+# Optional: simulate d6 with cards
 def card_to_d6(rank):
+    # "Use rank divided by 2 (round down), discard Aces".
     if rank == "A":
-        return None
+        return None  # discard Aces
     val_map = {"J": 11, "Q": 12, "K": 13}
     if rank in val_map:
         val = val_map[rank]
     else:
-        val = int(rank)
+        val = int(rank)  # 2..10
+    # divide by 2, floor, but keep within 1..6
     res = val // 2
     if res < 1:
         res = 1
@@ -321,48 +345,69 @@ def card_to_d6(rank):
         res = 6
     return res
 
+# ------------------ GUI ------------------
+
 class OPSEApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("One Page Solo Engine (v1.6) — Tkinter")
-        self.geometry("1040x720")
+        self.title("One Page Solo Engine (v1.6) — Two-Row Layout")
+        self.geometry("1050x700")
 
         self.deck = Deck()
 
+        # Layout: two stacked notebooks (left) + right log
         self.columnconfigure(0, weight=3)
         self.columnconfigure(1, weight=2)
         self.rowconfigure(0, weight=1)
 
-        self.notebook = ttk.Notebook(self)
-        self.notebook.grid(row=0, column=0, sticky="nsew", padx=8, pady=8)
+        left = ttk.Frame(self)
+        left.grid(row=0, column=0, sticky="nsew", padx=8, pady=8)
+        left.rowconfigure(0, weight=1)
+        left.rowconfigure(1, weight=0)
+        left.rowconfigure(2, weight=1)
+        left.columnconfigure(0, weight=1)
 
-        self.log = scrolledtext.ScrolledText(self, wrap=tk.WORD, height=20)
+        # Top notebook (5 tabs)
+        self.top_nb = ttk.Notebook(left)
+        self.top_nb.grid(row=0, column=0, sticky="nsew", padx=0, pady=(0,4))
+
+        # Thin separator
+        ttk.Separator(left, orient="horizontal").grid(row=1, column=0, sticky="ew", pady=(2,2))
+
+        # Bottom notebook (5 tabs)
+        self.bottom_nb = ttk.Notebook(left)
+        self.bottom_nb.grid(row=2, column=0, sticky="nsew", padx=0, pady=(4,0))
+
+        # Right-side log
+        self.log = scrolledtext.ScrolledText(self, wrap=tk.WORD, height=20, relief="sunken", borderwidth=2)
         self.log.grid(row=0, column=1, sticky="nsew", padx=8, pady=8)
 
-        self._build_oracle_tab()
-        self._build_scene_tab()
-        self._build_gm_moves_tab()
-        self._build_random_event_tab()
-        self._build_npc_tab()
-        self._build_plot_tab()
-        self._build_generic_tab()
-        self._build_dungeon_tab()
-        self._build_hex_tab()
-        self._build_tools_tab()
+        # Build tabs
+        self._add_tab_oracle(self.top_nb)
+        self._add_tab_scene(self.top_nb)
+        self._add_tab_gm_moves(self.top_nb)
+        self._add_tab_random_event(self.top_nb)
+        self._add_tab_npc(self.top_nb)
+
+        self._add_tab_plot(self.bottom_nb)
+        self._add_tab_generic(self.bottom_nb)
+        self._add_tab_dungeon(self.bottom_nb)
+        self._add_tab_hex(self.bottom_nb)
+        self._add_tab_tools(self.bottom_nb)
 
     def append_log(self, text: str):
-        self.log.insert(tk.END, text + "\\n")
+        self.log.insert(tk.END, text + "\n")
         self.log.see(tk.END)
 
-    def _build_oracle_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- Oracle Tab ----------
+    def _add_tab_oracle(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        for r in range(10):
-            frame.rowconfigure(r, weight=0)
 
-        self.notebook.add(frame, text="Oracle")
+        nb.add(frame, text="Oracle")
 
+        # Yes/No Section
         yn_box = ttk.LabelFrame(frame, text="Yes / No")
         yn_box.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
         yn_box.columnconfigure(0, weight=1)
@@ -375,6 +420,7 @@ class OPSEApp(tk.Tk):
 
         ttk.Button(yn_box, text="Ask the Oracle", command=self.roll_yes_no).grid(row=1, column=0, columnspan=2, padx=6, pady=6, sticky="ew")
 
+        # How Section
         how_box = ttk.LabelFrame(frame, text="How (Scale / Magnitude)")
         how_box.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
         how_box.columnconfigure(0, weight=1)
@@ -397,20 +443,21 @@ class OPSEApp(tk.Tk):
         desc = ORACLE_HOW[roll]
         self.append_log(f"[How] d6={roll} → {desc}")
 
-    def _build_scene_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- Scene Tab ----------
+    def _add_tab_scene(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        self.notebook.add(frame, text="Scene")
+        nb.add(frame, text="Scene")
 
+        # Scene Complication + Altered
         sc_box = ttk.LabelFrame(frame, text="Set the Scene")
         sc_box.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
         sc_box.columnconfigure(0, weight=1)
         sc_box.columnconfigure(1, weight=1)
 
         ttk.Button(sc_box, text="Roll Scene Complication", command=self.roll_scene_complication).grid(row=0, column=0, sticky="ew", padx=6, pady=6)
-        ttk.Button(sc_box, text="Check Altered Scene", command=self.roll_altered_scene_check).grid(row=0, column=1, sticky="ew", padx=6, pady=6)
-
+        ttk.Button(sc_box, text="Check Altered Scene (5+)", command=self.roll_altered_scene_check).grid(row=0, column=1, sticky="ew", padx=6, pady=6)
         ttk.Button(sc_box, text="Roll Altered Scene Table", command=self.roll_altered_scene).grid(row=1, column=0, columnspan=2, sticky="ew", padx=6, pady=6)
 
     def roll_scene_complication(self):
@@ -430,11 +477,12 @@ class OPSEApp(tk.Tk):
         res = ALTERED_SCENE[roll]
         self.append_log(f"[Altered Scene] d6={roll} → {res}")
 
-    def _build_gm_moves_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- GM Moves Tab ----------
+    def _add_tab_gm_moves(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        self.notebook.add(frame, text="GM Moves")
+        nb.add(frame, text="GM Moves")
 
         pacing_box = ttk.LabelFrame(frame, text="Pacing Moves")
         pacing_box.grid(row=0, column=0, sticky="nsew", padx=8, pady=8)
@@ -454,11 +502,12 @@ class OPSEApp(tk.Tk):
         res = FAILURE_MOVES[roll]
         self.append_log(f"[Failure Move] d6={roll} → {res}")
 
-    def _build_random_event_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- Random Event Tab ----------
+    def _add_tab_random_event(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        self.notebook.add(frame, text="Random Event")
+        nb.add(frame, text="Random Event")
 
         re_box = ttk.LabelFrame(frame, text="Random Event")
         re_box.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
@@ -475,8 +524,10 @@ class OPSEApp(tk.Tk):
         card = self.deck.draw()
         rank, suit, domain = self._interpret_card(card)
         if rank == "Joker":
+            # Joker: shuffle and also add a random event note
             self.deck.shuffle_in_discards()
             self.append_log(f"[{label}] Drew JOKER ({suit}). Deck reshuffled. Add a RANDOM EVENT!")
+            # Draw again for actual focus after reshuffle
             card = self.deck.draw()
             rank, suit, domain = self._interpret_card(card)
 
@@ -489,6 +540,7 @@ class OPSEApp(tk.Tk):
         self.append_log(f"[Random Event] Action: {act} ({ar} of {asu} → {adom}); Topic: {top} ({tr} of {tsu} → {tdom})")
 
     def dice_random_event(self):
+        # Optional: simulate card draws with dice
         act_card = dice_to_card()
         top_card = dice_to_card()
         ar, asu = act_card
@@ -499,11 +551,12 @@ class OPSEApp(tk.Tk):
         tdom = SUIT_DOMAIN[tsu]
         self.append_log(f"[Random Event (Dice Sim)] Action: {act} ({ar} of {asu} → {adom}); Topic: {top} ({tr} of {tsu} → {tdom})")
 
-    def _build_npc_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- NPC Tab ----------
+    def _add_tab_npc(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        self.notebook.add(frame, text="NPC Generator")
+        nb.add(frame, text="NPC Generator")
 
         npc_box = ttk.LabelFrame(frame, text="Generate NPC")
         npc_box.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
@@ -511,11 +564,15 @@ class OPSEApp(tk.Tk):
         ttk.Button(npc_box, text="Roll NPC (Cards + d6)", command=self.roll_npc).grid(row=0, column=0, columnspan=2, sticky="ew", padx=6, pady=6)
 
     def roll_npc(self):
+        # Identity (card)
         ident, ir, isu, idom = self._draw_focus(NPC_IDENTITY, "NPC Identity")
+        # Goal (card)
         goal, gr, gsu, gdom = self._draw_focus(NPC_GOAL, "NPC Goal")
+        # Notable Feature (d6) + Detail Focus (card)
         nf_roll = d6()
         nf = NPC_FEATURE[nf_roll]
         det, dr, dsu, ddom = self._draw_focus(DETAIL_FOCUS, "NPC Detail Focus")
+        # Current situation: Attitude (Oracle How), Conversation (Topic Focus)
         att_roll = d6()
         att = ORACLE_HOW[att_roll]
         conv, cr, csu, cdom = self._draw_focus(TOPIC_FOCUS, "Conversation Topic")
@@ -525,11 +582,12 @@ class OPSEApp(tk.Tk):
             f"Feature: {nf} + {det} ({dr} of {dsu} → {ddom}); Attitude: {att}; Conversation: {conv} ({cr} of {csu} → {cdom})"
         )
 
-    def _build_plot_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- Plot Hook Tab ----------
+    def _add_tab_plot(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        self.notebook.add(frame, text="Plot Hook")
+        nb.add(frame, text="Plot Hook")
 
         ph_box = ttk.LabelFrame(frame, text="Generate Plot Hook")
         ph_box.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
@@ -542,11 +600,12 @@ class OPSEApp(tk.Tk):
         rew = PLOT_REWARDS[d6()]
         self.append_log(f"[Plot Hook] Objective: {obj}; Adversaries: {adv}; Rewards: {rew}")
 
-    def _build_generic_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- Generic Generator Tab ----------
+    def _add_tab_generic(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        self.notebook.add(frame, text="Generic Generator")
+        nb.add(frame, text="Generic Generator")
 
         gg_box = ttk.LabelFrame(frame, text="Generic Generator")
         gg_box.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
@@ -559,11 +618,12 @@ class OPSEApp(tk.Tk):
         how = ORACLE_HOW[d6()]
         self.append_log(f"[Generic] Does: {act} ({ar} of {asu} → {adom}); Looks: {det} ({dr} of {dsu} → {ddom}); Significance: {how}")
 
-    def _build_dungeon_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- Dungeon Tab ----------
+    def _add_tab_dungeon(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        self.notebook.add(frame, text="Dungeon")
+        nb.add(frame, text="Dungeon")
 
         d_box = ttk.LabelFrame(frame, text="Explore an Area")
         d_box.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
@@ -577,11 +637,12 @@ class OPSEApp(tk.Tk):
         exits = DUNGEON_TOTAL_EXITS[d6()]
         self.append_log(f"[Dungeon] Location: {loc}; Encounter: {enc}; Object: {obj}; Total Exits: {exits}")
 
-    def _build_hex_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- Hex Tab ----------
+    def _add_tab_hex(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
-        self.notebook.add(frame, text="Hex")
+        nb.add(frame, text="Hex")
 
         h_box = ttk.LabelFrame(frame, text="Enter a Hex")
         h_box.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=8, pady=8)
@@ -597,12 +658,13 @@ class OPSEApp(tk.Tk):
         event = HEX_EVENT[d6()]
         self.append_log(f"[Hex] Terrain: {terr}; Contents: {cont}{feat_text}; Event: {event}")
 
-    def _build_tools_tab(self):
-        frame = ttk.Frame(self.notebook)
+    # ---------- Tools Tab (Deck Controls, Dice Helpers) ----------
+    def _add_tab_tools(self, nb):
+        frame = ttk.Frame(nb)
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
         frame.columnconfigure(2, weight=1)
-        self.notebook.add(frame, text="Tools")
+        nb.add(frame, text="Tools")
 
         deck_box = ttk.LabelFrame(frame, text="Deck Tools")
         deck_box.grid(row=0, column=0, columnspan=3, sticky="nsew", padx=8, pady=8)
@@ -620,7 +682,7 @@ class OPSEApp(tk.Tk):
         ttk.Button(dice_box, text="Roll d12", command=lambda: self.append_log(f"[Dice] d12 → {d12()}")).grid(row=0, column=3, sticky="ew", padx=6, pady=6)
         ttk.Button(dice_box, text="Flip Coin", command=lambda: self.append_log(f"[Dice] Coin → {flip_coin()}")).grid(row=0, column=4, sticky="ew", padx=6, pady=6)
 
-        log_box = ttk.LabelFrame(frame, text="Log")
+        log_box = ttk.LabelFrame(frame, text="Log Controls")
         log_box.grid(row=2, column=0, columnspan=3, sticky="nsew", padx=8, pady=8)
         ttk.Button(log_box, text="Clear Log", command=lambda: self.log.delete("1.0", tk.END)).grid(row=0, column=0, sticky="ew", padx=6, pady=6)
 
@@ -640,6 +702,7 @@ class OPSEApp(tk.Tk):
     def reset_deck(self):
         self.deck._build()
         self.append_log("[Deck] Reset and shuffled a fresh full deck (including two Jokers).")
+
 
 if __name__ == "__main__":
     app = OPSEApp()
