@@ -266,13 +266,19 @@ def show_profile_builder(frame):
     clear_frame(frame)
 
     def build_profile():
-        # Get role override from dropdown
+        # STEP 1: Role selection
         selected_role = role_var.get()
         role_override = None if selected_role == "Random" else selected_role
 
-        # STEP 2: Challenge Rating (1-5 only)
-        challenge_rating = random.randint(1, 5)
-        results = [f"Step 2: Challenge Rating (Rolled {challenge_rating}) → {challenge_rating}"]
+        # STEP 2: Challenge Rating (either dropdown or random)
+        selected_cr = cr_var.get()
+        if selected_cr == "Random":
+            challenge_rating = random.randint(1, 5)
+            cr_text = f"Step 2: Challenge Rating (Rolled {challenge_rating}) → {challenge_rating}"
+        else:
+            challenge_rating = int(selected_cr)
+            cr_text = f"Step 2: Challenge Rating → {challenge_rating}"
+        results = [cr_text]
 
         # STEP 3: Limits
         hard = challenge_rating + 1
@@ -286,51 +292,66 @@ def show_profile_builder(frame):
         # STEP 4: Tags & Statuses
         results.append(f"Step 4: Tags & Statuses\nTags: {challenge_rating}\nStatuses: {challenge_rating}")
 
-        # STEP 5: Threats & Consequences
-        role, sub_category, roll, outcome = roll_challenge_action(role_override)
-        if sub_category:
-            step5_text = (f"Step 5: Threats & Consequences\n"
-                          f"Role: {role}\n"
-                          f"Sub-Action: {sub_category}\n"
-                          f"Rolled {roll}: {outcome}")
+        # STEP 5: Threats & Consequences — show ALL powers, not one roll
+        if role_override:
+            role_key = next(
+                (k for k in challenge_action_data.keys()
+                 if k.replace("[role]", "").replace("[/role]", "") == role_override),
+                None
+            )
         else:
-            step5_text = (f"Step 5: Threats & Consequences\n"
-                          f"Role: {role}\n"
-                          f"Rolled {roll}: {outcome}")
-        results.append(step5_text)
+            role_key = random.choice(list(challenge_action_data.keys()))
+            role_override = role_key.replace("[role]", "").replace("[/role]", "")
+
+        role_data = challenge_action_data[role_key]
+        step5_lines = [f"Step 5: Threats & Consequences\nRole: {role_override}\n"]
+
+        # if dict has subcategories (like Charge), group them
+        if isinstance(role_data, dict) and all(isinstance(v, dict) for v in role_data.values()):
+            for sub_name, sub_entries in role_data.items():
+                step5_lines.append(f"\n{sub_name.capitalize()} — Threats & Consequences")
+                for roll_num in sorted(sub_entries.keys(), key=lambda x: int(x)):
+                    step5_lines.append(f"{roll_num}. {sub_entries[roll_num]}")
+        else:
+            # flat list of 1–6
+            step5_lines.append(f"\n{role_override} — Threats & Consequences")
+            for roll_num in sorted(role_data.keys(), key=lambda x: int(x)):
+                step5_lines.append(f"{roll_num}. {role_data[roll_num]}")
+
+        results.append("\n".join(step5_lines))
 
         # Display results
         result_textbox.config(state="normal")
         result_textbox.delete("1.0", tk.END)
-        result_textbox.delete("1.0", tk.END)
         for result in results:
             insert_colored_text(result_textbox, result)
             result_textbox.insert(tk.END, "\n\n")
-
         result_textbox.config(state="disabled")
 
-    # UI Elements
+    # --- UI ELEMENTS ---
     ttk.Label(frame, text="Profile Builder", font=("Arial", 14)).pack(pady=10)
 
-    # Dropdown for Role Override
+    # Role dropdown
     ttk.Label(frame, text="Select Role (or leave Random):").pack(pady=5)
     role_var = tk.StringVar()
     role_dropdown = ttk.Combobox(frame, textvariable=role_var, state="readonly")
-
-    clean_roles = []
-    for r in challenge_action_data.keys():
-        # Strip [role]...[/role] if present
-        clean_r = r.replace("[role]", "").replace("[/role]", "")
-        clean_roles.append(clean_r)
-    role_dropdown["values"] = ["Random"] + clean_roles   
-    
-    role_dropdown.current(0)  # Set default to "Random"
+    clean_roles = [r.replace("[role]", "").replace("[/role]", "") for r in challenge_action_data.keys()]
+    role_dropdown["values"] = ["Random"] + clean_roles
+    role_dropdown.current(0)
     role_dropdown.pack(pady=5)
 
-    build_button = ttk.Button(frame, text="Build Profile", command=build_profile)
-    build_button.pack(pady=10)
+    # Challenge Rating dropdown
+    ttk.Label(frame, text="Select Challenge Rating (or Random):").pack(pady=5)
+    cr_var = tk.StringVar()
+    cr_dropdown = ttk.Combobox(frame, textvariable=cr_var, state="readonly")
+    cr_dropdown["values"] = ["Random", "1", "2", "3", "4", "5"]
+    cr_dropdown.current(0)
+    cr_dropdown.pack(pady=5)
 
-    # Scrollable text box for results
+    # Build button
+    ttk.Button(frame, text="Build Profile", command=build_profile).pack(pady=10)
+
+    # Scrollable output area
     result_frame = ttk.Frame(frame)
     result_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
