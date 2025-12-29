@@ -7,25 +7,45 @@ import random
 # Load Oracle Data
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
-with open(os.path.join(base_dir, "data", "interpretive.json"), "r") as f:
-    interpretive_data = json.load(f)
+interpretive_data = {}
+conflict_data = {}
+revelations_data = {}
+challenge_action_data = {}
+consequence_data = {}
 
-with open(os.path.join(base_dir, "data", "conflict.json"), "r") as f:
-    conflict_data = json.load(f)
 
-with open(os.path.join(base_dir, "data", "revelations.json"), "r") as f:
-    revelations_data = json.load(f)
+def load_json_file(filename):
+    data_path = os.path.join(base_dir, "data", filename)
+    try:
+        with open(data_path, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print(f"Data file not found: {data_path}")
+    except json.JSONDecodeError:
+        print(f"Data file is malformed JSON: {data_path}")
+    return None
 
-with open(os.path.join(base_dir, "data", "challenge_action.json"), "r") as f:
-    challenge_action_data = json.load(f)
 
-with open(os.path.join(base_dir, "data", "consequence.json"), "r") as f:
-    consequence_data = json.load(f)
+def load_oracle_data():
+    global interpretive_data, conflict_data, revelations_data, challenge_action_data, consequence_data
+
+    interpretive_data = load_json_file("interpretive.json") or {}
+    conflict_data = load_json_file("conflict.json") or {}
+    revelations_data = load_json_file("revelations.json") or {}
+    challenge_action_data = load_json_file("challenge_action.json") or {}
+    consequence_data = load_json_file("consequence.json") or {}
 
 # --- Utility Functions ---
 def clear_frame(frame):
     for widget in frame.winfo_children():
         widget.destroy()
+
+
+def display_missing_data(text_widget, dataset_name):
+    text_widget.config(state="normal")
+    text_widget.delete("1.0", tk.END)
+    text_widget.insert(tk.END, f"{dataset_name} data is unavailable.")
+    text_widget.config(state="disabled")
 
 
 def roll_category(data, category_name, depth=0):
@@ -51,6 +71,9 @@ def show_interpretive(frame):
     clear_frame(frame)
 
     def roll_and_display():
+        if not interpretive_data:
+            display_missing_data(result_textbox, "Interpretive oracle")
+            return
         results = []
         for category in interpretive_data.keys():
             result_text = roll_category(interpretive_data, category)
@@ -133,6 +156,9 @@ def show_consequence(frame):
     clear_frame(frame)
 
     def roll_and_display():
+        if not consequence_data:
+            display_missing_data(result_textbox, "Consequence oracle")
+            return
         roll_d66_value = roll_d66()
         roll_d6_value = roll_d6()
 
@@ -184,6 +210,9 @@ def show_conflict(frame):
     clear_frame(frame)
 
     def roll_and_display():
+        if not conflict_data:
+            display_missing_data(result_textbox, "Conflict oracle")
+            return
         results = []
         for category in conflict_data.keys():
             result_text = roll_category(conflict_data, category)
@@ -191,7 +220,6 @@ def show_conflict(frame):
 
         # Display results
         result_textbox.config(state="normal")
-        result_textbox.delete("1.0", tk.END)
         result_textbox.delete("1.0", tk.END)
         for result in results:
             insert_colored_text(result_textbox, result)
@@ -234,6 +262,8 @@ def roll_2d6():
 
 def roll_challenge_action(role_override=None):
     """Rolls a challenge action. Randomly picks a role unless overridden."""
+    if not challenge_action_data:
+        return (role_override or "Unknown", None, "?", "Challenge action data is unavailable.")
     if role_override:
         # User picked a role, find matching JSON key
         json_keys = challenge_action_data.keys()
@@ -266,6 +296,9 @@ def show_profile_builder(frame):
     clear_frame(frame)
 
     def build_profile():
+        if not challenge_action_data:
+            display_missing_data(result_textbox, "Profile builder")
+            return
         # STEP 1: Role selection
         selected_role = role_var.get()
         role_override = None if selected_role == "Random" else selected_role
@@ -372,6 +405,9 @@ def show_revelations(frame):
     clear_frame(frame)
 
     def roll_and_display():
+        if not revelations_data:
+            display_missing_data(result_textbox, "Revelations oracle")
+            return
         roll = roll_d66()
         # Find which range the roll falls into
         result_text = None
@@ -469,36 +505,39 @@ def show_placeholder(frame, name):
 
 
 # --- Main App Window ---
-root = tk.Tk()
-root.title("Legends in the Mist: Oracles")
-root.geometry("900x600")
-root.minsize(800, 500)
+if __name__ == "__main__":
+    load_oracle_data()
 
-# Layout: menu left, content right
-root.grid_rowconfigure(0, weight=1)
-root.grid_columnconfigure(1, weight=1)
+    root = tk.Tk()
+    root.title("Legends in the Mist: Oracles")
+    root.geometry("900x600")
+    root.minsize(800, 500)
 
-menu_frame = ttk.Frame(root, padding=10)
-menu_frame.grid(row=0, column=0, sticky="ns")
+    # Layout: menu left, content right
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(1, weight=1)
 
-content_frame = ttk.Frame(root, padding=10, relief="sunken")
-content_frame.grid(row=0, column=1, sticky="nsew")
+    menu_frame = ttk.Frame(root, padding=10)
+    menu_frame.grid(row=0, column=0, sticky="ns")
 
-# Oracle buttons
-oracle_buttons = [
-    ("Interpretive", show_interpretive),
-    ("Yes/No", show_yesno),
-    ("Conflict", show_conflict),
-    ("Profile Builder", show_profile_builder),
-    ("Consequence", show_consequence),
-    ("Revelations", show_revelations),
-]
+    content_frame = ttk.Frame(root, padding=10, relief="sunken")
+    content_frame.grid(row=0, column=1, sticky="nsew")
 
-for name, command in oracle_buttons:
-    btn = ttk.Button(menu_frame, text=name, command=lambda c=command: c(content_frame))
-    btn.pack(fill="x", pady=5)
+    # Oracle buttons
+    oracle_buttons = [
+        ("Interpretive", show_interpretive),
+        ("Yes/No", show_yesno),
+        ("Conflict", show_conflict),
+        ("Profile Builder", show_profile_builder),
+        ("Consequence", show_consequence),
+        ("Revelations", show_revelations),
+    ]
 
-# Start with Interpretive Oracle by default
-show_interpretive(content_frame)
+    for name, command in oracle_buttons:
+        btn = ttk.Button(menu_frame, text=name, command=lambda c=command: c(content_frame))
+        btn.pack(fill="x", pady=5)
 
-root.mainloop()
+    # Start with Interpretive Oracle by default
+    show_interpretive(content_frame)
+
+    root.mainloop()
