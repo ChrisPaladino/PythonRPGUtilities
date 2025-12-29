@@ -6,7 +6,6 @@ import unicodedata
 
 # Set up relative paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_dir)
 JSON_PATH = os.path.join(script_dir, "data", "trademarks.json")
 
 def load_trademarks():
@@ -37,6 +36,7 @@ class TrademarkManagerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Trademark Manager")
+        self.current_trademarks = []
         self.create_ui()
 
     def create_ui(self):
@@ -95,14 +95,14 @@ class TrademarkManagerApp:
 
     def populate_trademark_list(self):
         self.trademark_listbox.delete(0, tk.END)
-        sorted_trademarks = sorted(
+        self.current_trademarks = sorted(
             trademarks_data["trademarks"],
             key=lambda t: (t["source"], t["type"], t["name"])
         )
-        for trademark in sorted_trademarks:
+        for trademark in self.current_trademarks:
             display_text = f"{self.normalize_text(trademark['source'])}: {self.normalize_text(trademark['type'])}: {self.normalize_text(trademark['name'])}"
             self.trademark_listbox.insert(tk.END, display_text)
-        if not sorted_trademarks:
+        if not self.current_trademarks:
             self.display_trademark({"name": "No Data", "description": "No trademarks available."})
 
     def filter_trademarks(self, event):
@@ -124,25 +124,20 @@ class TrademarkManagerApp:
                     " ".join(adv.get("name", "") + " " + adv.get("description", "") for adv in trademark.get("advantages", []))
                 ]
             ):
-                matches.append(display_text)
+                matches.append(trademark)
                 self.trademark_listbox.insert(tk.END, display_text)
+        self.current_trademarks = matches
         if not matches:
             self.display_trademark({"name": "No Results", "description": "No trademarks match the search criteria."})
 
     def view_trademark_details(self, event):
         selected = self.trademark_listbox.curselection()
         if selected:
-            selected_text = self.trademark_listbox.get(selected)
-            source, type_, name = map(str.strip, selected_text.split(":", 2))
-            for trademark in trademarks_data["trademarks"]:
-                if (
-                    self.normalize_text(trademark["source"]) == source
-                    and self.normalize_text(trademark["type"]) == type_
-                    and self.normalize_text(trademark["name"]) == name
-                ):
-                    self.display_trademark(trademark)
-                    return
-            self.display_trademark({"name": "Not Found", "description": "No matching trademark found."})
+            index = selected[0]
+            if index < len(self.current_trademarks):
+                self.display_trademark(self.current_trademarks[index])
+            else:
+                self.display_trademark({"name": "Not Found", "description": "No matching trademark found."})
 
     def display_trademark(self, trademark):
         details = f"Name: {self.normalize_text(trademark.get('name', ''))}\n"
