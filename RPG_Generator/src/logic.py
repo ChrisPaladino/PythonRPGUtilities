@@ -4,9 +4,9 @@ import os
 from data_manager import load_json_data
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-npc_data = load_json_data(os.path.join(script_dir, "data", "npc_data.json"))
-plot_points = load_json_data(os.path.join(script_dir, "data", "plot_points.json"))
-action_oracle_data = load_json_data(os.path.join(script_dir, "data", "action_oracle.json"))
+npc_data = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "npc_data.json"))
+plot_points = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "plot_points.json"))
+action_oracle_data = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "action_oracle.json"))
 
 # Dice Rolling Logic
 def determine_result(remaining_action_dice):
