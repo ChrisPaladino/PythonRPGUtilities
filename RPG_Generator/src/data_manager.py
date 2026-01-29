@@ -33,7 +33,7 @@ class DataManager:
                 self.data.clear()
                 self.data.update(loaded_data)
                 return True
-        except (FileNotFoundError, json.JSONDecodeError, Exception) as e:
+        except (FileNotFoundError, json.JSONDecodeError, OSError) as e:
             print(f"Error loading {file_path}: {e}")
             return False
 
@@ -42,7 +42,7 @@ class DataManager:
             with open(file_path, 'w', encoding='utf-8') as file:
                 json.dump({k: sorted(v) for k, v in self.data.items()}, file, indent=4)
                 return True
-        except IOError as e:
+        except OSError as e:
             print(f"Error saving {file_path}: {e}")
             return False
 
@@ -65,6 +65,6 @@ def load_json_data(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             return json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError, Exception) as e:
+    except (FileNotFoundError, json.JSONDecodeError, OSError) as e:
         print(f"Error loading {file_path}: {e}")
         return None

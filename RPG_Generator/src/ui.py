@@ -9,6 +9,12 @@ import os
 import json
 
 class RPGApp:
+    # Class constants for magic numbers
+    MAX_ITEMS = 25
+    MAX_DUPLICATES = 3
+    DICE_SIZE = 30
+    MAX_DICE = 10
+    
     def __init__(self, root, data_manager):
         self.root = root
         self.root.title("RPG Generator")
@@ -54,13 +60,13 @@ class RPGApp:
         if self.file_path and self.data_manager.load_from_file(self.file_path):
             self.update_status(f"Data loaded from {self.file_path}")
             # Populate listboxes immediately after loading data
-            self.update_listbox(self.lst_chars, 'characters')
-            self.update_listbox(self.lst_threads, 'threads')
+            self.update_listbox(self.chars_listbox, 'characters')
+            self.update_listbox(self.threads_listbox, 'threads')
         else:
             self.update_status("No file selected. Starting with empty lists.")
             # Populate empty listboxes if no file loaded
-            self.update_listbox(self.lst_chars, 'characters')
-            self.update_listbox(self.lst_threads, 'threads')
+            self.update_listbox(self.chars_listbox, 'characters')
+            self.update_listbox(self.threads_listbox, 'threads')
         self.update_all_lists()
 
     def update_status(self, message):
@@ -247,14 +253,29 @@ class RPGApp:
         self.fate_output.pack(fill="both", expand=True, padx=10, pady=10)
 
     def setup_chars_tab(self):
+        """Setup the Characters & Threads tab with characters and threads sections."""
         main_frame = tk.Frame(self.chars_tab)
         main_frame.pack(pady=10, padx=10, fill="both", expand=True)
         main_frame.grid_columnconfigure(0, weight=1)
         main_frame.grid_columnconfigure(1, weight=1)
         main_frame.grid_rowconfigure(1, weight=1)
 
-        # Characters Section
-        chars_frame = tk.LabelFrame(main_frame, text="Characters")
+        # Setup Characters and Threads sections side by side
+        self._setup_characters_section(main_frame)
+        self._setup_threads_section(main_frame)
+        
+        # Setup buttons and output area
+        self._setup_chars_controls(main_frame)
+        self._setup_chars_output(main_frame)
+        self._setup_campaign_buttons(main_frame)
+
+        # Populate listboxes
+        self.update_listbox(self.chars_listbox, 'characters')
+        self.update_listbox(self.threads_listbox, 'threads')
+
+    def _setup_characters_section(self, parent_frame):
+        """Setup the Characters section with entry, buttons, and listbox."""
+        chars_frame = tk.LabelFrame(parent_frame, text="Characters")
         chars_frame.grid(row=0, column=0, rowspan=2, sticky="nsew", padx=5, pady=5)
         chars_frame.grid_columnconfigure(0, weight=1)
         chars_frame.grid_rowconfigure(2, weight=1)
@@ -262,15 +283,20 @@ class RPGApp:
         self.char_entry = tk.Entry(chars_frame, width=30, state='normal')
         self.char_entry.grid(row=0, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
 
-        tk.Button(chars_frame, text="Add/Update Character", command=lambda: self.add_update_entry('characters', self.char_entry, self.lst_chars)).grid(row=1, column=0, sticky="ew", padx=5, pady=2)
-        tk.Button(chars_frame, text="Delete Character", command=lambda: self.delete_entry('characters', self.lst_chars)).grid(row=1, column=1, sticky="ew", padx=5, pady=2)
+        tk.Button(chars_frame, text="Add/Update Character", 
+                  command=lambda: self.add_update_entry('characters', self.char_entry, self.chars_listbox)
+                  ).grid(row=1, column=0, sticky="ew", padx=5, pady=2)
+        tk.Button(chars_frame, text="Delete Character", 
+                  command=lambda: self.delete_entry('characters', self.chars_listbox)
+                  ).grid(row=1, column=1, sticky="ew", padx=5, pady=2)
 
-        self.lst_chars = tk.Listbox(chars_frame, selectmode=tk.SINGLE)
-        self.lst_chars.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=5, pady=2)
-        self.lst_chars.bind('<<ListboxSelect>>', lambda event: self.on_listbox_select(event, self.char_entry))
+        self.chars_listbox = tk.Listbox(chars_frame, selectmode=tk.SINGLE)
+        self.chars_listbox.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=5, pady=2)
+        self.chars_listbox.bind('<<ListboxSelect>>', lambda event: self.on_listbox_select(event, self.char_entry))
 
-        # Threads Section
-        threads_frame = tk.LabelFrame(main_frame, text="Threads")
+    def _setup_threads_section(self, parent_frame):
+        """Setup the Threads section with entry, buttons, and listbox."""
+        threads_frame = tk.LabelFrame(parent_frame, text="Threads")
         threads_frame.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=5, pady=5)
         threads_frame.grid_columnconfigure(0, weight=1)
         threads_frame.grid_rowconfigure(2, weight=1)
@@ -278,32 +304,41 @@ class RPGApp:
         self.thread_entry = tk.Entry(threads_frame, width=30, state='normal')
         self.thread_entry.grid(row=0, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
 
-        tk.Button(threads_frame, text="Add/Update Thread", command=lambda: self.add_update_entry('threads', self.thread_entry, self.lst_threads)).grid(row=1, column=0, sticky="ew", padx=5, pady=2)
-        tk.Button(threads_frame, text="Delete Thread", command=lambda: self.delete_entry('threads', self.lst_threads)).grid(row=1, column=1, sticky="ew", padx=5, pady=2)
+        tk.Button(threads_frame, text="Add/Update Thread", 
+                  command=lambda: self.add_update_entry('threads', self.thread_entry, self.threads_listbox)
+                  ).grid(row=1, column=0, sticky="ew", padx=5, pady=2)
+        tk.Button(threads_frame, text="Delete Thread", 
+                  command=lambda: self.delete_entry('threads', self.threads_listbox)
+                  ).grid(row=1, column=1, sticky="ew", padx=5, pady=2)
 
-        self.lst_threads = tk.Listbox(threads_frame, selectmode=tk.SINGLE)
-        self.lst_threads.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=5, pady=2)
-        self.lst_threads.bind('<<ListboxSelect>>', lambda event: self.on_listbox_select(event, self.thread_entry))
+        self.threads_listbox = tk.Listbox(threads_frame, selectmode=tk.SINGLE)
+        self.threads_listbox.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=5, pady=2)
+        self.threads_listbox.bind('<<ListboxSelect>>', lambda event: self.on_listbox_select(event, self.thread_entry))
 
-        # Choose Buttons and Output
-        control_frame = tk.Frame(main_frame)
+    def _setup_chars_controls(self, parent_frame):
+        """Setup control buttons for character and thread selection."""
+        control_frame = tk.Frame(parent_frame)
         control_frame.grid(row=2, column=0, columnspan=2, pady=5, sticky="ew")
-        tk.Button(control_frame, text="Choose Character", command=self.btn_choose_character).grid(row=0, column=0, padx=5, pady=5)
-        tk.Button(control_frame, text="Choose Thread", command=self.btn_choose_thread).grid(row=0, column=1, padx=5, pady=5)
-        tk.Button(control_frame, text="Clear Output", command=lambda: self.chars_output.delete(1.0, tk.END)).grid(row=0, column=2, padx=5, pady=5)
+        tk.Button(control_frame, text="Choose Character", command=self.btn_choose_character
+                  ).grid(row=0, column=0, padx=5, pady=5)
+        tk.Button(control_frame, text="Choose Thread", command=self.btn_choose_thread
+                  ).grid(row=0, column=1, padx=5, pady=5)
+        tk.Button(control_frame, text="Clear Output", command=lambda: self.chars_output.delete(1.0, tk.END)
+                  ).grid(row=0, column=2, padx=5, pady=5)
 
-        self.chars_output = scrolledtext.ScrolledText(main_frame, wrap=tk.WORD, height=10, width=70)
+    def _setup_chars_output(self, parent_frame):
+        """Setup the output area for character and thread selections."""
+        self.chars_output = scrolledtext.ScrolledText(parent_frame, wrap=tk.WORD, height=10, width=70)
         self.chars_output.grid(row=3, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
 
-        # Load/Save Buttons
-        button_frame = tk.Frame(main_frame)
+    def _setup_campaign_buttons(self, parent_frame):
+        """Setup load/save campaign buttons."""
+        button_frame = tk.Frame(parent_frame)
         button_frame.grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
-        tk.Button(button_frame, text="Load Campaign", command=self.load_campaign).grid(row=0, column=0, padx=5, pady=5)
-        tk.Button(button_frame, text="Save Campaign", command=self.save_campaign).grid(row=0, column=1, padx=5, pady=5)
-
-        # Ensure listboxes are populated on startup (already handled in __init__)
-        self.update_listbox(self.lst_chars, 'characters')
-        self.update_listbox(self.lst_threads, 'threads')
+        tk.Button(button_frame, text="Load Campaign", command=self.load_campaign
+                  ).grid(row=0, column=0, padx=5, pady=5)
+        tk.Button(button_frame, text="Save Campaign", command=self.save_campaign
+                  ).grid(row=0, column=1, padx=5, pady=5)
 
     # Dice Methods
     def adjust_dice(self, entry, delta):
@@ -317,7 +352,7 @@ class RPGApp:
 
     def on_die_click(self, die_index, is_action):
         if self.mastery_used:
-            print("Mastery already used, cannot reroll again")
+            self.update_status("Mastery already used, cannot reroll again")
             return
 
         if is_action:
@@ -325,12 +360,23 @@ class RPGApp:
         else:
             die_value = self.danger_dice_values[die_index]
 
+        # Set mastery flag immediately to prevent race condition from rapid clicks
+        self.mastery_used = True
+        
+        # Disable all click bindings immediately
+        for tag in self.action_dice_tags:
+            self.dice_canvas.tag_unbind(tag, '<Button-1>')
+
         confirm = messagebox.askyesno(
             "Roll with Mastery",
             f"Roll with Mastery for {'Action' if is_action else 'Danger'} die with value {die_value}?"
         )
         if not confirm:
-            print("Mastery reroll cancelled by user")
+            self.update_status("Mastery reroll cancelled by user")
+            # Re-enable click bindings if user cancels
+            self.mastery_used = False
+            for i, tag in enumerate(self.action_dice_tags):
+                self.dice_canvas.tag_bind(tag, '<Button-1>', lambda event, idx=i, is_act=True: self.on_die_click(idx, is_act))
             return
 
         # Track *which die and type* was rerolled!
@@ -403,8 +449,59 @@ class RPGApp:
         self.mastery_die_index = None
         self.mastery_is_action = None
 
+    def _determine_die_color(self, die, i, is_action, cancelled_count, highest_remaining_die, remaining_dice):
+        """Determine die background and text color based on its status.
+        
+        Args:
+            die: The die value
+            i: Die index in the list
+            is_action: Whether this is an action die
+            cancelled_count: Dict tracking cancelled dice
+            highest_remaining_die: Highest die value that remains
+            remaining_dice: List of remaining dice
+            
+        Returns:
+            Tuple of (rect_color, text_color)
+        """
+        rect_color = "grey"
+        text_color = "black"
+
+        # Set background color based on die status
+        if die in cancelled_count and cancelled_count[die] > 0:
+            rect_color = "#D32F2F"
+            text_color = "white"
+            cancelled_count[die] -= 1
+        elif is_action and die == highest_remaining_die and die in remaining_dice:
+            rect_color = "#388E3C"
+            text_color = "white"
+
+        # BLUE for the rerolled die (mastery)
+        if (
+            self.mastery_used
+            and self.mastery_die_index is not None
+            and self.mastery_is_action is not None
+            and i == self.mastery_die_index
+            and is_action == self.mastery_is_action
+        ):
+            text_color = "blue"
+
+        return rect_color, text_color
+
     def draw_dice(self, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
-        print(f"Drawing dice: is_action={is_action}, label={label}, mastery_used={self.mastery_used}, mastery_die_index={self.mastery_die_index}, mastery_die_value={self.mastery_die_value}")
+        """Draw dice on canvas with appropriate colors and click bindings.
+        
+        Args:
+            dice: List of dice values to draw
+            x, y: Starting position for drawing
+            dice_size: Size of each die in pixels
+            label: Label for the dice group
+            cancelled_dice: List of cancelled dice values
+            remaining_dice: List of remaining dice values
+            is_action: Whether these are action dice
+            
+        Returns:
+            Updated y position for next element
+        """
         self.dice_canvas.create_text(x, y, text=label, anchor="nw", font=('Helvetica', 14, 'bold'))
         y += 35
         highest_remaining_die = max(remaining_dice, default=0)
@@ -414,28 +511,9 @@ class RPGApp:
             self.action_dice_tags = []  # Reset tags for Action Dice
 
         for i, die in enumerate(dice):
-            rect_color = "grey"
-            text_color = "black"
-
-            # Set background color based on die status
-            if die in cancelled_count and cancelled_count[die] > 0:
-                rect_color = "#D32F2F"
-                text_color = "white"
-                cancelled_count[die] -= 1
-            elif is_action and die == highest_remaining_die and die in remaining_dice:
-                rect_color = "#388E3C"
-                text_color = "white"
-
-            # BLUE for the rerolled die (mastery)
-            if (
-                self.mastery_used
-                and self.mastery_die_index is not None
-                and self.mastery_is_action is not None
-                and i == self.mastery_die_index
-                and is_action == self.mastery_is_action
-            ):
-                text_color = "blue"
-                print(f"Applied blue font to {'Action' if is_action else 'Danger'} die {i} (mastery rerolled)")
+            rect_color, text_color = self._determine_die_color(
+                die, i, is_action, cancelled_count, highest_remaining_die, remaining_dice
+            )
 
             # Set up tags for interaction
             if is_action:
@@ -467,11 +545,11 @@ class RPGApp:
         self.dice_canvas.delete("all")
         try:
             num_action_dice = int(self.action_dice_entry.get())
-            if not (0 <= num_action_dice <= 10):
-                raise ValueError("Action Dice must be between 0 and 10.")
+            if not (0 <= num_action_dice <= self.MAX_DICE):
+                raise ValueError(f"Action Dice must be between 0 and {self.MAX_DICE}.")
             num_danger_dice = int(self.danger_dice_entry.get())
-            if not (0 <= num_danger_dice <= 10):
-                raise ValueError("Danger Dice must be between 0 and 10.")
+            if not (0 <= num_danger_dice <= self.MAX_DICE):
+                raise ValueError(f"Danger Dice must be between 0 and {self.MAX_DICE}.")
         except ValueError as e:
             error_msg = str(e) if str(e).startswith(("Action", "Danger")) else "Invalid input: Use numbers 0-10."
             self.dice_result_label.config(text=error_msg)
@@ -514,8 +592,8 @@ class RPGApp:
 
         self.dice_result_label.config(text=result)
         x, y = 10, 10
-        y = self.draw_dice(action_dice_sorted, x, y, 30, "Action Dice", cancelled_dice, remaining_action_dice, True)
-        y = self.draw_dice(danger_dice_sorted, x, y, 30, "Danger Dice", cancelled_dice, [], False)
+        y = self.draw_dice(action_dice_sorted, x, y, self.DICE_SIZE, "Action Dice", cancelled_dice, remaining_action_dice, True)
+        y = self.draw_dice(danger_dice_sorted, x, y, self.DICE_SIZE, "Danger Dice", cancelled_dice, [], False)
         self.dice_canvas.config(height=y)
         for _ in range(6):
             self.dice_canvas.update()
@@ -545,7 +623,7 @@ class RPGApp:
     def btn_roll_fate(self):
         chaos_factor = int(self.chaos_factor_var.get())
         likelihood = self.likelihood_var.get()
-        result, roll, _, _ = check_fate_chart(chaos_factor, likelihood)
+        result, roll = check_fate_chart(chaos_factor, likelihood)
         self.fate_output.insert(tk.END, f"Fate Result: {result} (Roll: {roll})\n\n")
         self.fate_output.see(tk.END)
 
@@ -603,10 +681,10 @@ class RPGApp:
             self.update_status(f"Updated {data_type}: {new_entry}")
         else:
             current_entries = get_general_data(self.data_manager, data_type)
-            if len(current_entries) >= 25:
-                messagebox.showinfo("Limit Reached", f"You can have no more than 25 {data_type}.")
-            elif current_entries.count(new_entry) >= 3:
-                messagebox.showinfo("Limit Reached", f"You can have no more than 3 '{new_entry}' {data_type}.")
+            if len(current_entries) >= self.MAX_ITEMS:
+                self.update_status(f"Limit reached: Cannot have more than {self.MAX_ITEMS} {data_type}.")
+            elif current_entries.count(new_entry) >= self.MAX_DUPLICATES:
+                self.update_status(f"Limit reached: Cannot have more than {self.MAX_DUPLICATES} '{new_entry}' {data_type}.")
 
     def delete_entry(self, data_type, listbox_widget):
         selection_index = listbox_widget.curselection()
@@ -634,8 +712,8 @@ class RPGApp:
         if file_path and load_campaign(self.data_manager, file_path):
             self.file_path = file_path
             self.save_last_file_path(file_path)  # Remember this file
-            self.update_listbox(self.lst_chars, 'characters')
-            self.update_listbox(self.lst_threads, 'threads')
+            self.update_listbox(self.chars_listbox, 'characters')
+            self.update_listbox(self.threads_listbox, 'threads')
             self.update_status(f"Campaign loaded from {file_path}")
         else:
             if file_path:  # Only show error if user selected a file

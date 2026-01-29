@@ -4,7 +4,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 
 ## Features
 
-- **Dice Rolling**: Roll action and danger dice with customizable counts (0–10 each), with results like Success, Partial Success, Failure, or Botch, including boon calculations.
+- **Dice Rolling**: Roll action and danger dice with customizable counts (0–10 each), with results like Success, Partial Success, Failure, or Botch, including boon calculations. **Mastery Reroll**: After rolling, click on individual action dice to reroll them for better outcomes.
 - **Fate Checks**: Use a chaos factor (1–9) and likelihood scale (Certain to Impossible) to resolve yes/no questions, with outcomes including Exceptional Yes/No and Random Events.
 - **NPC Generation**: Create detailed NPCs with names, ages, sexes, motivations, and characteristics drawn from JSON data.
 - **Action Oracle**: Generate random action prompts for narrative inspiration (e.g., "Investigate Mystery").
@@ -15,9 +15,9 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 
 ## Requirements
 
-- Python 3.6 or higher
+- Python 3.7 or higher
 - Tkinter (usually included with Python; install `python3-tk` on Linux if needed)
-- JSON files (`action_oracle.json`, `npc_data.json`, `plot_points.json`) in the `data/` directory
+- JSON files (`action_oracle.json`, `npc_data.json`, `plot_points.json`) in the `data/oracles/` directory
 
 ## Installation
 
@@ -31,7 +31,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
     sudo apt-get install python3-tk  # Debian/Ubuntu
     sudo yum install python3-tkinter  # CentOS/RHEL
 4. Verify JSON Data Files:
-    - Ensure the data/ directory contains:  
+    - Ensure the data/oracles/ directory contains:  
         - action_oracle.json
         - npc_data.json
         - plot_points.json
@@ -48,7 +48,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
     - Reset to default order with "Reset Order".
     - Output appears in a scrollable text area.
 3. Fate & Oracles Tab:
-    - Dice Rolling: Set action (0–10) and danger (0–10) dice counts, then click "Roll Dice" to see results (e.g., "Success with 2 BOON(s)") with a visual dice display.
+    - Dice Rolling: Set action (0–10) and danger (0–10) dice counts, then click "Roll Dice" to see results (e.g., "Success with 2 BOON(s)") with a visual dice display. After rolling, you can click on individual action dice to use the **Mastery Reroll** feature (replaces a die with a new roll).
     - Fate Check: Select chaos factor (1–9) and likelihood (Certain to Impossible), then click "Roll Fate" for outcomes like "Yes" or "Random Event".
     - NPC Interaction: Choose relationship (e.g., friendly, hostile) and demeanor (e.g., scheming, inquisitive), then click "Roll Interaction" for NPC behavior.
     - Action Oracle: Click "Action Oracle" for random action prompts.
@@ -59,36 +59,44 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
     - Delete selected entries with "Delete Character/Thread".
     - Click "Choose Character" or "Choose Thread" to randomly select an entry.
     - Save or load campaign data using "Save Campaign" or "Load Campaign" (JSON files in data/lists/).
+    - Campaign data auto-saves after each add/update/delete operation.
     - Output appears in a scrollable text area.
 5. Campaign Management:
-    - On startup, select a JSON file to load existing campaign data or start fresh.
+    - On startup, select a JSON file to load existing campaign data or start fresh. The last loaded file is remembered for next session.
     - Save campaigns to data/lists/ for persistence.
-    - Autosave occurs after adding/updating/deleting entries if a file is loaded.
+    - Auto-save occurs after adding/updating/deleting entries if a file is loaded.
 
 ## Folder Structure
 
     RPG_Generator/
-    ├── data_manager.py        # Handles data operations (add/remove items, save/load JSON)
-    ├── main.py                # Entry point, initializes Tkinter and DataManager
-    ├── logic.py               # Core logic for dice, oracles, NPC generation, and fate checks
-    ├── ui.py                  # Tkinter GUI implementation
-    ├── readme.md              # This file
-    ├── data/                  # Data files directory
-    │   ├── action_oracle.json # Action oracle data (action1, action2 lists)
-    │   ├── npc_data.json      # NPC generation data (names, modifiers, nouns, etc.)
-    │   ├── plot_points.json   # Plot points for themes (Action, Mystery, etc.)
-    │   ├── lists/             # Campaign save/load directory
-    │   │   ├── data_game1.json # Example campaign data
-    │   │   ├── data_game2.json # Example campaign data
+    ├── src/
+    │   ├── data_manager.py        # Handles data operations (add/remove items, save/load JSON)
+    │   ├── main.py                # Entry point, initializes Tkinter and DataManager
+    │   ├── logic.py               # Core logic for dice, oracles, NPC generation, and fate checks
+    │   └── ui.py                  # Tkinter GUI implementation
+    ├── docs/
+    │   └── readme.md              # This file
+    ├── data/
+    │   ├── app_config.json        # Stores last loaded campaign file path
+    │   ├── oracles/               # Oracle/generator data files
+    │   │   ├── action_oracle.json # Action oracle data (action1, action2 lists)
+    │   │   ├── npc_data.json      # NPC generation data (names, modifiers, nouns, etc.)
+    │   │   └── plot_points.json   # Plot points for themes (Action, Mystery, etc.)
+    │   └── lists/                 # Campaign save/load directory
+    │       ├── data_game1.json    # Example campaign data
+    │       └── data_game2.json    # Example campaign data
+    └── PythonRPGUtilities.code-workspace
 
 ## Notes
 
-- JSON File Dependency: The application requires action_oracle.json, npc_data.json, and plot_points.json to function fully. Missing or malformed files will cause errors (e.g., "Error loading NPC data").
-- Data Limits: Characters and threads are capped at 25 entries each, with a maximum of 3 identical entries to prevent duplicates.
-- Randomization: Uses Python’s random module for dice rolls, NPC generation, and selections. Results are pseudo-random.
-- GUI: Tkinter provides a simple, cross-platform interface. The window is fixed at 600x700 pixels with scrollable output areas.
-- Error Handling: Includes basic error handling for file operations and user input (e.g., invalid dice counts).
-- Building: pyinstaller --onefile --add-data "data/lists;data/lists" --windowed main.py
+- **JSON File Dependency**: The application requires `action_oracle.json`, `npc_data.json`, and `plot_points.json` in `data/oracles/` to function fully. Missing or malformed files will cause graceful errors (e.g., "Error loading NPC data") rather than crashes due to lazy loading.
+- **Data Limits**: Characters and threads are capped at 25 entries each, with a maximum of 3 identical entries to prevent duplicates.
+- **Randomization**: Uses Python's random module for dice rolls, NPC generation, and selections. Results are pseudo-random.
+- **GUI**: Tkinter provides a simple, cross-platform interface. The window is fixed at 600x700 pixels with scrollable output areas.
+- **Error Handling**: Includes specific exception handling for file operations (OSError) and user input validation (e.g., invalid dice counts).
+- **Mastery Reroll**: After rolling dice, click on individual action dice to reroll them, with visual feedback (blue highlight). Only one mastery reroll per roll session.
+- **Campaign Memory**: The application remembers the last loaded campaign file and automatically loads it on startup for convenience.
+- **Building**: `pyinstaller --onefile --add-data "data/lists;data/lists" --windowed main.py`
 
 ## Example JSON File Structures
 

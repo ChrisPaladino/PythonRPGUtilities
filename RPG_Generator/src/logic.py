@@ -4,9 +4,46 @@ import os
 from data_manager import load_json_data
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-npc_data = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "npc_data.json"))
-plot_points = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "plot_points.json"))
-action_oracle_data = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "action_oracle.json"))
+
+# Lazy loading: data is loaded on first use, not at module import time
+# This prevents the entire module from failing if data files are missing
+_npc_data = None
+_plot_points = None
+_action_oracle_data = None
+
+def _load_npc_data():
+    """Lazy load NPC data on first use."""
+    global _npc_data
+    if _npc_data is None:
+        _npc_data = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "npc_data.json"))
+    return _npc_data
+
+def _load_plot_points():
+    """Lazy load plot points data on first use."""
+    global _plot_points
+    if _plot_points is None:
+        _plot_points = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "plot_points.json"))
+    return _plot_points
+
+def _load_action_oracle_data():
+    """Lazy load action oracle data on first use."""
+    global _action_oracle_data
+    if _action_oracle_data is None:
+        _action_oracle_data = load_json_data(os.path.join(script_dir, "..", "data", "oracles", "action_oracle.json"))
+    return _action_oracle_data
+
+# Convenience properties for backward compatibility
+@property
+def npc_data():
+    return _load_npc_data()
+
+@property
+def plot_points():
+    return _load_plot_points()
+
+@property
+def action_oracle_data():
+    return _load_action_oracle_data()
 
 # Dice Rolling Logic
 def determine_result(remaining_action_dice):
@@ -36,17 +73,18 @@ def roll_dice(n):
 
 # Generator Logic
 def get_une_interaction(npc_relationship, npc_demeanor):
-    if npc_data is None:
+    data = _load_npc_data()
+    if data is None:
         return "Error loading NPC data."
     d100_roll = random.randint(1, 100)  # Percentile roll (01-100)
     npc_mood = None
-    for key, value in npc_data['npcMood'][npc_relationship].items():
+    for key, value in data['npcMood'][npc_relationship].items():
         range_start, range_end = map(int, key.split('-'))
         if range_start <= d100_roll <= range_end:
             npc_mood = value
             break
-    npc_bearing = random.choice(npc_data['npcBearing'][npc_demeanor])
-    npc_focus = random.choice(npc_data['npcFocus'])
+    npc_bearing = random.choice(data['npcBearing'][npc_demeanor])
+    npc_focus = random.choice(data['npcFocus'])
     return (f"The {npc_relationship} NPC is {npc_mood}. "
             f"They are {npc_demeanor}, and speak of {npc_bearing} "
             f"regarding the PC's {npc_focus}.")
@@ -73,26 +111,42 @@ def generate_npc_age():
     return npc_age, age_category
 
 def generate_npc():
-    if npc_data is None:
+    data = _load_npc_data()
+    if data is None:
         return "Error loading NPC data."
     sex = random.choice(['male', 'female'])
-    modifier = random.choice(npc_data['modifiers'])
-    noun = random.choice(npc_data['nouns'])
-    motivationverb1 = random.choice(npc_data['motivationVerbs'])
-    motivationnoun1 = random.choice(npc_data['motivationNouns'])
-    motivationverb2 = random.choice(npc_data['motivationVerbs'])
-    motivationnoun2 = random.choice(npc_data['motivationNouns'])
+    modifier = random.choice(data['modifiers'])
+    noun = random.choice(data['nouns'])
+    motivationverb1 = random.choice(data['motivationVerbs'])
+    motivationnoun1 = random.choice(data['motivationNouns'])
+    motivationverb2 = random.choice(data['motivationVerbs'])
+    motivationnoun2 = random.choice(data['motivationNouns'])
     npc_name = generate_name()
     npc_age, age_category = generate_npc_age()
     return f"NPC: {npc_name}, the {sex}, {age_category} ({npc_age}), {modifier} {noun}, wants to {motivationverb1} {motivationnoun1}, and {motivationverb2} {motivationnoun2}."
 
 def generate_name():
-    if npc_data is None:
+    """Generate a random NPC name by selecting two random names.
+    
+    Returns:
+        String with format "FirstName LastName"
+    """
+    data = _load_npc_data()
+    if data is None:
         return "Error loading NPC data."
-    first, last = random.sample(npc_data['names'], 2)
+    first, last = random.sample(data['names'], 2)
     return f"{first} {last}"
 
 def check_fate_chart(chaos_factor, likelihood):
+    """Check fate chart and return result and roll value.
+    
+    Args:
+        chaos_factor: Integer 1-9 representing chaos level
+        likelihood: String describing likelihood (e.g., "50/50", "Likely", etc.)
+        
+    Returns:
+        Tuple of (result_string, roll_value) where result_string describes the outcome
+    """
     # Define the Fate Chart ranges for Mid-Chaos (Chaos Factor 1-9, percentile 01-100)
     fate_chart = {
         "Certain": {
@@ -204,20 +258,20 @@ def check_fate_chart(chaos_factor, likelihood):
     # For Chaos 9, check rolls 11, 22, 33, 44, 55, 66, 77, 88, 99
     # Scale by Chaos Factor: only check rolls up to Chaos Factor * 11
     if roll in [i * 11 for i in range(1, chaos_factor + 1) if i * 11 <= 99]:
-        return "Random Event", roll, None, None
+        return "Random Event", roll
 
     # Determine result based on likelihood and chaos factor
     ranges = fate_chart[likelihood][chaos_factor]
     if roll in ranges["Exceptional Yes"]:
-        return "Exceptional YES", roll, None, None
+        return "Exceptional YES", roll
     elif roll in ranges["Yes"]:
-        return "Yes", roll, None, None
+        return "Yes", roll
     elif roll in ranges["No"]:
-        return "No", roll, None, None
+        return "No", roll
     elif ranges["Exceptional No"]:  # Only check if Exceptional No exists (not empty)
-        return "Exceptional NO", roll, None, None
+        return "Exceptional NO", roll
     else:
-        return "Impossible", roll, None, None  # Fallback for "X" cases
+        return "Impossible", roll  # Fallback for "X" cases
 
 def select_from_list(data_manager, data_type):
     from data_manager import get_general_data
@@ -233,16 +287,32 @@ def select_from_list(data_manager, data_type):
     return items[roll]
 
 def generate_action_oracle():
-    if action_oracle_data is None:
+    """Generate a random action from the action oracle.
+    
+    Returns:
+        String with format "Action Oracle: {action1} {action2}"
+    """
+    data = _load_action_oracle_data()
+    if data is None:
         return "Error loading action oracle data."
-    action1 = random.choice(action_oracle_data['action1'])
-    action2 = random.choice(action_oracle_data['action2'])
+    action1 = random.choice(data['action1'])
+    action2 = random.choice(data['action2'])
     return f"Action Oracle: {action1} {action2}"
 
 def get_plot_point(theme, d100_roll):
-    if plot_points is None or theme not in plot_points:
+    """Get a plot point based on theme and percentile roll.
+    
+    Args:
+        theme: String theme name
+        d100_roll: Integer percentile roll (1-100)
+        
+    Returns:
+        Tuple of (theme, plot_point_value)
+    """
+    data = _load_plot_points()
+    if data is None or theme not in data:
         return None, "Plot point data not found."
-    for key, value in plot_points[theme].items():
+    for key, value in data[theme].items():
         range_parts = key.split('-')
         range_start = int(range_parts[0])
         range_end = int(range_parts[-1])
