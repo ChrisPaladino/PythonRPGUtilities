@@ -6,6 +6,7 @@ from logic import (generate_themes, generate_npc, get_une_interaction, select_fr
                   process_results, roll_dice)
 from data_manager import add_to_general_data, remove_from_general_data, get_general_data, load_campaign, save_campaign
 import os
+import json
 
 class RPGApp:
     def __init__(self, root, data_manager):
@@ -65,15 +66,57 @@ class RPGApp:
     def update_status(self, message):
         self.status_label.config(text=message)
 
+    def get_config_path(self):
+        """Get the path to the config file that stores the last loaded file."""
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        return os.path.join(script_dir, "..", "data", "app_config.json")
+
+    def save_last_file_path(self, file_path):
+        """Save the last loaded file path to config."""
+        try:
+            config_path = self.get_config_path()
+            os.makedirs(os.path.dirname(config_path), exist_ok=True)
+            with open(config_path, 'w') as f:
+                json.dump({"last_file": file_path}, f)
+        except Exception as e:
+            print(f"Could not save config: {e}")
+
+    def load_last_file_path(self):
+        """Load the last loaded file path from config."""
+        try:
+            config_path = self.get_config_path()
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    config = json.load(f)
+                    return config.get("last_file")
+        except Exception as e:
+            print(f"Could not load config: {e}")
+        return None
+
     def prompt_initial_file(self):
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        lists_dir = os.path.join(script_dir, "data", "lists")
+        lists_dir = os.path.join(script_dir, "..", "data", "lists")
         os.makedirs(lists_dir, exist_ok=True)
-        return filedialog.askopenfilename(
+        
+        # Try to load the last file automatically
+        last_file = self.load_last_file_path()
+        if last_file and os.path.exists(last_file):
+            # Automatically load the last file without prompting
+            self.save_last_file_path(last_file)  # Refresh the config
+            return last_file
+        
+        # If no last file or it doesn't exist, prompt the user
+        file_path = filedialog.askopenfilename(
             title="Select default JSON file",
             initialdir=lists_dir,
             filetypes=[("JSON files", "*.json")]
         )
+        
+        # Save the selected file for next time
+        if file_path:
+            self.save_last_file_path(file_path)
+        
+        return file_path
 
     def update_all_lists(self):
         """Update the themes listbox with the current theme order."""
@@ -581,7 +624,8 @@ class RPGApp:
             self.update_status("Warning: No file loaded. Please save as a new file.")
 
     def load_campaign(self):
-        lists_dir = os.path.join(os.path.dirname(__file__), "data", "lists")
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        lists_dir = os.path.join(script_dir, "..", "data", "lists")
         file_path = filedialog.askopenfilename(
             defaultextension=".json", 
             filetypes=[("JSON files", "*.json")],
@@ -589,14 +633,17 @@ class RPGApp:
         )
         if file_path and load_campaign(self.data_manager, file_path):
             self.file_path = file_path
+            self.save_last_file_path(file_path)  # Remember this file
             self.update_listbox(self.lst_chars, 'characters')
             self.update_listbox(self.lst_threads, 'threads')
             self.update_status(f"Campaign loaded from {file_path}")
         else:
-            messagebox.showerror("Error", "Failed to load campaign data.")
+            if file_path:  # Only show error if user selected a file
+                messagebox.showerror("Error", "Failed to load campaign data.")
 
     def save_campaign(self):
-        lists_dir = os.path.join(os.path.dirname(__file__), "data", "lists")
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        lists_dir = os.path.join(script_dir, "..", "data", "lists")
         file_path = filedialog.asksaveasfilename(
             defaultextension=".json", 
             filetypes=[("JSON files", "*.json")],
@@ -604,7 +651,9 @@ class RPGApp:
         )
         if file_path and save_campaign(self.data_manager, file_path):
             self.file_path = file_path
+            self.save_last_file_path(file_path)  # Remember this file
             self.update_status(f"Campaign saved to {file_path}")
             messagebox.showinfo("Success", "Campaign saved to new location or updated existing file!")
         else:
-            messagebox.showerror("Error", "Failed to save campaign data.")
+            if file_path:  # Only show error if user selected a file
+                messagebox.showerror("Error", "Failed to save campaign data.")
