@@ -13,7 +13,6 @@ class RPGApp:
         self.root.title("RPG Generator")
         self.data_manager = data_manager
         self.file_path = None
-        self.windows = {'manage_themes': None}
         self.relationship_var = tk.StringVar(value="neutral")
         self.demeanor_var = tk.StringVar(value="friendly")
         self.theme_order = ["Action", "Mystery", "Personal", "Social", "Tension"]  # Default theme order
@@ -337,11 +336,18 @@ class RPGApp:
 
 
     def clear_dice(self):
+        """Clear dice display and reset all dice-related state."""
         self.action_dice_entry.delete(0, tk.END)
         self.action_dice_entry.insert(0, "1")
         self.danger_dice_entry.delete(0, tk.END)
         self.danger_dice_entry.insert(0, "0")
         self.dice_result_label.config(text="")
+        
+        # Explicitly unbind all canvas tags before deletion
+        for tag in self.action_dice_tags:
+            self.dice_canvas.tag_unbind(tag, '<Button-1>')
+        
+        # Clear canvas and reset height
         self.dice_canvas.delete("all")
         self.dice_canvas.config(height=0)
 
@@ -350,9 +356,9 @@ class RPGApp:
         self.danger_dice_values = []
         self.action_dice_tags = []
         self.mastery_used = False
-        self.mastery_die_value = None  # Reset mastery die value
-        self.mastery_die_index = None # Reset the mastery die index / selection
-        self.mastery_is_action = None # whether it's action or danger
+        self.mastery_die_value = None
+        self.mastery_die_index = None
+        self.mastery_is_action = None
 
     def draw_dice(self, dice, x, y, dice_size, label, cancelled_dice, remaining_dice, is_action):
         print(f"Drawing dice: is_action={is_action}, label={label}, mastery_used={self.mastery_used}, mastery_die_index={self.mastery_die_index}, mastery_die_value={self.mastery_die_value}")
@@ -410,6 +416,11 @@ class RPGApp:
 
 
     def roll_and_process(self):
+        """Roll dice and process results with visual display."""
+        # Unbind previous canvas tags before clearing
+        for tag in self.action_dice_tags:
+            self.dice_canvas.tag_unbind(tag, '<Button-1>')
+        
         self.dice_canvas.delete("all")
         try:
             num_action_dice = int(self.action_dice_entry.get())
@@ -597,6 +608,3 @@ class RPGApp:
             messagebox.showinfo("Success", "Campaign saved to new location or updated existing file!")
         else:
             messagebox.showerror("Error", "Failed to save campaign data.")
-
-    def on_window_close(self, window_name):
-        self.windows[window_name] = None
