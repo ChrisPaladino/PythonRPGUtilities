@@ -17,6 +17,7 @@ The RPG_Generator codebase is generally well-structured with good separation of 
 ### ✅ No Critical Memory Leaks Found
 
 **Good Practices Observed:**
+
 - Proper use of context managers (`with` statements) for file operations in `data_manager.py`
 - No circular references detected
 - Tkinter widgets properly managed within class structure
@@ -32,10 +33,12 @@ The RPG_Generator codebase is generally well-structured with good separation of 
    - **Issue:** `self.windows` dictionary tracks window references but `on_window_close()` method is defined but never called
    - **Impact:** Minor - unused code, not a memory leak
    - **Line:** 673-674
+
    ```python
    def on_window_close(self, window_name):
        self.windows[window_name] = None
    ```
+
    - **Recommendation:** Remove unused code or implement window management if needed
 
 3. **Canvas Tags (ui.py)**
@@ -52,6 +55,7 @@ The RPG_Generator codebase is generally well-structured with good separation of 
 1. **Missing File Close in data_manager.py**
    - **File:** `data_manager.py`, line 60
    - **Issue:** `load_json_data()` function doesn't close file handle
+
    ```python
    def load_json_data(file_path):
        try:
@@ -61,16 +65,19 @@ The RPG_Generator codebase is generally well-structured with good separation of 
            print(f"Error loading {file_path}: {e}")
            return None
    ```
+
    - **Status:** ✅ ACTUALLY GOOD - Uses `with` statement, file is closed automatically
    - **Correction:** This is NOT an issue
 
 2. **Global Module-Level Data Loading (logic.py)**
    - **File:** `logic.py`, lines 5-8
+
    ```python
    npc_data = load_json_data(os.path.join(script_dir, "data", "npc_data.json"))
    plot_points = load_json_data(os.path.join(script_dir, "data", "plot_points.json"))
    action_oracle_data = load_json_data(os.path.join(script_dir, "data", "action_oracle.json"))
    ```
+
    - **Issue:** Data loaded at module import time; if files are missing, entire module fails
    - **Impact:** Application won't start if data files are missing
    - **Recommendation:** Consider lazy loading or better error handling at startup
@@ -78,71 +85,86 @@ The RPG_Generator codebase is generally well-structured with good separation of 
 3. **Exception Handling Too Broad**
    - **File:** `data_manager.py`, lines 24, 35, 60
    - **Issue:** Catching generic `Exception` can hide bugs
+
    ```python
    except (FileNotFoundError, json.JSONDecodeError, Exception) as e:
    ```
+
    - **Recommendation:** Be more specific about exceptions or at least log them properly
 
 ### 🟡 Medium Priority Issues
 
-4. **Potential Race Condition in Mastery Reroll**
+1. **Potential Race Condition in Mastery Reroll**
+
    - **File:** `ui.py`, `on_die_click()` method
    - **Issue:** Multiple rapid clicks could potentially cause issues before `mastery_used` flag is set
    - **Impact:** Low - user would need to click extremely fast
    - **Recommendation:** Disable click bindings immediately when mastery is triggered
 
-5. **Inconsistent Error Handling**
+2. **Inconsistent Error Handling**
+
    - **File:** `ui.py`, various methods
    - **Issue:** Some methods show messageboxes, others update status, some do both
    - **Example:** `add_update_entry()` uses both `update_status()` and `messagebox.showinfo()`
    - **Recommendation:** Standardize error/info display approach
 
-6. **Magic Numbers**
+3. **Magic Numbers**
+
    - **File:** `ui.py`, multiple locations
    - **Issue:** Hard-coded values like 25 (max items), 3 (max duplicates), dice sizes, etc.
    - **Recommendation:** Define as class constants or configuration
+
    ```python
    MAX_ITEMS = 25
    MAX_DUPLICATES = 3
    DICE_SIZE = 30
    ```
 
-7. **Unused Variables**
+4. **Unused Variables**
+
    - **File:** `logic.py`, `check_fate_chart()` function
    - **Issue:** Function returns 4 values but only 2 are used
+
    ```python
    result, roll, _, _ = check_fate_chart(chaos_factor, likelihood)
    ```
+
    - **Recommendation:** Remove unused return values or document their purpose
 
-8. **Deep Nesting in draw_dice()**
+5. **Deep Nesting in draw_dice()**
+
    - **File:** `ui.py`, lines 280-330
    - **Issue:** Complex nested conditionals make code hard to follow
    - **Recommendation:** Extract color determination logic into separate method
 
 ### 🟢 Low Priority Issues
 
-9. **Print Statements for Debugging**
+1. **Print Statements for Debugging**
+
    - **File:** `ui.py`, lines 217, 219, 280, 318
    - **Issue:** Debug print statements left in production code
+
    ```python
    print("Mastery already used, cannot reroll again")
    print(f"Drawing dice: is_action={is_action}...")
    ```
+
    - **Recommendation:** Use proper logging module instead of print statements
 
-10. **Typo in JSON Data**
+2. **Typo in JSON Data**
+
     - **File:** `RPG_Generator/data/npc_data.json`, line 8
     - **Issue:** "grattitude" should be "gratitude"
     - **Impact:** Cosmetic only
 
-11. **Inconsistent Naming Conventions**
+3. **Inconsistent Naming Conventions**
+
     - **File:** `ui.py`
     - **Issue:** Mix of snake_case and camelCase for variables
     - Examples: `self.lst_chars` vs `self.themes_listbox`
     - **Recommendation:** Stick to Python convention (snake_case)
 
-12. **Long Method - setup_chars_tab()**
+4. **Long Method - setup_chars_tab()**
     - **File:** `ui.py`, lines 176-230
     - **Issue:** Method is quite long and does multiple things
     - **Recommendation:** Consider breaking into smaller methods
@@ -168,11 +190,13 @@ The RPG_Generator codebase is generally well-structured with good separation of 
 2. **Canvas Redraw**
    - **File:** `ui.py`, `roll_and_process()`
    - **Issue:** Multiple `update()` calls in a loop with sleep
+
    ```python
    for _ in range(6):
        self.dice_canvas.update()
        time.sleep(0.02)
    ```
+
    - **Purpose:** Animation effect
    - **Status:** ✅ ACCEPTABLE - intentional for visual effect
 
@@ -224,18 +248,21 @@ The RPG_Generator codebase is generally well-structured with good separation of 
 ## Specific File Analysis
 
 ### main.py
+
 - **Status:** ✅ EXCELLENT
 - **Lines of Code:** 8
 - **Issues:** None
 - **Notes:** Clean entry point, proper structure
 
 ### data_manager.py
+
 - **Status:** ✅ GOOD
 - **Lines of Code:** ~60
 - **Issues:** Broad exception handling (minor)
 - **Memory Management:** ✅ Excellent - proper use of context managers
 
 ### logic.py
+
 - **Status:** ✅ GOOD
 - **Lines of Code:** ~250
 - **Issues:** Module-level data loading, unused return values
@@ -243,9 +270,11 @@ The RPG_Generator codebase is generally well-structured with good separation of 
 - **Notes:** Large fate_chart dictionary is acceptable
 
 ### ui.py
+
 - **Status:** ⚠️ NEEDS MINOR IMPROVEMENTS
 - **Lines of Code:** ~674
-- **Issues:** 
+- **Issues:**
+
   - Unused method (`on_window_close`)
   - Debug print statements
   - Some complex methods
@@ -258,22 +287,25 @@ The RPG_Generator codebase is generally well-structured with good separation of 
 ## Recommendations Summary
 
 ### Immediate Actions (High Priority)
+
 1. ✅ **No critical memory leaks** - No action needed
 2. Remove unused `on_window_close()` method or implement it
 3. Replace print statements with proper logging
 4. Add error handling for missing data files at startup
 
 ### Short-term Improvements (Medium Priority)
-5. Extract magic numbers to constants
-6. Standardize error display approach
-7. Add docstrings to all functions
-8. Implement unit tests for logic.py
+
+1. Extract magic numbers to constants
+2. Standardize error display approach
+3. Add docstrings to all functions
+4. Implement unit tests for logic.py
 
 ### Long-term Enhancements (Low Priority)
-9. Refactor large methods (setup_chars_tab, draw_dice)
-10. Consider adding configuration file
-11. Implement proper logging framework
-12. Add type hints for better code documentation
+
+1. Refactor large methods (setup_chars_tab, draw_dice)
+2. Consider adding configuration file
+3. Implement proper logging framework
+4. Add type hints for better code documentation
 
 ---
 
