@@ -2,6 +2,14 @@
 
 A desktop application for playing the tabletop RPG **Microscope** by Ben Robbins in solo mode.
 
+## 🎮 New to Microscope? START HERE!
+
+**→ Read the [STEP-BY-STEP TUTORIAL](TUTORIAL.md)** ←
+
+The tutorial will walk you through your first game with examples, tips, and detailed instructions for every phase.
+
+---
+
 ## Overview
 
 Microscope is a fractal role-playing game of epic histories. This application enables solo players to explore history construction through:
@@ -32,7 +40,16 @@ Microscope is a fractal role-playing game of epic histories. This application en
 - Phase-appropriate actions
 - Prevents invalid operations
 
-## Installation
+## Quick Start
+
+### First Time Playing?
+
+1. **Read the [Tutorial](TUTORIAL.md)** - Complete walkthrough with examples
+2. Run the application (see installation below)  
+3. Follow the in-app instructions (right panel)
+4. Take your time and be creative!
+
+### Installation
 
 ### Requirements
 - Python 3.10 or later

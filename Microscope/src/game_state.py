@@ -246,16 +246,77 @@ class GameState:
         return phase_actions.get(self.current_phase, [])
     
     def get_phase_instructions(self) -> str:
-        """Get instructions for current phase"""
+        """Get detailed instructions for current phase"""
         instructions = {
-            GamePhase.SETUP_BIG_PICTURE: "Enter the Big Picture: A brief description of your history (1-2 sentences).",
-            GamePhase.SETUP_BOOKENDS: "Create the Start and End Periods that bookend your history. Each needs a title, description, and tone (Light/Dark).",
-            GamePhase.SETUP_PALETTE: "Build your Palette. Add items to the 'Yes' list (things that must exist) and 'No' list (things that cannot exist). Click 'Complete Palette' when done.",
-            GamePhase.SETUP_FIRST_PASS: "First Pass: Add some Periods and Events to flesh out your timeline. No Scenes yet. Click 'Complete First Pass' when ready to begin play.",
-            GamePhase.PLAY_DECLARE_FOCUS: "Declare a Focus: Choose a theme, question, or element to explore in this round.",
-            GamePhase.PLAY_MAKE_HISTORY: "Make History: Create Periods, Events, or Scenes related to your Focus. Click 'Complete Focus' when done exploring this Focus.",
-            GamePhase.PLAY_CREATE_LEGACY: "Create a Legacy based on what you discovered during this Focus, or skip to next Focus.",
-            GamePhase.PLAY_EXPLORE_LEGACY: "Explore your Legacy by creating an Event or dictated Scene related to it.",
+            GamePhase.SETUP_BIG_PICTURE: 
+                "STEP 1: THE BIG PICTURE\n\n"
+                "Describe your entire history in 1-2 sentences. Think BIG - centuries, millennia, empires!\n\n"
+                "Examples:\n"
+                "  • The rise and fall of the Martian Empire, from first colonists to the last transmission\n"
+                "  • A thousand-year curse and the heroes who tried to break it\n"
+                "  • Humanity's expansion into the stars and the war that nearly destroyed us\n\n"
+                "Enter your Big Picture in the dialog, then click Continue.",
+            
+            GamePhase.SETUP_BOOKENDS: 
+                "STEP 2: BOOKEND PERIODS\n\n"
+                "Create TWO Periods that frame your history:\n"
+                "  START Period: How does it begin?\n"
+                "  END Period: How does it end?\n\n"
+                "Each needs: Title, Description, Tone (Light/Dark)\n\n"
+                "Example START: 'First Contact' - Humanity discovers alien ruins (Light)\n"
+                "Example END: 'The Long Silence' - Colonies go dark (Dark)\n\n"
+                "Click 'Create Period' to add each bookend.",
+            
+            GamePhase.SETUP_PALETTE:
+                "STEP 3: THE PALETTE\n\n"
+                "Build constraints for your history:\n"
+                "  YES list: Things that MUST exist\n"
+                "  NO list: Things that CANNOT exist\n\n"
+                "Example YES: Advanced AI, Interstellar travel, Ancient mysteries\n"
+                "Example NO: FTL communication, Time travel, Benevolent aliens\n\n"
+                "Add 3-5 items to each list, then click 'Complete Palette'.",
+            
+            GamePhase.SETUP_FIRST_PASS:
+                "STEP 4: FIRST PASS\n\n"
+                "Add some Periods and Events to sketch your timeline:\n"
+                "  • PERIODS: Large chunks of time between your bookends\n"
+                "  • EVENTS: Specific things that happen within Periods\n\n"
+                "Add 2-3 Periods and 1-2 Events per Period.\n"
+                "Leave gaps - you'll fill them in during play!\n\n"
+                "Click 'Complete First Pass' when ready to begin playing.",
+            
+            GamePhase.PLAY_DECLARE_FOCUS:
+                "DECLARE A FOCUS\n\n"
+                "Choose something to explore this round:\n"
+                "  • A theme (\"The cost of war\")\n"
+                "  • A question (\"What caused the Great Silence?\")\n"
+                "  • An element (\"The fate of Earth\")\n\n"
+                "Everything you create this round should relate to your Focus.\n\n"
+                "Click 'Declare Focus' to begin.",
+            
+            GamePhase.PLAY_MAKE_HISTORY:
+                "MAKE HISTORY\n\n"
+                f"Your Focus: {self.current_focus.description if self.current_focus else '[None]'}\n\n"
+                "Create content related to your Focus:\n"
+                "  • PERIOD: Insert a new time span\n"
+                "  • EVENT:  Add something that happens\n"
+                "  • SCENE: Zoom WAY in to a specific moment\n\n"
+                "Scenes are special - they're detailed explorations with questions and answers.\n\n"
+                "Create 2-4 items, then click 'Complete Focus'.",
+            
+            GamePhase.PLAY_CREATE_LEGACY:
+                "CREATE A LEGACY (Optional)\n\n"
+                "Did something important emerge during your Focus?\n"
+                "Something worth revisiting later?\n\n"
+                "If YES: Create a Legacy to bookmark it\n"
+                "If NO: Click 'Skip' to move to the next Focus\n\n"
+                "Don't force it - Legacies should feel natural!",
+            
+            GamePhase.PLAY_EXPLORE_LEGACY:
+                "EXPLORE YOUR LEGACY\n\n"
+                "Create ONE Event or dictated Scene related to your Legacy.\n"
+                "This is a quick exploration before moving on.\n\n"
+                "Then click Complete to start a new Focus!",
         }
         
         return instructions.get(self.current_phase, "")
