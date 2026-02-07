@@ -6,7 +6,7 @@ import unicodedata
 
 # Set up relative paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
-JSON_PATH = os.path.join(script_dir, "data", "trademarks.json")
+JSON_PATH = os.path.join(script_dir, "..", "data", "trademarks.json")
 
 def load_trademarks():
     try:

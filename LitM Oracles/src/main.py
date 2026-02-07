@@ -15,7 +15,7 @@ consequence_data = {}
 
 
 def load_json_file(filename):
-    data_path = os.path.join(base_dir, "data", filename)
+    data_path = os.path.join(base_dir, "..", "data", filename)
     try:
         with open(data_path, "r") as file:
             return json.load(file)
