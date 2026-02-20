@@ -9,7 +9,7 @@ This tool was built to suit my personal Obsidian workflow, where I organize note
 ## Features
 
 - **Folder-Based Sorting**: Files are appended in the order of their folder structure (e.g., `1-Sessions/Session 001.md` before `2-PCs/Uthgar.md`).
-- **Clean Headers**: Uses only the filename (e.g., `Session 001`, not `1-Sessions/Session 001`) as the `# Heading`.
+- **Contextual Headers**: Creates headers with folder context (e.g., `1-Sessions - Session 001`) when files are in subdirectories, or just the filename for root-level files. Underscores in filenames are replaced with spaces for readability.
 - **Page Breaks**: Inserts `<div style="page-break-after: always;"></div>` between files for PDF compatibility (works with tools like Pandoc).
 - **GUI Selection**: Uses Tkinter to let you pick the source folder and output file via a file dialog.
 - **Obsidian-Friendly**: Ignores hidden or special folders (e.g., `.obsidian`, `_trash`) and files (e.g., `.hidden.md`, `_notes.md`) that start with a period (`.`) or underscore (`_`).
@@ -35,19 +35,19 @@ vault/
 The output file (`unified_notes.md`) will include only the non-hidden, non-underscored `.md` files:
 
 ```markdown
-# Session 001
+# 1-Sessions - Session 001
 [content from Session 001.md]
 <div style="page-break-after: always;"></div>
 
-# Uthgar
+# 2-PCs - Uthgar
 [content from Uthgar.md]
 <div style="page-break-after: always;"></div>
 
-# Elaris
+# 3-NPCs - Elaris
 [content from Elaris.md]
 <div style="page-break-after: always;"></div>
 
-# Blackthorn
+# 8-Locations - Blackthorn
 [content from Blackthorn.md]
 ```
 

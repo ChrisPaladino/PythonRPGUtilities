@@ -37,11 +37,13 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
         - plot_points.json
     - These files are required for NPC generation, action oracles, and plot points. Example structures are assumed (e.g., npc_data.json with names, modifiers, nouns, etc.).
 5. Run the Application:
-    python3 main.py
+    ```bash
+    python3 src/main.py
+    ```
 
 ## Usage
 
-1. Launch the Application: Run main.py to open the Tkinter GUI with three tabs: Themes, Fate & Oracles, and Characters & Threads.
+1. Launch the Application: Run `src/main.py` to open the Tkinter GUI with three tabs: Themes, Fate & Oracles, and Characters & Threads.
 2. Themes Tab:
     - Reorder themes (Action, Mystery, Personal, Social, Tension) using Move Up/Down buttons.
     - Click "Generate Themes" to produce five weighted plot points based on theme order.
@@ -96,7 +98,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 - **Error Handling**: Includes specific exception handling for file operations (OSError) and user input validation (e.g., invalid dice counts).
 - **Mastery Reroll**: After rolling dice, click on individual action dice to reroll them, with visual feedback (blue highlight). Only one mastery reroll per roll session.
 - **Campaign Memory**: The application remembers the last loaded campaign file and automatically loads it on startup for convenience.
-- **Building**: `pyinstaller --onefile --add-data "data/lists;data/lists" --windowed main.py`
+- **Building**: `pyinstaller --onefile --add-data "data/lists;data/lists" --add-data "data/oracles;data/oracles" --windowed src/main.py`
 
 ## Example JSON File Structures
 
