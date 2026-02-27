@@ -37,6 +37,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
         - plot_points.json
     - These files are required for NPC generation, action oracles, and plot points. Example structures are assumed (e.g., npc_data.json with names, modifiers, nouns, etc.).
 5. Run the Application:
+
     ```bash
     python3 src/main.py
     ```
@@ -70,7 +71,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 
 ## Folder Structure
 
-    RPG_Generator/
+RPG_Generator/
     ├── src/
     │   ├── data_manager.py        # Handles data operations (add/remove items, save/load JSON)
     │   ├── main.py                # Entry point, initializes Tkinter and DataManager
