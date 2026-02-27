@@ -5,9 +5,11 @@ A collection of Python-based tools and utilities for tabletop role-playing games
 ## Projects Overview
 
 ### 1. Action Story Trademark Manager
+
 A Tkinter GUI application for managing and browsing character trademarks from the Action Story tabletop RPG system.
 
 **Features:**
+
 - Real-time search across all trademark fields
 - Organized display sorted by source, type, and name
 - Detailed view of traits, flaws, gear, and advantages
@@ -18,9 +20,11 @@ A Tkinter GUI application for managing and browsing character trademarks from th
 **Documentation:** [readme.md](Action%20Story%20Trademark%20Manager/docs/readme.md)
 
 ### 2. ConCat Markdown
+
 A Python script to concatenate all Markdown files from an Obsidian vault (or any folder) into a single Markdown file for easy PDF export.
 
 **Features:**
+
 - Folder-based sorting with natural hierarchy
 - Contextual headers with directory names
 - Page breaks for PDF compatibility
@@ -31,9 +35,11 @@ A Python script to concatenate all Markdown files from an Obsidian vault (or any
 **Documentation:** [readme.md](ConCat%20Markdown/docs/readme.md)
 
 ### 3. LitM Oracles
+
 A Tkinter GUI application for rolling oracles to support *Legends in the Mist* tabletop RPG campaigns.
 
 **Features:**
+
 - Interpretive Oracle with d66 rolls
 - Yes/No Oracle with power modifiers
 - Conflict Oracle for narrative challenges
@@ -46,9 +52,11 @@ A Tkinter GUI application for rolling oracles to support *Legends in the Mist* t
 **Documentation:** [readme.md](LitM%20Oracles/docs/readme.md)
 
 ### 4. One Page Solo Engine (OPSE)
+
 A comprehensive Tkinter GUI implementing the One Page Solo Engine system for solo tabletop RPG play.
 
 **Features:**
+
 - Card-based oracle system with full deck management
 - Yes/No oracle with likelihood modifiers
 - Scene management (altered scenes, complications)
@@ -62,9 +70,11 @@ A comprehensive Tkinter GUI implementing the One Page Solo Engine system for sol
 **Documentation:** [readme.md](OnePageSoloEngine/docs/readme.md)
 
 ### 5. RPG Generator
+
 A versatile TTRPG helper application providing dice rolling, oracles, NPC generation, and campaign management tools.
 
 **Features:**
+
 - Dice rolling with action/danger dice and mastery rerolls
 - Fate checks with chaos factor and likelihood scales
 - NPC generation with detailed characteristics
@@ -80,6 +90,7 @@ A versatile TTRPG helper application providing dice rolling, oracles, NPC genera
 ## Requirements
 
 All projects require:
+
 - **Python 3.7 or higher**
 - **Tkinter** (usually included with Python; on Linux: `sudo apt-get install python3-tk`)
 
@@ -88,6 +99,7 @@ Some projects also require JSON data files which are included in their respectiv
 ## Quick Start
 
 1. **Clone the Repository**:
+
    ```bash
    git clone https://github.com/ChrisPaladino/PythonRPGUtilities
    cd PythonRPGUtilities
@@ -95,6 +107,7 @@ Some projects also require JSON data files which are included in their respectiv
 
 2. **Choose a Tool**:
    Navigate to any project folder and run its main script. For example:
+
    ```bash
    # Action Story Trademark Manager
    python3 "Action Story Trademark Manager/src/ActionStoryTrademarkManager.py"
@@ -117,7 +130,6 @@ Some projects also require JSON data files which are included in their respectiv
 
 ## Project Structure
 
-```
 PythonRPGUtilities/
 ├── Action Story Trademark Manager/
 │   ├── src/                    # Python source code
@@ -138,26 +150,29 @@ PythonRPGUtilities/
 │   ├── data/                   # Campaign and oracle data
 │   └── docs/                   # Documentation
 └── PythonRPGUtilities.code-workspace
-```
 
 ## Use Cases
 
 ### For Game Masters
+
 - **RPG Generator**: Manage campaigns, generate NPCs, create plot points
 - **LitM Oracles**: Roll oracles for *Legends in the Mist* sessions
 - **One Page Solo Engine**: Use oracle tools for improvisation and solo play
 - **Action Story Trademark Manager**: Quick reference for Action Story game system
 
 ### For Solo Players
+
 - **One Page Solo Engine**: Complete solo play toolset with GM emulation
 - **RPG Generator**: Fate checks, oracles, and random generators
 - **LitM Oracles**: Story generation for *Legends in the Mist* campaigns
 
 ### For Content Creators
+
 - **ConCat Markdown**: Compile Obsidian vaults or markdown notes into single PDFs
 - **Action Story Trademark Manager**: Organize and reference game system content
 
 ### For Developers
+
 - All tools are open-source and can be customized or extended
 - JSON-based data files for easy content modification
 - Tkinter GUI examples for Python RPG tool development
@@ -181,6 +196,7 @@ PythonRPGUtilities/
 ## Contributing
 
 Contributions are welcome! Each tool is independently maintainable, so you can:
+
 - Fork the repository
 - Create a feature branch for a specific tool
 - Submit pull requests with improvements
@@ -193,6 +209,7 @@ This project is open-source under the MIT License. Feel free to modify and distr
 ## Future Enhancements
 
 Potential improvements across the workspace:
+
 - Additional oracle systems and generators
 - More game system support (e.g., other RPG systems)
 - Export functionality (PDF, HTML, CSV)
@@ -203,12 +220,14 @@ Potential improvements across the workspace:
 ## Contact
 
 For issues, suggestions, or questions:
+
 - Open an issue on GitHub
 - Contact the maintainer
 
 ## Acknowledgments
 
 These tools were created to support various tabletop RPG systems and solo play methodologies:
+
 - **Action Story**: Character trademark system
 - **Legends in the Mist**: Oracle-based gameplay
 - **One Page Solo Engine (OPSE)**: Card-based GM emulation
@@ -216,4 +235,4 @@ These tools were created to support various tabletop RPG systems and solo play m
 
 ---
 
-*Last Updated: February 19, 2026*
+Last Updated: February 19, 2026
