@@ -20,7 +20,7 @@ This tool provides a set of oracles for quickly generating narrative prompts, ch
 
 ## Directory Structure
 
-```
+
 LitM Oracles/
 ├── src/
 │   └── main.py               # Tkinter GUI and core logic
@@ -32,7 +32,6 @@ LitM Oracles/
 │   ├── revelations.json
 │   ├── challenge_action.json
 │   └── consequence.json
-```
 
 ---
 

@@ -15,7 +15,7 @@ A Python-based Tkinter GUI application for managing and browsing trademarks from
   - Advantages with descriptions
 - **Data Refresh**: Reload JSON data without restarting the application (F5 or Refresh button)
 - **Unicode Support**: Proper handling of special characters and Unicode text normalization
-- **Keyboard Shortcuts**: 
+- **Keyboard Shortcuts**:
   - F5: Refresh data
   - Ctrl+F: Focus search box
 - **Resizable Interface**: Adjustable paned window for customizing view areas
@@ -29,20 +29,24 @@ A Python-based Tkinter GUI application for managing and browsing trademarks from
 ## Installation
 
 1. **Clone or Download the Repository**:
+
    ```bash
    git clone https://github.com/ChrisPaladino/PythonRPGUtilities
    cd "Action Story Trademark Manager"
    ```
 
-2. **Ensure Python is Installed**: 
+2. **Ensure Python is Installed**:
    Verify Python 3 is installed:
+
    ```bash
    python3 --version
    ```
-   Install Python if needed from https://www.python.org/downloads
 
-3. **Install Tkinter (if not included)**: 
+   Install Python if needed from <https://www.python.org/downloads>
+
+3. **Install Tkinter (if not included)**:
    On Linux, you may need:
+
    ```bash
    sudo apt-get install python3-tk  # Debian/Ubuntu
    sudo yum install python3-tkinter  # CentOS/RHEL
@@ -55,6 +59,7 @@ A Python-based Tkinter GUI application for managing and browsing trademarks from
 ## Usage
 
 1. **Launch the Application**:
+
    ```bash
    python3 src/ActionStoryTrademarkManager.py
    ```
@@ -99,12 +104,14 @@ The `trademarks.json` file should follow this structure:
 ```
 
 ### Required Fields
+
 - `name`: String - The trademark's name
 - `source`: String - The source book or material
 - `type`: String - The category (Background, Career, etc.)
 - `description`: String - Full description text
 
 ### Optional Fields (will default to empty if missing)
+
 - `traits`: Array of strings - Character traits
 - `flaws`: Array of strings - Character flaws
 - `gear`: Array of strings - Starting equipment
@@ -112,7 +119,7 @@ The `trademarks.json` file should follow this structure:
 
 ## Directory Structure
 
-```
+```text
 Action Story Trademark Manager/
 ├── src/
 │   └── ActionStoryTrademarkManager.py  # Main application file
@@ -125,17 +132,20 @@ Action Story Trademark Manager/
 ## Features in Detail
 
 ### Data Validation
+
 - Automatically validates and normalizes all trademark entries on load
 - Ensures all required fields are present with correct data types
 - Normalizes Unicode characters to prevent display issues
 - Gracefully handles malformed or missing data
 
 ### Sorting and Organization
+
 - Trademarks are pre-sorted and cached for performance
 - Display format: "Source: Type: Name" for easy scanning
 - Alphabetical sorting within each category
 
 ### Error Handling
+
 - Displays user-friendly error messages for file and JSON issues
 - Continues operation even if individual trademarks have problems
 - Logs warnings to stderr for invalid entries

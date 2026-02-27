@@ -81,9 +81,9 @@ Then run the script directly.
 ## Notes
 
 - Sorting: Relies on alphanumeric folder/file naming (e.g., 1-Sessions before 2-PCs). Adjust your folder names for desired order.
-- Page Breaks: The HTML <div> works with some PDF converters (e.g., Pandoc). For other tools, you might need to tweak the separator.
+- Page Breaks: The HTML `<div>` works with some PDF converters (e.g., Pandoc). For other tools, you might need to tweak the separator.
 - Error Handling: Skips problematic files (e.g., permission issues) and logs errors to the console.
-- Ignored Files/Folders: Folders and files starting with . or _ (e.g., .obsidian, _trash, .hidden.md, _notes.md) are automatically skipped to avoid processing hidden or temporary content.
+- Ignored Files/Folders: Folders and files starting with `.` or `_` (e.g., `.obsidian`, `_trash`, `.hidden.md`, `_notes.md`) are automatically skipped to avoid processing hidden or temporary content.
 
 ## Contributing
 
