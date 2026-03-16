@@ -20,9 +20,9 @@ This tool provides a set of oracles for quickly generating narrative prompts, ch
 
 ## Directory Structure
 
-LitM Oracles/
+litm_oracles/
 ├── src/
-│   └── main.py               # Tkinter GUI and core logic
+│   └── litm_oracles.py       # Tkinter GUI and core logic
 ├── docs/
 │   └── readme.md             # This file
 ├── data/
@@ -44,7 +44,7 @@ LitM Oracles/
 2. **Run the application**
 
    ```bash
-   python src/main.py
+   python src/litm_oracles.py
    ```
 
 ---

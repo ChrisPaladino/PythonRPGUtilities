@@ -32,7 +32,7 @@ A Python-based Tkinter GUI application for managing and browsing trademarks from
 
    ```bash
    git clone https://github.com/ChrisPaladino/PythonRPGUtilities
-   cd "Action Story Trademark Manager"
+   cd action_story_trademark_manager
    ```
 
 2. **Ensure Python is Installed**:
@@ -61,7 +61,7 @@ A Python-based Tkinter GUI application for managing and browsing trademarks from
 1. **Launch the Application**:
 
    ```bash
-   python3 src/ActionStoryTrademarkManager.py
+   python3 src/action_story_trademark_manager.py
    ```
 
 2. **Browse Trademarks**:
@@ -120,13 +120,13 @@ The `trademarks.json` file should follow this structure:
 ## Directory Structure
 
 ```text
-Action Story Trademark Manager/
+action_story_trademark_manager/
 ├── src/
-│   └── ActionStoryTrademarkManager.py  # Main application file
+│   └── action_story_trademark_manager.py  # Main application file
 ├── data/
-│   └── trademarks.json                 # Trademark database
+│   └── trademarks.json                    # Trademark database
 └── docs/
-    └── readme.md                       # This file
+    └── readme.md                          # This file
 ```
 
 ## Features in Detail

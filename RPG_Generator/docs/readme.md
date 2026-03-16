@@ -23,7 +23,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 
 1. **Clone or Download the Repository**:
     git clone <https://github.com/ChrisPaladino/PythonRPGUtilities>
-    cd RPG_Generator
+    cd rpg_generator
 2. Ensure Python is Installed: Verify Python 3 is installed:
     python3 --version
     Install Python if needed from <https://www.python.org/downloads>
@@ -39,12 +39,12 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 5. Run the Application:
 
     ```bash
-    python3 src/main.py
+    python3 src/rpg_generator.py
     ```
 
 ## Usage
 
-1. Launch the Application: Run `src/main.py` to open the Tkinter GUI with three tabs: Themes, Fate & Oracles, and Characters & Threads.
+1. Launch the Application: Run `src/rpg_generator.py` to open the Tkinter GUI with three tabs: Themes, Fate & Oracles, and Characters & Threads.
 2. Themes Tab:
     - Reorder themes (Action, Mystery, Personal, Social, Tension) using Move Up/Down buttons.
     - Click "Generate Themes" to produce five weighted plot points based on theme order.
@@ -71,10 +71,10 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 
 ## Folder Structure
 
-RPG_Generator/
+rpg_generator/
     ├── src/
     │   ├── data_manager.py        # Handles data operations (add/remove items, save/load JSON)
-    │   ├── main.py                # Entry point, initializes Tkinter and DataManager
+    │   ├── rpg_generator.py       # Entry point, initializes Tkinter and DataManager
     │   ├── logic.py               # Core logic for dice, oracles, NPC generation, and fate checks
     │   └── ui.py                  # Tkinter GUI implementation
     ├── docs/
@@ -99,7 +99,7 @@ RPG_Generator/
 - **Error Handling**: Includes specific exception handling for file operations (OSError) and user input validation (e.g., invalid dice counts).
 - **Mastery Reroll**: After rolling dice, click on individual action dice to reroll them, with visual feedback (blue highlight). Only one mastery reroll per roll session.
 - **Campaign Memory**: The application remembers the last loaded campaign file and automatically loads it on startup for convenience.
-- **Building**: `pyinstaller --onefile --add-data "data/lists;data/lists" --add-data "data/oracles;data/oracles" --windowed src/main.py`
+- **Building**: `pyinstaller --onefile --add-data "data/lists;data/lists" --add-data "data/oracles;data/oracles" --windowed src/rpg_generator.py`
 
 ## Example JSON File Structures
 

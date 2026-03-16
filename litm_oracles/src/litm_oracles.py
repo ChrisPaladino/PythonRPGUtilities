@@ -1,11 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
 import json
-import os
 import random
+from pathlib import Path
 
 # Load Oracle Data
-base_dir = os.path.dirname(os.path.abspath(__file__))
+base_dir = Path(__file__).resolve().parent
 
 interpretive_data = {}
 conflict_data = {}
@@ -15,14 +15,16 @@ consequence_data = {}
 
 
 def load_json_file(filename):
-    data_path = os.path.join(base_dir, "..", "data", filename)
+    data_path = base_dir.parent / "data" / filename
     try:
-        with open(data_path, "r") as file:
+        with data_path.open("r", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
         print(f"Data file not found: {data_path}")
-    except json.JSONDecodeError:
-        print(f"Data file is malformed JSON: {data_path}")
+    except json.JSONDecodeError as exc:
+        print(f"Data file is malformed JSON: {data_path} ({exc})")
+    except OSError as exc:
+        print(f"Failed to read data file: {data_path} ({exc})")
     return None
 
 
@@ -35,6 +37,189 @@ def load_oracle_data():
     challenge_action_data = load_json_file("challenge_action.json") or {}
     consequence_data = load_json_file("consequence.json") or {}
 
+
+def create_results_textbox(frame):
+    result_frame = ttk.Frame(frame)
+    result_frame.pack(fill="both", expand=True, padx=10, pady=10)
+
+    scrollbar = ttk.Scrollbar(result_frame)
+    scrollbar.pack(side="right", fill="y")
+
+    result_textbox = tk.Text(
+        result_frame,
+        wrap="word",
+        font=("Arial", 10),
+        yscrollcommand=scrollbar.set,
+        state="disabled"
+    )
+    result_textbox.pack(fill="both", expand=True)
+    scrollbar.config(command=result_textbox.yview)
+
+    return result_textbox
+
+
+def set_text_content(text_widget, content, use_colored=True):
+    text_widget.config(state="normal")
+    text_widget.delete("1.0", tk.END)
+
+    if use_colored:
+        insert_colored_text(text_widget, content)
+    else:
+        text_widget.insert(tk.END, content)
+
+    text_widget.config(state="disabled")
+
+
+def set_text_results(text_widget, results):
+    text_widget.config(state="normal")
+    text_widget.delete("1.0", tk.END)
+
+    for result in results:
+        insert_colored_text(text_widget, result)
+        text_widget.insert(tk.END, "\n\n")
+
+    text_widget.config(state="disabled")
+
+
+def clean_role_name(role_key):
+    return role_key.replace("[role]", "").replace("[/role]", "")
+
+
+def get_role_key_by_name(role_name):
+    return next((k for k in challenge_action_data.keys() if clean_role_name(k) == role_name), None)
+
+
+def get_clean_roles():
+    return [clean_role_name(role_key) for role_key in challenge_action_data.keys()]
+
+
+def get_random_role_key():
+    return random.choice(list(challenge_action_data.keys()))
+
+
+def parse_roll_range(roll_range):
+    return map(int, roll_range.split("-"))
+
+
+def sorted_roll_keys(entries):
+    return sorted(entries.keys(), key=lambda key: int(key))
+
+
+def has_subcategory_roll_tables(role_data):
+    return isinstance(role_data, dict) and all(isinstance(v, dict) for v in role_data.values())
+
+
+def append_role_entries(step5_lines, title, entries):
+    step5_lines.append(f"\n{title}")
+    for roll_num in sorted_roll_keys(entries):
+        step5_lines.append(f"{roll_num}. {entries[roll_num]}")
+
+
+def render_profile_step5(role_name, role_data):
+    step5_lines = [f"Step 5: Threats & Consequences\nRole: {role_name}\n"]
+
+    if has_subcategory_roll_tables(role_data):
+        for sub_name, sub_entries in role_data.items():
+            append_role_entries(step5_lines, f"{sub_name.capitalize()} — Threats & Consequences", sub_entries)
+    else:
+        append_role_entries(step5_lines, f"{role_name} — Threats & Consequences", role_data)
+
+    return "\n".join(step5_lines)
+
+
+def format_consequence_result(roll_d66_value, roll_range, consequence, roll_d6_value, specific):
+    return (
+        f"Consequence Oracle (Rolled {roll_d66_value} → {roll_range}):\n\n"
+        f"{consequence}\n\n"
+        f"Specific Consequence (Rolled {roll_d6_value}):\n{specific}"
+    )
+
+
+def find_consequence_result(roll_d66_value, roll_d6_value):
+    for roll_range, entry in consequence_data.items():
+        low, high = parse_roll_range(roll_range)
+        if low <= roll_d66_value <= high:
+            consequence = entry["Consequence"]
+            specific = entry["Specific"].get(str(roll_d6_value), "(No specific consequence)")
+            return format_consequence_result(roll_d66_value, roll_range, consequence, roll_d6_value, specific)
+
+    return f"(No entry found for roll {roll_d66_value})"
+
+
+def format_revelations_result(roll, roll_range, acts):
+    return (
+        f"Revelations Oracle (Rolled {roll} → {roll_range}):\n\n"
+        f"Act I: {acts['Act I']}\n\n"
+        f"Act II: {acts['Act II']}\n\n"
+        f"Act III: {acts['Act III']}"
+    )
+
+
+def find_revelation_result(roll):
+    for roll_range, acts in revelations_data.items():
+        low, high = parse_roll_range(roll_range)
+        if low <= roll <= high:
+            return format_revelations_result(roll, roll_range, acts)
+
+    return f"(No entry found for roll {roll})"
+
+
+def get_yesno_outcome(total):
+    if total <= 2:
+        return "Extreme No"
+    if 3 <= total <= 6:
+        return "No"
+    if 7 <= total <= 9:
+        return "Complicated (Yes with caveat or No with complication)"
+    if 10 <= total <= 11:
+        return "Yes"
+    return "Extreme Yes"
+
+
+def format_yesno_result(total, base_roll, power, result):
+    modifier_str = f"+{power}" if power >= 0 else f"{power}"
+    return f"You rolled: {total} ({base_roll}{modifier_str}) →  {result}"
+
+
+def select_profile_role(selected_role):
+    if selected_role == "Random":
+        role_key = get_random_role_key()
+        return role_key, clean_role_name(role_key)
+
+    role_key = get_role_key_by_name(selected_role)
+    return role_key, selected_role
+
+
+def select_challenge_rating(selected_cr):
+    if selected_cr == "Random":
+        challenge_rating = random.randint(1, 5)
+        cr_text = f"Step 2: Challenge Rating (Rolled {challenge_rating}) → {challenge_rating}"
+    else:
+        challenge_rating = int(selected_cr)
+        cr_text = f"Step 2: Challenge Rating → {challenge_rating}"
+
+    return challenge_rating, cr_text
+
+
+def build_limits_text(challenge_rating):
+    hard = challenge_rating + 1
+    medium = challenge_rating
+    easy = challenge_rating - 1 if challenge_rating - 1 > 0 else None
+
+    limits = [f"Hard: {hard}", f"Medium: {medium}"]
+    if easy:
+        limits.append(f"Easy: {easy}")
+
+    return "Step 3: Limits\n" + "\n".join(limits)
+
+
+def build_tags_statuses_text(challenge_rating):
+    return f"Step 4: Tags & Statuses\nTags: {challenge_rating}\nStatuses: {challenge_rating}"
+
+
+def build_oracle_category_results(data):
+    return [roll_category(data, category) for category in data.keys()]
+
 # --- Utility Functions ---
 def clear_frame(frame):
     for widget in frame.winfo_children():
@@ -42,10 +227,7 @@ def clear_frame(frame):
 
 
 def display_missing_data(text_widget, dataset_name):
-    text_widget.config(state="normal")
-    text_widget.delete("1.0", tk.END)
-    text_widget.insert(tk.END, f"{dataset_name} data is unavailable.")
-    text_widget.config(state="disabled")
+    set_text_content(text_widget, f"{dataset_name} data is unavailable.", use_colored=False)
 
 
 def roll_category(data, category_name, depth=0):
@@ -74,41 +256,15 @@ def show_interpretive(frame):
         if not interpretive_data:
             display_missing_data(result_textbox, "Interpretive oracle")
             return
-        results = []
-        for category in interpretive_data.keys():
-            result_text = roll_category(interpretive_data, category)
-            results.append(result_text)
-
-        # Display results
-        result_textbox.config(state="normal")
-        result_textbox.delete("1.0", tk.END)
-        for result in results:
-            insert_colored_text(result_textbox, result)
-            result_textbox.insert(tk.END, "\n\n")
-
-        result_textbox.config(state="disabled")
+        results = build_oracle_category_results(interpretive_data)
+        set_text_results(result_textbox, results)
 
     ttk.Label(frame, text="Interpretive Oracle", font=("Arial", 14)).pack(pady=10)
 
     roll_button = ttk.Button(frame, text="Roll Interpretive Oracle", command=roll_and_display)
     roll_button.pack(pady=10)
 
-    # Scrollable text box
-    result_frame = ttk.Frame(frame)
-    result_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-    scrollbar = ttk.Scrollbar(result_frame)
-    scrollbar.pack(side="right", fill="y")
-
-    result_textbox = tk.Text(
-        result_frame,
-        wrap="word",
-        font=("Arial", 10),
-        yscrollcommand=scrollbar.set,
-        state="disabled"
-    )
-    result_textbox.pack(fill="both", expand=True)
-    scrollbar.config(command=result_textbox.yview)
+    result_textbox = create_results_textbox(frame)
 
 def insert_colored_text(text_widget, content):
     """Inserts text into a Tkinter Text widget with background colors for tag/status/limit and bold for role."""
@@ -162,49 +318,15 @@ def show_consequence(frame):
         roll_d66_value = roll_d66()
         roll_d6_value = roll_d6()
 
-        # Find which range the d66 roll falls into
-        result_text = None
-        for roll_range, entry in consequence_data.items():
-            low, high = map(int, roll_range.split("-"))
-            if low <= roll_d66_value <= high:
-                consequence = entry["Consequence"]
-                specific = entry["Specific"].get(str(roll_d6_value), "(No specific consequence)")
-                result_text = (
-                    f"Consequence Oracle (Rolled {roll_d66_value} → {roll_range}):\n\n"
-                    f"{consequence}\n\n"
-                    f"Specific Consequence (Rolled {roll_d6_value}):\n{specific}"
-                )
-                break
-        if not result_text:
-            result_text = f"(No entry found for roll {roll_d66_value})"
-
-        # Display results
-        result_textbox.config(state="normal")
-        result_textbox.delete("1.0", tk.END)
-        insert_colored_text(result_textbox, result_text)  # Use our color/bold tagging
-        result_textbox.config(state="disabled")
+        result_text = find_consequence_result(roll_d66_value, roll_d6_value)
+        set_text_content(result_textbox, result_text)
 
     ttk.Label(frame, text="Consequence Oracle", font=("Arial", 14)).pack(pady=10)
 
     roll_button = ttk.Button(frame, text="Roll Consequence Oracle", command=roll_and_display)
     roll_button.pack(pady=10)
 
-    # Scrollable text box
-    result_frame = ttk.Frame(frame)
-    result_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-    scrollbar = ttk.Scrollbar(result_frame)
-    scrollbar.pack(side="right", fill="y")
-
-    result_textbox = tk.Text(
-        result_frame,
-        wrap="word",
-        font=("Arial", 10),
-        yscrollcommand=scrollbar.set,
-        state="disabled"
-    )
-    result_textbox.pack(fill="both", expand=True)
-    scrollbar.config(command=result_textbox.yview)
+    result_textbox = create_results_textbox(frame)
 
 def show_conflict(frame):
     clear_frame(frame)
@@ -213,41 +335,15 @@ def show_conflict(frame):
         if not conflict_data:
             display_missing_data(result_textbox, "Conflict oracle")
             return
-        results = []
-        for category in conflict_data.keys():
-            result_text = roll_category(conflict_data, category)
-            results.append(result_text)
-
-        # Display results
-        result_textbox.config(state="normal")
-        result_textbox.delete("1.0", tk.END)
-        for result in results:
-            insert_colored_text(result_textbox, result)
-            result_textbox.insert(tk.END, "\n\n")
-
-        result_textbox.config(state="disabled")
+        results = build_oracle_category_results(conflict_data)
+        set_text_results(result_textbox, results)
 
     ttk.Label(frame, text="Conflict Oracle", font=("Arial", 14)).pack(pady=10)
 
     roll_button = ttk.Button(frame, text="Roll Conflict Oracle", command=roll_and_display)
     roll_button.pack(pady=10)
 
-    # Scrollable text box
-    result_frame = ttk.Frame(frame)
-    result_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-    scrollbar = ttk.Scrollbar(result_frame)
-    scrollbar.pack(side="right", fill="y")
-
-    result_textbox = tk.Text(
-        result_frame,
-        wrap="word",
-        font=("Arial", 10),
-        yscrollcommand=scrollbar.set,
-        state="disabled"
-    )
-    result_textbox.pack(fill="both", expand=True)
-    scrollbar.config(command=result_textbox.yview)
+    result_textbox = create_results_textbox(frame)
 
 def roll_d6():
     return random.randint(1, 6)
@@ -266,16 +362,15 @@ def roll_challenge_action(role_override=None):
         return (role_override or "Unknown", None, "?", "Challenge action data is unavailable.")
     if role_override:
         # User picked a role, find matching JSON key
-        json_keys = challenge_action_data.keys()
-        role_lookup = next((k for k in json_keys if k.replace("[role]", "").replace("[/role]", "") == role_override), None)
+        role_lookup = get_role_key_by_name(role_override)
         if role_lookup is None:
             return (role_override, None, "?", f"(Role '{role_override}' not found in challenge_action.json)")
     else:
         # Randomly pick JSON key directly
-        role_lookup = random.choice(list(challenge_action_data.keys()))
+        role_lookup = get_random_role_key()
 
     # Clean name for display
-    display_role = role_lookup.replace("[role]", "").replace("[/role]", "")
+    display_role = clean_role_name(role_lookup)
 
     role_data = challenge_action_data[role_lookup]
     roll = str(roll_d6())
@@ -301,65 +396,24 @@ def show_profile_builder(frame):
             return
         # STEP 1: Role selection
         selected_role = role_var.get()
-        role_override = None if selected_role == "Random" else selected_role
+        role_key, role_name = select_profile_role(selected_role)
 
         # STEP 2: Challenge Rating (either dropdown or random)
         selected_cr = cr_var.get()
-        if selected_cr == "Random":
-            challenge_rating = random.randint(1, 5)
-            cr_text = f"Step 2: Challenge Rating (Rolled {challenge_rating}) → {challenge_rating}"
-        else:
-            challenge_rating = int(selected_cr)
-            cr_text = f"Step 2: Challenge Rating → {challenge_rating}"
+        challenge_rating, cr_text = select_challenge_rating(selected_cr)
         results = [cr_text]
 
         # STEP 3: Limits
-        hard = challenge_rating + 1
-        medium = challenge_rating
-        easy = challenge_rating - 1 if challenge_rating - 1 > 0 else None
-        limits = [f"Hard: {hard}", f"Medium: {medium}"]
-        if easy:
-            limits.append(f"Easy: {easy}")
-        results.append("Step 3: Limits\n" + "\n".join(limits))
+        results.append(build_limits_text(challenge_rating))
 
         # STEP 4: Tags & Statuses
-        results.append(f"Step 4: Tags & Statuses\nTags: {challenge_rating}\nStatuses: {challenge_rating}")
+        results.append(build_tags_statuses_text(challenge_rating))
 
         # STEP 5: Threats & Consequences — show ALL powers, not one roll
-        if role_override:
-            role_key = next(
-                (k for k in challenge_action_data.keys()
-                 if k.replace("[role]", "").replace("[/role]", "") == role_override),
-                None
-            )
-        else:
-            role_key = random.choice(list(challenge_action_data.keys()))
-            role_override = role_key.replace("[role]", "").replace("[/role]", "")
-
         role_data = challenge_action_data[role_key]
-        step5_lines = [f"Step 5: Threats & Consequences\nRole: {role_override}\n"]
+        results.append(render_profile_step5(role_name, role_data))
 
-        # if dict has subcategories (like Charge), group them
-        if isinstance(role_data, dict) and all(isinstance(v, dict) for v in role_data.values()):
-            for sub_name, sub_entries in role_data.items():
-                step5_lines.append(f"\n{sub_name.capitalize()} — Threats & Consequences")
-                for roll_num in sorted(sub_entries.keys(), key=lambda x: int(x)):
-                    step5_lines.append(f"{roll_num}. {sub_entries[roll_num]}")
-        else:
-            # flat list of 1–6
-            step5_lines.append(f"\n{role_override} — Threats & Consequences")
-            for roll_num in sorted(role_data.keys(), key=lambda x: int(x)):
-                step5_lines.append(f"{roll_num}. {role_data[roll_num]}")
-
-        results.append("\n".join(step5_lines))
-
-        # Display results
-        result_textbox.config(state="normal")
-        result_textbox.delete("1.0", tk.END)
-        for result in results:
-            insert_colored_text(result_textbox, result)
-            result_textbox.insert(tk.END, "\n\n")
-        result_textbox.config(state="disabled")
+        set_text_results(result_textbox, results)
 
     # --- UI ELEMENTS ---
     ttk.Label(frame, text="Profile Builder", font=("Arial", 14)).pack(pady=10)
@@ -368,7 +422,7 @@ def show_profile_builder(frame):
     ttk.Label(frame, text="Select Role (or leave Random):").pack(pady=5)
     role_var = tk.StringVar()
     role_dropdown = ttk.Combobox(frame, textvariable=role_var, state="readonly")
-    clean_roles = [r.replace("[role]", "").replace("[/role]", "") for r in challenge_action_data.keys()]
+    clean_roles = get_clean_roles()
     role_dropdown["values"] = ["Random"] + clean_roles
     role_dropdown.current(0)
     role_dropdown.pack(pady=5)
@@ -384,22 +438,7 @@ def show_profile_builder(frame):
     # Build button
     ttk.Button(frame, text="Build Profile", command=build_profile).pack(pady=10)
 
-    # Scrollable output area
-    result_frame = ttk.Frame(frame)
-    result_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-    scrollbar = ttk.Scrollbar(result_frame)
-    scrollbar.pack(side="right", fill="y")
-
-    result_textbox = tk.Text(
-        result_frame,
-        wrap="word",
-        font=("Arial", 10),
-        yscrollcommand=scrollbar.set,
-        state="disabled"
-    )
-    result_textbox.pack(fill="both", expand=True)
-    scrollbar.config(command=result_textbox.yview)
+    result_textbox = create_results_textbox(frame)
 
 def show_revelations(frame):
     clear_frame(frame)
@@ -409,48 +448,15 @@ def show_revelations(frame):
             display_missing_data(result_textbox, "Revelations oracle")
             return
         roll = roll_d66()
-        # Find which range the roll falls into
-        result_text = None
-        for roll_range, acts in revelations_data.items():
-            low, high = map(int, roll_range.split("-"))
-            if low <= roll <= high:
-                result_text = (
-                    f"Revelations Oracle (Rolled {roll} → {roll_range}):\n\n"
-                    f"Act I: {acts['Act I']}\n\n"
-                    f"Act II: {acts['Act II']}\n\n"
-                    f"Act III: {acts['Act III']}"
-                )
-                break
-        if not result_text:
-            result_text = f"(No entry found for roll {roll})"
-
-        # Display results
-        result_textbox.config(state="normal")
-        result_textbox.delete("1.0", tk.END)
-        insert_colored_text(result_textbox, result_text)  # supports color/bold tags
-        result_textbox.config(state="disabled")
+        result_text = find_revelation_result(roll)
+        set_text_content(result_textbox, result_text)
 
     ttk.Label(frame, text="Revelations Oracle", font=("Arial", 14)).pack(pady=10)
 
     roll_button = ttk.Button(frame, text="Roll Revelations Oracle", command=roll_and_display)
     roll_button.pack(pady=10)
 
-    # Scrollable text box
-    result_frame = ttk.Frame(frame)
-    result_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-    scrollbar = ttk.Scrollbar(result_frame)
-    scrollbar.pack(side="right", fill="y")
-
-    result_textbox = tk.Text(
-        result_frame,
-        wrap="word",
-        font=("Arial", 10),
-        yscrollcommand=scrollbar.set,
-        state="disabled"
-    )
-    result_textbox.pack(fill="both", expand=True)
-    scrollbar.config(command=result_textbox.yview)
+    result_textbox = create_results_textbox(frame)
 
 def show_yesno(frame):
     clear_frame(frame)
@@ -464,20 +470,8 @@ def show_yesno(frame):
 
         base_roll = roll_2d6()
         total = base_roll + power
-        modifier_str = f"+{power}" if power >= 0 else f"{power}"  # format +2 or -3
-
-        if total <= 2:
-            result = "Extreme No"
-        elif 3 <= total <= 6:
-            result = "No"
-        elif 7 <= total <= 9:
-            result = "Complicated (Yes with caveat or No with complication)"
-        elif 10 <= total <= 11:
-            result = "Yes"
-        else:
-            result = "Extreme Yes"
-
-        result_var.set(f"You rolled: {total} ({base_roll}{modifier_str}) →  {result}")
+        result = get_yesno_outcome(total)
+        result_var.set(format_yesno_result(total, base_roll, power, result))
 
     ttk.Label(frame, text="Yes/No Oracle", font=("Arial", 14)).pack(pady=10)
 

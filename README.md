@@ -16,8 +16,8 @@ A Tkinter GUI application for managing and browsing character trademarks from th
 - Data refresh without restarting
 - Unicode support with proper text normalization
 
-**Location:** `Action Story Trademark Manager/`  
-**Documentation:** [readme.md](Action%20Story%20Trademark%20Manager/docs/readme.md)
+**Location:** `action_story_trademark_manager/`  
+**Documentation:** [readme.md](action_story_trademark_manager/docs/readme.md)
 
 ### 2. ConCat Markdown
 
@@ -31,8 +31,8 @@ A Python script to concatenate all Markdown files from an Obsidian vault (or any
 - Ignores hidden and special files/folders (.obsidian, _trash, etc.)
 - GUI folder and file selection
 
-**Location:** `ConCat Markdown/`  
-**Documentation:** [readme.md](ConCat%20Markdown/docs/readme.md)
+**Location:** `concat_markdown/`  
+**Documentation:** [readme.md](concat_markdown/docs/readme.md)
 
 ### 3. LitM Oracles
 
@@ -48,8 +48,8 @@ A Tkinter GUI application for rolling oracles to support *Legends in the Mist* t
 - Consequence Oracle for failed actions
 - Revelations Oracle for story-driven revelations
 
-**Location:** `LitM Oracles/`  
-**Documentation:** [readme.md](LitM%20Oracles/docs/readme.md)
+**Location:** `litm_oracles/`  
+**Documentation:** [readme.md](litm_oracles/docs/readme.md)
 
 ### 4. One Page Solo Engine (OPSE)
 
@@ -66,8 +66,8 @@ A comprehensive Tkinter GUI implementing the One Page Solo Engine system for sol
 - Pacing and failure move tables
 - Multiple dice rollers
 
-**Location:** `OnePageSoloEngine/`  
-**Documentation:** [readme.md](OnePageSoloEngine/docs/readme.md)
+**Location:** `one_page_solo_engine/`  
+**Documentation:** [readme.md](one_page_solo_engine/docs/readme.md)
 
 ### 5. RPG Generator
 
@@ -84,8 +84,8 @@ A versatile TTRPG helper application providing dice rolling, oracles, NPC genera
 - Campaign save/load functionality
 - NPC interaction system
 
-**Location:** `RPG_Generator/`  
-**Documentation:** [readme.md](RPG_Generator/docs/readme.md)
+**Location:** `rpg_generator/`  
+**Documentation:** [readme.md](rpg_generator/docs/readme.md)
 
 ## Requirements
 
@@ -110,19 +110,19 @@ Some projects also require JSON data files which are included in their respectiv
 
    ```bash
    # Action Story Trademark Manager
-   python3 "Action Story Trademark Manager/src/ActionStoryTrademarkManager.py"
+   python3 action_story_trademark_manager/src/action_story_trademark_manager.py
    
    # ConCat Markdown
-   python3 "ConCat Markdown/src/combine_markdown.py"
+   python3 concat_markdown/src/combine_markdown.py
    
    # LitM Oracles
-   python3 "LitM Oracles/src/main.py"
+   python3 litm_oracles/src/litm_oracles.py
    
    # One Page Solo Engine
-   python3 "OnePageSoloEngine/src/opse_tk.py"
+   python3 one_page_solo_engine/src/opse_app.py
    
    # RPG Generator
-   python3 "RPG_Generator/src/main.py"
+   python3 rpg_generator/src/rpg_generator.py
    ```
 
 3. **Read Documentation**:
@@ -131,21 +131,21 @@ Some projects also require JSON data files which are included in their respectiv
 ## Project Structure
 
 PythonRPGUtilities/
-├── Action Story Trademark Manager/
+├── action_story_trademark_manager/
 │   ├── src/                    # Python source code
 │   ├── data/                   # JSON trademark database
 │   └── docs/                   # Documentation
-├── ConCat Markdown/
+├── concat_markdown/
 │   ├── src/                    # Python source code
 │   └── docs/                   # Documentation
-├── LitM Oracles/
+├── litm_oracles/
 │   ├── src/                    # Python source code
 │   ├── data/                   # Oracle JSON files
 │   └── docs/                   # Documentation
-├── OnePageSoloEngine/
+├── one_page_solo_engine/
 │   ├── src/                    # Python source code
 │   └── docs/                   # Documentation
-├── RPG_Generator/
+├── rpg_generator/
 │   ├── src/                    # Python source code
 │   ├── data/                   # Campaign and oracle data
 │   └── docs/                   # Documentation

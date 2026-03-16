@@ -54,7 +54,7 @@ The One Page Solo Engine is a GM emulator system that uses a standard 52-card de
 
    ```bash
    git clone https://github.com/ChrisPaladino/PythonRPGUtilities
-   cd OnePageSoloEngine
+   cd one_page_solo_engine
    ```
 
 2. **Ensure Python is Installed**:
@@ -79,7 +79,7 @@ The One Page Solo Engine is a GM emulator system that uses a standard 52-card de
 1. **Launch the Application**:
 
    ```bash
-   python3 src/opse_tk.py
+   python3 src/opse_app.py
    ```
 
 2. **Interface Layout**:
@@ -252,9 +252,9 @@ Convenient access to:
 ## Directory Structure
 
 ```text
-OnePageSoloEngine/
+one_page_solo_engine/
 ├── src/
-│   └── opse_tk.py     # Main application file
+│   └── opse_app.py    # Main application file
 └── docs/
     └── readme.md      # This file
 ```
@@ -321,7 +321,7 @@ The application stores all tables as dictionaries in the source code. You can ea
 - Generator tables (NPC_IDENTITY, PLOT_OBJECTIVE, etc.)
 - Location tables (DUNGEON_*, HEX_*)
 
-Simply edit the relevant dictionary in `opse_tk.py` and restart the application.
+Simply edit the relevant dictionary in `opse_app.py` and restart the application.
 
 ## Future Enhancements
 
