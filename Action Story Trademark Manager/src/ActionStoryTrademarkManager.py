@@ -1,13 +1,13 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
-import os
 import unicodedata
 import sys
+from pathlib import Path
 
 # Set up relative paths
-script_dir = os.path.dirname(os.path.abspath(__file__))
-JSON_PATH = os.path.join(script_dir, "..", "data", "trademarks.json")
+script_dir = Path(__file__).resolve().parent
+JSON_PATH = script_dir.parent / "data" / "trademarks.json"
 
 # Main Application
 class TrademarkManagerApp:
@@ -26,6 +26,27 @@ class TrademarkManagerApp:
         
         # Create UI
         self.create_ui()
+
+    @staticmethod
+    def format_display_text(trademark):
+        return f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
+
+    @staticmethod
+    def build_searchable_text(trademark):
+        searchable_parts = [
+            trademark.get("source", ""),
+            trademark.get("type", ""),
+            trademark.get("name", ""),
+            trademark.get("description", ""),
+            " ".join(trademark.get("traits", [])),
+            " ".join(trademark.get("flaws", [])),
+            " ".join(trademark.get("gear", [])),
+            " ".join(
+                adv.get("name", "") + " " + adv.get("description", "")
+                for adv in trademark.get("advantages", [])
+            )
+        ]
+        return " ".join(searchable_parts).lower()
         
     def normalize_text(self, text):
         """Normalize Unicode characters to ASCII-compatible forms."""
@@ -76,11 +97,11 @@ class TrademarkManagerApp:
     def load_trademarks(self):
         """Load and validate trademarks from JSON file."""
         try:
-            if not os.path.exists(JSON_PATH):
+            if not JSON_PATH.exists():
                 self.show_error("File Not Found", f"Could not find {JSON_PATH}")
                 return
                 
-            with open(JSON_PATH, "r", encoding="utf-8") as file:
+            with JSON_PATH.open("r", encoding="utf-8") as file:
                 data = json.load(file)
                 
             if not isinstance(data, dict):
@@ -114,7 +135,7 @@ class TrademarkManagerApp:
             
         except json.JSONDecodeError as e:
             self.show_error("JSON Error", f"Invalid JSON format: {str(e)}")
-        except Exception as e:
+        except OSError as e:
             self.show_error("Error", f"Failed to load trademarks: {str(e)}")
     
     def show_error(self, title, message):
@@ -124,14 +145,17 @@ class TrademarkManagerApp:
                 messagebox.showerror(title, message)
             else:
                 print(f"ERROR - {title}: {message}", file=sys.stderr)
-        except:
+        except tk.TclError:
             print(f"ERROR - {title}: {message}", file=sys.stderr)
     
     def refresh_data(self):
         """Reload data from JSON file."""
         self.load_trademarks()
         self.populate_trademark_list()
-        messagebox.showinfo("Refresh", "Data reloaded successfully!")
+        try:
+            messagebox.showinfo("Refresh", "Data reloaded successfully!")
+        except tk.TclError:
+            print("INFO - Refresh: Data reloaded successfully!", file=sys.stderr)
 
     def create_ui(self):
         # Main layout
@@ -197,8 +221,7 @@ class TrademarkManagerApp:
         self.current_trademarks = self.sorted_trademarks_cache.copy()
         
         for trademark in self.current_trademarks:
-            display_text = f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
-            self.trademark_listbox.insert(tk.END, display_text)
+            self.trademark_listbox.insert(tk.END, self.format_display_text(trademark))
             
         if not self.current_trademarks:
             self.display_trademark({"name": "No Data", "description": "No trademarks available."})
@@ -212,31 +235,17 @@ class TrademarkManagerApp:
             # No search query - show all trademarks from cache
             self.current_trademarks = self.sorted_trademarks_cache.copy()
             for trademark in self.current_trademarks:
-                display_text = f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
-                self.trademark_listbox.insert(tk.END, display_text)
+                self.trademark_listbox.insert(tk.END, self.format_display_text(trademark))
             return
         
         # Filter using cached sorted data
         matches = []
         for trademark in self.sorted_trademarks_cache:
-            # Build searchable text (already normalized during load)
-            searchable_parts = [
-                trademark.get("source", ""),
-                trademark.get("type", ""),
-                trademark.get("name", ""),
-                trademark.get("description", ""),
-                " ".join(trademark.get("traits", [])),
-                " ".join(trademark.get("flaws", [])),
-                " ".join(trademark.get("gear", [])),
-                " ".join(adv.get("name", "") + " " + adv.get("description", "") 
-                        for adv in trademark.get("advantages", []))
-            ]
-            searchable_text = " ".join(searchable_parts).lower()
+            searchable_text = self.build_searchable_text(trademark)
             
             if query in searchable_text:
                 matches.append(trademark)
-                display_text = f"{trademark['source']}: {trademark['type']}: {trademark['name']}"
-                self.trademark_listbox.insert(tk.END, display_text)
+                self.trademark_listbox.insert(tk.END, self.format_display_text(trademark))
                 
         self.current_trademarks = matches
         if not matches:

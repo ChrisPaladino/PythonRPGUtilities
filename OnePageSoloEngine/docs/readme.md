@@ -45,7 +45,7 @@ The One Page Solo Engine is a GM emulator system that uses a standard 52-card de
 
 ## Requirements
 
-- Python 3.7 or higher
+- Python 3.10 or higher
 - Tkinter (usually included with Python; install `python3-tk` on Linux if needed)
 
 ## Installation

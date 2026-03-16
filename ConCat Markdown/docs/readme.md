@@ -55,7 +55,7 @@ Files like .hidden.md and folders like .obsidian or _trash (and their contents) 
 
 ## Requirements
 
-- Python 3.x
+- Python 3.10+
 - Tkinter (usually included with Python)
 
 ## Usage

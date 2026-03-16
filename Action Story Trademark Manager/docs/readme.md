@@ -22,7 +22,7 @@ A Python-based Tkinter GUI application for managing and browsing trademarks from
 
 ## Requirements
 
-- Python 3.7 or higher
+- Python 3.10 or higher
 - Tkinter (usually included with Python; install `python3-tk` on Linux if needed)
 - JSON data file (`trademarks.json`) in the `data/` directory
 

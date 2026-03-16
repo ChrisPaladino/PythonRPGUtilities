@@ -15,7 +15,7 @@ RPG Generator is a Python-based tabletop role-playing game (TTRPG) helper applic
 
 ## Requirements
 
-- Python 3.7 or higher
+- Python 3.10 or higher
 - Tkinter (usually included with Python; install `python3-tk` on Linux if needed)
 - JSON files (`action_oracle.json`, `npc_data.json`, `plot_points.json`) in the `data/oracles/` directory
 

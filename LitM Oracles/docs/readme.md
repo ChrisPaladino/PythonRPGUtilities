@@ -1,6 +1,6 @@
 # Legends in the Mist: Oracles
 
-A Python 3.x application with a Tkinter GUI for rolling oracles to support *Legends in the Mist* tabletop RPG campaigns.
+A Python 3.10+ application with a Tkinter GUI for rolling oracles to support *Legends in the Mist* tabletop RPG campaigns.
 
 ---
 
@@ -38,7 +38,7 @@ LitM Oracles/
 
 1. **Requirements**
 
-   * Python 3.8+
+   * Python 3.10+
    * Tkinter (bundled with most Python distributions)
 
 2. **Run the application**

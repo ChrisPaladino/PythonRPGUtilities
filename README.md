@@ -91,7 +91,7 @@ A versatile TTRPG helper application providing dice rolling, oracles, NPC genera
 
 All projects require:
 
-- **Python 3.7 or higher**
+- **Python 3.10 or higher**
 - **Tkinter** (usually included with Python; on Linux: `sudo apt-get install python3-tk`)
 
 Some projects also require JSON data files which are included in their respective folders.
@@ -179,7 +179,7 @@ PythonRPGUtilities/
 
 ## Technology Stack
 
-- **Language**: Python 3.7+
+- **Language**: Python 3.10+
 - **GUI Framework**: Tkinter
 - **Data Format**: JSON
 - **Platform**: Cross-platform (Windows, macOS, Linux)
