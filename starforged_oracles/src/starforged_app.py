@@ -109,8 +109,14 @@ def _load_yaml(path: Path) -> dict[str, Any]:
     return yaml.safe_load(_sanitise_yaml(raw)) or {}
 
 
-def _extract_moves(data: dict[str, Any], source_label: str) -> list[dict[str, Any]]:
+def _source_name(data: dict[str, Any], fallback: str) -> str:
+    """Return a friendly game name from a YAML document's top-level _id."""
+    return SOURCE_LABELS.get(data.get("_id", ""), fallback)
+
+
+def _extract_moves(data: dict[str, Any], fallback_label: str) -> list[dict[str, Any]]:
     """Return a flat list of move dicts from a loaded YAML document."""
+    source_name = _source_name(data, fallback_label)
     moves: list[dict[str, Any]] = []
     for cat_key, cat in (data.get("moves") or {}).items():
         if not isinstance(cat, dict):
@@ -121,7 +127,7 @@ def _extract_moves(data: dict[str, Any], source_label: str) -> list[dict[str, An
                 continue
             moves.append(
                 {
-                    "source": source_label,
+                    "source": source_name,
                     "category": cat_name,
                     "key": move_key,
                     "name": move.get("name", move_key),
@@ -201,15 +207,16 @@ def _walk_oracle_collection(
 
 
 def _extract_oracles(
-    data: dict[str, Any], source_label: str
+    data: dict[str, Any], fallback_label: str
 ) -> list[dict[str, Any]]:
     """Return a flat list of oracle tables from a loaded YAML document."""
+    source_name = _source_name(data, fallback_label)
     tables: list[dict[str, Any]] = []
     for _cat_key, cat in (data.get("oracles") or {}).items():
         if not isinstance(cat, dict):
             continue
         cat_name = cat.get("name", _cat_key)
-        _walk_oracle_collection(cat, cat_name, source_label, tables)
+        _walk_oracle_collection(cat, cat_name, source_name, tables)
     return tables
 
 
@@ -217,9 +224,12 @@ def _extract_oracles(
 # App
 # ---------------------------------------------------------------------------
 
-SOURCES = {
-    "Starforged": "SF",
-    "Sundered Isles": "SI",
+# Maps YAML top-level _id values to friendly game names.
+SOURCE_LABELS: dict[str, str] = {
+    "starforged": "Starforged",
+    "sundered_isles": "Sundered Isles",
+    "classic": "Ironsworn",
+    "delve": "Ironsworn: Delve",
 }
 
 BG = "#1e1e2e"
@@ -290,16 +300,16 @@ class App(tk.Tk):
     def _load_data(self) -> None:
         """Load all YAML data; raise SystemExit on missing files."""
         sf_raw = _load_yaml(SF_MOVES_YAML)
-        self._sf_moves = _extract_moves(sf_raw, "SF")
+        self._sf_moves = _extract_moves(sf_raw, "Starforged")
 
         si_session_raw = _load_yaml(SI_MOVES_YAML)
-        self._si_moves = _extract_moves(si_session_raw, "SI")
+        self._si_moves = _extract_moves(si_session_raw, "Sundered Isles")
 
         self._si_oracles: list[dict[str, Any]] = []
         if SI_ORACLES_DIR.is_dir():
             for yaml_file in sorted(SI_ORACLES_DIR.glob("*.yaml")):
                 raw = _load_yaml(yaml_file)
-                self._si_oracles.extend(_extract_oracles(raw, "SI"))
+                self._si_oracles.extend(_extract_oracles(raw, "Sundered Isles"))
 
     # ------------------------------------------------------------------
     # UI layout
@@ -331,11 +341,26 @@ class App(tk.Tk):
         # --- Left panel: filter + listbox ---
         left = ttk.Frame(parent, style="Panel.TFrame")
         left.grid(row=0, column=0, sticky="nsew", padx=(0, 2), pady=0)
-        left.rowconfigure(3, weight=1)
+        left.rowconfigure(5, weight=1)
         left.columnconfigure(0, weight=1)
 
-        ttk.Label(left, text="Category", style="Cat.TLabel").grid(
+        ttk.Label(left, text="Game", style="Cat.TLabel").grid(
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
+        )
+        all_sources = sorted({m["source"] for m in self._sf_moves + self._si_moves})
+        self._move_game_var = tk.StringVar(value="All")
+        game_cb = ttk.Combobox(
+            left,
+            textvariable=self._move_game_var,
+            values=["All"] + all_sources,
+            state="readonly",
+            width=22,
+        )
+        game_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
+        game_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_move_list())
+
+        ttk.Label(left, text="Category", style="Cat.TLabel").grid(
+            row=2, column=0, sticky="w", padx=8, pady=(4, 2)
         )
         self._move_source_var = tk.StringVar(value="All")
         source_cb = ttk.Combobox(
@@ -345,11 +370,11 @@ class App(tk.Tk):
             state="readonly",
             width=22,
         )
-        source_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
+        source_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
         source_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_move_list())
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
-            row=2, column=0, sticky="w", padx=8, pady=(4, 2)
+            row=4, column=0, sticky="w", padx=8, pady=(4, 2)
         )
         self._move_search_var = tk.StringVar()
         self._move_search_var.trace_add("write", lambda *_: self._refresh_move_list())
@@ -364,11 +389,11 @@ class App(tk.Tk):
             highlightcolor=ACCENT,
             highlightbackground=BORDER,
         )
-        search_entry.grid(row=2, column=0, sticky="ew", padx=8, pady=(0, 4))
+        search_entry.grid(row=4, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         # List
         lf = ttk.Frame(left, style="Panel.TFrame")
-        lf.grid(row=3, column=0, sticky="nsew", padx=4, pady=4)
+        lf.grid(row=5, column=0, sticky="nsew", padx=4, pady=4)
         lf.rowconfigure(0, weight=1)
         lf.columnconfigure(0, weight=1)
 
@@ -409,6 +434,7 @@ class App(tk.Tk):
         self._refresh_move_list()
 
     def _refresh_move_list(self) -> None:
+        game_filter = self._move_game_var.get()
         cat_filter = self._move_source_var.get()
         query = self._move_search_var.get().strip().lower()
 
@@ -416,6 +442,8 @@ class App(tk.Tk):
 
         filtered: list[dict[str, Any]] = []
         for m in all_moves:
+            if game_filter != "All" and m["source"] != game_filter:
+                continue
             if cat_filter != "All" and m["category"] != cat_filter:
                 continue
             if query and query not in m["name"].lower() and query not in m["category"].lower():
@@ -425,7 +453,7 @@ class App(tk.Tk):
         self._moves_visible = filtered
         self._move_listbox.delete(0, tk.END)
         for m in filtered:
-            label = f"{m['category']} › {m['name']}"
+            label = f"[{m['source']}]  {m['category']} › {m['name']}"
             self._move_listbox.insert(tk.END, label)
 
     def _on_move_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
@@ -440,7 +468,7 @@ class App(tk.Tk):
 
         lines: list[tuple[str, str]] = []
 
-        lines.append(("cat", f"Category: {move['category']}"))
+        lines.append(("cat", f"{move['source']}  ·  {move['category']}"))
         lines.append(("body", ""))
         if move["trigger"]:
             lines.append(("bold", "Trigger:"))
@@ -522,6 +550,13 @@ class App(tk.Tk):
         self._oracle_listbox.configure(yscrollcommand=sb.set)
         self._oracle_listbox.bind("<<ListboxSelect>>", self._on_oracle_select)
 
+        # Game label for oracles (all currently SI)
+        all_oracle_sources = sorted({o["source"] for o in self._si_oracles})
+        game_label = " / ".join(all_oracle_sources) if all_oracle_sources else "Sundered Isles"
+        ttk.Label(left, text=f"Source: {game_label}", style="Cat.TLabel").grid(
+            row=3, column=0, sticky="w", padx=8, pady=(4, 6)
+        )
+
         # Right panel
         right = ttk.Frame(parent, style="Panel.TFrame")
         right.grid(row=0, column=1, sticky="nsew", padx=(2, 0))
@@ -562,11 +597,12 @@ class App(tk.Tk):
             if not query
             or query in o["name"].lower()
             or query in o["category"].lower()
+            or query in o["source"].lower()
         ]
         self._oracles_visible = filtered
         self._oracle_listbox.delete(0, tk.END)
         for o in filtered:
-            label = f"{o['category']} › {o['name']}"
+            label = f"[{o['source']}]  {o['category']} › {o['name']}"
             self._oracle_listbox.insert(tk.END, label)
 
     def _on_oracle_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
@@ -583,9 +619,9 @@ class App(tk.Tk):
         oracle: dict[str, Any],
         highlight_roll: int | None = None,
     ) -> None:
-        self._oracle_title_var.set(f"{oracle['name']}  [SI]")
+        self._oracle_title_var.set(f"{oracle['name']}  —  {oracle['category']}")
         lines: list[tuple[str, str]] = []
-        lines.append(("cat", f"Category: {oracle['category']}"))
+        lines.append(("cat", f"{oracle['source']}  ·  {oracle['category']}"))
         lines.append(("body", ""))
         for row in oracle.get("rows", []):
             rmin = row.get("min")
