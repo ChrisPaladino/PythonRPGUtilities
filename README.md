@@ -87,6 +87,22 @@ A versatile TTRPG helper application providing dice rolling, oracles, NPC genera
 **Location:** `rpg_generator/`  
 **Documentation:** [readme.md](rpg_generator/docs/readme.md)
 
+### 6. Starforged / Sundered Isles Reference
+
+A Tkinter GUI reference tool for *Ironsworn: Starforged* and *Ironsworn: Sundered Isles* moves and oracle tables.
+
+**Features:**
+
+- Browse all 56 Starforged moves across 12 categories
+- Filter moves by category; live search by name
+- Full move text with colour-coded strong hit / weak hit / miss outcomes
+- Browse ~200 Sundered Isles oracle tables (characters, ships, islands, factions, weather, and more)
+- Roll d100 with result highlighted in the table
+- Data fetched directly from the official [Datasworn repository](https://github.com/rsek/datasworn) (CC-BY-4.0)
+
+**Location:** `starforged_oracles/`  
+**Documentation:** [readme.md](starforged_oracles/docs/readme.md)
+
 ## Requirements
 
 All projects require:
