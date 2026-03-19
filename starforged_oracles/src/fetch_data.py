@@ -18,6 +18,8 @@ BASE_SI = f"{BASE_RAW}/sundered_isles"
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 SI_ORACLES_DIR = DATA_DIR / "si_oracles"
+SF_ASSETS_DIR = DATA_DIR / "sf_assets"
+SI_ASSETS_DIR = DATA_DIR / "si_assets"
 
 # ---------------------------------------------------------------------------
 # Files to download
@@ -29,6 +31,23 @@ SF_FILES: list[tuple[str, str]] = [
 
 SI_MOVE_FILES: list[tuple[str, str]] = [
     (f"{BASE_SI}/moves/session.yaml", "si_session_moves.yaml"),
+]
+
+SF_ASSET_FILES: list[str] = [
+    "command_vehicle.yaml",
+    "companion.yaml",
+    "deed.yaml",
+    "module.yaml",
+    "path.yaml",
+    "support_vehicle.yaml",
+]
+
+SI_ASSET_FILES: list[str] = [
+    "companion.yaml",
+    "deed.yaml",
+    "module.yaml",
+    "path.yaml",
+    "vehicle.yaml",
 ]
 
 SI_ORACLE_FILES: list[str] = [
@@ -78,6 +97,8 @@ def _download(url: str, dest: Path) -> bool:
 def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     SI_ORACLES_DIR.mkdir(parents=True, exist_ok=True)
+    SF_ASSETS_DIR.mkdir(parents=True, exist_ok=True)
+    SI_ASSETS_DIR.mkdir(parents=True, exist_ok=True)
 
     failed: list[str] = []
 
@@ -90,6 +111,18 @@ def main() -> None:
     for url, filename in SI_MOVE_FILES:
         if not _download(url, DATA_DIR / filename):
             failed.append(filename)
+
+    print("\nDownloading Starforged asset data…")
+    for fname in SF_ASSET_FILES:
+        url = f"{BASE_SF}/assets/{fname}"
+        if not _download(url, SF_ASSETS_DIR / fname):
+            failed.append(fname)
+
+    print("\nDownloading Sundered Isles asset data…")
+    for fname in SI_ASSET_FILES:
+        url = f"{BASE_SI}/assets/{fname}"
+        if not _download(url, SI_ASSETS_DIR / fname):
+            failed.append(fname)
 
     print("\nDownloading Sundered Isles oracle tables…")
     for fname in SI_ORACLE_FILES:

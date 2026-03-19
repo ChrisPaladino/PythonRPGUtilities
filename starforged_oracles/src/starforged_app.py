@@ -32,6 +32,8 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 SF_MOVES_YAML = DATA_DIR / "starforged_moves.yaml"
 SI_MOVES_YAML = DATA_DIR / "si_session_moves.yaml"
 SI_ORACLES_DIR = DATA_DIR / "si_oracles"
+SF_ASSETS_DIR = DATA_DIR / "sf_assets"
+SI_ASSETS_DIR = DATA_DIR / "si_assets"
 
 # ---------------------------------------------------------------------------
 # Markdown-to-plain-text helpers
@@ -82,12 +84,18 @@ def _sanitise_yaml(text: str) -> str:
         return f"&{new_name}"
 
     text = re.sub(r"&([A-Za-z0-9_]+)", _rewrite_anchor, text)
-    # Rewrite aliases to point to the latest anchor definition
-    text = re.sub(
-        r"\*([A-Za-z0-9_]+)",
-        lambda m: f"*{anchor_latest.get(m.group(1), m.group(1))}",
-        text,
-    )
+
+    # Rewrite aliases to point to the latest anchor definition.
+    # If an alias name was never defined in this file, replace it with null
+    # rather than letting PyYAML raise a ComposerError.
+    def _rewrite_alias(m: re.Match[str]) -> str:
+        name = m.group(1)
+        new_name = anchor_latest.get(name)
+        if new_name is None:
+            return "null"
+        return f"*{new_name}"
+
+    text = re.sub(r"\*([A-Za-z0-9_]+)", _rewrite_alias, text)
 
     # Replace tab characters outside of leading indentation
     sanitised_lines: list[str] = []
@@ -220,6 +228,39 @@ def _extract_oracles(
     return tables
 
 
+def _extract_assets(
+    data: dict[str, Any], fallback_label: str
+) -> list[dict[str, Any]]:
+    """Return a flat list of asset dicts from a loaded YAML document."""
+    source_name = _source_name(data, fallback_label)
+    assets: list[dict[str, Any]] = []
+    for coll_key, coll in (data.get("assets") or {}).items():
+        if not isinstance(coll, dict):
+            continue
+        # Derive category name: use collection's 'name', strip trailing " Assets"
+        coll_raw_name = coll.get("name", coll_key)
+        coll_cat = re.sub(r"\s+Assets?\s*$", "", coll_raw_name, flags=re.IGNORECASE).strip()
+        for _asset_key, asset in (coll.get("contents") or {}).items():
+            if not isinstance(asset, dict):
+                continue
+            category = asset.get("category") or coll_cat
+            abilities = [
+                strip_markup(ab.get("text", ""))
+                for ab in (asset.get("abilities") or [])
+                if isinstance(ab, dict) and ab.get("text")
+            ]
+            assets.append(
+                {
+                    "source": source_name,
+                    "category": category,
+                    "name": asset.get("name", _asset_key),
+                    "requirement": strip_markup(asset.get("requirement") or ""),
+                    "abilities": abilities,
+                }
+            )
+    return assets
+
+
 # ---------------------------------------------------------------------------
 # App
 # ---------------------------------------------------------------------------
@@ -311,6 +352,18 @@ class App(tk.Tk):
                 raw = _load_yaml(yaml_file)
                 self._si_oracles.extend(_extract_oracles(raw, "Sundered Isles"))
 
+        self._sf_assets: list[dict[str, Any]] = []
+        if SF_ASSETS_DIR.is_dir():
+            for yaml_file in sorted(SF_ASSETS_DIR.glob("*.yaml")):
+                raw = _load_yaml(yaml_file)
+                self._sf_assets.extend(_extract_assets(raw, "Starforged"))
+
+        self._si_assets: list[dict[str, Any]] = []
+        if SI_ASSETS_DIR.is_dir():
+            for yaml_file in sorted(SI_ASSETS_DIR.glob("*.yaml")):
+                raw = _load_yaml(yaml_file)
+                self._si_assets.extend(_extract_assets(raw, "Sundered Isles"))
+
     # ------------------------------------------------------------------
     # UI layout
     # ------------------------------------------------------------------
@@ -328,6 +381,11 @@ class App(tk.Tk):
         oracles_tab = ttk.Frame(notebook)
         notebook.add(oracles_tab, text="  Oracles  ")
         self._build_oracles_tab(oracles_tab)
+
+        # Tab 3 – Assets
+        assets_tab = ttk.Frame(notebook)
+        notebook.add(assets_tab, text="  Assets  ")
+        self._build_assets_tab(assets_tab)
 
     # ------------------------------------------------------------------
     # Moves tab
@@ -653,6 +711,157 @@ class App(tk.Tk):
                 break
         self._roll_result_var.set(f"Rolled {roll}  →  {matching}")
         self._display_oracle(self._current_oracle, highlight_roll=roll)
+
+    # ------------------------------------------------------------------
+    # Assets tab
+    # ------------------------------------------------------------------
+
+    def _build_assets_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=0, minsize=230)
+        parent.columnconfigure(1, weight=1)
+        parent.rowconfigure(0, weight=1)
+
+        # --- Left panel: filter + listbox ---
+        left = ttk.Frame(parent, style="Panel.TFrame")
+        left.grid(row=0, column=0, sticky="nsew", padx=(0, 2))
+        left.rowconfigure(5, weight=1)
+        left.columnconfigure(0, weight=1)
+
+        ttk.Label(left, text="Game", style="Cat.TLabel").grid(
+            row=0, column=0, sticky="w", padx=8, pady=(8, 2)
+        )
+        all_sources = sorted({a["source"] for a in self._sf_assets + self._si_assets})
+        self._asset_game_var = tk.StringVar(value="All")
+        game_cb = ttk.Combobox(
+            left,
+            textvariable=self._asset_game_var,
+            values=["All"] + all_sources,
+            state="readonly",
+            width=22,
+        )
+        game_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
+        game_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_asset_list())
+
+        ttk.Label(left, text="Category", style="Cat.TLabel").grid(
+            row=2, column=0, sticky="w", padx=8, pady=(4, 2)
+        )
+        all_cats = sorted({a["category"] for a in self._sf_assets + self._si_assets})
+        self._asset_cat_var = tk.StringVar(value="All")
+        cat_cb = ttk.Combobox(
+            left,
+            textvariable=self._asset_cat_var,
+            values=["All"] + all_cats,
+            state="readonly",
+            width=22,
+        )
+        cat_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
+        cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_asset_list())
+
+        ttk.Label(left, text="Search", style="Cat.TLabel").grid(
+            row=4, column=0, sticky="w", padx=8, pady=(4, 2)
+        )
+        self._asset_search_var = tk.StringVar()
+        self._asset_search_var.trace_add("write", lambda *_: self._refresh_asset_list())
+        search_entry = tk.Entry(
+            left,
+            textvariable=self._asset_search_var,
+            bg=PANEL_BG,
+            fg=FG,
+            insertbackground=FG,
+            relief="flat",
+            highlightthickness=1,
+            highlightcolor=ACCENT,
+            highlightbackground=BORDER,
+        )
+        search_entry.grid(row=4, column=0, sticky="ew", padx=8, pady=(0, 4))
+
+        lf = ttk.Frame(left, style="Panel.TFrame")
+        lf.grid(row=5, column=0, sticky="nsew", padx=4, pady=4)
+        lf.rowconfigure(0, weight=1)
+        lf.columnconfigure(0, weight=1)
+
+        self._asset_listbox = tk.Listbox(
+            lf,
+            bg=PANEL_BG,
+            fg=FG,
+            selectbackground=ACCENT,
+            selectforeground=BG,
+            activestyle="none",
+            relief="flat",
+            borderwidth=0,
+            highlightthickness=0,
+            font=("Segoe UI", 9),
+        )
+        self._asset_listbox.grid(row=0, column=0, sticky="nsew")
+        sb = ttk.Scrollbar(lf, command=self._asset_listbox.yview)
+        sb.grid(row=0, column=1, sticky="ns")
+        self._asset_listbox.configure(yscrollcommand=sb.set)
+        self._asset_listbox.bind("<<ListboxSelect>>", self._on_asset_select)
+
+        # --- Right panel: detail view ---
+        right = ttk.Frame(parent, style="Panel.TFrame")
+        right.grid(row=0, column=1, sticky="nsew", padx=(2, 0))
+        right.rowconfigure(1, weight=1)
+        right.columnconfigure(0, weight=1)
+
+        self._asset_title_var = tk.StringVar(value="Select an asset →")
+        ttk.Label(
+            right, textvariable=self._asset_title_var, style="Title.TLabel"
+        ).grid(row=0, column=0, sticky="w", padx=10, pady=(10, 2))
+
+        self._asset_text = self._make_textbox(right)
+        self._asset_text.grid(row=1, column=0, sticky="nsew", padx=6, pady=4)
+
+        self._assets_visible: list[dict[str, Any]] = []
+        self._refresh_asset_list()
+
+    def _refresh_asset_list(self) -> None:
+        game_filter = self._asset_game_var.get()
+        cat_filter = self._asset_cat_var.get()
+        query = self._asset_search_var.get().strip().lower()
+
+        all_assets = self._sf_assets + self._si_assets
+
+        filtered: list[dict[str, Any]] = []
+        for a in all_assets:
+            if game_filter != "All" and a["source"] != game_filter:
+                continue
+            if cat_filter != "All" and a["category"] != cat_filter:
+                continue
+            if query and query not in a["name"].lower() and query not in a["category"].lower():
+                continue
+            filtered.append(a)
+
+        self._assets_visible = filtered
+        self._asset_listbox.delete(0, tk.END)
+        for a in filtered:
+            label = f"[{a['source']}]  {a['category']} › {a['name']}"
+            self._asset_listbox.insert(tk.END, label)
+
+    def _on_asset_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
+        selection = self._asset_listbox.curselection()
+        if not selection:
+            return
+        asset = self._assets_visible[selection[0]]
+        self._display_asset(asset)
+
+    def _display_asset(self, asset: dict[str, Any]) -> None:
+        self._asset_title_var.set(f"{asset['name']}  —  {asset['category']}")
+
+        lines: list[tuple[str, str]] = []
+        lines.append(("cat", f"{asset['source']}  ·  {asset['category']}"))
+        lines.append(("body", ""))
+
+        if asset["requirement"]:
+            lines.append(("bold", f"Requirement:  {asset['requirement']}"))
+            lines.append(("body", ""))
+
+        for i, ability_text in enumerate(asset["abilities"], 1):
+            lines.append(("bold", f"Ability {i}"))
+            lines.append(("body", ability_text))
+            lines.append(("body", ""))
+
+        self._set_text_lines(self._asset_text, lines)
 
     # ------------------------------------------------------------------
     # Shared text helpers
