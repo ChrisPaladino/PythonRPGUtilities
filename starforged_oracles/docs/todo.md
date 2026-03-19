@@ -29,7 +29,7 @@ Roll **Challenge Dice** (2d10) and an **Action Roll** (1d6 + STAT).
 Outcome rules (ties always go to the challenge dice — equal does NOT beat):
 
 | Result | Condition |
-|--------|-----------|
+| -------- | ----------- |
 | **Strong Hit with a Match** | Action Roll > both challenge dice, AND the two challenge dice show the same number |
 | **Strong Hit** | Action Roll > both challenge dice (no match) |
 | **Weak Hit** | Action Roll > exactly one challenge die |
