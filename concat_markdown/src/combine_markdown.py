@@ -58,7 +58,7 @@ def unify_markdown_files(folder_path, output_file_path):
     print(f"Found {len(markdown_files)} markdown file(s). Processing...")
 
     processed_count = 0
-    skipped_count = 0
+    skipped_files: list[tuple[str, str]] = []  # (relative_path, reason)
 
     try:
         with destination_file.open("w", encoding="utf-8") as output_file:
@@ -69,13 +69,15 @@ def unify_markdown_files(folder_path, output_file_path):
                 try:
                     content = file_path.read_text(encoding="utf-8")
                 except (OSError, UnicodeDecodeError) as exc:
-                    print(f"  Error processing '{file_path}': {exc}")
-                    skipped_count += 1
+                    reason = f"read error: {exc}"
+                    print(f"  Skipped ({reason})")
+                    skipped_files.append((str(relative_path), reason))
                     continue
 
                 if not content.strip():
-                    print(f"  Skipped (empty): {relative_path}")
-                    skipped_count += 1
+                    reason = "empty file"
+                    print(f"  Skipped ({reason})")
+                    skipped_files.append((str(relative_path), reason))
                     continue
 
                 header = _build_header(file_path, source_folder)
@@ -91,9 +93,15 @@ def unify_markdown_files(folder_path, output_file_path):
         show_error("Write Error", f"Failed to write to '{destination_file}': {exc}")
         return False
 
+    skipped_count = len(skipped_files)
     summary = f"Successfully processed {processed_count} file(s) into '{destination_file.name}'"
     if skipped_count > 0:
-        summary += f"\n{skipped_count} file(s) were skipped due to errors or empty content."
+        summary += f"\n{skipped_count} file(s) were skipped."
+
+    if skipped_files:
+        print("\nSkipped files:")
+        for path, reason in skipped_files:
+            print(f"  - {path}  ({reason})")
 
     print(f"\n{summary}")
     show_info("Success", summary)
