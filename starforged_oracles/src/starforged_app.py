@@ -33,6 +33,7 @@ SF_MOVES_YAML = DATA_DIR / "starforged_moves.yaml"
 SI_MOVES_YAML = DATA_DIR / "si_session_moves.yaml"
 SF_ORACLES_DIR = DATA_DIR / "sf_oracles"
 SI_ORACLES_DIR = DATA_DIR / "si_oracles"
+CUSTOM_ORACLES_DIR = DATA_DIR / "custom_oracles"
 IS_ORACLES_DIR = DATA_DIR / "is_oracles"
 SF_ASSETS_DIR = DATA_DIR / "sf_assets"
 SI_ASSETS_DIR = DATA_DIR / "si_assets"
@@ -178,11 +179,17 @@ def _extract_oracle_table(
     for row in rows:
         if not isinstance(row, dict):
             continue
+        text = strip_markup(row.get("text") or "")
+        text2 = strip_markup(row.get("text2") or "")
+        if text and text2:
+            display_text = f"{text}: {text2}"
+        else:
+            display_text = text or text2
         parsed.append(
             {
                 "min": row.get("min"),
                 "max": row.get("max"),
-                "text": strip_markup(row.get("text") or ""),
+                "text": display_text,
             }
         )
     if not parsed:
@@ -271,52 +278,6 @@ def _extract_assets(
                 }
             )
     return assets
-
-
-def _custom_si_island_name_oracle() -> dict[str, Any]:
-    """Return a custom Sundered Isles d100 Island Name oracle."""
-    words = [
-        "Aegis", "Akun", "Amara", "Amaryllis", "Amber", "Amity", "Anchor", "Apex", "Arrowhead", "Atami",
-        "Auki", "Avian", "Azure", "Barrier", "Blackrock", "Blade", "Boulder", "Carmine", "Carrick", "Colossus",
-        "Coral", "Crag", "Crater", "Crescent", "Crown", "Dagger", "Denaga", "Diamond", "Dragon", "Emerald",
-        "Emira", "Espirion", "Flint", "Garrison", "Gull", "Hakana", "Halcyon", "Harlock", "Hideaway", "Hook",
-        "Horn", "Ignis", "Iron", "Kahatu", "Kairos", "Kamua", "Kathos", "Kepara", "Keyana", "Kiora",
-        "Kiritari", "Kortaka", "Kouri", "Kytha", "Lahan", "Maheena", "Mako", "Malau", "Matanga", "Matuna",
-        "Meridian", "Monument", "Motu", "Mameera", "Nanuca", "Navini", "Nerida", "Neris", "Nobuka", "Nuana",
-        "Ottago", "Palm", "Pirate", "Raitu", "Rauku", "Raven", "Razor", "Relic", "Salida", "Sanctuary",
-        "Sapphire", "Serenity", "Serpent", "Shale", "Shard", "Sickle", "Solen", "Spire", "Talon", "Taura",
-        "Temoo", "Terion", "Treasure", "Umbra", "Vaheena", "Vanuca", "Vasha", "Vatuku", "Vaunti", "Witaka",
-    ]
-    rows = [{"min": i, "max": i, "text": word} for i, word in enumerate(words, 1)]
-    return {
-        "source": "Sundered Isles",
-        "category": "Islands",
-        "name": "Island Name",
-        "rows": rows,
-    }
-
-
-def _custom_si_cursed_island_name_oracle() -> dict[str, Any]:
-    """Return a custom Sundered Isles d100 Cursed Island Name oracle."""
-    words = [
-        "Ash", "Bane", "Banshee", "Barrow", "Blight", "Bloody", "Bog", "Bone", "Broken", "Carnage",
-        "Carrion", "Castaway", "Charnel", "Cutthroat", "Deadwood", "Drowned", "Eidolon", "Forsaken", "Frost", "Ghast",
-        "Grave", "Harrow", "Lacuna", "Leech", "Lost", "Marauder", "Marrow", "Muck", "Oblivion", "Phantom",
-        "Portent", "Rot", "Scar", "Scorch", "Scorn", "Scourge", "Shadow", "Shattered", "Shipwreck", "Shroud",
-        "Sinking", "Skull", "Sorrow", "Specter", "Storm", "Tempest", "Thorn", "Torment", "Wither", "Wraith",
-        "Abyss", "Balefire", "Blacktide", "Bleak", "Bloodwake", "Brinefang", "Cairn", "Catacomb", "Cinder", "Coffin",
-        "Coldwake", "Crow", "Crypt", "Curse", "Darkwater", "Doom", "Dread", "Driftgrave", "Emberrot", "Fell",
-        "Fogbound", "Gallows", "Gloam", "Grim", "Grimwake", "Hex", "Hollow", "Ironwind", "Knell", "Lurker",
-        "Mire", "Mourn", "Nightfall", "Nocturne", "Pale", "Ravenous", "Revenant", "Rime", "Ruin", "Saltwound",
-        "Shade", "Skarn", "Spine", "Stygian", "Sunder", "Tarn", "Threnody", "Umbral", "Vile", "Woe",
-    ]
-    rows = [{"min": i, "max": i, "text": word} for i, word in enumerate(words, 1)]
-    return {
-        "source": "Sundered Isles",
-        "category": "Islands",
-        "name": "Cursed Island Name",
-        "rows": rows,
-    }
 
 
 # ---------------------------------------------------------------------------
@@ -409,8 +370,10 @@ class App(tk.Tk):
             for yaml_file in sorted(SI_ORACLES_DIR.glob("*.yaml")):
                 raw = _load_yaml(yaml_file)
                 self._si_oracles.extend(_extract_oracles(raw, "Sundered Isles"))
-        self._si_oracles.append(_custom_si_island_name_oracle())
-        self._si_oracles.append(_custom_si_cursed_island_name_oracle())
+        if CUSTOM_ORACLES_DIR.is_dir():
+            for yaml_file in sorted(CUSTOM_ORACLES_DIR.glob("*.yaml")):
+                raw = _load_yaml(yaml_file)
+                self._si_oracles.extend(_extract_oracles(raw, "Sundered Isles"))
 
         self._sf_oracles: list[dict[str, Any]] = []
         if SF_ORACLES_DIR.is_dir():
@@ -491,16 +454,17 @@ class App(tk.Tk):
         ttk.Label(left, text="Category", style="Cat.TLabel").grid(
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
         )
-        self._move_source_var = tk.StringVar(value="All")
+        self._move_selected_cat = "All"
         source_cb = ttk.Combobox(
             left,
-            textvariable=self._move_source_var,
             values=["All"] + [f"{cat}" for cat in sorted({m["category"] for m in self._sf_moves})],
             state="readonly",
             width=22,
         )
+        self._move_source_cb = source_cb
+        source_cb.set("All")
         source_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
-        source_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_move_list())
+        source_cb.bind("<<ComboboxSelected>>", lambda _e: self._on_move_cat_change())
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
             row=2, column=0, sticky="w", padx=8, pady=(4, 2)
@@ -562,8 +526,12 @@ class App(tk.Tk):
         self._moves_visible: list[dict[str, Any]] = []
         self._refresh_move_list()
 
+    def _on_move_cat_change(self) -> None:
+        self._move_selected_cat = self._move_source_cb.get()
+        self._refresh_move_list()
+
     def _refresh_move_list(self) -> None:
-        cat_filter = self._move_source_var.get()
+        cat_filter = self._move_selected_cat
         query = self._move_search_var.get().strip().lower()
 
         all_moves = self._sf_moves
@@ -642,15 +610,12 @@ class App(tk.Tk):
             {o["source"] for o in self._sf_oracles + self._si_oracles + self._is_oracles}
         )
         self._oracle_game_var = tk.StringVar(value="All")
-        game_cb = ttk.Combobox(
-            left,
-            textvariable=self._oracle_game_var,
-            values=["All"] + all_oracle_sources,
-            state="readonly",
-            width=22,
-        )
-        game_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
-        game_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_oracle_list())
+        self._oracle_game_var.trace_add("write", lambda *_: self._on_oracle_game_change())
+        game_om = tk.OptionMenu(left, self._oracle_game_var, "All", *all_oracle_sources)
+        game_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
+                       highlightthickness=0, relief="flat", anchor="w", width=20)
+        game_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        game_om.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         ttk.Label(left, text="Category", style="Cat.TLabel").grid(
             row=2, column=0, sticky="w", padx=8, pady=(4, 2)
@@ -658,16 +623,17 @@ class App(tk.Tk):
         all_oracle_cats = sorted(
             {o["category"] for o in self._sf_oracles + self._si_oracles + self._is_oracles}
         )
-        self._oracle_cat_var = tk.StringVar(value="All")
+        self._oracle_selected_cat = "All"
         cat_cb = ttk.Combobox(
             left,
-            textvariable=self._oracle_cat_var,
             values=["All"] + all_oracle_cats,
             state="readonly",
             width=22,
         )
+        self._oracle_cat_cb = cat_cb
+        cat_cb.set("All")
         cat_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
-        cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_oracle_list())
+        cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._on_oracle_cat_change())
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
             row=4, column=0, sticky="w", padx=8, pady=(4, 2)
@@ -741,9 +707,16 @@ class App(tk.Tk):
         self._current_oracle: dict[str, Any] | None = None
         self._refresh_oracle_list()
 
+    def _on_oracle_game_change(self) -> None:
+        self._refresh_oracle_list()
+
+    def _on_oracle_cat_change(self) -> None:
+        self._oracle_selected_cat = self._oracle_cat_cb.get()
+        self._refresh_oracle_list()
+
     def _refresh_oracle_list(self) -> None:
-        game_filter = self._oracle_game_var.get()
-        cat_filter = self._oracle_cat_var.get()
+        game_filter = self._oracle_game_var.get() or "All"
+        cat_filter = self._oracle_selected_cat
         query = self._oracle_search_var.get().strip().lower()
 
         all_oracles = self._sf_oracles + self._si_oracles + self._is_oracles
@@ -832,34 +805,28 @@ class App(tk.Tk):
         )
         all_sources = sorted({a["source"] for a in self._sf_assets + self._si_assets + self._is_assets})
         self._asset_game_var = tk.StringVar(value="All")
-        game_cb = ttk.Combobox(
-            left,
-            textvariable=self._asset_game_var,
-            values=["All"] + all_sources,
-            state="readonly",
-            width=22,
-        )
-        self._asset_game_cb = game_cb
-        game_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
-        game_cb.set("All")
-        game_cb.bind("<<ComboboxSelected>>", self._on_asset_game_change)
+        self._asset_game_var.trace_add("write", lambda *_: self._on_asset_game_change())
+        game_om = tk.OptionMenu(left, self._asset_game_var, "All", *all_sources)
+        game_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
+                       highlightthickness=0, relief="flat", anchor="w", width=20)
+        game_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        game_om.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         ttk.Label(left, text="Category", style="Cat.TLabel").grid(
             row=2, column=0, sticky="w", padx=8, pady=(4, 2)
         )
         all_cats = sorted({a["category"] for a in self._sf_assets + self._si_assets + self._is_assets})
-        self._asset_cat_var = tk.StringVar(value="All")
+        self._asset_selected_cat = "All"
         cat_cb = ttk.Combobox(
             left,
-            textvariable=self._asset_cat_var,
             values=["All"] + all_cats,
             state="readonly",
             width=22,
         )
         self._asset_cat_cb = cat_cb
-        cat_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
         cat_cb.set("All")
-        cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_asset_list())
+        cat_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
+        cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._on_asset_cat_change())
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
             row=4, column=0, sticky="w", padx=8, pady=(4, 2)
@@ -931,12 +898,12 @@ class App(tk.Tk):
         self._refresh_asset_category_options()
         self._refresh_asset_list()
 
-    def _on_asset_game_change(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
-        getter = getattr(_event.widget, "get", None)
-        selected_game = str(getter()).strip() if callable(getter) else ""
-        if selected_game:
-            self._asset_game_var.set(selected_game)
+    def _on_asset_game_change(self) -> None:
         self._refresh_asset_category_options()
+        self._refresh_asset_list()
+
+    def _on_asset_cat_change(self) -> None:
+        self._asset_selected_cat = self._asset_cat_cb.get()
         self._refresh_asset_list()
 
     def _refresh_asset_category_options(self) -> None:
@@ -949,12 +916,13 @@ class App(tk.Tk):
 
         valid_values = ["All"] + cats
         self._asset_cat_cb.configure(values=valid_values)
-        if self._asset_cat_var.get() not in valid_values:
-            self._asset_cat_var.set("All")
+        if self._asset_selected_cat not in valid_values:
+            self._asset_selected_cat = "All"
+            self._asset_cat_cb.set("All")
 
     def _refresh_asset_list(self) -> None:
         game_filter = self._asset_game_var.get()
-        cat_filter = self._asset_cat_var.get()
+        cat_filter = self._asset_selected_cat
         query = self._asset_search_var.get().strip().lower()
 
         all_assets = self._sf_assets + self._si_assets + self._is_assets
