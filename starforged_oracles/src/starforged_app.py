@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import random
 import re
+import sys
 import tkinter as tk
 from pathlib import Path
 from tkinter import font as tkfont
@@ -25,10 +26,15 @@ except ModuleNotFoundError:
     )
 
 # ---------------------------------------------------------------------------
-# Paths
+# Paths  –  work both in development and when frozen by PyInstaller
 # ---------------------------------------------------------------------------
 
-DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+if getattr(sys, "frozen", False):   # running inside a PyInstaller bundle
+    _BASE_DIR = Path(sys._MEIPASS)  # type: ignore[attr-defined]
+else:
+    _BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATA_DIR = _BASE_DIR / "data"
 SF_MOVES_YAML = DATA_DIR / "starforged_moves.yaml"
 SI_MOVES_YAML = DATA_DIR / "si_session_moves.yaml"
 SF_ORACLES_DIR = DATA_DIR / "sf_oracles"
@@ -708,6 +714,19 @@ class App(tk.Tk):
         self._refresh_oracle_list()
 
     def _on_oracle_game_change(self) -> None:
+        # Rebuild category list to only include categories present in the selected game,
+        # then reset the category filter so we don't keep a stale selection.
+        game_filter = self._oracle_game_var.get() or "All"
+        all_oracles = self._sf_oracles + self._si_oracles + self._is_oracles
+        if game_filter == "All":
+            cats = sorted({o["category"] for o in all_oracles})
+        else:
+            cats = sorted({o["category"] for o in all_oracles if o["source"] == game_filter})
+        self._oracle_cat_cb["values"] = ["All"] + cats
+        # Reset category selection only if the current choice no longer exists
+        if self._oracle_selected_cat not in cats:
+            self._oracle_selected_cat = "All"
+            self._oracle_cat_cb.set("All")
         self._refresh_oracle_list()
 
     def _on_oracle_cat_change(self) -> None:
