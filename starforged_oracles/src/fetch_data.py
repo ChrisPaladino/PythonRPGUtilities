@@ -15,11 +15,15 @@ from pathlib import Path
 BASE_RAW = "https://raw.githubusercontent.com/rsek/datasworn/main/source_data"
 BASE_SF = f"{BASE_RAW}/starforged"
 BASE_SI = f"{BASE_RAW}/sundered_isles"
+BASE_IS = f"{BASE_RAW}/classic"
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+SF_ORACLES_DIR = DATA_DIR / "sf_oracles"
 SI_ORACLES_DIR = DATA_DIR / "si_oracles"
+IS_ORACLES_DIR = DATA_DIR / "is_oracles"
 SF_ASSETS_DIR = DATA_DIR / "sf_assets"
 SI_ASSETS_DIR = DATA_DIR / "si_assets"
+IS_ASSETS_DIR = DATA_DIR / "is_assets"
 
 # ---------------------------------------------------------------------------
 # Files to download
@@ -27,6 +31,25 @@ SI_ASSETS_DIR = DATA_DIR / "si_assets"
 
 SF_FILES: list[tuple[str, str]] = [
     (f"{BASE_SF}/moves.yaml", "starforged_moves.yaml"),
+]
+
+SF_ORACLE_FILES: list[str] = [
+    "campaign_launch.yaml",
+    "characters.yaml",
+    "core.yaml",
+    "creatures.yaml",
+    "derelicts.yaml",
+    "derelicts_zones.yaml",
+    "factions.yaml",
+    "location_themes.yaml",
+    "misc.yaml",
+    "moves.yaml",
+    "planet_types.yaml",
+    "planets.yaml",
+    "settlements.yaml",
+    "space.yaml",
+    "starships.yaml",
+    "vaults.yaml",
 ]
 
 SI_MOVE_FILES: list[tuple[str, str]] = [
@@ -48,6 +71,23 @@ SI_ASSET_FILES: list[str] = [
     "module.yaml",
     "path.yaml",
     "vehicle.yaml",
+]
+
+IS_ORACLE_FILES: list[str] = [
+    "action_and_theme.yaml",
+    "character.yaml",
+    "moves.yaml",
+    "name.yaml",
+    "place.yaml",
+    "settlement.yaml",
+    "turning_point.yaml",
+]
+
+IS_ASSET_FILES: list[str] = [
+    "combat_talent.yaml",
+    "companion.yaml",
+    "path.yaml",
+    "ritual.yaml",
 ]
 
 SI_ORACLE_FILES: list[str] = [
@@ -96,9 +136,12 @@ def _download(url: str, dest: Path) -> bool:
 
 def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
+    SF_ORACLES_DIR.mkdir(parents=True, exist_ok=True)
     SI_ORACLES_DIR.mkdir(parents=True, exist_ok=True)
+    IS_ORACLES_DIR.mkdir(parents=True, exist_ok=True)
     SF_ASSETS_DIR.mkdir(parents=True, exist_ok=True)
     SI_ASSETS_DIR.mkdir(parents=True, exist_ok=True)
+    IS_ASSETS_DIR.mkdir(parents=True, exist_ok=True)
 
     failed: list[str] = []
 
@@ -122,6 +165,24 @@ def main() -> None:
     for fname in SI_ASSET_FILES:
         url = f"{BASE_SI}/assets/{fname}"
         if not _download(url, SI_ASSETS_DIR / fname):
+            failed.append(fname)
+
+    print("\nDownloading Starforged oracle tables…")
+    for fname in SF_ORACLE_FILES:
+        url = f"{BASE_SF}/oracles/{fname}"
+        if not _download(url, SF_ORACLES_DIR / fname):
+            failed.append(fname)
+
+    print("\nDownloading Ironsworn oracle tables…")
+    for fname in IS_ORACLE_FILES:
+        url = f"{BASE_IS}/oracles/{fname}"
+        if not _download(url, IS_ORACLES_DIR / fname):
+            failed.append(fname)
+
+    print("\nDownloading Ironsworn asset data…")
+    for fname in IS_ASSET_FILES:
+        url = f"{BASE_IS}/assets/{fname}"
+        if not _download(url, IS_ASSETS_DIR / fname):
             failed.append(fname)
 
     print("\nDownloading Sundered Isles oracle tables…")

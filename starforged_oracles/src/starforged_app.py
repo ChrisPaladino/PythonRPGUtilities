@@ -31,9 +31,12 @@ except ModuleNotFoundError:
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 SF_MOVES_YAML = DATA_DIR / "starforged_moves.yaml"
 SI_MOVES_YAML = DATA_DIR / "si_session_moves.yaml"
+SF_ORACLES_DIR = DATA_DIR / "sf_oracles"
 SI_ORACLES_DIR = DATA_DIR / "si_oracles"
+IS_ORACLES_DIR = DATA_DIR / "is_oracles"
 SF_ASSETS_DIR = DATA_DIR / "sf_assets"
 SI_ASSETS_DIR = DATA_DIR / "si_assets"
+IS_ASSETS_DIR = DATA_DIR / "is_assets"
 
 # ---------------------------------------------------------------------------
 # Markdown-to-plain-text helpers
@@ -60,40 +63,49 @@ def strip_markup(text: str) -> str:
 def _sanitise_yaml(text: str) -> str:
     """Fix known quirks in Datasworn YAML that trip up PyYAML's safe loader.
 
-    1. Anchor names with dots (``&adventure.color``) – replace dots with underscores.
+    1. Anchor/alias names with dots or colons – replace all invalid chars with
+       underscores (handles multi-segment names like ``&i18n.result.common_noun``
+       and colon-prefixed names like ``&table:Planets.Peril``).
     2. Literal tab characters inside lines – replace with a space.
-    3. Duplicate anchor names – append ``_N`` to make each anchor definition unique
-       (aliases are rewritten to match the last definition of that name, matching
-       PyYAML's own behaviour when anchors don't collide).
+    3. Duplicate anchor names – append ``_N`` to make each anchor definition
+       unique; aliases are rewritten to the FIRST (earliest) definition so they
+       never reference an anchor that hasn't been declared yet.
     """
-    # Fix anchor / alias names containing dots
-    text = re.sub(r"&([A-Za-z0-9_]+)\.([A-Za-z0-9_.]+)", r"&\1_\2", text)
-    text = re.sub(r"\*([A-Za-z0-9_]+)\.([A-Za-z0-9_.]+)", r"*\1_\2", text)
+    # Step 1: Normalise anchor and alias names that contain characters invalid
+    # in PyYAML anchor identifiers (dots, colons, etc.).  Match the full name
+    # including those characters so nothing is left dangling.
+    def _fix_name(m: re.Match[str]) -> str:
+        sigil = m.group(1)  # & or *
+        name = re.sub(r"[^A-Za-z0-9_]", "_", m.group(2))
+        return sigil + name
 
-    # Remove duplicate anchor definitions by suffixing a counter.
-    # Strategy: scan for &Name, track last assigned suffix, rewrite all *Name
-    # aliases in a second pass to use the latest anchor name.
+    text = re.sub(r"([&*])([A-Za-z0-9_][A-Za-z0-9_.:]*)", _fix_name, text)
+
+    # Step 2: Remove duplicate anchor definitions by suffixing a counter.
+    # Aliases are rewritten to point to the FIRST definition so that references
+    # before the later re-definitions continue to resolve correctly.
     anchor_counts: dict[str, int] = {}
-    anchor_latest: dict[str, str] = {}  # original_name -> most recent rewritten name
+    anchor_canonical: dict[str, str] = {}  # original_name -> first rewritten name
 
     def _rewrite_anchor(m: re.Match[str]) -> str:
         name = m.group(1)
         anchor_counts[name] = anchor_counts.get(name, 0) + 1
         new_name = f"{name}_{anchor_counts[name]}" if anchor_counts[name] > 1 else name
-        anchor_latest[name] = new_name
+        if name not in anchor_canonical:
+            anchor_canonical[name] = new_name  # only record the first occurrence
         return f"&{new_name}"
 
     text = re.sub(r"&([A-Za-z0-9_]+)", _rewrite_anchor, text)
 
-    # Rewrite aliases to point to the latest anchor definition.
+    # Rewrite aliases to point to the first anchor definition.
     # If an alias name was never defined in this file, replace it with null
     # rather than letting PyYAML raise a ComposerError.
     def _rewrite_alias(m: re.Match[str]) -> str:
         name = m.group(1)
-        new_name = anchor_latest.get(name)
-        if new_name is None:
+        canonical = anchor_canonical.get(name)
+        if canonical is None:
             return "null"
-        return f"*{new_name}"
+        return f"*{canonical}"
 
     text = re.sub(r"\*([A-Za-z0-9_]+)", _rewrite_alias, text)
 
@@ -261,6 +273,52 @@ def _extract_assets(
     return assets
 
 
+def _custom_si_island_name_oracle() -> dict[str, Any]:
+    """Return a custom Sundered Isles d100 Island Name oracle."""
+    words = [
+        "Aegis", "Akun", "Amara", "Amaryllis", "Amber", "Amity", "Anchor", "Apex", "Arrowhead", "Atami",
+        "Auki", "Avian", "Azure", "Barrier", "Blackrock", "Blade", "Boulder", "Carmine", "Carrick", "Colossus",
+        "Coral", "Crag", "Crater", "Crescent", "Crown", "Dagger", "Denaga", "Diamond", "Dragon", "Emerald",
+        "Emira", "Espirion", "Flint", "Garrison", "Gull", "Hakana", "Halcyon", "Harlock", "Hideaway", "Hook",
+        "Horn", "Ignis", "Iron", "Kahatu", "Kairos", "Kamua", "Kathos", "Kepara", "Keyana", "Kiora",
+        "Kiritari", "Kortaka", "Kouri", "Kytha", "Lahan", "Maheena", "Mako", "Malau", "Matanga", "Matuna",
+        "Meridian", "Monument", "Motu", "Mameera", "Nanuca", "Navini", "Nerida", "Neris", "Nobuka", "Nuana",
+        "Ottago", "Palm", "Pirate", "Raitu", "Rauku", "Raven", "Razor", "Relic", "Salida", "Sanctuary",
+        "Sapphire", "Serenity", "Serpent", "Shale", "Shard", "Sickle", "Solen", "Spire", "Talon", "Taura",
+        "Temoo", "Terion", "Treasure", "Umbra", "Vaheena", "Vanuca", "Vasha", "Vatuku", "Vaunti", "Witaka",
+    ]
+    rows = [{"min": i, "max": i, "text": word} for i, word in enumerate(words, 1)]
+    return {
+        "source": "Sundered Isles",
+        "category": "Islands",
+        "name": "Island Name",
+        "rows": rows,
+    }
+
+
+def _custom_si_cursed_island_name_oracle() -> dict[str, Any]:
+    """Return a custom Sundered Isles d100 Cursed Island Name oracle."""
+    words = [
+        "Ash", "Bane", "Banshee", "Barrow", "Blight", "Bloody", "Bog", "Bone", "Broken", "Carnage",
+        "Carrion", "Castaway", "Charnel", "Cutthroat", "Deadwood", "Drowned", "Eidolon", "Forsaken", "Frost", "Ghast",
+        "Grave", "Harrow", "Lacuna", "Leech", "Lost", "Marauder", "Marrow", "Muck", "Oblivion", "Phantom",
+        "Portent", "Rot", "Scar", "Scorch", "Scorn", "Scourge", "Shadow", "Shattered", "Shipwreck", "Shroud",
+        "Sinking", "Skull", "Sorrow", "Specter", "Storm", "Tempest", "Thorn", "Torment", "Wither", "Wraith",
+        "Abyss", "Balefire", "Blacktide", "Bleak", "Bloodwake", "Brinefang", "Cairn", "Catacomb", "Cinder", "Coffin",
+        "Coldwake", "Crow", "Crypt", "Curse", "Darkwater", "Doom", "Dread", "Driftgrave", "Emberrot", "Fell",
+        "Fogbound", "Gallows", "Gloam", "Grim", "Grimwake", "Hex", "Hollow", "Ironwind", "Knell", "Lurker",
+        "Mire", "Mourn", "Nightfall", "Nocturne", "Pale", "Ravenous", "Revenant", "Rime", "Ruin", "Saltwound",
+        "Shade", "Skarn", "Spine", "Stygian", "Sunder", "Tarn", "Threnody", "Umbral", "Vile", "Woe",
+    ]
+    rows = [{"min": i, "max": i, "text": word} for i, word in enumerate(words, 1)]
+    return {
+        "source": "Sundered Isles",
+        "category": "Islands",
+        "name": "Cursed Island Name",
+        "rows": rows,
+    }
+
+
 # ---------------------------------------------------------------------------
 # App
 # ---------------------------------------------------------------------------
@@ -289,8 +347,8 @@ class App(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
         self.title("Starforged / Sundered Isles Reference")
-        self.geometry("1100x760")
-        self.minsize(820, 600)
+        self.geometry("1000x700")
+        self.minsize(780, 560)
         self.configure(bg=BG)
         self._configure_styles()
         self._load_data()
@@ -351,6 +409,20 @@ class App(tk.Tk):
             for yaml_file in sorted(SI_ORACLES_DIR.glob("*.yaml")):
                 raw = _load_yaml(yaml_file)
                 self._si_oracles.extend(_extract_oracles(raw, "Sundered Isles"))
+        self._si_oracles.append(_custom_si_island_name_oracle())
+        self._si_oracles.append(_custom_si_cursed_island_name_oracle())
+
+        self._sf_oracles: list[dict[str, Any]] = []
+        if SF_ORACLES_DIR.is_dir():
+            for yaml_file in sorted(SF_ORACLES_DIR.glob("*.yaml")):
+                raw = _load_yaml(yaml_file)
+                self._sf_oracles.extend(_extract_oracles(raw, "Starforged"))
+
+        self._is_oracles: list[dict[str, Any]] = []
+        if IS_ORACLES_DIR.is_dir():
+            for yaml_file in sorted(IS_ORACLES_DIR.glob("*.yaml")):
+                raw = _load_yaml(yaml_file)
+                self._is_oracles.extend(_extract_oracles(raw, "Ironsworn"))
 
         self._sf_assets: list[dict[str, Any]] = []
         if SF_ASSETS_DIR.is_dir():
@@ -363,6 +435,12 @@ class App(tk.Tk):
             for yaml_file in sorted(SI_ASSETS_DIR.glob("*.yaml")):
                 raw = _load_yaml(yaml_file)
                 self._si_assets.extend(_extract_assets(raw, "Sundered Isles"))
+
+        self._is_assets: list[dict[str, Any]] = []
+        if IS_ASSETS_DIR.is_dir():
+            for yaml_file in sorted(IS_ASSETS_DIR.glob("*.yaml")):
+                raw = _load_yaml(yaml_file)
+                self._is_assets.extend(_extract_assets(raw, "Ironsworn"))
 
     # ------------------------------------------------------------------
     # UI layout
@@ -387,6 +465,14 @@ class App(tk.Tk):
         notebook.add(assets_tab, text="  Assets  ")
         self._build_assets_tab(assets_tab)
 
+    @staticmethod
+    def _short_source(source: str) -> str:
+        return {
+            "Starforged": "SF",
+            "Sundered Isles": "SI",
+            "Ironsworn": "IS",
+        }.get(source, source)
+
     # ------------------------------------------------------------------
     # Moves tab
     # ------------------------------------------------------------------
@@ -399,40 +485,25 @@ class App(tk.Tk):
         # --- Left panel: filter + listbox ---
         left = ttk.Frame(parent, style="Panel.TFrame")
         left.grid(row=0, column=0, sticky="nsew", padx=(0, 2), pady=0)
-        left.rowconfigure(5, weight=1)
+        left.rowconfigure(3, weight=1)
         left.columnconfigure(0, weight=1)
 
-        ttk.Label(left, text="Game", style="Cat.TLabel").grid(
-            row=0, column=0, sticky="w", padx=8, pady=(8, 2)
-        )
-        all_sources = sorted({m["source"] for m in self._sf_moves + self._si_moves})
-        self._move_game_var = tk.StringVar(value="All")
-        game_cb = ttk.Combobox(
-            left,
-            textvariable=self._move_game_var,
-            values=["All"] + all_sources,
-            state="readonly",
-            width=22,
-        )
-        game_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
-        game_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_move_list())
-
         ttk.Label(left, text="Category", style="Cat.TLabel").grid(
-            row=2, column=0, sticky="w", padx=8, pady=(4, 2)
+            row=0, column=0, sticky="w", padx=8, pady=(8, 2)
         )
         self._move_source_var = tk.StringVar(value="All")
         source_cb = ttk.Combobox(
             left,
             textvariable=self._move_source_var,
-            values=["All"] + [f"{cat}" for cat in sorted({m["category"] for m in self._sf_moves + self._si_moves})],
+            values=["All"] + [f"{cat}" for cat in sorted({m["category"] for m in self._sf_moves})],
             state="readonly",
             width=22,
         )
-        source_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
+        source_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
         source_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_move_list())
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
-            row=4, column=0, sticky="w", padx=8, pady=(4, 2)
+            row=2, column=0, sticky="w", padx=8, pady=(4, 2)
         )
         self._move_search_var = tk.StringVar()
         self._move_search_var.trace_add("write", lambda *_: self._refresh_move_list())
@@ -447,11 +518,11 @@ class App(tk.Tk):
             highlightcolor=ACCENT,
             highlightbackground=BORDER,
         )
-        search_entry.grid(row=4, column=0, sticky="ew", padx=8, pady=(0, 4))
+        search_entry.grid(row=2, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         # List
         lf = ttk.Frame(left, style="Panel.TFrame")
-        lf.grid(row=5, column=0, sticky="nsew", padx=4, pady=4)
+        lf.grid(row=3, column=0, sticky="nsew", padx=4, pady=4)
         lf.rowconfigure(0, weight=1)
         lf.columnconfigure(0, weight=1)
 
@@ -492,16 +563,13 @@ class App(tk.Tk):
         self._refresh_move_list()
 
     def _refresh_move_list(self) -> None:
-        game_filter = self._move_game_var.get()
         cat_filter = self._move_source_var.get()
         query = self._move_search_var.get().strip().lower()
 
-        all_moves = self._sf_moves + self._si_moves
+        all_moves = self._sf_moves
 
         filtered: list[dict[str, Any]] = []
         for m in all_moves:
-            if game_filter != "All" and m["source"] != game_filter:
-                continue
             if cat_filter != "All" and m["category"] != cat_filter:
                 continue
             if query and query not in m["name"].lower() and query not in m["category"].lower():
@@ -511,7 +579,7 @@ class App(tk.Tk):
         self._moves_visible = filtered
         self._move_listbox.delete(0, tk.END)
         for m in filtered:
-            label = f"[{m['source']}]  {m['category']} › {m['name']}"
+            label = f"{m['category']} › {m['name']}"
             self._move_listbox.insert(tk.END, label)
 
     def _on_move_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
@@ -564,11 +632,45 @@ class App(tk.Tk):
         # Left panel
         left = ttk.Frame(parent, style="Panel.TFrame")
         left.grid(row=0, column=0, sticky="nsew", padx=(0, 2))
-        left.rowconfigure(2, weight=1)
+        left.rowconfigure(5, weight=1)
         left.columnconfigure(0, weight=1)
 
-        ttk.Label(left, text="Search", style="Cat.TLabel").grid(
+        ttk.Label(left, text="Game", style="Cat.TLabel").grid(
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
+        )
+        all_oracle_sources = sorted(
+            {o["source"] for o in self._sf_oracles + self._si_oracles + self._is_oracles}
+        )
+        self._oracle_game_var = tk.StringVar(value="All")
+        game_cb = ttk.Combobox(
+            left,
+            textvariable=self._oracle_game_var,
+            values=["All"] + all_oracle_sources,
+            state="readonly",
+            width=22,
+        )
+        game_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
+        game_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_oracle_list())
+
+        ttk.Label(left, text="Category", style="Cat.TLabel").grid(
+            row=2, column=0, sticky="w", padx=8, pady=(4, 2)
+        )
+        all_oracle_cats = sorted(
+            {o["category"] for o in self._sf_oracles + self._si_oracles + self._is_oracles}
+        )
+        self._oracle_cat_var = tk.StringVar(value="All")
+        cat_cb = ttk.Combobox(
+            left,
+            textvariable=self._oracle_cat_var,
+            values=["All"] + all_oracle_cats,
+            state="readonly",
+            width=22,
+        )
+        cat_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
+        cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_oracle_list())
+
+        ttk.Label(left, text="Search", style="Cat.TLabel").grid(
+            row=4, column=0, sticky="w", padx=8, pady=(4, 2)
         )
         self._oracle_search_var = tk.StringVar()
         self._oracle_search_var.trace_add("write", lambda *_: self._refresh_oracle_list())
@@ -583,10 +685,10 @@ class App(tk.Tk):
             highlightcolor=ACCENT,
             highlightbackground=BORDER,
         )
-        ok_entry.grid(row=0, column=0, sticky="ew", padx=8, pady=(0, 4))
+        ok_entry.grid(row=4, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         lf = ttk.Frame(left, style="Panel.TFrame")
-        lf.grid(row=2, column=0, sticky="nsew", padx=4, pady=4)
+        lf.grid(row=5, column=0, sticky="nsew", padx=4, pady=4)
         lf.rowconfigure(0, weight=1)
         lf.columnconfigure(0, weight=1)
 
@@ -607,13 +709,6 @@ class App(tk.Tk):
         sb.grid(row=0, column=1, sticky="ns")
         self._oracle_listbox.configure(yscrollcommand=sb.set)
         self._oracle_listbox.bind("<<ListboxSelect>>", self._on_oracle_select)
-
-        # Game label for oracles (all currently SI)
-        all_oracle_sources = sorted({o["source"] for o in self._si_oracles})
-        game_label = " / ".join(all_oracle_sources) if all_oracle_sources else "Sundered Isles"
-        ttk.Label(left, text=f"Source: {game_label}", style="Cat.TLabel").grid(
-            row=3, column=0, sticky="w", padx=8, pady=(4, 6)
-        )
 
         # Right panel
         right = ttk.Frame(parent, style="Panel.TFrame")
@@ -647,20 +742,25 @@ class App(tk.Tk):
         self._refresh_oracle_list()
 
     def _refresh_oracle_list(self) -> None:
+        game_filter = self._oracle_game_var.get()
+        cat_filter = self._oracle_cat_var.get()
         query = self._oracle_search_var.get().strip().lower()
 
-        filtered = [
-            o
-            for o in self._si_oracles
-            if not query
-            or query in o["name"].lower()
-            or query in o["category"].lower()
-            or query in o["source"].lower()
-        ]
+        all_oracles = self._sf_oracles + self._si_oracles + self._is_oracles
+        filtered: list[dict[str, Any]] = []
+        for o in all_oracles:
+            if game_filter != "All" and o["source"] != game_filter:
+                continue
+            if cat_filter != "All" and o["category"] != cat_filter:
+                continue
+            if query and query not in o["name"].lower() and query not in o["category"].lower() and query not in o["source"].lower():
+                continue
+            filtered.append(o)
+
         self._oracles_visible = filtered
         self._oracle_listbox.delete(0, tk.END)
         for o in filtered:
-            label = f"[{o['source']}]  {o['category']} › {o['name']}"
+            label = f"[{self._short_source(o['source'])}]  {o['category']} › {o['name']}"
             self._oracle_listbox.insert(tk.END, label)
 
     def _on_oracle_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
@@ -730,7 +830,7 @@ class App(tk.Tk):
         ttk.Label(left, text="Game", style="Cat.TLabel").grid(
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
         )
-        all_sources = sorted({a["source"] for a in self._sf_assets + self._si_assets})
+        all_sources = sorted({a["source"] for a in self._sf_assets + self._si_assets + self._is_assets})
         self._asset_game_var = tk.StringVar(value="All")
         game_cb = ttk.Combobox(
             left,
@@ -739,13 +839,15 @@ class App(tk.Tk):
             state="readonly",
             width=22,
         )
+        self._asset_game_cb = game_cb
         game_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
-        game_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_asset_list())
+        game_cb.set("All")
+        game_cb.bind("<<ComboboxSelected>>", self._on_asset_game_change)
 
         ttk.Label(left, text="Category", style="Cat.TLabel").grid(
             row=2, column=0, sticky="w", padx=8, pady=(4, 2)
         )
-        all_cats = sorted({a["category"] for a in self._sf_assets + self._si_assets})
+        all_cats = sorted({a["category"] for a in self._sf_assets + self._si_assets + self._is_assets})
         self._asset_cat_var = tk.StringVar(value="All")
         cat_cb = ttk.Combobox(
             left,
@@ -754,7 +856,9 @@ class App(tk.Tk):
             state="readonly",
             width=22,
         )
+        self._asset_cat_cb = cat_cb
         cat_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
+        cat_cb.set("All")
         cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._refresh_asset_list())
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
@@ -804,23 +908,56 @@ class App(tk.Tk):
         right.rowconfigure(1, weight=1)
         right.columnconfigure(0, weight=1)
 
+        title_bar = ttk.Frame(right, style="Panel.TFrame")
+        title_bar.grid(row=0, column=0, sticky="ew", padx=6, pady=(10, 2))
+        title_bar.columnconfigure(1, weight=1)
+
+        ttk.Button(
+            title_bar,
+            text="Random",
+            style="Accent.TButton",
+            command=self._pick_random_asset,
+        ).grid(row=0, column=0, sticky="w", padx=(0, 8))
+
         self._asset_title_var = tk.StringVar(value="Select an asset →")
         ttk.Label(
-            right, textvariable=self._asset_title_var, style="Title.TLabel"
-        ).grid(row=0, column=0, sticky="w", padx=10, pady=(10, 2))
+            title_bar, textvariable=self._asset_title_var, style="Title.TLabel"
+        ).grid(row=0, column=1, sticky="w")
 
         self._asset_text = self._make_textbox(right)
         self._asset_text.grid(row=1, column=0, sticky="nsew", padx=6, pady=4)
 
         self._assets_visible: list[dict[str, Any]] = []
+        self._refresh_asset_category_options()
         self._refresh_asset_list()
+
+    def _on_asset_game_change(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
+        getter = getattr(_event.widget, "get", None)
+        selected_game = str(getter()).strip() if callable(getter) else ""
+        if selected_game:
+            self._asset_game_var.set(selected_game)
+        self._refresh_asset_category_options()
+        self._refresh_asset_list()
+
+    def _refresh_asset_category_options(self) -> None:
+        game_filter = self._asset_game_var.get()
+        all_assets = self._sf_assets + self._si_assets + self._is_assets
+        if game_filter == "All":
+            cats = sorted({a["category"] for a in all_assets})
+        else:
+            cats = sorted({a["category"] for a in all_assets if a["source"] == game_filter})
+
+        valid_values = ["All"] + cats
+        self._asset_cat_cb.configure(values=valid_values)
+        if self._asset_cat_var.get() not in valid_values:
+            self._asset_cat_var.set("All")
 
     def _refresh_asset_list(self) -> None:
         game_filter = self._asset_game_var.get()
         cat_filter = self._asset_cat_var.get()
         query = self._asset_search_var.get().strip().lower()
 
-        all_assets = self._sf_assets + self._si_assets
+        all_assets = self._sf_assets + self._si_assets + self._is_assets
 
         filtered: list[dict[str, Any]] = []
         for a in all_assets:
@@ -835,8 +972,20 @@ class App(tk.Tk):
         self._assets_visible = filtered
         self._asset_listbox.delete(0, tk.END)
         for a in filtered:
-            label = f"[{a['source']}]  {a['category']} › {a['name']}"
+            label = f"[{self._short_source(a['source'])}]  {a['category']} › {a['name']}"
             self._asset_listbox.insert(tk.END, label)
+
+    def _pick_random_asset(self) -> None:
+        if not self._assets_visible:
+            messagebox.showinfo("No assets", "No assets match the current filters.")
+            return
+
+        idx = random.randrange(len(self._assets_visible))
+        self._asset_listbox.selection_clear(0, tk.END)
+        self._asset_listbox.selection_set(idx)
+        self._asset_listbox.activate(idx)
+        self._asset_listbox.see(idx)
+        self._display_asset(self._assets_visible[idx])
 
     def _on_asset_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
         selection = self._asset_listbox.curselection()
