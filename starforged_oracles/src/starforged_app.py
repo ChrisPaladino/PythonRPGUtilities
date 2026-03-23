@@ -550,6 +550,7 @@ class App(tk.Tk):
                 continue
             filtered.append(m)
 
+        filtered.sort(key=lambda m: (m["source"], m["category"], m["name"]))
         self._moves_visible = filtered
         self._move_listbox.delete(0, tk.END)
         for m in filtered:
@@ -749,6 +750,7 @@ class App(tk.Tk):
                 continue
             filtered.append(o)
 
+        filtered.sort(key=lambda o: (o["source"], o["category"], o["name"]))
         self._oracles_visible = filtered
         self._oracle_listbox.delete(0, tk.END)
         for o in filtered:
@@ -956,6 +958,7 @@ class App(tk.Tk):
                 continue
             filtered.append(a)
 
+        filtered.sort(key=lambda a: (a["source"], a["category"], a["name"]))
         self._assets_visible = filtered
         self._asset_listbox.delete(0, tk.END)
         for a in filtered:
