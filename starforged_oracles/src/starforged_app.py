@@ -36,7 +36,7 @@ else:
 
 DATA_DIR = _BASE_DIR / "data"
 SF_MOVES_YAML = DATA_DIR / "starforged_moves.yaml"
-SI_MOVES_YAML = DATA_DIR / "si_session_moves.yaml"
+SI_MOVES_YAML = DATA_DIR / "sundered_isles_moves.yaml"
 SF_ORACLES_DIR = DATA_DIR / "sf_oracles"
 SI_ORACLES_DIR = DATA_DIR / "si_oracles"
 CUSTOM_ORACLES_DIR = DATA_DIR / "custom_oracles"
@@ -167,6 +167,22 @@ def _extract_moves(data: dict[str, Any], fallback_label: str) -> list[dict[str, 
                         for k, v in (move.get("outcomes") or {}).items()
                     },
                     "roll_type": move.get("roll_type", "no_roll"),
+                    "tables": [
+                        {
+                            "name": tbl.get("name", ""),
+                            "rows": [
+                                {
+                                    "min": row.get("min"),
+                                    "max": row.get("max"),
+                                    "text": strip_markup(row.get("text", "")),
+                                }
+                                for row in (tbl.get("rows") or [])
+                                if isinstance(row, dict)
+                            ],
+                        }
+                        for tbl in (move.get("tables") or [])
+                        if isinstance(tbl, dict)
+                    ],
                 }
             )
     return moves
@@ -454,26 +470,39 @@ class App(tk.Tk):
         # --- Left panel: filter + listbox ---
         left = ttk.Frame(parent, style="Panel.TFrame")
         left.grid(row=0, column=0, sticky="nsew", padx=(0, 2), pady=0)
-        left.rowconfigure(3, weight=1)
+        left.rowconfigure(5, weight=1)
         left.columnconfigure(0, weight=1)
 
-        ttk.Label(left, text="Category", style="Cat.TLabel").grid(
+        ttk.Label(left, text="Game", style="Cat.TLabel").grid(
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
         )
+        all_move_sources = sorted({m["source"] for m in self._sf_moves + self._si_moves})
+        self._move_game_var = tk.StringVar(value="All")
+        self._move_game_var.trace_add("write", lambda *_: self._on_move_game_change())
+        move_game_om = tk.OptionMenu(left, self._move_game_var, "All", *all_move_sources)
+        move_game_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
+                            highlightthickness=0, relief="flat", anchor="w", width=20)
+        move_game_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        move_game_om.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
+
+        ttk.Label(left, text="Category", style="Cat.TLabel").grid(
+            row=2, column=0, sticky="w", padx=8, pady=(4, 2)
+        )
         self._move_selected_cat = "All"
+        all_move_cats = sorted({m["category"] for m in self._sf_moves + self._si_moves})
         source_cb = ttk.Combobox(
             left,
-            values=["All"] + [f"{cat}" for cat in sorted({m["category"] for m in self._sf_moves})],
+            values=["All"] + all_move_cats,
             state="readonly",
             width=22,
         )
         self._move_source_cb = source_cb
         source_cb.set("All")
-        source_cb.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 4))
+        source_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
         source_cb.bind("<<ComboboxSelected>>", lambda _e: self._on_move_cat_change())
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
-            row=2, column=0, sticky="w", padx=8, pady=(4, 2)
+            row=4, column=0, sticky="w", padx=8, pady=(4, 2)
         )
         self._move_search_var = tk.StringVar()
         self._move_search_var.trace_add("write", lambda *_: self._refresh_move_list())
@@ -488,11 +517,11 @@ class App(tk.Tk):
             highlightcolor=ACCENT,
             highlightbackground=BORDER,
         )
-        search_entry.grid(row=2, column=0, sticky="ew", padx=8, pady=(0, 4))
+        search_entry.grid(row=4, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         # List
         lf = ttk.Frame(left, style="Panel.TFrame")
-        lf.grid(row=3, column=0, sticky="nsew", padx=4, pady=4)
+        lf.grid(row=5, column=0, sticky="nsew", padx=4, pady=4)
         lf.rowconfigure(0, weight=1)
         lf.columnconfigure(0, weight=1)
 
@@ -517,7 +546,7 @@ class App(tk.Tk):
         # --- Right panel: detail view ---
         right = ttk.Frame(parent, style="Panel.TFrame")
         right.grid(row=0, column=1, sticky="nsew", padx=(2, 0))
-        right.rowconfigure(1, weight=1)
+        right.rowconfigure(2, weight=1)
         right.columnconfigure(0, weight=1)
 
         self._move_title_var = tk.StringVar(value="Select a move →")
@@ -525,11 +554,40 @@ class App(tk.Tk):
             right, textvariable=self._move_title_var, style="Title.TLabel"
         ).grid(row=0, column=0, sticky="w", padx=10, pady=(10, 2))
 
+        move_roll_bar = ttk.Frame(right, style="Panel.TFrame")
+        move_roll_bar.grid(row=1, column=0, sticky="ew", padx=6, pady=(0, 4))
+        self._move_roll_result_var = tk.StringVar(value="")
+        ttk.Button(
+            move_roll_bar,
+            text="Roll d100",
+            style="Accent.TButton",
+            command=self._roll_move_table,
+        ).pack(side="left", padx=(0, 8))
+        ttk.Label(
+            move_roll_bar, textvariable=self._move_roll_result_var, style="Title.TLabel"
+        ).pack(side="left")
+        move_roll_bar.grid_remove()
+        self._move_roll_bar = move_roll_bar
+
         self._move_text = self._make_textbox(right)
-        self._move_text.grid(row=1, column=0, sticky="nsew", padx=6, pady=4)
+        self._move_text.grid(row=2, column=0, sticky="nsew", padx=6, pady=4)
 
         # Populate
         self._moves_visible: list[dict[str, Any]] = []
+        self._current_move: dict[str, Any] | None = None
+        self._refresh_move_list()
+
+    def _on_move_game_change(self) -> None:
+        game_filter = self._move_game_var.get()
+        all_moves = self._sf_moves + self._si_moves
+        if game_filter == "All":
+            cats = sorted({m["category"] for m in all_moves})
+        else:
+            cats = sorted({m["category"] for m in all_moves if m["source"] == game_filter})
+        self._move_source_cb["values"] = ["All"] + cats
+        if self._move_selected_cat not in cats:
+            self._move_selected_cat = "All"
+            self._move_source_cb.set("All")
         self._refresh_move_list()
 
     def _on_move_cat_change(self) -> None:
@@ -537,13 +595,16 @@ class App(tk.Tk):
         self._refresh_move_list()
 
     def _refresh_move_list(self) -> None:
+        game_filter = self._move_game_var.get()
         cat_filter = self._move_selected_cat
         query = self._move_search_var.get().strip().lower()
 
-        all_moves = self._sf_moves
+        all_moves = self._sf_moves + self._si_moves
 
         filtered: list[dict[str, Any]] = []
         for m in all_moves:
+            if game_filter != "All" and m["source"] != game_filter:
+                continue
             if cat_filter != "All" and m["category"] != cat_filter:
                 continue
             if query and query not in m["name"].lower() and query not in m["category"].lower():
@@ -554,7 +615,10 @@ class App(tk.Tk):
         self._moves_visible = filtered
         self._move_listbox.delete(0, tk.END)
         for m in filtered:
-            label = f"{m['category']} › {m['name']}"
+            if game_filter == "All":
+                label = f"[{self._short_source(m['source'])}]  {m['category']} › {m['name']}"
+            else:
+                label = f"{m['category']} › {m['name']}"
             self._move_listbox.insert(tk.END, label)
 
     def _on_move_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
@@ -562,9 +626,17 @@ class App(tk.Tk):
         if not selection:
             return
         move = self._moves_visible[selection[0]]
+        self._move_roll_result_var.set("")
         self._display_move(move)
 
-    def _display_move(self, move: dict[str, Any]) -> None:
+    def _display_move(self, move: dict[str, Any], highlight_roll: int | None = None) -> None:
+        self._current_move = move
+        tables = move.get("tables", [])
+        if tables:
+            self._move_roll_bar.grid()
+        else:
+            self._move_roll_bar.grid_remove()
+
         self._move_title_var.set(f"{move['name']}  —  {move['category']}")
 
         lines: list[tuple[str, str]] = []
@@ -593,7 +665,45 @@ class App(tk.Tk):
                 lines.append(("body", f"    {outcome_txt}"))
                 lines.append(("body", ""))
 
+        for i, tbl in enumerate(tables):
+            lines.append(("body", ""))
+            lines.append(("bold", tbl["name"] + ":"))
+            lines.append(("body", ""))
+            for row in tbl.get("rows", []):
+                rmin = row.get("min")
+                rmax = row.get("max")
+                text = row.get("text", "")
+                if rmin is None or rmax is None:
+                    range_str = "    –   "
+                elif rmin == rmax:
+                    range_str = f"{rmin:>3}      "
+                else:
+                    range_str = f"{rmin:>3}–{rmax:<3}"
+                tag = "body"
+                if i == 0 and highlight_roll is not None and rmin is not None and rmax is not None:
+                    if rmin <= highlight_roll <= rmax:
+                        tag = "strong"
+                lines.append((tag, f"  {range_str}  {text}"))
+
         self._set_text_lines(self._move_text, lines)
+
+    def _roll_move_table(self) -> None:
+        if self._current_move is None:
+            return
+        tables = self._current_move.get("tables", [])
+        if not tables:
+            return
+        tbl = tables[0]
+        roll = random.randint(1, 100)
+        matching = ""
+        for row in tbl.get("rows", []):
+            rmin = row.get("min")
+            rmax = row.get("max")
+            if rmin is not None and rmax is not None and rmin <= roll <= rmax:
+                matching = row.get("text", "")
+                break
+        self._move_roll_result_var.set(f"Rolled {roll}  \u2192  {matching}")
+        self._display_move(self._current_move, highlight_roll=roll)
 
     # ------------------------------------------------------------------
     # Oracles tab

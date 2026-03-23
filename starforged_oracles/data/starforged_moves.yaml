@@ -35,9 +35,9 @@ moves:
 
             * Identify or adjust flagged content and [Set a Flag](id:starforged/moves/session/set_a_flag).
             * Review or recap what happened last session.
-            * Set the scene by envisioning your character’s current situation and intent.
+            * Set the scene by envisioning your character's current situation and intent.
 
-          In addition, you may spotlight a new danger, opportunity, or insight. This can include a scene hidden from your character’s perspective. If you do, envision a brief vignette (you may roll or choose on the table below for inspiration). Then, all players take +1 momentum as you return to play from the viewpoint of your characters.
+          In addition, you may spotlight a new danger, opportunity, or insight. This can include a scene hidden from your character's perspective. If you do, envision a brief vignette (you may roll or choose on the table below for inspiration). Then, all players take +1 momentum as you return to play from the viewpoint of your characters.
 
           {{table:starforged/oracles/moves/begin_a_session}}
         _source:
@@ -48,9 +48,9 @@ moves:
         roll_type: no_roll
         type: move
         trigger:
-          text: When you identify situations or topics you don’t want to include, don’t want to envision in detail, or otherwise may need mindfulness when approaching...
+          text: When you identify situations or topics you don't want to include, don't want to envision in detail, or otherwise may need mindfulness when approaching...
         text: |-
-          __When you identify situations or topics you don’t want to include, don’t want to envision in detail, or otherwise may need mindfulness when approaching__, that content is now flagged.
+          __When you identify situations or topics you don't want to include, don't want to envision in detail, or otherwise may need mindfulness when approaching__, that content is now flagged.
 
           When you encounter content flagged as something to approach mindfully, pause to consider or discuss its role in your story. When you come across flagged content that you would rather adjust or omit, [Change Your Fate](id:starforged/moves/session/change_your_fate).
         _source:
@@ -65,7 +65,7 @@ moves:
         text: |-
           __When you encounter flagged content, reject an oracle, resist a consequence, or otherwise need to shift your circumstances within the game for your comfort or enjoyment__, pause and identify what needs to be changed. Choose as many options as appropriate.
 
-            * __Reframe:__ This didn’t happen the way you first thought. Envision the moment from another perspective in a way that diminishes or changes the content.
+            * __Reframe:__ This didn't happen the way you first thought. Envision the moment from another perspective in a way that diminishes or changes the content.
             * __Refocus:__ This is not the most important thing happening right now. Envision how the spotlight shifts to change the focus.
             * __Replace:__ This happens but with a small adjustment. Switch out an element and envision how this new detail changes the scenario.
             * __Redirect:__ Adjust the trajectory to involve a helping hand. Envision how another person or party becomes involved.
@@ -560,13 +560,13 @@ moves:
 
           ...you may mark progress per the rank of the connection.
 
-          If you already share a bond with the connection, do not mark progress. Instead, roll +their rank to learn the impact on your legacy: troublesome=+1; dangerous=+2; formidable=+3; extreme=+4; epic=+5. On a __strong hit__, mark 2 ticks on your bonds legacy track. On a __strong hit with a match__, you may also envision how recent events bolstered your connection’s standing and raise their rank by one (if not already epic). On a __weak hit__, take +2 momentum. On a __miss__, take no lasting benefit.
+          If you already share a bond with the connection, do not mark progress. Instead, roll +their rank to learn the impact on your legacy: troublesome=+1; dangerous=+2; formidable=+3; extreme=+4; epic=+5. On a __strong hit__, mark 2 ticks on your bonds legacy track. On a __strong hit with a match__, you may also envision how recent events bolstered your connection's standing and raise their rank by one (if not already epic). On a __weak hit__, take +2 momentum. On a __miss__, take no lasting benefit.
         outcomes:
           strong_hit:
             text: |-
               On a __strong hit__, mark 2 ticks on your bonds legacy track.
 
-              On a __strong hit with a match__, you may also envision how recent events bolstered your connection’s standing and raise their rank by one (if not already epic).
+              On a __strong hit with a match__, you may also envision how recent events bolstered your connection's standing and raise their rank by one (if not already epic).
           weak_hit:
             text: On a __weak hit__, take +2 momentum.
           miss:
@@ -1294,7 +1294,7 @@ moves:
 
           On a __weak hit__, if you are not wounded, you may [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-1) in exchange for +1 health. Otherwise, press on.
 
-          On a __miss__, it’s worse than you thought. Suffer an additional -1 health or [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-2). If your health is 0, you must also mark wounded or permanently harmed, or roll on the table below.
+          On a __miss__, it's worse than you thought. Suffer an additional -1 health or [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-2). If your health is 0, you must also mark wounded or permanently harmed, or roll on the table below.
 
           {{table:starforged/oracles/moves/endure_harm}}
         outcomes:
@@ -1308,7 +1308,7 @@ moves:
             text: On a __weak hit__, if you are not wounded, you may [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-1) in exchange for +1 health. Otherwise, press on.
           miss:
             text: |-
-              On a __miss__, it’s worse than you thought. Suffer an additional -1 health or [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-2). If your health is 0, you must also mark wounded or permanently harmed, or roll on the table below.
+              On a __miss__, it's worse than you thought. Suffer an additional -1 health or [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-2). If your health is 0, you must also mark wounded or permanently harmed, or roll on the table below.
 
               {{table:starforged/oracles/moves/endure_harm}}
         _source:
@@ -1439,7 +1439,7 @@ moves:
 
           On a __weak hit__, if your vehicle is not battered, you may [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-1) in exchange for +1 integrity. Otherwise, press on.
 
-          On a __miss__, it’s worse than you thought. Suffer an additional -1 integrity or [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-2). If your integrity is 0, also suffer a cost according to the vehicle type.
+          On a __miss__, it's worse than you thought. Suffer an additional -1 integrity or [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-2). If your integrity is 0, also suffer a cost according to the vehicle type.
 
             * __Command vehicle:__ Mark the vehicle as __battered__ or __cursed__, mark a module as __broken__, destroy a broken module by discarding it, or roll on the table below. If the command vehicle is destroyed, [Overcome Destruction](id:starforged/moves/threshold/overcome_destruction).
             * __Support vehicle:__ Mark the vehicle as __battered__ or roll on the table below. If the vehicle is destroyed, discard the asset.
@@ -1457,7 +1457,7 @@ moves:
             text: On a __weak hit__, if your vehicle is not battered, you may [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-1) in exchange for +1 integrity. Otherwise, press on.
           miss:
             text: |-
-              On a __miss__, it’s worse than you thought. Suffer an additional -1 integrity or [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-2). If your integrity is 0, also suffer a cost according to the vehicle type.
+              On a __miss__, it's worse than you thought. Suffer an additional -1 integrity or [Lose Momentum](id:starforged/moves/suffer/lose_momentum) (-2). If your integrity is 0, also suffer a cost according to the vehicle type.
 
                 * __Command vehicle:__ Mark the vehicle as __battered__ or __cursed__, mark a module as __broken__, destroy a broken module by discarding it, or roll on the table below. If the command vehicle is destroyed, [Overcome Destruction](id:starforged/moves/threshold/overcome_destruction).
                 * __Support vehicle:__ Mark the vehicle as __battered__ or roll on the table below. If the vehicle is destroyed, discard the asset.
@@ -2061,7 +2061,7 @@ moves:
 
             * Make the most obvious negative outcome happen.
             * [Ask the Oracle](id:starforged/moves/fate/ask_the_oracle) for inspiration. Interpret the answer as a hardship or complication appropriate to the situation.
-            * Roll on the table below. If the result doesn’t fit the situation, roll again.
+            * Roll on the table below. If the result doesn't fit the situation, roll again.
 
           {{table:starforged/oracles/moves/pay_the_price}}
         _source:
@@ -2229,12 +2229,12 @@ moves:
         tracks:
           category: Scene Challenge
         trigger:
-          text: When the scene challenge tension clock or progress track is filled, or when events lead to the scene’s conclusion...
+          text: When the scene challenge tension clock or progress track is filled, or when events lead to the scene's conclusion...
           conditions:
             - roll_options:
                 - using: progress_track
         text: |-
-          __When the scene challenge tension clock or progress track is filled, or when events lead to the scene’s conclusion__, roll the challenge dice and compare to your progress.
+          __When the scene challenge tension clock or progress track is filled, or when events lead to the scene's conclusion__, roll the challenge dice and compare to your progress.
 
           On a __strong hit__, you achieve your objective unconditionally.
 
