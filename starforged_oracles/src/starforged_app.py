@@ -44,6 +44,7 @@ IS_ORACLES_DIR = DATA_DIR / "is_oracles"
 SF_ASSETS_DIR = DATA_DIR / "sf_assets"
 SI_ASSETS_DIR = DATA_DIR / "si_assets"
 IS_ASSETS_DIR = DATA_DIR / "is_assets"
+BUNDLES_YAML = DATA_DIR / "bundles.yaml"
 
 # ---------------------------------------------------------------------------
 # Markdown-to-plain-text helpers
@@ -447,6 +448,12 @@ class App(tk.Tk):
             o["oracle_id"]: o for o in all_oracles if o.get("oracle_id")
         }
 
+        # Load oracle bundles
+        self._bundles: list[dict[str, Any]] = []
+        if BUNDLES_YAML.exists():
+            raw_bundles = _load_yaml(BUNDLES_YAML)
+            self._bundles = raw_bundles.get("bundles") or []
+
     # ------------------------------------------------------------------
     # UI layout
     # ------------------------------------------------------------------
@@ -469,6 +476,11 @@ class App(tk.Tk):
         assets_tab = ttk.Frame(notebook)
         notebook.add(assets_tab, text="  Assets  ")
         self._build_assets_tab(assets_tab)
+
+        # Tab 4 – Bundles
+        bundles_tab = ttk.Frame(notebook)
+        notebook.add(bundles_tab, text="  Bundles  ")
+        self._build_bundles_tab(bundles_tab)
 
     @staticmethod
     def _short_source(source: str) -> str:
@@ -1187,6 +1199,244 @@ class App(tk.Tk):
             lines.append(("body", ""))
 
         self._set_text_lines(self._asset_text, lines)
+
+    # ------------------------------------------------------------------
+    # Bundles tab
+    # ------------------------------------------------------------------
+
+    def _build_bundles_tab(self, parent: ttk.Frame) -> None:
+        paned = tk.PanedWindow(
+            parent, orient="horizontal",
+            bg=BORDER, sashrelief="flat", sashwidth=5, bd=0, handlesize=0,
+        )
+        paned.pack(fill="both", expand=True)
+
+        # --- Left panel ---
+        left = ttk.Frame(paned, style="Panel.TFrame")
+        left.rowconfigure(3, weight=1)
+        left.columnconfigure(0, weight=1)
+        paned.add(left, minsize=160, width=230)
+
+        ttk.Label(left, text="Game", style="Cat.TLabel").grid(
+            row=0, column=0, sticky="w", padx=8, pady=(8, 2)
+        )
+        all_games = sorted({b["game"] for b in self._bundles if b.get("game")})
+        self._bundle_game_var = tk.StringVar(value="All")
+        self._bundle_game_var.trace_add("write", lambda *_: self._refresh_bundle_list())
+        game_om = tk.OptionMenu(left, self._bundle_game_var, "All", *all_games)
+        game_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
+                       highlightthickness=0, relief="flat", anchor="w", width=20)
+        game_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        game_om.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 8))
+
+        ttk.Label(left, text="Bundles", style="Cat.TLabel").grid(
+            row=2, column=0, sticky="w", padx=8, pady=(0, 2)
+        )
+
+        lf = ttk.Frame(left, style="Panel.TFrame")
+        lf.grid(row=3, column=0, sticky="nsew", padx=4, pady=4)
+        lf.rowconfigure(0, weight=1)
+        lf.columnconfigure(0, weight=1)
+
+        self._bundle_listbox = tk.Listbox(
+            lf,
+            bg=PANEL_BG, fg=FG,
+            selectbackground=ACCENT, selectforeground=BG,
+            activestyle="none", relief="flat", borderwidth=0,
+            highlightthickness=0, font=("Segoe UI", 9),
+        )
+        self._bundle_listbox.grid(row=0, column=0, sticky="nsew")
+        sb = ttk.Scrollbar(lf, command=self._bundle_listbox.yview)
+        sb.grid(row=0, column=1, sticky="ns")
+        self._bundle_listbox.configure(yscrollcommand=sb.set)
+        self._bundle_listbox.bind("<<ListboxSelect>>", self._on_bundle_select)
+
+        # --- Right panel ---
+        right = ttk.Frame(paned, style="Panel.TFrame")
+        right.rowconfigure(2, weight=1)
+        right.columnconfigure(0, weight=1)
+        paned.add(right, minsize=200)
+
+        # Title bar
+        title_bar = ttk.Frame(right, style="Panel.TFrame")
+        title_bar.grid(row=0, column=0, sticky="ew", padx=6, pady=(10, 2))
+        title_bar.columnconfigure(1, weight=1)
+
+        self._bundle_title_var = tk.StringVar(value="Select a bundle →")
+        ttk.Label(
+            title_bar, textvariable=self._bundle_title_var, style="Title.TLabel"
+        ).grid(row=0, column=0, sticky="w")
+
+        # Roll bar
+        roll_bar = ttk.Frame(right, style="Panel.TFrame")
+        roll_bar.grid(row=1, column=0, sticky="ew", padx=6, pady=(2, 4))
+
+        ttk.Button(
+            roll_bar, text="Roll All", style="Accent.TButton",
+            command=self._roll_bundle,
+        ).grid(row=0, column=0, sticky="w", padx=(0, 10))
+
+        # Cursed die controls
+        self._bundle_cursed_var = tk.BooleanVar(value=False)
+        cursed_check = tk.Checkbutton(
+            roll_bar, text="☠ Cursed Die",
+            variable=self._bundle_cursed_var,
+            bg=PANEL_BG, fg=FG, selectcolor=PANEL_BG,
+            activebackground=PANEL_BG, activeforeground=ACCENT,
+            font=("Segoe UI", 9), relief="flat", bd=0,
+        )
+        cursed_check.grid(row=0, column=1, sticky="w", padx=(0, 6))
+
+        self._bundle_cursed_die_var = tk.StringVar(value="d10")
+        die_om = tk.OptionMenu(roll_bar, self._bundle_cursed_die_var, "d10", "d12", "d20")
+        die_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
+                      highlightthickness=0, relief="flat", width=4)
+        die_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        die_om.grid(row=0, column=2, sticky="w")
+
+        # Results text
+        self._bundle_text = self._make_textbox(right)
+        self._bundle_text.grid(row=2, column=0, sticky="nsew", padx=4, pady=(0, 4))
+
+        # State
+        self._current_bundle: dict[str, Any] | None = None
+        self._bundles_visible: list[dict[str, Any]] = []
+        self._refresh_bundle_list()
+
+    def _refresh_bundle_list(self) -> None:
+        game_filter = self._bundle_game_var.get() or "All"
+        filtered = [
+            b for b in self._bundles
+            if game_filter == "All" or b.get("game") == game_filter
+        ]
+        self._bundles_visible = filtered
+        self._bundle_listbox.delete(0, tk.END)
+        for b in filtered:
+            game_tag = f"[{self._short_source(b.get('game', ''))}]  " if b.get("game") else ""
+            self._bundle_listbox.insert(tk.END, game_tag + b.get("name", ""))
+
+    def _on_bundle_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
+        selection = self._bundle_listbox.curselection()
+        if not selection:
+            return
+        self._current_bundle = self._bundles_visible[selection[0]]
+        bundle = self._current_bundle
+        if bundle is None:
+            return
+        self._bundle_title_var.set(bundle.get("name", ""))
+        lines: list[tuple[str, str]] = []
+        lines.append(("cat", f"{bundle.get('game', '')}  —  {len(bundle.get('rolls', []))} roll steps"))
+        lines.append(("body", ""))
+        for item in bundle.get("rolls", []):
+            label = item.get("label", "?")
+            count = item.get("count", 1)
+            cursed_id = item.get("cursed_oracle_id", "")
+            cascade = item.get("cascade_from", "")
+            extras = []
+            if count > 1:
+                extras.append(f"×{count}")
+            if cursed_id:
+                extras.append("☠")
+            if cascade:
+                extras.append(f"→ based on {cascade}")
+            suffix = "  " + "  ".join(extras) if extras else ""
+            lines.append(("bold", f"  {label}{suffix}"))
+            if item.get("note"):
+                lines.append(("cat", f"    ↳ {item['note']}"))
+        self._set_text_lines(self._bundle_text, lines)
+
+    def _roll_bundle(self) -> None:
+        if self._current_bundle is None:
+            return
+
+        use_cursed = self._bundle_cursed_var.get()
+        die_str = self._bundle_cursed_die_var.get()
+        die_sides = int(die_str[1:])
+
+        lines: list[tuple[str, str]] = []
+        lines.append(("cat", self._current_bundle.get("name", "") + "  —  " + self._current_bundle.get("game", "")))
+        lines.append(("body", ""))
+
+        # Track label → last result text so cascade can look it up
+        label_results: dict[str, str] = {}
+
+        for item in self._current_bundle.get("rolls", []):
+            label = item.get("label", "?")
+            count = item.get("count", 1)
+            note = item.get("note", "")
+
+            # Resolve oracle_id: direct or cascade
+            oracle_id = item.get("oracle_id", "")
+            if item.get("cascade_from"):
+                source_label = item["cascade_from"]
+                source_text = label_results.get(source_label, "")
+                cascade_map: dict[str, str] = item.get("cascade_map") or {}
+                # Exact match first; fall back to prefix match for text+text2 combined rows
+                oracle_id = cascade_map.get(source_text, "")
+                if not oracle_id:
+                    for key, val in cascade_map.items():
+                        if source_text.startswith(key):
+                            oracle_id = val
+                            break
+                if not oracle_id:
+                    lines.append(("bold", f"  {label}"))
+                    lines.append(("miss", f"    [No cascade match for {source_label}={source_text!r}]"))
+                    lines.append(("body", ""))
+                    continue
+
+            oracle = self._oracle_by_id.get(oracle_id)
+            if oracle is None:
+                lines.append(("bold", f"  {label}"))
+                lines.append(("miss", f"    [Oracle not found: {oracle_id}]"))
+                lines.append(("body", ""))
+                continue
+
+            cursed_oracle_id = item.get("cursed_oracle_id", "")
+
+            for roll_num in range(count):
+                roll = random.randint(1, 100)
+                roll_label = label if count == 1 else f"{label} #{roll_num + 1}"
+
+                # Cursed die
+                cursed = False
+                cursed_suffix = ""
+                if use_cursed and cursed_oracle_id:
+                    cursed_roll = random.randint(1, die_sides)
+                    cursed = (cursed_roll == die_sides)
+                    cursed_suffix = f"  ☠{die_str}:{cursed_roll}" + ("→CURSED" if cursed else "")
+
+                # Resolve table
+                active_oracle = oracle
+                if cursed:
+                    co = self._oracle_by_id.get(cursed_oracle_id)
+                    if co:
+                        active_oracle = co
+
+                # Find matching row
+                result_text = ""
+                for row in active_oracle.get("rows", []):
+                    rmin = row.get("min")
+                    rmax = row.get("max")
+                    if rmin is not None and rmax is not None and rmin <= roll <= rmax:
+                        result_text = row.get("text", "")
+                        break
+
+                # Store last result for cascade lookup (use first roll only)
+                if roll_num == 0:
+                    label_results[label] = result_text
+
+                if cursed:
+                    lines.append(("miss", f"  {roll_label}  [{roll}]{cursed_suffix}"))
+                    lines.append(("strong", f"    ☠ {result_text}"))
+                else:
+                    lines.append(("bold", f"  {roll_label}  [{roll}]"))
+                    lines.append(("body", f"    {result_text}"))
+
+            if note:
+                lines.append(("cat", f"    ↳ {note}"))
+            lines.append(("body", ""))
+
+        self._set_text_lines(self._bundle_text, lines)
 
     # ------------------------------------------------------------------
     # Shared text helpers

@@ -1,0 +1,71 @@
+# bundles.yaml
+# Oracle bundles – multi-table rolls that fire together.
+#
+# Each bundle item supports:
+#   label:           Display name shown in results
+#   oracle_id:       Exact runtime oracle_id (as built by the app's _walk_oracle_collection)
+#   count:           How many times to roll this table (default 1)
+#   cursed_oracle_id: Standalone cursed table to use when the cursed die fires (optional)
+#   note:            Informational note shown beneath the label
+#   cascade_from:    Label of a preceding roll whose text result drives oracle selection
+#   cascade_map:     Mapping of size-result text → oracle_id (used with cascade_from)
+
+bundles:
+
+  - id: si_core_action_theme
+    name: "Core: Action & Theme"
+    game: "Sundered Isles"
+    rolls:
+      - label: "Action"
+        oracle_id: "sundered_isles/oracles/core/action"
+      - label: "Theme"
+        oracle_id: "sundered_isles/oracles/core/theme"
+
+  - id: si_core_descriptor_focus
+    name: "Core: Descriptor & Focus"
+    game: "Sundered Isles"
+    rolls:
+      - label: "Descriptor"
+        oracle_id: "sundered_isles/oracles/core/descriptor"
+      - label: "Focus"
+        oracle_id: "sundered_isles/oracles/core/focus"
+
+  - id: si_sailing_ship
+    name: "Ship"
+    game: "Sundered Isles"
+    rolls:
+      - label: "Size"
+        oracle_id: "sundered_isles/oracles/sailing_ships/size"
+      - label: "Position: Range"
+        oracle_id: "sundered_isles/oracles/sailing_ships/position/range"
+      - label: "Position: Status"
+        oracle_id: "sundered_isles/oracles/sailing_ships/position/status"
+      - label: "First Look"
+        oracle_id: "sundered_isles/oracles/sailing_ships/first_look"
+        count: 2
+        cursed_oracle_id: "sundered_isles/oracles/sailing_ships/cursed_first_look"
+      - label: "Controlling Faction"
+        oracle_id: "sundered_isles/oracles/sailing_ships/controlling_faction/margins"
+        note: "Sub-tables: Myriads / Margins / Reaches — roll on the table for your region"
+      - label: "Symbol"
+        oracle_id: "sundered_isles/oracles/sailing_ships/symbol"
+        cursed_oracle_id: "sundered_isles/oracles/sailing_ships/cursed_symbol"
+      - label: "Mission"
+        cascade_from: "Size"
+        cascade_map:
+          Small: "sundered_isles/oracles/sailing_ships/mission/small"
+          Medium: "sundered_isles/oracles/sailing_ships/mission/medium"
+          Large: "sundered_isles/oracles/sailing_ships/mission/large"
+          Colossal: "sundered_isles/oracles/sailing_ships/mission/huge"
+          Flotilla: "sundered_isles/oracles/sailing_ships/mission/flotilla"
+          Fleet: "sundered_isles/oracles/sailing_ships/mission/fleet"
+          Armada: "sundered_isles/oracles/sailing_ships/mission/armada"
+        cursed_oracle_id: "sundered_isles/oracles/sailing_ships/cursed_mission"
+      - label: "Ship Details"
+        oracle_id: "sundered_isles/oracles/sailing_ships/revaled_aspects"
+        count: 2
+        cursed_oracle_id: "sundered_isles/oracles/sailing_ships/cursed_aspects"
+      - label: "Cargo"
+        oracle_id: "sundered_isles/oracles/sailing_ships/cargo"
+        count: 4
+        cursed_oracle_id: "sundered_isles/oracles/sailing_ships/cursed_cargo"
