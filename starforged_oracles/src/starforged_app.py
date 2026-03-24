@@ -192,6 +192,7 @@ def _extract_oracle_table(
     oracle: dict[str, Any],
     category: str,
     source_label: str,
+    oracle_id: str = "",
 ) -> dict[str, Any] | None:
     """Return a single oracle-table dict, or None if not a rollable table."""
     rows = oracle.get("rows")
@@ -216,10 +217,19 @@ def _extract_oracle_table(
         )
     if not parsed:
         return None
+    # cursed_version is stored under tags.<game_id>.cursed_version in Datasworn
+    cursed_ref = ""
+    tags = oracle.get("tags") or {}
+    for _game, tag_data in tags.items():
+        if isinstance(tag_data, dict) and "cursed_version" in tag_data:
+            cursed_ref = tag_data["cursed_version"]
+            break
     return {
         "source": source_label,
         "category": category,
         "name": oracle.get("name", ""),
+        "oracle_id": oracle_id,
+        "cursed_version": cursed_ref,
         "rows": parsed,
     }
 
@@ -229,30 +239,32 @@ def _walk_oracle_collection(
     category: str,
     source_label: str,
     out: list[dict[str, Any]],
+    id_prefix: str = "",
 ) -> None:
     # Walk both 'contents' and 'collections' (Datasworn uses both)
     for section_key in ("contents", "collections"):
         section: dict[str, Any] = node.get(section_key) or {}
-        for _key, child in section.items():
+        for key, child in section.items():
             if not isinstance(child, dict):
                 continue
+            child_id = f"{id_prefix}/{key}" if id_prefix else key
             child_type = child.get("type", "")
             if child_type == "oracle_rollable":
-                tbl = _extract_oracle_table(child, category, source_label)
+                tbl = _extract_oracle_table(child, category, source_label, oracle_id=child_id)
                 if tbl:
                     out.append(tbl)
             elif child_type == "oracle_collection":
                 child_cat = child.get("name", category)
-                _walk_oracle_collection(child, child_cat, source_label, out)
+                _walk_oracle_collection(child, child_cat, source_label, out, id_prefix=child_id)
             else:
                 # Heuristic: a rows key means it's a table; contents/collections mean recurse
                 if "rows" in child:
-                    tbl = _extract_oracle_table(child, category, source_label)
+                    tbl = _extract_oracle_table(child, category, source_label, oracle_id=child_id)
                     if tbl:
                         out.append(tbl)
                 if "contents" in child or "collections" in child:
                     child_cat = child.get("name", category)
-                    _walk_oracle_collection(child, child_cat, source_label, out)
+                    _walk_oracle_collection(child, child_cat, source_label, out, id_prefix=child_id)
 
 
 def _extract_oracles(
@@ -261,11 +273,13 @@ def _extract_oracles(
     """Return a flat list of oracle tables from a loaded YAML document."""
     source_name = _source_name(data, fallback_label)
     tables: list[dict[str, Any]] = []
-    for _cat_key, cat in (data.get("oracles") or {}).items():
+    top_id = data.get("_id", "")
+    for cat_key, cat in (data.get("oracles") or {}).items():
         if not isinstance(cat, dict):
             continue
-        cat_name = cat.get("name", _cat_key)
-        _walk_oracle_collection(cat, cat_name, source_name, tables)
+        cat_name = cat.get("name", cat_key)
+        id_prefix = f"{top_id}/oracles/{cat_key}" if top_id else cat_key
+        _walk_oracle_collection(cat, cat_name, source_name, tables, id_prefix=id_prefix)
     return tables
 
 
@@ -330,7 +344,7 @@ class App(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
         self.title("Starforged / Sundered Isles Reference")
-        self.geometry("1000x700")
+        self.geometry("800x600")
         self.minsize(780, 560)
         self.configure(bg=BG)
         self._configure_styles()
@@ -427,6 +441,12 @@ class App(tk.Tk):
                 raw = _load_yaml(yaml_file)
                 self._is_assets.extend(_extract_assets(raw, "Ironsworn"))
 
+        # Build a lookup from oracle_id → oracle dict, used for cursed die resolution.
+        all_oracles = self._sf_oracles + self._si_oracles + self._is_oracles
+        self._oracle_by_id: dict[str, dict[str, Any]] = {
+            o["oracle_id"]: o for o in all_oracles if o.get("oracle_id")
+        }
+
     # ------------------------------------------------------------------
     # UI layout
     # ------------------------------------------------------------------
@@ -459,19 +479,35 @@ class App(tk.Tk):
         }.get(source, source)
 
     # ------------------------------------------------------------------
+    # Shared helpers
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _rebuild_option_menu(
+        om: tk.OptionMenu, var: tk.StringVar, values: list[str]
+    ) -> None:
+        """Replace all entries in an OptionMenu with new values."""
+        menu = om["menu"]
+        menu.delete(0, "end")
+        for val in values:
+            menu.add_command(label=val, command=lambda v=val: var.set(v))
+
+    # ------------------------------------------------------------------
     # Moves tab
     # ------------------------------------------------------------------
 
     def _build_moves_tab(self, parent: ttk.Frame) -> None:
-        parent.columnconfigure(0, weight=0, minsize=230)
-        parent.columnconfigure(1, weight=1)
-        parent.rowconfigure(0, weight=1)
+        paned = tk.PanedWindow(
+            parent, orient="horizontal",
+            bg=BORDER, sashrelief="flat", sashwidth=5, bd=0, handlesize=0,
+        )
+        paned.pack(fill="both", expand=True)
 
         # --- Left panel: filter + listbox ---
-        left = ttk.Frame(parent, style="Panel.TFrame")
-        left.grid(row=0, column=0, sticky="nsew", padx=(0, 2), pady=0)
+        left = ttk.Frame(paned, style="Panel.TFrame")
         left.rowconfigure(5, weight=1)
         left.columnconfigure(0, weight=1)
+        paned.add(left, minsize=160, width=230)
 
         ttk.Label(left, text="Game", style="Cat.TLabel").grid(
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
@@ -490,16 +526,13 @@ class App(tk.Tk):
         )
         self._move_selected_cat = "All"
         all_move_cats = sorted({m["category"] for m in self._sf_moves + self._si_moves})
-        source_cb = ttk.Combobox(
-            left,
-            values=["All"] + all_move_cats,
-            state="readonly",
-            width=22,
-        )
-        self._move_source_cb = source_cb
-        source_cb.set("All")
-        source_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
-        source_cb.bind("<<ComboboxSelected>>", lambda _e: self._on_move_cat_change())
+        self._move_cat_var = tk.StringVar(value="All")
+        self._move_cat_var.trace_add("write", lambda *_: self._on_move_cat_change())
+        self._move_cat_om = tk.OptionMenu(left, self._move_cat_var, "All", *all_move_cats)
+        self._move_cat_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
+                                 highlightthickness=0, relief="flat", anchor="w", width=20)
+        self._move_cat_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        self._move_cat_om.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
             row=4, column=0, sticky="w", padx=8, pady=(4, 2)
@@ -544,10 +577,10 @@ class App(tk.Tk):
         self._move_listbox.bind("<<ListboxSelect>>", self._on_move_select)
 
         # --- Right panel: detail view ---
-        right = ttk.Frame(parent, style="Panel.TFrame")
-        right.grid(row=0, column=1, sticky="nsew", padx=(2, 0))
+        right = ttk.Frame(paned, style="Panel.TFrame")
         right.rowconfigure(2, weight=1)
         right.columnconfigure(0, weight=1)
+        paned.add(right, minsize=200)
 
         self._move_title_var = tk.StringVar(value="Select a move →")
         ttk.Label(
@@ -584,14 +617,14 @@ class App(tk.Tk):
             cats = sorted({m["category"] for m in all_moves})
         else:
             cats = sorted({m["category"] for m in all_moves if m["source"] == game_filter})
-        self._move_source_cb["values"] = ["All"] + cats
+        self._rebuild_option_menu(self._move_cat_om, self._move_cat_var, ["All"] + cats)
         if self._move_selected_cat not in cats:
             self._move_selected_cat = "All"
-            self._move_source_cb.set("All")
+            self._move_cat_var.set("All")
         self._refresh_move_list()
 
     def _on_move_cat_change(self) -> None:
-        self._move_selected_cat = self._move_source_cb.get()
+        self._move_selected_cat = self._move_cat_var.get()
         self._refresh_move_list()
 
     def _refresh_move_list(self) -> None:
@@ -710,15 +743,17 @@ class App(tk.Tk):
     # ------------------------------------------------------------------
 
     def _build_oracles_tab(self, parent: ttk.Frame) -> None:
-        parent.columnconfigure(0, weight=0, minsize=230)
-        parent.columnconfigure(1, weight=1)
-        parent.rowconfigure(0, weight=1)
+        paned = tk.PanedWindow(
+            parent, orient="horizontal",
+            bg=BORDER, sashrelief="flat", sashwidth=5, bd=0, handlesize=0,
+        )
+        paned.pack(fill="both", expand=True)
 
         # Left panel
-        left = ttk.Frame(parent, style="Panel.TFrame")
-        left.grid(row=0, column=0, sticky="nsew", padx=(0, 2))
+        left = ttk.Frame(paned, style="Panel.TFrame")
         left.rowconfigure(5, weight=1)
         left.columnconfigure(0, weight=1)
+        paned.add(left, minsize=160, width=230)
 
         ttk.Label(left, text="Game", style="Cat.TLabel").grid(
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
@@ -741,16 +776,13 @@ class App(tk.Tk):
             {o["category"] for o in self._sf_oracles + self._si_oracles + self._is_oracles}
         )
         self._oracle_selected_cat = "All"
-        cat_cb = ttk.Combobox(
-            left,
-            values=["All"] + all_oracle_cats,
-            state="readonly",
-            width=22,
-        )
-        self._oracle_cat_cb = cat_cb
-        cat_cb.set("All")
-        cat_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
-        cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._on_oracle_cat_change())
+        self._oracle_cat_var = tk.StringVar(value="All")
+        self._oracle_cat_var.trace_add("write", lambda *_: self._on_oracle_cat_change())
+        self._oracle_cat_om = tk.OptionMenu(left, self._oracle_cat_var, "All", *all_oracle_cats)
+        self._oracle_cat_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
+                                   highlightthickness=0, relief="flat", anchor="w", width=20)
+        self._oracle_cat_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        self._oracle_cat_om.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
             row=4, column=0, sticky="w", padx=8, pady=(4, 2)
@@ -794,10 +826,10 @@ class App(tk.Tk):
         self._oracle_listbox.bind("<<ListboxSelect>>", self._on_oracle_select)
 
         # Right panel
-        right = ttk.Frame(parent, style="Panel.TFrame")
-        right.grid(row=0, column=1, sticky="nsew", padx=(2, 0))
+        right = ttk.Frame(paned, style="Panel.TFrame")
         right.rowconfigure(2, weight=1)
         right.columnconfigure(0, weight=1)
+        paned.add(right, minsize=200)
 
         self._oracle_title_var = tk.StringVar(value="Select an oracle →")
         ttk.Label(
@@ -813,6 +845,28 @@ class App(tk.Tk):
             style="Accent.TButton",
             command=self._roll_oracle,
         ).pack(side="left", padx=(0, 8))
+
+        # Cursed Die controls
+        self._cursed_enabled_var = tk.BooleanVar(value=False)
+        cursed_cb = tk.Checkbutton(
+            roll_bar, text="☠ Cursed Die",
+            variable=self._cursed_enabled_var,
+            bg=PANEL_BG, fg=HIT_MISS, selectcolor=PANEL_BG,
+            activebackground=PANEL_BG, activeforeground=HIT_MISS,
+            font=("Segoe UI", 9), relief="flat", bd=0,
+            highlightthickness=0,
+        )
+        cursed_cb.pack(side="left", padx=(0, 4))
+
+        self._cursed_die_var = tk.StringVar(value="d10")
+        cursed_die_om = tk.OptionMenu(roll_bar, self._cursed_die_var, "d10", "d12", "d20")
+        cursed_die_om.config(
+            bg=PANEL_BG, fg=HIT_MISS, activebackground=SEL_BG, activeforeground=HIT_MISS,
+            highlightthickness=0, relief="flat", width=3,
+        )
+        cursed_die_om["menu"].config(bg=PANEL_BG, fg=HIT_MISS, activebackground=SEL_BG, activeforeground=HIT_MISS)
+        cursed_die_om.pack(side="left", padx=(0, 12))
+
         ttk.Label(roll_bar, textvariable=self._roll_result_var, style="Title.TLabel").pack(
             side="left"
         )
@@ -833,15 +887,15 @@ class App(tk.Tk):
             cats = sorted({o["category"] for o in all_oracles})
         else:
             cats = sorted({o["category"] for o in all_oracles if o["source"] == game_filter})
-        self._oracle_cat_cb["values"] = ["All"] + cats
+        self._rebuild_option_menu(self._oracle_cat_om, self._oracle_cat_var, ["All"] + cats)
         # Reset category selection only if the current choice no longer exists
         if self._oracle_selected_cat not in cats:
             self._oracle_selected_cat = "All"
-            self._oracle_cat_cb.set("All")
+            self._oracle_cat_var.set("All")
         self._refresh_oracle_list()
 
     def _on_oracle_cat_change(self) -> None:
-        self._oracle_selected_cat = self._oracle_cat_cb.get()
+        self._oracle_selected_cat = self._oracle_cat_var.get()
         self._refresh_oracle_list()
 
     def _refresh_oracle_list(self) -> None:
@@ -880,10 +934,17 @@ class App(tk.Tk):
         self,
         oracle: dict[str, Any],
         highlight_roll: int | None = None,
+        cursed: bool = False,
     ) -> None:
-        self._oracle_title_var.set(f"{oracle['name']}  —  {oracle['category']}")
+        name = oracle["name"]
+        if cursed:
+            name = "☠  " + name
+        self._oracle_title_var.set(f"{name}  —  {oracle['category']}")
         lines: list[tuple[str, str]] = []
-        lines.append(("cat", f"{oracle['source']}  ·  {oracle['category']}"))
+        src_label = oracle["source"] + "  ·  " + oracle["category"]
+        if cursed:
+            src_label += "  [☠ CURSED]"
+        lines.append(("miss" if cursed else "cat", src_label))
         lines.append(("body", ""))
         for row in oracle.get("rows", []):
             rmin = row.get("min")
@@ -906,30 +967,48 @@ class App(tk.Tk):
         if self._current_oracle is None:
             return
         roll = random.randint(1, 100)
+        # Cursed die logic
+        cursed = False
+        cursed_roll_str = ""
+        if self._cursed_enabled_var.get() and self._current_oracle.get("cursed_version"):
+            die_str = self._cursed_die_var.get()   # "d10", "d12", or "d20"
+            die_sides = int(die_str[1:])
+            cursed_roll = random.randint(1, die_sides)
+            cursed = (cursed_roll == die_sides)
+            cursed_roll_str = f"  |  ☠ {die_str}: {cursed_roll}{'  → CURSED!' if cursed else ''}"
+        # Resolve which table to display/match against
+        display_oracle = self._current_oracle
+        if cursed:
+            cursed_id = self._current_oracle["cursed_version"]
+            cursed_oracle = self._oracle_by_id.get(cursed_id)
+            if cursed_oracle:
+                display_oracle = cursed_oracle
         matching = ""
-        for row in self._current_oracle.get("rows", []):
+        for row in display_oracle.get("rows", []):
             rmin = row.get("min")
             rmax = row.get("max")
             if rmin is not None and rmax is not None and rmin <= roll <= rmax:
                 matching = row.get("text", "")
                 break
-        self._roll_result_var.set(f"Rolled {roll}  →  {matching}")
-        self._display_oracle(self._current_oracle, highlight_roll=roll)
+        self._roll_result_var.set(f"Rolled {roll}  →  {matching}{cursed_roll_str}")
+        self._display_oracle(display_oracle, highlight_roll=roll, cursed=cursed)
 
     # ------------------------------------------------------------------
     # Assets tab
     # ------------------------------------------------------------------
 
     def _build_assets_tab(self, parent: ttk.Frame) -> None:
-        parent.columnconfigure(0, weight=0, minsize=230)
-        parent.columnconfigure(1, weight=1)
-        parent.rowconfigure(0, weight=1)
+        paned = tk.PanedWindow(
+            parent, orient="horizontal",
+            bg=BORDER, sashrelief="flat", sashwidth=5, bd=0, handlesize=0,
+        )
+        paned.pack(fill="both", expand=True)
 
         # --- Left panel: filter + listbox ---
-        left = ttk.Frame(parent, style="Panel.TFrame")
-        left.grid(row=0, column=0, sticky="nsew", padx=(0, 2))
+        left = ttk.Frame(paned, style="Panel.TFrame")
         left.rowconfigure(5, weight=1)
         left.columnconfigure(0, weight=1)
+        paned.add(left, minsize=160, width=230)
 
         ttk.Label(left, text="Game", style="Cat.TLabel").grid(
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
@@ -948,16 +1027,13 @@ class App(tk.Tk):
         )
         all_cats = sorted({a["category"] for a in self._sf_assets + self._si_assets + self._is_assets})
         self._asset_selected_cat = "All"
-        cat_cb = ttk.Combobox(
-            left,
-            values=["All"] + all_cats,
-            state="readonly",
-            width=22,
-        )
-        self._asset_cat_cb = cat_cb
-        cat_cb.set("All")
-        cat_cb.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
-        cat_cb.bind("<<ComboboxSelected>>", lambda _e: self._on_asset_cat_change())
+        self._asset_cat_var = tk.StringVar(value="All")
+        self._asset_cat_var.trace_add("write", lambda *_: self._on_asset_cat_change())
+        self._asset_cat_om = tk.OptionMenu(left, self._asset_cat_var, "All", *all_cats)
+        self._asset_cat_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
+                                  highlightthickness=0, relief="flat", anchor="w", width=20)
+        self._asset_cat_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        self._asset_cat_om.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 4))
 
         ttk.Label(left, text="Search", style="Cat.TLabel").grid(
             row=4, column=0, sticky="w", padx=8, pady=(4, 2)
@@ -1001,10 +1077,10 @@ class App(tk.Tk):
         self._asset_listbox.bind("<<ListboxSelect>>", self._on_asset_select)
 
         # --- Right panel: detail view ---
-        right = ttk.Frame(parent, style="Panel.TFrame")
-        right.grid(row=0, column=1, sticky="nsew", padx=(2, 0))
+        right = ttk.Frame(paned, style="Panel.TFrame")
         right.rowconfigure(1, weight=1)
         right.columnconfigure(0, weight=1)
+        paned.add(right, minsize=200)
 
         title_bar = ttk.Frame(right, style="Panel.TFrame")
         title_bar.grid(row=0, column=0, sticky="ew", padx=6, pady=(10, 2))
@@ -1034,7 +1110,7 @@ class App(tk.Tk):
         self._refresh_asset_list()
 
     def _on_asset_cat_change(self) -> None:
-        self._asset_selected_cat = self._asset_cat_cb.get()
+        self._asset_selected_cat = self._asset_cat_var.get()
         self._refresh_asset_list()
 
     def _refresh_asset_category_options(self) -> None:
@@ -1046,10 +1122,10 @@ class App(tk.Tk):
             cats = sorted({a["category"] for a in all_assets if a["source"] == game_filter})
 
         valid_values = ["All"] + cats
-        self._asset_cat_cb.configure(values=valid_values)
+        self._rebuild_option_menu(self._asset_cat_om, self._asset_cat_var, valid_values)
         if self._asset_selected_cat not in valid_values:
             self._asset_selected_cat = "All"
-            self._asset_cat_cb.set("All")
+            self._asset_cat_var.set("All")
 
     def _refresh_asset_list(self) -> None:
         game_filter = self._asset_game_var.get()
