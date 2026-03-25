@@ -62,8 +62,8 @@ class App(MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesTabMixin, tk.Tk
         for label, builder in (
             ("  Moves  ",   self._build_moves_tab),
             ("  Oracles  ", self._build_oracles_tab),
-            ("  Assets  ",  self._build_assets_tab),
             ("  Bundles  ", self._build_bundles_tab),
+            ("  Assets  ",  self._build_assets_tab),
         ):
             tab = ttk.Frame(notebook)
             notebook.add(tab, text=label)

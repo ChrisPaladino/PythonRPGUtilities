@@ -221,7 +221,9 @@ class OraclesTabMixin:
             if highlight_roll is not None and rmin is not None and rmax is not None:
                 if rmin <= highlight_roll <= rmax:
                     tag = "strong"
-            lines.append((tag, f"  {range_str}  {text}"))
+            prefix = f"  {range_str}  "
+            text_indented = text.replace("\n", "\n" + " " * len(prefix))
+            lines.append((tag, prefix + text_indented))
         set_text_lines(self._oracle_text, lines)
 
     def _roll_oracle(self: "App") -> None:

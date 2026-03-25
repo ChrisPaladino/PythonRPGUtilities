@@ -34,6 +34,9 @@ bundles:
     name: "Ship"
     game: "Sundered Isles"
     rolls:
+      - label: "Ship Name"
+        oracle_id: "sundered_isles/oracles/ship_names/ship_name"
+        cursed_oracle_id: "sundered_isles/oracles/ship_names/cursed_ship_name"
       - label: "Size"
         oracle_id: "sundered_isles/oracles/sailing_ships/size"
       - label: "Position: Range"
@@ -69,3 +72,49 @@ bundles:
         oracle_id: "sundered_isles/oracles/sailing_ships/cargo"
         count: 4
         cursed_oracle_id: "sundered_isles/oracles/sailing_ships/cursed_cargo"
+
+  - id: si_settlement
+    name: "Settlement"
+    game: "Sundered Isles"
+    rolls:
+      - label: "Location"
+        oracle_id: "sundered_isles/oracles/settlements/location"
+      - label: "Settlement Name"
+        oracle_id: "sundered_isles/oracles/settlement_names/settlement_name"
+        cursed_oracle_id: "sundered_isles/oracles/settlement_names/cursed_settlement_name"
+      - label: "Name Suffix (optional)"
+        cascade_from: "Location"
+        cascade_map:
+          Shore: "sundered_isles/oracles/settlement_names/name_suffix_shore"
+          Inland: "sundered_isles/oracles/settlement_names/name_suffix_inland"
+          Waterside: "sundered_isles/oracles/settlement_names/name_suffix_waterside"
+        note: "Optional — combine with Settlement Name result for a compound name (e.g. Moonstone Bay)"
+      - label: "Size"
+        oracle_id: "sundered_isles/oracles/settlements/size/margins"
+        note: "Sub-tables: Myriads / Margins / Reaches — roll on the table for your region"
+      - label: "Aesthetics"
+        oracle_id: "sundered_isles/oracles/settlements/aesthetics"
+        count: 2
+      - label: "First Look"
+        oracle_id: "sundered_isles/oracles/settlements/first_look"
+        count: 2
+        cursed_oracle_id: "sundered_isles/oracles/settlements/first_look_cursed"
+      - label: "Controlling Faction"
+        oracle_id: "sundered_isles/oracles/settlements/identity/controlling_faction/margins"
+        note: "Sub-tables: Myriads / Margins / Reaches — roll on the table for your region"
+      - label: "Disposition"
+        oracle_id: "sundered_isles/oracles/settlements/identity/disposition"
+      - label: "Authority"
+        oracle_id: "sundered_isles/oracles/settlements/identity/authority"
+      - label: "Focus"
+        cascade_from: "Location"
+        cascade_map:
+          Shore: "sundered_isles/oracles/settlements/identity/focus/shore"
+          Inland: "sundered_isles/oracles/settlements/identity/focus/inland"
+          Waterside: "sundered_isles/oracles/settlements/identity/focus/waterside"
+        count: 2
+        cursed_oracle_id: "sundered_isles/oracles/settlements/cursed_focus"
+      - label: "Details"
+        oracle_id: "sundered_isles/oracles/settlements/details"
+        count: 2
+        cursed_oracle_id: "sundered_isles/oracles/settlements/details_cursed"

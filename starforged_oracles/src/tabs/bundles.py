@@ -6,7 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Any, TYPE_CHECKING
 
-from styles import ACCENT, BG, BORDER, FG, PANEL_BG
+from styles import ACCENT, BG, BORDER, FG, HIT_MISS, PANEL_BG
 from widgets import (
     make_listbox_frame, make_option_menu, make_paned, make_textbox, set_text_lines,
 )
@@ -69,21 +69,25 @@ class BundlesTabMixin:
             command=self._roll_bundle,
         ).grid(row=0, column=0, sticky="w", padx=(0, 10))
 
+        _CURSE_DIM = "#4a4a5a"
         self._bundle_cursed_var = tk.BooleanVar(value=False)
-        tk.Checkbutton(
+        self._bundle_cursed_chk = tk.Checkbutton(
             roll_bar, text="☠ Cursed Die",
             variable=self._bundle_cursed_var,
-            bg=PANEL_BG, fg=FG, selectcolor=PANEL_BG,
-            activebackground=PANEL_BG, activeforeground=ACCENT,
-            font=("Segoe UI", 9), relief="flat", bd=0,
-        ).grid(row=0, column=1, sticky="w", padx=(0, 6))
+            bg=PANEL_BG, fg=_CURSE_DIM, selectcolor=PANEL_BG,
+            activebackground=PANEL_BG, activeforeground=_CURSE_DIM,
+            disabledforeground=_CURSE_DIM,
+            font=("Segoe UI", 9), relief="flat", bd=0, highlightthickness=0,
+            state="disabled",
+        )
+        self._bundle_cursed_chk.grid(row=0, column=1, sticky="w", padx=(0, 6))
 
         self._bundle_cursed_die_var = tk.StringVar(value="d10")
-        die_om = tk.OptionMenu(roll_bar, self._bundle_cursed_die_var, "d10", "d12", "d20")
-        die_om.config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG,
-                      highlightthickness=0, relief="flat", width=4)
-        die_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
-        die_om.grid(row=0, column=2, sticky="w")
+        self._bundle_cursed_die_om = tk.OptionMenu(roll_bar, self._bundle_cursed_die_var, "d10", "d12", "d20")
+        self._bundle_cursed_die_om.config(bg=PANEL_BG, fg=_CURSE_DIM, activebackground=PANEL_BG, activeforeground=_CURSE_DIM,
+                      highlightthickness=0, relief="flat", width=4, state="disabled")
+        self._bundle_cursed_die_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
+        self._bundle_cursed_die_om.grid(row=0, column=2, sticky="w")
 
         self._bundle_text = make_textbox(right)
         self._bundle_text.grid(row=2, column=0, sticky="nsew", padx=4, pady=(0, 4))
@@ -91,6 +95,33 @@ class BundlesTabMixin:
         self._current_bundle: dict[str, Any] | None = None
         self._bundles_visible: list[dict[str, Any]] = []
         self._refresh_bundle_list()
+
+    # ------------------------------------------------------------------
+    # Curse UI state
+    # ------------------------------------------------------------------
+
+    def _update_bundle_curse_ui(self: "App") -> None:
+        _CURSE_DIM = "#4a4a5a"
+        bundle = self._current_bundle
+        has_curse = bool(
+            bundle and any(item.get("cursed_oracle_id") for item in bundle.get("rolls", []))
+        )
+        if has_curse:
+            self._bundle_cursed_var.set(True)
+            self._bundle_cursed_chk.config(
+                state="normal", fg=HIT_MISS, activeforeground=HIT_MISS,
+            )
+            self._bundle_cursed_die_om.config(
+                state="normal", fg=HIT_MISS, activeforeground=HIT_MISS,
+            )
+        else:
+            self._bundle_cursed_var.set(False)
+            self._bundle_cursed_chk.config(
+                state="disabled", fg=_CURSE_DIM, activeforeground=_CURSE_DIM,
+            )
+            self._bundle_cursed_die_om.config(
+                state="disabled", fg=_CURSE_DIM, activeforeground=_CURSE_DIM,
+            )
 
     # ------------------------------------------------------------------
     # Filtering
@@ -119,6 +150,7 @@ class BundlesTabMixin:
         bundle = self._current_bundle
         if bundle is None:
             return
+        self._update_bundle_curse_ui()
         self._bundle_title_var.set(bundle.get("name", ""))
         lines: list[tuple[str, str]] = [
             ("cat", f"{bundle.get('game', '')}  —  {len(bundle.get('rolls', []))} roll steps"),
@@ -220,10 +252,10 @@ class BundlesTabMixin:
 
                 if cursed:
                     lines.append(("miss", f"  {roll_label}  [{roll}]{cursed_suffix}"))
-                    lines.append(("strong", f"    ☠ {result_text}"))
+                    lines.append(("strong", "      ☠ " + result_text.replace("\n", "\n        ")))
                 else:
                     lines.append(("bold", f"  {roll_label}  [{roll}]"))
-                    lines.append(("body", f"    {result_text}"))
+                    lines.append(("body", "    " + result_text.replace("\n", "\n    ")))
 
             if note:
                 lines.append(("cat", f"    ↳ {note}"))
