@@ -187,7 +187,7 @@ oracles:
           - min: 16
             max: 30
             text: &Manmade_Edifice |-
-              __A manmade edifice.__ What is it? Why is it important to this settlement’s history?,
+              __A manmade edifice.__ What is it? Why is it important to this settlement's history?,
             embed_table: classic/oracles/settlement/name/manmade_edifice
             oracle_rolls:
               - oracle: classic/oracles/settlement/name/manmade_edifice
@@ -566,7 +566,7 @@ oracles:
       quick_name:
         canonical_name: 'Oracle 8: Quick Settlement Name Generator'
         name: Quick Settlement Name Generator
-        summary: Use this oracle as a simpler alternative for settlement names. Roll once for the prefix, and once for the suffix. If the combination doesn’t quite work, look at adjacent rows or reverse the digits.
+        summary: Use this oracle as a simpler alternative for settlement names. Roll once for the prefix, and once for the suffix. If the combination doesn't quite work, look at adjacent rows or reverse the digits.
         oracle_type: table_shared_rolls
         type: oracle_collection
         # template:

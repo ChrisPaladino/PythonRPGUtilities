@@ -334,7 +334,7 @@ oracles:
           min: 1
           max: 2
         summary: |-
-          Check the Settlement Projects table when it’s appropriate for your character to know or uncover these details. Projects are the main industry, function, or focus of a settlement. They do not necessarily represent every activity at the site—particularly at a large settlement—but are the most visible or noteworthy aspects.
+          Check the Settlement Projects table when it's appropriate for your character to know or uncover these details. Projects are the main industry, function, or focus of a settlement. They do not necessarily represent every activity at the site—particularly at a large settlement—but are the most visible or noteworthy aspects.
         rows:
           - min: 1
             max: 5
@@ -492,7 +492,7 @@ oracles:
         #   part_of_speech: [fragment]
         #   tags: [peril, event, present]
         summary: |-
-          Check the Settlement Trouble table when it’s appropriate for your character to know or uncover these details. The Settlement Trouble table provides a broad description of the site’s most dramatic current issue.
+          Check the Settlement Trouble table when it's appropriate for your character to know or uncover these details. The Settlement Trouble table provides a broad description of the site's most dramatic current issue.
         rows:
           - min: 1
             max: 3

@@ -723,7 +723,7 @@ oracles:
           <<: *Source
           page: 329
         summary: |-
-          Give a starship a name when it has an important role in your story. Scan this table and select a name which fits what you know of the ship’s appearance and role. Or generate a random result and let any contradictions contribute to the ship’s history or nature.
+          Give a starship a name when it has an important role in your story. Scan this table and select a name which fits what you know of the ship's appearance and role. Or generate a random result and let any contradictions contribute to the ship's history or nature.
         # content:
         #   tags: [name]
         # _i18n:
@@ -754,10 +754,10 @@ oracles:
             text: Aurora
           - min: 7
             max: 7
-            text: Avari’s Wake
+            text: Avari's Wake
           - min: 8
             max: 8
-            text: Banshee’s Cry
+            text: Banshee's Cry
           - min: 9
             max: 9
             text: Beowulf
@@ -779,7 +779,7 @@ oracles:
             text: Clarion Call
           - min: 15
             max: 15
-            text: Dawn’s Herald
+            text: Dawn's Herald
           - min: 16
             max: 16
             text: Dead Reckoning
@@ -825,10 +825,10 @@ oracles:
             text: Forge Flier
           - min: 30
             max: 30
-            text: Fortune’s Favor
+            text: Fortune's Favor
           - min: 31
             max: 31
-            text: Freya’s Wrath
+            text: Freya's Wrath
           - min: 32
             max: 32
             text: Ghost
@@ -859,13 +859,13 @@ oracles:
             text: Iron Cairn
           - min: 41
             max: 41
-            text: Karena’s Reverie
+            text: Karena's Reverie
           - min: 42
             max: 42
             text: Kraken
           - min: 43
             max: 43
-            text: Kuno’s Hammer
+            text: Kuno's Hammer
           - min: 44
             max: 44
             text: Lightline
@@ -896,7 +896,7 @@ oracles:
             text: Nebula Prowler
           - min: 53
             max: 53
-            text: Newton’s Folly
+            text: Newton's Folly
           - min: 54
             max: 54
             text: Nightfall
@@ -929,10 +929,10 @@ oracles:
             text: Profit Margin
           - min: 64
             max: 64
-            text: Raven’s Call
+            text: Raven's Call
           - min: 65
             max: 65
-            text: Raya’s Promise
+            text: Raya's Promise
           - min: 66
             max: 66
             text: Reaper
@@ -951,7 +951,7 @@ oracles:
             # content: {part_of_speech: [proper noun]}
           - min: 71
             max: 71
-            text: Sareea’s Tribute
+            text: Sareea's Tribute
           - min: 72
             max: 72
             text: Second Chance
@@ -1026,7 +1026,7 @@ oracles:
             text: Ultraviolet
           - min: 95
             max: 95
-            text: Valora’s Comet
+            text: Valora's Comet
           - min: 96
             max: 96
             text: Vengeance

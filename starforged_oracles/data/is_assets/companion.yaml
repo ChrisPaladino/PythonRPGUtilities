@@ -15,7 +15,7 @@ assets:
         url: https://ironswornrpg.com
       page: 39
     description: |-
-      Companions are your NPC helpers. When you acquire a companion, give them a name and envision their appearance and personality. If they don’t have a starting ability, choose one. Upgrading a companion enables additional abilities.
+      Companions are your NPC helpers. When you acquire a companion, give them a name and envision their appearance and personality. If they don't have a starting ability, choose one. Upgrading a companion enables additional abilities.
 
       Companions utilize a health track and may suffer harm as a result of one of your moves. When your companion takes damage, make the [Companion Endure Harm](id:classic/moves/suffer/companion_endure_harm) move to determine the outcome. See page 43 to learn more.
     contents:
@@ -115,7 +115,7 @@ assets:
                       roll_options: null
           - name: Soul-Piercing
             text: |-
-              You may [Face Danger](id:classic/moves/adventure/face_danger) +shadow by sending your spider to secretly study someone. On a hit, the spider returns to reveal the target’s deepest fears through a reflection in its glassy eyes. Use this to [Gather Information](id:classic/moves/adventure/gather_information) and reroll any dice.
+              You may [Face Danger](id:classic/moves/adventure/face_danger) +shadow by sending your spider to secretly study someone. On a hit, the spider returns to reveal the target's deepest fears through a reflection in its glassy eyes. Use this to [Gather Information](id:classic/moves/adventure/gather_information) and reroll any dice.
             enhance_moves:
               - enhances:
                   - classic/moves/adventure/face_danger
@@ -231,7 +231,7 @@ assets:
         abilities:
           - name: Swift
             text: |-
-              When you [Face Danger](id:classic/moves/adventure/face_danger) +edge using your horse’s speed and grace, or when you [Undertake a Journey](id:classic/moves/adventure/undertake_a_journey), add +1.
+              When you [Face Danger](id:classic/moves/adventure/face_danger) +edge using your horse's speed and grace, or when you [Undertake a Journey](id:classic/moves/adventure/undertake_a_journey), add +1.
             enhance_moves:
               - enhances:
                   - classic/moves/adventure/undertake_a_journey
@@ -241,7 +241,7 @@ assets:
                 roll_type: action_roll
                 trigger:
                   conditions:
-                    - text: Using your horse’s speed and grace
+                    - text: Using your horse's speed and grace
                       method: null
                       roll_options:
                         - using: stat
@@ -294,14 +294,14 @@ assets:
         abilities:
           - name: Sharp
             text: |-
-              When you [Gather Information](id:classic/moves/adventure/gather_information) using your hound’s keen senses to track your quarry or investigate a scene, add +1 and take +1 momentum on a hit.
+              When you [Gather Information](id:classic/moves/adventure/gather_information) using your hound's keen senses to track your quarry or investigate a scene, add +1 and take +1 momentum on a hit.
             enhance_moves:
               - roll_type: action_roll
                 enhances:
                   - classic/moves/adventure/gather_information
                 trigger:
                   conditions:
-                    - text: Using your hound’s keen senses to track your quarry or investigate a scene
+                    - text: Using your hound's keen senses to track your quarry or investigate a scene
                       roll_options: null
                       method: null
           - name: Ferocious
@@ -352,7 +352,7 @@ assets:
         abilities:
           - name: Skilled
             text: |-
-              When you make a move outside of combat aided by your companion’s expertise, add +1.
+              When you make a move outside of combat aided by your companion's expertise, add +1.
             options:
               expertise:
                 label: expertise
@@ -361,7 +361,7 @@ assets:
               - roll_type: action_roll
                 trigger:
                   conditions:
-                    - text: When you make a move outside of combat aided by your companion’s expertise
+                    - text: When you make a move outside of combat aided by your companion's expertise
                       roll_options: null
                       method: null
           - name: Shield-Kin
@@ -410,7 +410,7 @@ assets:
               When your mammoth travels with you as you [Undertake a Journey](id:classic/moves/adventure/undertake_a_journey), you may add +2 but suffer -1 momentum (decide before rolling).
           - name: Beast of burden
             text: |-
-              When you make a move which requires you to roll +supply, you may instead roll +your mammoth’s health.
+              When you make a move which requires you to roll +supply, you may instead roll +your mammoth's health.
             enhance_moves:
               # there isn't an exact way to do this, but it's pretty close
               - enhances:
@@ -480,7 +480,7 @@ assets:
 
           - name: Sage
             text: |-
-              When you leverage your owl’s secret knowledge to perform a ritual, add +1 or take +1 momentum on a hit (decide before rolling).
+              When you leverage your owl's secret knowledge to perform a ritual, add +1 or take +1 momentum on a hit (decide before rolling).
             enhance_moves:
               - roll_type: action_roll
                 enhances:
@@ -493,7 +493,7 @@ assets:
 
           - name: Embodying
             text: |-
-              When you [Face Death](id:classic/moves/suffer/face_death), take your owl’s health as +momentum before you roll.
+              When you [Face Death](id:classic/moves/suffer/face_death), take your owl's health as +momentum before you roll.
             enhance_moves:
               - roll_type: action_roll
                 enhances:
@@ -567,7 +567,7 @@ assets:
         # sub? https://game-icons.net/1x1/lorc/wyvern.html
         # tags: [beast_companion]
         options: *NameOptions
-        requirement: Your wyvern won’t devour you. For now.
+        requirement: Your wyvern won't devour you. For now.
         abilities:
           - name: Insatiable
             text: |-

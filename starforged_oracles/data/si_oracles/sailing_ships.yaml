@@ -731,7 +731,7 @@ oracles:
         type: oracle_rollable
         _source:
           <<: *Source
-        summary: Use this table when surveying a ship’s hold or if coming upon lost or abandoned cargo. Roll or choose a number of items as appropriate to the nature of the find. For example, once for the hold of a typical warship, or up to four times for a fully loaded tradeship. Ships also typically carry basic munitions and provisions for the crew, but this table reveals the details of cargo such as trade goods and plunder.
+        summary: Use this table when surveying a ship's hold or if coming upon lost or abandoned cargo. Roll or choose a number of items as appropriate to the nature of the find. For example, once for the hold of a typical warship, or up to four times for a fully loaded tradeship. Ships also typically carry basic munitions and provisions for the crew, but this table reveals the details of cargo such as trade goods and plunder.
         rows:
           - min: 1
             max: 2
@@ -1071,7 +1071,7 @@ oracles:
         name: Ship Mission
         _source:
           <<: *Source
-        summary: A ship’s faction can reveal its role, such as warship, tradeship, or whaler. If the ship is independent, the faction unknown, or if you simply want more detail, use this table. Alernatively, use the captain’s goal (page 179) to set the ship’s purpose.
+        summary: A ship's faction can reveal its role, such as warship, tradeship, or whaler. If the ship is independent, the faction unknown, or if you simply want more detail, use this table. Alernatively, use the captain's goal (page 179) to set the ship's purpose.
         oracle_type: table_shared_text
         type: oracle_collection
         # rendering:

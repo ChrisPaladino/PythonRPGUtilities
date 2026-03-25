@@ -268,7 +268,7 @@ oracles:
         name: Character Descriptor
         canonical_name: 'Oracle 12: Character Descriptor'
         type: oracle_rollable
-        summary: Use this oracle to help flesh out a character’s personality or physical characteristics. Roll more than once to add additional detail.
+        summary: Use this oracle to help flesh out a character's personality or physical characteristics. Roll more than once to add additional detail.
         # usage:
         oracle_type: table_text
         recommended_rolls:

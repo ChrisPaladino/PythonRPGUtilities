@@ -43,7 +43,7 @@ oracles:
           text: Result
           text2: Summary
         summary: |-
-          Choose a theme that supports what you know of that location’s nature. For a random theme, roll on the table above.
+          Choose a theme that supports what you know of that location's nature. For a random theme, roll on the table above.
         rows:
           - min: 1
             max: 15

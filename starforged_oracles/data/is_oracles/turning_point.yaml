@@ -20,7 +20,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         canonical_name: 'Oracle 16: Combat Action'
-        summary: Use this oracle to help inspire an action for an NPC in combat. When you’re not sure what your foe does next, particularly when they have initiative, roll on this table and interpret the result as appropriate to the situation.
+        summary: Use this oracle to help inspire an action for an NPC in combat. When you're not sure what your foe does next, particularly when they have initiative, roll on this table and interpret the result as appropriate to the situation.
         _source:
           <<: *Source
           page: 188
@@ -174,7 +174,7 @@ oracles:
         name: Major Plot Twist
         oracle_type: table_text
         type: oracle_rollable
-        summary: Use this oracle to introduce a narrative surprise or revelation. Most of these results have a negative implication, and can be used to resolve a match at a crucial moment in your story. In particular, this is an effective tool to leverage when you make a move with matched 10’s on the challenge dice.
+        summary: Use this oracle to introduce a narrative surprise or revelation. Most of these results have a negative implication, and can be used to resolve a match at a crucial moment in your story. In particular, this is an effective tool to leverage when you make a move with matched 10's on the challenge dice.
         _source:
           <<: *Source
           page: 190

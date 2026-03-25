@@ -63,7 +63,7 @@ assets:
                   field_type: condition_meter
                   max: 5
           - text: |-
-              When you [Undertake an Expedition](id:sundered_isles/moves/exploration/undertake_an_expedition), you may reroll your action die if its value is less than your fleet’s power.
+              When you [Undertake an Expedition](id:sundered_isles/moves/exploration/undertake_an_expedition), you may reroll your action die if its value is less than your fleet's power.
         controls:
           power:
             field_type: condition_meter

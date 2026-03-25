@@ -18,7 +18,7 @@ oracles:
         name: Weather Conditions
         oracle_type: table_shared_text
         type: oracle_collection
-        summary: If you’d like to establish the time of day for an encounter or scene, roll a single oracle die. If even, it’s daytime; if odd, it’s night. Higher numbers are later in that period.
+        summary: If you'd like to establish the time of day for an encounter or scene, roll a single oracle die. If even, it's daytime; if odd, it's night. Higher numbers are later in that period.
         contents:
           myriads:
             # source: *Source

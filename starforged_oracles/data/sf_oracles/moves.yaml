@@ -325,7 +325,7 @@ oracles:
         rows:
           - min: 1
             max: 40
-            text: 'It’s worse than you thought: Make a suffer move (-2)'
+            text: 'It's worse than you thought: Make a suffer move (-2)'
           - min: 41
             max: 52
             text: 'Victory is short-lived: A new peril or foe appears'
@@ -337,7 +337,7 @@ oracles:
             text: 'Others pay the price: Someone else suffers the cost'
           - min: 77
             max: 88
-            text: 'Others won’t forget: You are marked for vengeance'
+            text: 'Others won't forget: You are marked for vengeance'
           - min: 89
             max: 100
             text: 'It gets complicated: The true nature of a foe or objective is revealed'
@@ -418,7 +418,7 @@ oracles:
             text: "It's a rough ride. All aboard must make the [Endure Harm](id:starforged/moves/suffer/endure_harm), [Endure Stress](id:starforged/moves/suffer/endure_stress), or [Companion Takes a Hit](id:starforged/moves/suffer/companion_takes_a_hit) move, suffering a serious (-2) cost."
           - min: 86
             max: 95
-            text: 'You’ve lost fuel, energy, or cargo. [Sacrifice Resources](id:starforged/moves/suffer/sacrifice_resources) (-2).'
+            text: 'You've lost fuel, energy, or cargo. [Sacrifice Resources](id:starforged/moves/suffer/sacrifice_resources) (-2).'
           - min: 96
             max: 100
             text: 'Against all odds, the vehicle holds together.'
@@ -470,7 +470,7 @@ oracles:
             text: A new enemy is revealed
           - min: 51
             max: 56
-            text: 'A friend, companion, or ally is in harm’s way (or you are, if alone)'
+            text: 'A friend, companion, or ally is in harm's way (or you are, if alone)'
           - min: 57
             max: 62
             text: Your equipment or vehicle malfunctions

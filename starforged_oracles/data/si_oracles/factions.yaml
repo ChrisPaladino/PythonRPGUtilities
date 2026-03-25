@@ -129,7 +129,7 @@ oracles:
             - min: 1
               max: 10
               text: Akiya
-              text2: Coalition of clans known for their sleek and speedy ships. They gather each year to celebrate the ebb of the storm season, and hang rows of vibrantly colored flags from their ship’s rigging to honor the dead.
+              text2: Coalition of clans known for their sleek and speedy ships. They gather each year to celebrate the ebb of the storm season, and hang rows of vibrantly colored flags from their ship's rigging to honor the dead.
             - min: 11
               max: 20
               text: Arsu / Azizos
@@ -237,7 +237,7 @@ oracles:
             - min: 31
               max: 40
               text: Firgovian Regency
-              text2: Fracturing empire facing a succession crisis in the aftermath of the monarch’s assassination. Rival claimants gather their armies and navies to take the crown by force.
+              text2: Fracturing empire facing a succession crisis in the aftermath of the monarch's assassination. Rival claimants gather their armies and navies to take the crown by force.
             - min: 41
               max: 50
               text: Hand of Theya
@@ -272,7 +272,7 @@ oracles:
             rows:
             - min: 1
               max: 10
-              text: Acheron’s Armada
+              text: Acheron's Armada
               text2: Ghost ships under the command of an undead imperial admiral. This vengeful wraith seeks to carry on the war that cost them their life.
             - min: 11
               max: 20
@@ -1382,7 +1382,7 @@ oracles:
       #         - min: 1
       #           max: 10
       #           text: Akiya
-      #           text2: Alliance of clans known for their sleek and speedy ships; they gather each year to celebrate the ebb of the storm season, and hang rows of vibrantly colored flags from their ship’s rigging to honor the dead
+      #           text2: Alliance of clans known for their sleek and speedy ships; they gather each year to celebrate the ebb of the storm season, and hang rows of vibrantly colored flags from their ship's rigging to honor the dead
       #         - min: 11
       #           max: 20
       #           text: Arsu / Azizos
@@ -1502,7 +1502,7 @@ oracles:
       #         - min: 31
       #           max: 40
       #           text: Firgovian Regency
-      #           text2: Fracturing empire facing a succession crisis in the aftermath of the monarch’s assassination; rival claimants gather their armies and navies to take the crown by force
+      #           text2: Fracturing empire facing a succession crisis in the aftermath of the monarch's assassination; rival claimants gather their armies and navies to take the crown by force
       #         - min: 41
       #           max: 50
       #           text: Hand of Theya

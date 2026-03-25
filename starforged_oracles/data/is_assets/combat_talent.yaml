@@ -17,7 +17,7 @@ assets:
     description: |-
       *Ironsworn* characters are assumed to be skilled fighters. Even without a combat talent, you can wield weapons and perform [combat moves](id:classic/collections/moves/combat). A combat talent reflects a particular area of expertise, and gives you additional options and bonuses.
 
-      Combat talent assets typically require you to wield a specific weapon, as noted in the asset text. For example, if you are a [Shield-Bearer](id:classic/assets/combat_talent/shield-bearer) and don’t have a shield at the ready, you can’t use the asset’s abilities.
+      Combat talent assets typically require you to wield a specific weapon, as noted in the asset text. For example, if you are a [Shield-Bearer](id:classic/assets/combat_talent/shield-bearer) and don't have a shield at the ready, you can't use the asset's abilities.
     contents:
       archer:
         type: asset
@@ -530,7 +530,7 @@ assets:
         requirement: If you wield a spear...
         abilities:
           - text: |-
-              When you [Face Danger](id:classic/moves/adventure/face_danger) by holding a foe at bay using your spear’s reach, roll +iron or +edge. If you score a hit, you may...
+              When you [Face Danger](id:classic/moves/adventure/face_danger) by holding a foe at bay using your spear's reach, roll +iron or +edge. If you score a hit, you may...
 
                 * Iron: [Strike](id:classic/moves/combat/strike) (if you have initiative) or [Clash](id:classic/moves/combat/clash) now, and add +1.
                 * Edge: Take +1 momentum.
@@ -705,7 +705,7 @@ assets:
                   - classic/moves/combat/clash
                 roll_type: action_roll
           - text: |-
-              When you [Swear an Iron Vow](id:classic/moves/quest/swear_an_iron_vow) by kneeling and grasping your sword’s blade, add +1 and take +1 momentum on a hit. If you let the edge draw blood from your hands, [Endure Harm](id:classic/moves/suffer/endure_harm) (1 harm) in exchange for an additional +1 momentum on a hit.
+              When you [Swear an Iron Vow](id:classic/moves/quest/swear_an_iron_vow) by kneeling and grasping your sword's blade, add +1 and take +1 momentum on a hit. If you let the edge draw blood from your hands, [Endure Harm](id:classic/moves/suffer/endure_harm) (1 harm) in exchange for an additional +1 momentum on a hit.
             enhance_moves:
               - enhances:
                   - classic/moves/quest/swear_an_iron_vow

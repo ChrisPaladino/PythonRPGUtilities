@@ -18,7 +18,7 @@ oracles:
         name: Location
         oracle_type: table_text
         type: oracle_rollable
-        summary: If you’re not sure of a treasure’s location—such as when chasing down a rumored treasure or gathering details on a treasure-related quest—check this table.
+        summary: If you're not sure of a treasure's location—such as when chasing down a rumored treasure or gathering details on a treasure-related quest—check this table.
         _source:
           <<: *Source
         rows:
@@ -95,7 +95,7 @@ oracles:
         #     examples:
         #       label: Examples
         #       content_type: summary
-        summary: Choose the scale of the treasure’s repository—small, medium, large, or vast—as appropriate to situation and location. See the examples in the table below. If unsure, roll for the answer. The result helps set the potential Value of the treasure.
+        summary: Choose the scale of the treasure's repository—small, medium, large, or vast—as appropriate to situation and location. See the examples in the table below. If unsure, roll for the answer. The result helps set the potential Value of the treasure.
         rows:
           - min: 1
             max: 40
@@ -119,7 +119,7 @@ oracles:
         type: oracle_rollable
         _source:
           <<: *Source
-        summary: Use this table to reveal characteristics of a treasure or its surroundings. Since the results often introduce twists and complications, it is best reserved for notable finds and dramatic situations. Also, keep in mind that an aspect might be outside your character’s immediate viewpoint—if so, make note of it as a future trouble or opportunity.
+        summary: Use this table to reveal characteristics of a treasure or its surroundings. Since the results often introduce twists and complications, it is best reserved for notable finds and dramatic situations. Also, keep in mind that an aspect might be outside your character's immediate viewpoint—if so, make note of it as a future trouble or opportunity.
         rows:
           - min: 1
             max: 8
@@ -242,7 +242,7 @@ oracles:
         type: oracle_rollable
         _source:
           <<: *Source
-        summary: Roll or select a number of items on this table as set by the treasure’s Value (page 185). Each result represents a quantity of that item, such as a lockbox filled with pearls, a barrel of aged rum, or a stack of precious metal ingots. To instead reveal a specific item of intrinsic or personal worth, check the Tokens table (below).
+        summary: Roll or select a number of items on this table as set by the treasure's Value (page 185). Each result represents a quantity of that item, such as a lockbox filled with pearls, a barrel of aged rum, or a stack of precious metal ingots. To instead reveal a specific item of intrinsic or personal worth, check the Tokens table (below).
         rows:
           - min: 1
             max: 20
@@ -644,7 +644,7 @@ oracles:
             text: Black candle that reveals shadowy forms in its sputtering light
           - min: 5
             max: 7
-            text: Boatswain’s whistle that echoes with the cries of doomed mariners
+            text: Boatswain's whistle that echoes with the cries of doomed mariners
           - min: 8
             max: 10
             text: Chattering skull with dark gems fitted into its eye sockets

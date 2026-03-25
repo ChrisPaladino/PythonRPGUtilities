@@ -16,7 +16,7 @@ oracles:
           - name: Shawn Tomkin
       page: 336
     summary: |-
-      Roll for a [basic form](id:starforged/oracles/creatures/basic_form), and flesh out the creature’s appearance using this [Creature First Look](id:starforged/oracles/creatures/first_look) table. Then, roll on the [Encountered Behavior](id:starforged/oracles/creatures/encountered_behavior) table to envision this creature’s motivation and frame how the encounter begins.
+      Roll for a [basic form](id:starforged/oracles/creatures/basic_form), and flesh out the creature's appearance using this [Creature First Look](id:starforged/oracles/creatures/first_look) table. Then, roll on the [Encountered Behavior](id:starforged/oracles/creatures/encountered_behavior) table to envision this creature's motivation and frame how the encounter begins.
     contents:
       environment:
         name: Environment
@@ -161,7 +161,7 @@ oracles:
           min: 1
           max: 2
         summary: |-
-          Roll for a basic form, and flesh out the creature’s appearance using the First Look table.
+          Roll for a basic form, and flesh out the creature's appearance using the First Look table.
         # content:
         #   part_of_speech: [fragment]
         #   tags: [description, first look]
@@ -324,7 +324,7 @@ oracles:
           <<: *Source
           page: 338
         summary: |-
-          Roll once on the Encountered Behavior table to define this creature’s motivation and frame how the encounter begins.
+          Roll once on the Encountered Behavior table to define this creature's motivation and frame how the encounter begins.
 
         # usage:
         #   initial: true
@@ -447,7 +447,7 @@ oracles:
         summary: |-
           Roll on this table as you interact with the creature to introduce new features or behaviors.
         description: |-
-          Roll on this table as you interact with the creature to introduce new features or behaviors. Some results may contradict the established nature of a creature. For example, an amorphous creature that you envisioned as a mass of pure energy would not have typical physical features. If a result doesn’t fit, feel free to ignore, reroll, or adjust. Or envision how this contradiction signals a new understanding or unexpected transformation.
+          Roll on this table as you interact with the creature to introduce new features or behaviors. Some results may contradict the established nature of a creature. For example, an amorphous creature that you envisioned as a mass of pure energy would not have typical physical features. If a result doesn't fit, feel free to ignore, reroll, or adjust. Or envision how this contradiction signals a new understanding or unexpected transformation.
         # content:
         #   part_of_speech: [fragment]
         # usage:
@@ -621,7 +621,7 @@ oracles:
         # content:
         # part_of_speech: [fragment]
         summary: |-
-          Roll for a basic form, and flesh out the creature’s appearance using the [First Look](id:starforged/oracles/creatures/first_look) table.
+          Roll for a basic form, and flesh out the creature's appearance using the [First Look](id:starforged/oracles/creatures/first_look) table.
         contents:
           space:
             name: Space

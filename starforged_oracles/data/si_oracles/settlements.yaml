@@ -361,7 +361,7 @@ oracles:
           sundered_isles:
             cursed_version_of:
               - sundered_isles/oracles/settlements/focus/*
-        summary: If you roll a [Settlement Focus](id:sundered_isles/collections/settlements/focus) curse, take your result on that table and make note that it is cursed. Something about this activity has an uncanny or dreadful aspect. If you investigate or interact further, use the table below to help reveal the industry’s relationship to a cursed power.
+        summary: If you roll a [Settlement Focus](id:sundered_isles/collections/settlements/focus) curse, take your result on that table and make note that it is cursed. Something about this activity has an uncanny or dreadful aspect. If you investigate or interact further, use the table below to help reveal the industry's relationship to a cursed power.
         oracle_type: table_text
         type: oracle_rollable
         rows:
@@ -474,7 +474,7 @@ oracles:
             text: An underworld figure wields influence from the shadows
           - min: 22
             max: 22
-            text: Residents sing a hymn or shanty which reveals something of this place’s dark history
+            text: Residents sing a hymn or shanty which reveals something of this place's dark history
           - min: 23
             max: 23
             text: The community has domesticated an unusual type of creature
@@ -1010,7 +1010,7 @@ oracles:
             name: Settlement Controlling Faction
             oracle_type: table_shared_text
             type: oracle_collection
-            summary: If the location of the settlement or your initial impression doesn’t reveal its identity, check the Controlling Faction table below. If this place is inhabited or overseen by a known faction, choose or roll on your faction influence grid (page 54). If it is independent or aligned with an unknown faction, use the Disposition and Authority tables to help envision the reaction to your arrival and the apparent nature of the leadership.
+            summary: If the location of the settlement or your initial impression doesn't reveal its identity, check the Controlling Faction table below. If this place is inhabited or overseen by a known faction, choose or roll on your faction influence grid (page 54). If it is independent or aligned with an unknown faction, use the Disposition and Authority tables to help envision the reaction to your arrival and the apparent nature of the leadership.
             contents:
               myriads:
                 name: Myriads

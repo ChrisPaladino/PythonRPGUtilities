@@ -50,11 +50,11 @@ assets:
         abilities:
           - enabled: true
             text: |-
-              When make a move by firing or directing the fire of a vehicle’s weapons, and burn momentum to improve your result, roll your action die. On a 5 or 6, do not reset momentum. Otherwise, take +1 momentum after you reset.
+              When make a move by firing or directing the fire of a vehicle's weapons, and burn momentum to improve your result, roll your action die. On a 5 or 6, do not reset momentum. Otherwise, take +1 momentum after you reset.
           - text: |-
-              When you [Secure an Advantage](id:sundered_isles/moves/adventure/secure_an_advantage) or [Gain Ground](id:sundered_isles/moves/combat/gain_ground) by preparing or loading special ammunition for a vehicle’s weapons, roll +supply. On a hit, take +1 momentum. Then, when you first make a move to fire this ammunition, reroll any dice.
+              When you [Secure an Advantage](id:sundered_isles/moves/adventure/secure_an_advantage) or [Gain Ground](id:sundered_isles/moves/combat/gain_ground) by preparing or loading special ammunition for a vehicle's weapons, roll +supply. On a hit, take +1 momentum. Then, when you first make a move to fire this ammunition, reroll any dice.
           - text: |-
-              When you [Strike](id:sundered_isles/moves/combat/strike) using a vehicle’s weapons, and hold your fire for maximum effect, decide the amount of momentum you risk (1, 2, or 3) and add +that amount. On a strong hit, mark progress. On a weak hit or miss, [Lose Momentum](id:sundered_isles/moves/suffer/lose_momentum) equal to 1 + the amount risked (in addition to any other cost).
+              When you [Strike](id:sundered_isles/moves/combat/strike) using a vehicle's weapons, and hold your fire for maximum effect, decide the amount of momentum you risk (1, 2, or 3) and add +that amount. On a strong hit, mark progress. On a weak hit or miss, [Lose Momentum](id:sundered_isles/moves/suffer/lose_momentum) equal to 1 + the amount risked (in addition to any other cost).
       crew_commander:
         _source: *Source
         name: Crew Commander
@@ -165,7 +165,7 @@ assets:
             text: |-
               When you [Enter the Fray](id:sundered_isles/moves/combat/enter_the_fray) or [Battle](id:sundered_isles/moves/combat/battle) in a duel against a single notable foe, add +2. If you set a new objective in a fight by challenging a single worthy foe, take +2 momentum.
           - text: |-
-              When you [Gain Ground](id:sundered_isles/moves/combat/gain_ground) in personal combat using superficial attacks to probe your opponent’s defenses, or by drawing them off guard with verbal repartee, take +1 momentum on a hit. On a strong hit, also add +1 if you immediately [Strike](id:sundered_isles/moves/combat/strike).
+              When you [Gain Ground](id:sundered_isles/moves/combat/gain_ground) in personal combat using superficial attacks to probe your opponent's defenses, or by drawing them off guard with verbal repartee, take +1 momentum on a hit. On a strong hit, also add +1 if you immediately [Strike](id:sundered_isles/moves/combat/strike).
           - text: |-
               When you roll a miss with a match in a situation where your reputation is known, you may suffer the cost by envisioning a notable rival who challenges you to a duel. If you defeat them, mark two ticks on your quests legacy track. If you decline, mark one tick on your bonds legacy track but envision the fallout of this refusal.
       harpooner:
@@ -181,7 +181,7 @@ assets:
           - text: |-
               When you [Strike](id:sundered_isles/moves/combat/strike) a large foe in close quarters, you may drive your harpoon home. If you do, mark progress on a hit. If the fight continues, and you choose to pull the harpoon free, you must [Gain Ground](id:sundered_isles/moves/combat/gain_ground) (+iron), score a hit, and forgo one of the choices awarded by that move.
           - text: |-
-              When you [Resupply](id:sundered_isles/moves/recover/resupply) by hunting large game, add +1 and take +1 supply on a hit. On a miss with a match, there’s always a bigger fish; you draw the attention of a notable threat.
+              When you [Resupply](id:sundered_isles/moves/recover/resupply) by hunting large game, add +1 and take +1 supply on a hit. On a miss with a match, there's always a bigger fish; you draw the attention of a notable threat.
       jinx:
         name: Jinx
         type: asset
@@ -190,7 +190,7 @@ assets:
           - enabled: true
             text: You are cursed by ill luck, but persisting offers its own rewards. If you score a miss with a match, this asset counts as an impact for you and your allies. You may undo this only by scoring a strong hit with a match; if you do, you and your allies each clear the impact and mark 1 tick on your bonds legacy track.
           - text: When you score a weak hit on a progress move, you may test your luck by reducing the progress score by 1 and rerolling all dice.
-          - text: When you roll matched 1’s on your challenge dice while suffering from this asset’s impact, you may activate this ability at no cost. If you do, good fortune now favors you; you and your allies clear the impact and mark 2 ticks (instead of 1) on your bonds legacy track. Then, discard this asset and permanently increase your momentum reset by 1.
+          - text: When you roll matched 1's on your challenge dice while suffering from this asset's impact, you may activate this ability at no cost. If you do, good fortune now favors you; you and your allies clear the impact and mark 2 ticks (instead of 1) on your bonds legacy track. Then, discard this asset and permanently increase your momentum reset by 1.
         _source:
           <<: *Source
           date: 2023-12-03
@@ -320,7 +320,7 @@ assets:
                 * Build your fortune: Mark one tick on your quests legacy track.
                 * Share the spoils: Mark one tick on your bonds legacy track.
           - text: |-
-              When you [Set a Course](id:sundered_isles/moves/exploration/set_a_course) for familiar hunting grounds or to intercept a specific target, you may reroll your action die if its value is less than your ship’s integrity. When you [Face Danger](id:sundered_isles/moves/adventure/face_danger) by stalking an area in search of prey, add +1 and take +1 momentum on a hit.
+              When you [Set a Course](id:sundered_isles/moves/exploration/set_a_course) for familiar hunting grounds or to intercept a specific target, you may reroll your action die if its value is less than your ship's integrity. When you [Face Danger](id:sundered_isles/moves/adventure/face_danger) by stalking an area in search of prey, add +1 and take +1 momentum on a hit.
           - text: |-
               You may spend 1 experience to [Sojourn](id:sundered_isles/moves/recover/sojourn) with an automatic strong hit. If you do, you and your allies take one extra recovery move.
       pistoleer:
@@ -396,7 +396,7 @@ assets:
 
                 * You spot an unwelcome rival, authority, or former beau.
                 * You commit an embarrassing faux pas.
-                * You are upstaged by another’s entrance.
+                * You are upstaged by another's entrance.
           - text: |-
               When you [Hearten](id:sundered_isles/moves/recover/hearten) while attending an exclusive social event, reroll any dice. On a strong hit, you and any allies in your company take +1 momentum.
       sorcerer:
@@ -407,7 +407,7 @@ assets:
         abilities:
           - enabled: true
             text: |-
-              When you [Secure an Advantage](id:sundered_isles/moves/adventure/secure_an_advantage) or [Gain Ground](id:sundered_isles/moves/combat/gain_ground) by creating a minor mystical effect, roll +spirit. On a strong hit, take +1 momentum. On a weak hit, take the standard benefits of the move, but first [Endure Stress](id:sundered_isles/moves/suffer/endure_stress) (-1). On a match, you learn something of magic’s nature through an unexpected boon or harrowing backlash; mark 1 tick on your discoveries legacy track.
+              When you [Secure an Advantage](id:sundered_isles/moves/adventure/secure_an_advantage) or [Gain Ground](id:sundered_isles/moves/combat/gain_ground) by creating a minor mystical effect, roll +spirit. On a strong hit, take +1 momentum. On a weak hit, take the standard benefits of the move, but first [Endure Stress](id:sundered_isles/moves/suffer/endure_stress) (-1). On a match, you learn something of magic's nature through an unexpected boon or harrowing backlash; mark 1 tick on your discoveries legacy track.
           - text: |-
               You may purchase assets of a supernatural nature for 1 experience (instead of 3).
             enhance_asset:
@@ -444,7 +444,7 @@ assets:
           - text: |-
               When you [Enter the Fray](id:sundered_isles/moves/combat/enter_the_fray) in personal combat, or when an ongoing fight transitions to personal combat, you may envision up to three useful aspects of your surroundings. Take +1 momentum for each. Then, when you make a daring or unexpected move incorporating one of those aspects (once per aspect), add +1.
           - text: |-
-              When you [React Under Fire](id:sundered_isles/moves/combat/react_under_fire) in close quarters by parrying, and score a strong hit, you counter or turn your foe’s attack against them; mark progress.
+              When you [React Under Fire](id:sundered_isles/moves/combat/react_under_fire) in close quarters by parrying, and score a strong hit, you counter or turn your foe's attack against them; mark progress.
       urchin:
         _source: *Source
         name: Urchin

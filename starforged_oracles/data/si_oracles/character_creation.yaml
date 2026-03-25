@@ -23,7 +23,7 @@ oracles:
             name: Your Backstory
             oracle_type: table_text
             type: oracle_rollable
-            summary: What is your backstory? What events or compelling need put you on a path of adventure? If you’re not sure, roll or chose on this table for inspiration.
+            summary: What is your backstory? What events or compelling need put you on a path of adventure? If you're not sure, roll or chose on this table for inspiration.
             recommended_rolls:
               min: 1
               max: 2
@@ -121,7 +121,7 @@ oracles:
             name: Your Cursed Backstory
             oracle_type: table_text
             type: oracle_rollable
-            summary: Cursed backstories involve uncanny forces, monstrous foes, and strange technologies. If this isn’t appropriate for your setting, don’t roll the cursed die. If you want to emphasize those aspects of the world, feel free to roll directly on this table.
+            summary: Cursed backstories involve uncanny forces, monstrous foes, and strange technologies. If this isn't appropriate for your setting, don't roll the cursed die. If you want to emphasize those aspects of the world, feel free to roll directly on this table.
             _source:
               <<: *Source
             rows:
@@ -348,11 +348,14 @@ oracles:
         _source: *Source
         contents:
           history:
-            _source: *Source
-            name: Ship History
-            oracle_type: table_text
-            type: oracle_rollable
-            rows:
+              _source: *Source
+              tags:
+                sundered_isles:
+                  cursed_version: sundered_isles/oracles/campaign_launch/ship_creation/history_cursed
+              name: Ship History
+              oracle_type: table_text
+              type: oracle_rollable
+              rows:
               - min: 1
                 max: 5
                 text: Acquired in a duel of honor

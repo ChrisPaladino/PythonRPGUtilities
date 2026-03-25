@@ -15,7 +15,7 @@ assets:
     name: Module Assets
     type: asset_collection
     color: &ModuleAsset.color '#7f5a90'
-    # Summary: Enhanced features or capabilities of your STARSHIP. As with the ship itself, these are shared assets; a module’s abilities can benefit other player characters if it’s reasonable for them to make use of it.
+    # Summary: Enhanced features or capabilities of your STARSHIP. As with the ship itself, these are shared assets; a module's abilities can benefit other player characters if it's reasonable for them to make use of it.
     description: |-
       __Modules__ are linked to your STARSHIP and offer additional options and advantages when aboard that vehicle.
 
@@ -40,7 +40,7 @@ assets:
               disables_asset: true
         abilities:
           - text: |-
-              Your vehicle’s finely-tuned engines speed your travels. When you [Undertake an Expedition](id:starforged/moves/exploration/undertake_an_expedition) (+edge) and score a strong hit, take +1 momentum; on a strong hit with a 6 on your action die, take +2 momentum instead of +1.
+              Your vehicle's finely-tuned engines speed your travels. When you [Undertake an Expedition](id:starforged/moves/exploration/undertake_an_expedition) (+edge) and score a strong hit, take +1 momentum; on a strong hit with a 6 on your action die, take +2 momentum instead of +1.
             enabled: true
             enhance_moves:
               - enhances:
@@ -445,7 +445,7 @@ assets:
                       roll_options: null
                       method: null
           - text: |-
-              Your reinforced hull is given a fierce and distinctive color or design. When you arrive at a place where your reputation is a factor, take +1 momentum. When you [Enter the Fray](id:starforged/moves/combat/enter_the_fray) against a foe who knows your reputation, take +momentum equal to your vehicle’s integrity on a strong hit.
+              Your reinforced hull is given a fierce and distinctive color or design. When you arrive at a place where your reputation is a factor, take +1 momentum. When you [Enter the Fray](id:starforged/moves/combat/enter_the_fray) against a foe who knows your reputation, take +momentum equal to your vehicle's integrity on a strong hit.
             # TODO: implement generic trigger/event interface
             enhance_moves:
               - enhances:

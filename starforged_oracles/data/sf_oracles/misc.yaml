@@ -362,7 +362,7 @@ oracles:
         #   part_of_speech: [fragment]
         #   tags: [peril, event, present]
         summary: |-
-          Use this oracle to help inspire an action for a foe in a fight. When you’re not sure what an enemy does next, particularly when they have you in a bad spot, roll on this table and interpret the result as appropriate to the nature of the enemy and your objective.
+          Use this oracle to help inspire an action for a foe in a fight. When you're not sure what an enemy does next, particularly when they have you in a bad spot, roll on this table and interpret the result as appropriate to the nature of the enemy and your objective.
         rows:
           - min: 1
             max: 3

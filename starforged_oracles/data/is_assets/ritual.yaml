@@ -258,7 +258,7 @@ assets:
                       If you use the reading to [Gather Information](id:classic/moves/adventure/gather_information), [Compel](id:classic/moves/relationship/compel), or [Forge a Bond](id:classic/moves/relationship/forge_a_bond), add +1.
                   miss: *MoveOutcome.Miss.Generic
           - text: |-
-              As above, and your divination can also reveal information about the subject’s future.
+              As above, and your divination can also reveal information about the subject's future.
             enhance_moves:
               - enhances:
                   - classic/assets/ritual/divination/abilities/0/moves/cast_runes
@@ -402,7 +402,7 @@ assets:
         # icon not on game-icons
         abilities:
           - text: &move:Asset.Leech |-
-              When you mark your hands or weapon with an intricate blood rune, roll +iron. On a strong hit, the rune thirsts for fresh blood. One time only, when you make a move to inflict harm, reroll any dice and inflict +2 harm on a hit. Then, for each point of harm inflicted, take +1 and allocate it as +health or +momentum. On a weak hit, as above, but this asset counts as a debility until the rune’s thirst is quenched.
+              When you mark your hands or weapon with an intricate blood rune, roll +iron. On a strong hit, the rune thirsts for fresh blood. One time only, when you make a move to inflict harm, reroll any dice and inflict +2 harm on a hit. Then, for each point of harm inflicted, take +1 and allocate it as +health or +momentum. On a weak hit, as above, but this asset counts as a debility until the rune's thirst is quenched.
             enabled: true
             # TODO: conditional debility
             moves:
@@ -427,7 +427,7 @@ assets:
                       One time only, when you make a move to inflict harm, reroll any dice and inflict +2 harm on a hit. Then, for each point of harm inflicted, take +1 and allocate it as +health or +momentum.
                   weak_hit:
                     text: |-
-                      On a __weak hit__, the rune thirsts for fresh blood, but this asset counts as a debility until the rune’s thirst is quenched.
+                      On a __weak hit__, the rune thirsts for fresh blood, but this asset counts as a debility until the rune's thirst is quenched.
 
                       One time only, when you make a move to inflict harm, reroll any dice and inflict +2 harm on a hit. Then, for each point of harm inflicted, take +1 and allocate it as +health or +momentum.
                   miss: *MoveOutcome.Miss.Generic
@@ -621,7 +621,7 @@ assets:
         # icon not on game-icons
         abilities:
           - text: &move:Asset.Sway |-
-              When you speak a person’s name three times to the wind, roll +wits. On a strong hit, the wind whispers of this person’s need. Envision what you hear ([Ask the Oracle](id:classic/moves/fate/ask_the_oracle) if unsure). If you use this information or fulfill this need when you [Compel](id:classic/moves/relationship/compel) them, you may reroll any dice (one time only). On a weak hit, as above, but this person’s need creates a troubling dilemma or complication; [Endure Stress](id:classic/moves/suffer/endure_stress) (1 stress).
+              When you speak a person's name three times to the wind, roll +wits. On a strong hit, the wind whispers of this person's need. Envision what you hear ([Ask the Oracle](id:classic/moves/fate/ask_the_oracle) if unsure). If you use this information or fulfill this need when you [Compel](id:classic/moves/relationship/compel) them, you may reroll any dice (one time only). On a weak hit, as above, but this person's need creates a troubling dilemma or complication; [Endure Stress](id:classic/moves/suffer/endure_stress) (1 stress).
             enabled: true
             moves:
               sway:
@@ -630,7 +630,7 @@ assets:
                 _source: *AssetSource
                 roll_type: action_roll
                 trigger:
-                  text: When you speak a person’s name three times to the wind...
+                  text: When you speak a person's name three times to the wind...
                   conditions:
                     - method: player_choice
                       roll_options:
@@ -640,12 +640,12 @@ assets:
                 outcomes:
                   strong_hit:
                     text: |-
-                      On a __strong hit__, the wind whispers of this person’s need. Envision what you hear ([Ask the Oracle](id:classic/moves/fate/ask_the_oracle) if unsure). If you use this information or fulfill this need when you [Compel](id:classic/moves/relationship/compel) them, you may reroll any dice (one time only).
+                      On a __strong hit__, the wind whispers of this person's need. Envision what you hear ([Ask the Oracle](id:classic/moves/fate/ask_the_oracle) if unsure). If you use this information or fulfill this need when you [Compel](id:classic/moves/relationship/compel) them, you may reroll any dice (one time only).
                   weak_hit:
                     text: |-
-                      On a __weak hit__, you succeed, but this person’s need creates a troubling dilemma or complication; [Endure Stress](id:classic/moves/suffer/endure_stress) (1 stress).
+                      On a __weak hit__, you succeed, but this person's need creates a troubling dilemma or complication; [Endure Stress](id:classic/moves/suffer/endure_stress) (1 stress).
 
-                      The wind whispers of this person’s need. Envision what you hear ([Ask the Oracle](id:classic/moves/fate/ask_the_oracle) if unsure). If you use this information or fulfill this need when you [Compel](id:classic/moves/relationship/compel) them, you may reroll any dice (one time only).
+                      The wind whispers of this person's need. Envision what you hear ([Ask the Oracle](id:classic/moves/fate/ask_the_oracle) if unsure). If you use this information or fulfill this need when you [Compel](id:classic/moves/relationship/compel) them, you may reroll any dice (one time only).
                   miss: *MoveOutcome.Miss.Generic
           - text: |-
               As above, and if you score a strong hit when you [Compel](id:classic/moves/relationship/compel), you may also reroll any dice (one time only) when you [Gather Information](id:classic/moves/adventure/gather_information) from this person.
@@ -809,7 +809,7 @@ assets:
                       You are bound together. Add +1 and take +1 momentum on a hit when you use a companion ability. If you roll a 1 on your action die when using a companion ability, the magic is spent.
                   miss: *MoveOutcome.Miss.Generic
           - text: |-
-              As above, and you may also perceive the world through your companion’s senses while you make moves aided by them (even when you are apart).
+              As above, and you may also perceive the world through your companion's senses while you make moves aided by them (even when you are apart).
             enhance_moves:
               - enhances:
                   - classic/assets/ritual/totem/abilities/0/moves/focus_totem
@@ -881,7 +881,7 @@ assets:
 
                 * When a foe first crosses the boundary, take +1 momentum.
                 * When you first inflict harm against a foe within the boundary, inflict +1 harm.
-                * Your ward is ‘likely’ ([Ask the Oracle](id:classic/oracles/moves/ask_the_oracle/likely)) to trap a foe within the boundary.
+                * Your ward is ‘likely' ([Ask the Oracle](id:classic/oracles/moves/ask_the_oracle/likely)) to trap a foe within the boundary.
             enabled: true
             moves:
               ward:
@@ -904,17 +904,17 @@ assets:
 
                         * When a foe first crosses the boundary, take +1 momentum.
                         * When you first inflict harm against a foe within the boundary, inflict +1 harm.
-                        * Your ward is ‘likely’ ([Ask the Oracle](id:classic/oracles/moves/ask_the_oracle/likely)) to trap a foe within the boundary.
+                        * Your ward is ‘likely' ([Ask the Oracle](id:classic/oracles/moves/ask_the_oracle/likely)) to trap a foe within the boundary.
                   weak_hit:
                     text: |-
                       On a __weak hit__, choose one.
 
                         * When a foe first crosses the boundary, take +1 momentum.
                         * When you first inflict harm against a foe within the boundary, inflict +1 harm.
-                        * Your ward is ‘likely’ ([Ask the Oracle](id:classic/oracles/moves/ask_the_oracle/likely)) to trap a foe within the boundary.
+                        * Your ward is ‘likely' ([Ask the Oracle](id:classic/oracles/moves/ask_the_oracle/likely)) to trap a foe within the boundary.
                   miss: *MoveOutcome.Miss.Generic
           - text: |-
-              As above, and improve the effect of your ward (+2 momentum, +2 harm, and [‘almost certain’](id:classic/oracles/moves/ask_the_oracle/almost_certain)).
+              As above, and improve the effect of your ward (+2 momentum, +2 harm, and [‘almost certain'](id:classic/oracles/moves/ask_the_oracle/almost_certain)).
             enhance_moves:
               - enhances:
                   - classic/assets/ritual/ward/abilities/0/moves/ward

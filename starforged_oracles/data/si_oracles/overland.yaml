@@ -683,7 +683,7 @@ oracles:
             text: A hulking, bestial form emerges from a dark cave
           - min: 100
             max: 100
-            text: That’s the third time today you’ve passed that tree—you’re sure of it
+            text: That's the third time today you've passed that tree—you're sure of it
       perils:
         _source: *Source
         name: Overland Perils

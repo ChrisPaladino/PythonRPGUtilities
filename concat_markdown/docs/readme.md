@@ -87,4 +87,4 @@ Then run the script directly.
 
 ## Contributing
 
-Feel free to fork this repo and submit pull requests if you’d like to adapt it for your own workflow! Suggestions for improvements are welcome.
+Feel free to fork this repo and submit pull requests if you'd like to adapt it for your own workflow! Suggestions for improvements are welcome.

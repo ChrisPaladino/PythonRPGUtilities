@@ -32,7 +32,7 @@ assets:
             title: 'Ironsworn: Starforged Assets'
         abilities:
           - text: |-
-              When you [Face Danger](id:starforged/moves/adventure/face_danger) or [React Under Fire](id:starforged/moves/combat/react_under_fire) by guiding your vehicle through a hazard or out of harm’s way, add +1 and take +1 momentum on a hit.
+              When you [Face Danger](id:starforged/moves/adventure/face_danger) or [React Under Fire](id:starforged/moves/combat/react_under_fire) by guiding your vehicle through a hazard or out of harm's way, add +1 and take +1 momentum on a hit.
             enabled: true
             enhance_moves:
               - enhances:
@@ -41,12 +41,12 @@ assets:
                 roll_type: action_roll
                 trigger:
                   conditions:
-                    - text: By guiding your vehicle through a hazard or out of harm’s way
+                    - text: By guiding your vehicle through a hazard or out of harm's way
                       roll_options: null
                       method: null
 
           - text: |-
-              When you [Gain Ground](id:starforged/moves/combat/gain_ground) by maneuvering your vehicle against a foe, add +1. If you score a strong hit with a 4, 5, or 6 on the action die, you may put yourself in firing position. If you do, set aside the action die or note its value. If you or an ally [Strike](id:starforged/moves/combat/strike) using the vehicle’s weapons, preset your action die with that value. This persists until you fail to score a strong hit on that move, or until you make another move which changes your vehicle’s position.
+              When you [Gain Ground](id:starforged/moves/combat/gain_ground) by maneuvering your vehicle against a foe, add +1. If you score a strong hit with a 4, 5, or 6 on the action die, you may put yourself in firing position. If you do, set aside the action die or note its value. If you or an ally [Strike](id:starforged/moves/combat/strike) using the vehicle's weapons, preset your action die with that value. This persists until you fail to score a strong hit on that move, or until you make another move which changes your vehicle's position.
             enhance_moves:
               - roll_type: action_roll
                 enhances:
@@ -153,7 +153,7 @@ assets:
             disables_asset: true
         abilities:
           - text: |-
-              When you [Face Danger](id:starforged/moves/adventure/face_danger), [React Under Fire](id:starforged/moves/combat/react_under_fire), or [Clash](id:starforged/moves/combat/clash) against physical attacks or impact, you may put trust in your armor’s strength. If you do, preset your action die to 4. On a strong hit with a match, take +2 momentum as you build confidence, make an impression on your foes, or improve your position.
+              When you [Face Danger](id:starforged/moves/adventure/face_danger), [React Under Fire](id:starforged/moves/combat/react_under_fire), or [Clash](id:starforged/moves/combat/clash) against physical attacks or impact, you may put trust in your armor's strength. If you do, preset your action die to 4. On a strong hit with a match, take +2 momentum as you build confidence, make an impression on your foes, or improve your position.
             enabled: true
             enhance_moves:
               - enhances:
@@ -163,7 +163,7 @@ assets:
                 roll_type: action_roll
                 trigger:
                   conditions:
-                    - text: While putting trust in your armor’s strength against physical attacks or impact
+                    - text: While putting trust in your armor's strength against physical attacks or impact
                       method: null
                       roll_options: null
           - text: |-
@@ -207,7 +207,7 @@ assets:
                       roll_options: null
                       method: null
           - text: &ArtistMove |-
-              When you create or perform a significant artistic work as a public memorial or tribute, roll +the stat which best represents the work’s nature. On a strong hit, the work will stand the test of time; mark 2 ticks on your bonds legacy track. On a weak hit, its impact is short-lived; mark 1 tick instead of 2. On a miss, the work is ignored, misunderstood, or co-opted, and you must [Pay the Price](id:starforged/moves/fate/pay_the_price).
+              When you create or perform a significant artistic work as a public memorial or tribute, roll +the stat which best represents the work's nature. On a strong hit, the work will stand the test of time; mark 2 ticks on your bonds legacy track. On a weak hit, its impact is short-lived; mark 1 tick instead of 2. On a miss, the work is ignored, misunderstood, or co-opted, and you must [Pay the Price](id:starforged/moves/fate/pay_the_price).
             moves:
               commemorate:
                 name: Commemorate
@@ -218,7 +218,7 @@ assets:
                   text: When you create or perform a significant artistic work as a public memorial or tribute...
                   conditions:
                     - method: player_choice
-                      text: Roll +the stat which best represents the work’s nature
+                      text: Roll +the stat which best represents the work's nature
                       roll_options:
                         - using: stat
                           stat: edge
@@ -399,7 +399,7 @@ assets:
         <<: *PathAsset
         abilities:
           - text: |-
-              When you take a bounty contract and [Swear an Iron Vow](id:starforged/moves/quest/swear_an_iron_vow) to see it done, add +1. On a strong hit, you’ve got a solid lead and may mark progress on the quest. When you [Fulfill Your Vow](id:starforged/moves/quest/fulfill_your_vow) on a hunt, make the legacy reward one rank higher (1 extra box if already epic).
+              When you take a bounty contract and [Swear an Iron Vow](id:starforged/moves/quest/swear_an_iron_vow) to see it done, add +1. On a strong hit, you've got a solid lead and may mark progress on the quest. When you [Fulfill Your Vow](id:starforged/moves/quest/fulfill_your_vow) on a hunt, make the legacy reward one rank higher (1 extra box if already epic).
             enabled: true
             enhance_moves:
               - enhances:
@@ -771,7 +771,7 @@ assets:
                   - starforged/assets/path/empath/abilities/0/moves/read_heart
                 roll_type: action_roll
           - text: |-
-              When you [Face Danger](id:starforged/moves/adventure/face_danger) to soothe a being’s distress by creating an empathic bond, roll +spirit and take +1 momentum on a hit. If they are an ally, also give them +2 spirit on a hit.
+              When you [Face Danger](id:starforged/moves/adventure/face_danger) to soothe a being's distress by creating an empathic bond, roll +spirit and take +1 momentum on a hit. If they are an ally, also give them +2 spirit on a hit.
             enhance_moves:
               - enhances:
                   - 'starforged/moves/*/face_danger'
@@ -1780,7 +1780,7 @@ assets:
         <<: *PathAsset
         abilities:
           - text: |-
-              Drawing on esoteric energies, you may instantly cloak your form in the shadowy veil of the void. When you are veiled and make a move to ambush, hide, or sneak, you may preset your action die to 5. In darkness, make it 6. On a miss, in addition to any other cost, you are revealed and can’t veil yourself again until the current situation is resolved.
+              Drawing on esoteric energies, you may instantly cloak your form in the shadowy veil of the void. When you are veiled and make a move to ambush, hide, or sneak, you may preset your action die to 5. In darkness, make it 6. On a miss, in addition to any other cost, you are revealed and can't veil yourself again until the current situation is resolved.
             enabled: true
             enhance_moves:
               - roll_type: action_roll

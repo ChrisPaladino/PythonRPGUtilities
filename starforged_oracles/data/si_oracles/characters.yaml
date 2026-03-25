@@ -238,7 +238,7 @@ oracles:
             text: Hostile
       identity:
         name: Identity
-        summary: You may envision a character’s role, occupation, or persona using the broad categories below. For more detail, check the related subtable.
+        summary: You may envision a character's role, occupation, or persona using the broad categories below. For more detail, check the related subtable.
         oracle_type: table_text
         type: oracle_rollable
         _source:

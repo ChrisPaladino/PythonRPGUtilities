@@ -18,7 +18,7 @@ oracles:
       page: 330
     # Aliases: [NPC]
     summary: |-
-      Don’t try to build a fully formed understanding character when you first encounter them; instead, focus on what your character learns or perceives as a first impression using oracles such as [First Look](id:starforged/oracles/characters/first_look) and [Initial Disposition](id:starforged/oracles/characters/initial_disposition). Then envision or generate additional details over time.
+      Don't try to build a fully formed understanding character when you first encounter them; instead, focus on what your character learns or perceives as a first impression using oracles such as [First Look](id:starforged/oracles/characters/first_look) and [Initial Disposition](id:starforged/oracles/characters/initial_disposition). Then envision or generate additional details over time.
     collections:
       name:
         name: Character Name
@@ -28,7 +28,7 @@ oracles:
           <<: *Source
           page: 333
         summary: |-
-          Given and family names are presented as a pair, so you may roll once for both or twice to mix-and-match. You can also try reversing given and family names, or use either independently as a standalone name. If you’d like to give a character a callsign, which are the monikers used by spacers, you may roll separately or take the one provided for your rolled name.
+          Given and family names are presented as a pair, so you may roll once for both or twice to mix-and-match. You can also try reversing given and family names, or use either independently as a standalone name. If you'd like to give a character a callsign, which are the monikers used by spacers, you may roll separately or take the one provided for your rolled name.
         # usage:
         #   initial: true
         contents:

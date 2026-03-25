@@ -154,7 +154,7 @@ assets:
             value: 3
         abilities:
           - text: |-
-              Your glowcat companion perceives the inner emotions and intentions of people and creatures in its vicinity, and embodies those impressions through the colors and intensity of its luminescent fur. When you [Secure an Advantage](id:starforged/moves/adventure/secure_an_advantage) by studying the glowcat’s reactions in a charged interaction, add +its health.
+              Your glowcat companion perceives the inner emotions and intentions of people and creatures in its vicinity, and embodies those impressions through the colors and intensity of its luminescent fur. When you [Secure an Advantage](id:starforged/moves/adventure/secure_an_advantage) by studying the glowcat's reactions in a charged interaction, add +its health.
             enabled: true
             enhance_moves:
               - enhances:
@@ -162,18 +162,18 @@ assets:
                 roll_type: action_roll
                 trigger:
                   conditions:
-                    - text: By studying your glowcat’s reactions in a charged interaction
+                    - text: By studying your glowcat's reactions in a charged interaction
                       roll_options: null
                       method: null
           - text: |-
-              When you [Compel](id:starforged/moves/adventure/compel), the glowcat’s reactions will help guide your approach; you may reroll your action die if its value is less than the glowcat’s health.
+              When you [Compel](id:starforged/moves/adventure/compel), the glowcat's reactions will help guide your approach; you may reroll your action die if its value is less than the glowcat's health.
             enhance_moves:
               - enhances:
                   - starforged/moves/adventure/compel
                 roll_type: action_roll
                 trigger:
                   conditions:
-                    - text: When your glowcat’s reactions help guide your approach
+                    - text: When your glowcat's reactions help guide your approach
                       roll_options: null
                       method: null
           - text: |-
@@ -251,7 +251,7 @@ assets:
                     - text: For the rockhorn
                       <<: *AssetHealth.RollOption
           - text: |-
-              The rockhorn will come to your aid in your most vulnerable moments. When you [Endure Harm](id:starforged/moves/suffer/endure_harm) or [Endure Stress](id:starforged/moves/suffer/endure_stress) and score a miss, you may reroll your action die if its value is less than the rockhorn’s health.
+              The rockhorn will come to your aid in your most vulnerable moments. When you [Endure Harm](id:starforged/moves/suffer/endure_harm) or [Endure Stress](id:starforged/moves/suffer/endure_stress) and score a miss, you may reroll your action die if its value is less than the rockhorn's health.
             enhance_moves:
               - enhances:
                   - starforged/moves/suffer/endure_harm
@@ -497,7 +497,7 @@ assets:
             value: 4
         abilities:
           - text: |-
-              Your voidglider companion cruises in your starship’s energy wake and can help guide the way on spaceborne journeys. When you [Undertake an Expedition](id:starforged/moves/exploration/undertake_an_expedition), add +1.
+              Your voidglider companion cruises in your starship's energy wake and can help guide the way on spaceborne journeys. When you [Undertake an Expedition](id:starforged/moves/exploration/undertake_an_expedition), add +1.
             enabled: true
             enhance_moves:
               - enhances:

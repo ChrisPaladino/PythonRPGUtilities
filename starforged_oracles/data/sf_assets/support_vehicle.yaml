@@ -185,7 +185,7 @@ assets:
             value: 4
         abilities:
           - text: |-
-              Your unarmed utility vehicle houses one pilot for short-range, low gravity operations. When you make a move using the pod’s manipulator arms to perform a delicate or forceful task, add +1 and take +1 momentum on a hit.
+              Your unarmed utility vehicle houses one pilot for short-range, low gravity operations. When you make a move using the pod's manipulator arms to perform a delicate or forceful task, add +1 and take +1 momentum on a hit.
             enabled: true
             enhance_moves:
               - roll_type: action_roll
@@ -193,7 +193,7 @@ assets:
                   conditions:
                     - roll_options: null
                       method: null
-                      text: When you make a move using the pod’s manipulator arms to perform a delicate or forceful task
+                      text: When you make a move using the pod's manipulator arms to perform a delicate or forceful task
 
           - text: |-
               When you [Face Danger](id:starforged/moves/adventure/face_danger), [Gain Ground](id:starforged/moves/combat/gain_ground), or [React Under Fire](id:starforged/moves/combat/react_under_fire) by maneuvering your pod through a hazardous or obstructed area, choose an approach and roll +integrity.

@@ -16,7 +16,7 @@ oracles:
           - name: Shawn Tomkin
       page: 360
     summary: |-
-      When you first come upon a vault, use the tables on the previous two pages to help envision its form and nature. For a more abstract prompt, just use the Descriptor oracle. In either case—if that’s enough detail for the role of the vault in your story—stop there.
+      When you first come upon a vault, use the tables on the previous two pages to help envision its form and nature. For a more abstract prompt, just use the Descriptor oracle. In either case—if that's enough detail for the role of the vault in your story—stop there.
     contents:
       location:
         name: Location
@@ -747,7 +747,7 @@ oracles:
         name: Sanctum
         oracle_type: tables
         type: oracle_collection
-        summary: As you delve deeper into a vault, the corruption and strangeness of the place takes hold. Use the Sanctum Feature table to represent the aberrant nature of a vault’s depths.
+        summary: As you delve deeper into a vault, the corruption and strangeness of the place takes hold. Use the Sanctum Feature table to represent the aberrant nature of a vault's depths.
         icon: icons/vaults/sanctum.svg
         _source:
           <<: *Source
@@ -763,7 +763,7 @@ oracles:
             # content:
             #   part_of_speech: [fragment]
             summary: |-
-              Because precursor vaults are alien and enigmatic, understanding their ultimate purpose requires investigation and exploration. Use this table to reveal the vault’s original function or role at an appropriate point in your survey. This can come as an outcome of completing an expedition, or when your story naturally leads you to a revelation of the site’s nature.
+              Because precursor vaults are alien and enigmatic, understanding their ultimate purpose requires investigation and exploration. Use this table to reveal the vault's original function or role at an appropriate point in your survey. This can come as an outcome of completing an expedition, or when your story naturally leads you to a revelation of the site's nature.
             rows:
               - min: 1
                 max: 3

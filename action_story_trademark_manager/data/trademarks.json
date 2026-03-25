@@ -3823,7 +3823,7 @@
             "name": "Astral Perception",
             "source": "Homebrew",
             "type": "Descriptor",
-            "description": "You see the astral plane like others see graffiti — everywhere, layered across the world. The colors of souls, the stench of spells, the burn of Pattern scars: you can’t turn it off, and sometimes, it sees you back.",
+            "description": "You see the astral plane like others see graffiti — everywhere, layered across the world. The colors of souls, the stench of spells, the burn of Pattern scars: you can't turn it off, and sometimes, it sees you back.",
             "traits": [
                 "Aura Sense",
                 "Pattern Awareness",
@@ -3863,7 +3863,7 @@
             "name": "Forgotten Adept",
             "source": "Homebrew",
             "type": "Background",
-            "description": "You weren’t trained in a tower or taught by mentors. You found fragments in burned books and half-finished tattoos. Your magic is pieced together, practical, and powered by raw intent more than tradition.",
+            "description": "You weren't trained in a tower or taught by mentors. You found fragments in burned books and half-finished tattoos. Your magic is pieced together, practical, and powered by raw intent more than tradition.",
             "traits": [
                 "Occult Lore",
                 "Scrounge",
@@ -3877,7 +3877,7 @@
             "flaws": [
                 "Self-taught Arrogance",
                 "Lacks Formal Terminology",
-                "Can’t Read Standard Grimoires",
+                "Can't Read Standard Grimoires",
                 "Bound to a Spirit That Sometimes Talks Back"
             ],
             "gear": [
@@ -4003,8 +4003,8 @@
             ],
             "gear": [
                 "The bottle that once imprisoned you",
-                "Scroll of names you’ve tried to forget",
-                "Faded servant’s collar (now a bracelet)"
+                "Scroll of names you've tried to forget",
+                "Faded servant's collar (now a bracelet)"
             ],
             "advantages": [
                 {
@@ -4025,7 +4025,7 @@
             "name": "Fixer-at-Heart",
             "source": "Homebrew",
             "type": "Occupation",
-            "description": "You don’t wear a badge or wield a wand, but when things break—physically or emotionally—you’re the one who shows up. Whether it’s a busted pipe, a friend in crisis, or a looming supernatural threat, you get your hands dirty and make it right.",
+            "description": "You don't wear a badge or wield a wand, but when things break—physically or emotionally—you're the one who shows up. Whether it's a busted pipe, a friend in crisis, or a looming supernatural threat, you get your hands dirty and make it right.",
             "traits": [
                 "Repair",
                 "Command Presence",
@@ -4043,7 +4043,7 @@
                 "Disdain for Bureaucracy"
             ],
             "gear": [
-                "Notebook of practical spells he can’t use",
+                "Notebook of practical spells he can't use",
                 "Pocket multitool engraved with 'Trouble'",
                 "Set of lifting chalk, wrist wraps, and gloves"
             ],
@@ -4066,7 +4066,7 @@
             "name": "Steady Soul",
             "source": "Homebrew",
             "type": "Descriptor",
-            "description": "You are the calm in someone else’s storm. People lean on you—not because you're loud, but because you're still standing when no one else is. Emotionally mature, physically rooted, you weather whatever comes.",
+            "description": "You are the calm in someone else's storm. People lean on you—not because you're loud, but because you're still standing when no one else is. Emotionally mature, physically rooted, you weather whatever comes.",
             "traits": [
                 "Empathy",
                 "Unshakable",
@@ -4077,7 +4077,7 @@
                 "Understated Wit"
             ],
             "flaws": [
-                "Carries Everyone’s Weight",
+                "Carries Everyone's Weight",
                 "Hates Asking for Help",
                 "Slow to Trust",
                 "Sleeps Light, Dreams Hard"
@@ -4106,7 +4106,7 @@
             "name": "Fractured Lineage",
             "source": "Homebrew",
             "type": "Background",
-            "description": "You thought you were normal—but something in your blood pulls toward the Pattern. Whether it’s latent power, an old curse, or a forgotten inheritance, your body remembers things your mind can’t. The truth is surfacing, and it scares you more than it should.",
+            "description": "You thought you were normal—but something in your blood pulls toward the Pattern. Whether it's latent power, an old curse, or a forgotten inheritance, your body remembers things your mind can't. The truth is surfacing, and it scares you more than it should.",
             "traits": [
                 "Pattern Sensitivity",
                 "Resist Magical Influence",
@@ -4126,16 +4126,16 @@
             "gear": [
                 "Old family ring that gets warm around magic",
                 "Photo of Family Crest",
-                "Tarnished page from a genealogy record he won’t read"
+                "Tarnished page from a genealogy record he won't read"
             ],
             "advantages": [
                 {
                     "name": "Latent Pulse",
-                    "description": "Once per Job, your body instinctively reacts to a magical threat (e.g., glyph trap, Pattern warp). Ask the GM for a warning or roll a free Check to evade it—even if you didn’t see it coming."
+                    "description": "Once per Job, your body instinctively reacts to a magical threat (e.g., glyph trap, Pattern warp). Ask the GM for a warning or roll a free Check to evade it—even if you didn't see it coming."
                 },
                 {
                     "name": "Bloodline Echo",
-                    "description": "When near a powerful Pattern source, spend 1 Moxie to channel a fragment of inherited power. This gives you one magical Tag (GM’s choice: e.g., Resistant, Powerful, Glowing) for your next physical action."
+                    "description": "When near a powerful Pattern source, spend 1 Moxie to channel a fragment of inherited power. This gives you one magical Tag (GM's choice: e.g., Resistant, Powerful, Glowing) for your next physical action."
                 },
                 {
                     "name": "Unmarked, Unmade",
@@ -4187,7 +4187,7 @@
             "name": "Outcast",
             "source": "Homebrew",
             "type": "Background",
-            "description": "You live apart from society’s walls — an outsider by blood, choice, or circumstance. Their rules are not yours, and their scorn is an old companion. Freedom tastes sweeter than acceptance ever could.",
+            "description": "You live apart from society's walls — an outsider by blood, choice, or circumstance. Their rules are not yours, and their scorn is an old companion. Freedom tastes sweeter than acceptance ever could.",
             "traits": [
                 "Downtrodden Fellowship",
                 "Read a Person",
@@ -4219,7 +4219,7 @@
                     "description": "Once per Job, when suffering from prejudice or ostracism, gain 1 Moxie and advantage on your next Check."
                 },
                 {
-                    "name": "The Outsider’s Insight",
+                    "name": "The Outsider's Insight",
                     "description": "When observing someone for a few moments, ask the GM one question about their intent or hidden flaw and receive a truthful answer."
                 }
             ]
@@ -4228,7 +4228,7 @@
             "name": "Formidable Weaponmaster",
             "source": "Homebrew",
             "type": "Occupation",
-            "description": "You and your weapon are one. Each strike is poetry, each parry a song of survival. You’ve fought long enough to know the weight of blood and the importance of balance.",
+            "description": "You and your weapon are one. Each strike is poetry, each parry a song of survival. You've fought long enough to know the weight of blood and the importance of balance.",
             "traits": [
                 "Weapon Maintenance",
                 "Pierce Defenses",
@@ -4261,7 +4261,7 @@
                 },
                 {
                     "name": "Weapon Savant",
-                    "description": "Once per Scene, declare you know a weakness in an opponent’s fighting style; you or an ally gain +1 Action Die on attacks against them for the Scene."
+                    "description": "Once per Scene, declare you know a weakness in an opponent's fighting style; you or an ally gain +1 Action Die on attacks against them for the Scene."
                 }
             ]
         },
@@ -4289,11 +4289,11 @@
             "gear": [
                 "Hand-carved cudgel (shillelagh)",
                 "Leather pouch of healing herbs",
-                "Necklace of teeth from beasts you’ve tamed"
+                "Necklace of teeth from beasts you've tamed"
             ],
             "advantages": [
                 {
-                    "name": "Beast’s Bond",
+                    "name": "Beast's Bond",
                     "description": "Spend 1 Moxie to call a nearby wild creature to aid you for a Scene. The animal acts with Loyalty (Grit 2)."
                 },
                 {
@@ -4310,7 +4310,7 @@
             "name": "Bounty Hunter",
             "source": "Homebrew",
             "type": "Occupation",
-            "description": "You hunt people for money — fugitives, deserters, war criminals, deadbeats, or the occasional innocent caught in the crossfire. You don’t ask questions unless they pay extra. You track your quarry across borders and badlands, through burned-out starports and borderworld bunkers. What matters is the bounty, the job, and getting out alive.",
+            "description": "You hunt people for money — fugitives, deserters, war criminals, deadbeats, or the occasional innocent caught in the crossfire. You don't ask questions unless they pay extra. You track your quarry across borders and badlands, through burned-out starports and borderworld bunkers. What matters is the bounty, the job, and getting out alive.",
             "traits": [
                 "Shoot",
                 "Grapple",
@@ -4334,7 +4334,7 @@
             "advantages": [
                 {
                     "name": "No Place to Hide",
-                    "description": "When you enter a new settlement or starport, you may ask the GM: “Where is my quarry likely to be?” The GM must answer with a clear lead or impression — even if it’s a trap."
+                    "description": "When you enter a new settlement or starport, you may ask the GM: “Where is my quarry likely to be?” The GM must answer with a clear lead or impression — even if it's a trap."
                 },
                 {
                     "name": "Bring 'Em In Cold",
@@ -4367,7 +4367,7 @@
                 "Burned Too Many Bridges"
             ],
             "gear": [
-                "Clean-but-worn Officer’s Jacket",
+                "Clean-but-worn Officer's Jacket",
                 "Forged Identification",
                 "Designer Cigarette Case"
             ],
@@ -4390,7 +4390,7 @@
             "name": "Code of Honor",
             "source": "Tomorrow City",
             "type": "Descriptor",
-            "description": "You live by rules — your own. Maybe it’s a code passed down. Maybe it’s the last thing keeping you from becoming a monster. But it’s there. And it binds you tighter than most laws.",
+            "description": "You live by rules — your own. Maybe it's a code passed down. Maybe it's the last thing keeping you from becoming a monster. But it's there. And it binds you tighter than most laws.",
             "traits": [
                 "Command",
                 "Empathy",
@@ -4402,7 +4402,7 @@
             ],
             "flaws": [
                 "Bound by the Code",
-                "Won’t Harm the Helpless",
+                "Won't Harm the Helpless",
                 "Judgmental",
                 "Prone to Lone Sacrifices"
             ],
