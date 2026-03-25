@@ -50,6 +50,8 @@ class App(MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesTabMixin, tk.Tk
         self._is_assets: list[dict[str, Any]] = data["is_assets"]
         self._oracle_by_id: dict[str, dict[str, Any]] = data["oracle_by_id"]
         self._bundles: list[dict[str, Any]] = data["bundles"]
+        self._game_regions: dict[str, list[str]] = data["game_regions"]
+        self._settings: dict[str, Any] = data["settings"]
 
     # ------------------------------------------------------------------
     # UI

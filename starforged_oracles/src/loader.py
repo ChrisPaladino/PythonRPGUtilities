@@ -1,6 +1,8 @@
 """loader.py – YAML loading and data extraction for the Starforged reference app."""
 from __future__ import annotations
 
+import copy
+import json
 import re
 from pathlib import Path
 from typing import Any
@@ -32,6 +34,7 @@ SF_ASSETS_DIR = DATA_DIR / "sf_assets"
 SI_ASSETS_DIR = DATA_DIR / "si_assets"
 IS_ASSETS_DIR = DATA_DIR / "is_assets"
 BUNDLES_YAML = DATA_DIR / "bundles.yaml"
+SETTINGS_JSON = DATA_DIR / "user_settings.json"
 
 # Maps YAML top-level _id values to friendly game names.
 SOURCE_LABELS: dict[str, str] = {
@@ -288,6 +291,46 @@ def extract_assets(data: dict[str, Any], fallback_label: str) -> list[dict[str, 
 # Top-level load function used by App._load_data
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# User settings  (persisted to data/user_settings.json)
+# ---------------------------------------------------------------------------
+
+_DEFAULT_SETTINGS: dict[str, Any] = {
+    "regions": {
+        "Sundered Isles": "Margins",
+        "Starforged": "Terminus",
+    },
+}
+
+
+def load_settings() -> dict[str, Any]:
+    """Load user_settings.json, merging missing keys from defaults."""
+    defaults = copy.deepcopy(_DEFAULT_SETTINGS)
+    if not SETTINGS_JSON.exists():
+        return defaults
+    try:
+        data: dict[str, Any] = json.loads(SETTINGS_JSON.read_text(encoding="utf-8"))
+        for k, v in defaults.items():
+            if k not in data:
+                data[k] = v
+            elif isinstance(v, dict):
+                for sk, sv in v.items():
+                    data[k].setdefault(sk, sv)
+        return data
+    except Exception:
+        return defaults
+
+
+def save_settings(settings: dict[str, Any]) -> None:
+    """Persist settings to user_settings.json."""
+    SETTINGS_JSON.write_text(json.dumps(settings, indent=2), encoding="utf-8")
+
+
+# ---------------------------------------------------------------------------
+# Top-level load function used by App._load_data
+# ---------------------------------------------------------------------------
+
+
 def load_all_data() -> dict[str, Any]:
     """Load every data file and return a dict of all game data."""
     sf_moves = extract_moves(load_yaml(SF_MOVES_YAML), "Starforged")
@@ -330,8 +373,13 @@ def load_all_data() -> dict[str, Any]:
     }
 
     bundles: list[dict[str, Any]] = []
+    game_regions: dict[str, list[str]] = {}
     if BUNDLES_YAML.exists():
-        bundles = load_yaml(BUNDLES_YAML).get("bundles") or []
+        bundles_data = load_yaml(BUNDLES_YAML)
+        bundles = bundles_data.get("bundles") or []
+        game_regions = bundles_data.get("game_regions") or {}
+
+    settings = load_settings()
 
     return {
         "sf_moves": sf_moves,
@@ -344,4 +392,6 @@ def load_all_data() -> dict[str, Any]:
         "is_assets": is_assets,
         "oracle_by_id": oracle_by_id,
         "bundles": bundles,
+        "game_regions": game_regions,
+        "settings": settings,
     }

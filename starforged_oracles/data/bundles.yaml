@@ -8,7 +8,12 @@
 #   cursed_oracle_id: Standalone cursed table to use when the cursed die fires (optional)
 #   note:            Informational note shown beneath the label
 #   cascade_from:    Label of a preceding roll whose text result drives oracle selection
-#   cascade_map:     Mapping of size-result text → oracle_id (used with cascade_from)
+#   cascade_map:     Mapping of preceding roll text → oracle_id (used with cascade_from)
+#   region_map:      Per-region oracle_id dict — app uses the active campaign region
+
+game_regions:
+  "Sundered Isles": [Myriads, Margins, Reaches]
+  "Starforged": [Terminus, Outlands, Expanse]
 
 bundles:
 
@@ -48,8 +53,10 @@ bundles:
         count: 2
         cursed_oracle_id: "sundered_isles/oracles/sailing_ships/cursed_first_look"
       - label: "Controlling Faction"
-        oracle_id: "sundered_isles/oracles/sailing_ships/controlling_faction/margins"
-        note: "Sub-tables: Myriads / Margins / Reaches — roll on the table for your region"
+        region_map:
+          Myriads: "sundered_isles/oracles/sailing_ships/controlling_faction/myriads"
+          Margins: "sundered_isles/oracles/sailing_ships/controlling_faction/margins"
+          Reaches: "sundered_isles/oracles/sailing_ships/controlling_faction/reaches"
       - label: "Symbol"
         oracle_id: "sundered_isles/oracles/sailing_ships/symbol"
         cursed_oracle_id: "sundered_isles/oracles/sailing_ships/cursed_symbol"
@@ -90,8 +97,10 @@ bundles:
           Waterside: "sundered_isles/oracles/settlement_names/name_suffix_waterside"
         note: "Optional — combine with Settlement Name result for a compound name (e.g. Moonstone Bay)"
       - label: "Size"
-        oracle_id: "sundered_isles/oracles/settlements/size/margins"
-        note: "Sub-tables: Myriads / Margins / Reaches — roll on the table for your region"
+        region_map:
+          Myriads: "sundered_isles/oracles/settlements/size/myriads"
+          Margins: "sundered_isles/oracles/settlements/size/margins"
+          Reaches: "sundered_isles/oracles/settlements/size/reaches"
       - label: "Aesthetics"
         oracle_id: "sundered_isles/oracles/settlements/aesthetics"
         count: 2
@@ -100,8 +109,10 @@ bundles:
         count: 2
         cursed_oracle_id: "sundered_isles/oracles/settlements/first_look_cursed"
       - label: "Controlling Faction"
-        oracle_id: "sundered_isles/oracles/settlements/identity/controlling_faction/margins"
-        note: "Sub-tables: Myriads / Margins / Reaches — roll on the table for your region"
+        region_map:
+          Myriads: "sundered_isles/oracles/settlements/identity/controlling_faction/myriads"
+          Margins: "sundered_isles/oracles/settlements/identity/controlling_faction/margins"
+          Reaches: "sundered_isles/oracles/settlements/identity/controlling_faction/reaches"
       - label: "Disposition"
         oracle_id: "sundered_isles/oracles/settlements/identity/disposition"
       - label: "Authority"

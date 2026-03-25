@@ -7,8 +7,10 @@ from tkinter import ttk
 from typing import Any, TYPE_CHECKING
 
 from styles import ACCENT, BG, BORDER, FG, HIT_MISS, PANEL_BG
+from loader import save_settings
 from widgets import (
-    make_listbox_frame, make_option_menu, make_paned, make_textbox, set_text_lines,
+    make_listbox_frame, make_option_menu, make_paned, make_textbox, rebuild_option_menu,
+    set_text_lines,
 )
 
 if TYPE_CHECKING:
@@ -89,6 +91,17 @@ class BundlesTabMixin:
         self._bundle_cursed_die_om["menu"].config(bg=PANEL_BG, fg=FG, activebackground=ACCENT, activeforeground=BG)
         self._bundle_cursed_die_om.grid(row=0, column=2, sticky="w")
 
+        # Region selector — shown only for bundles whose game has regional tables
+        region_frame = ttk.Frame(roll_bar, style="Panel.TFrame")
+        region_frame.grid(row=0, column=3, sticky="w", padx=(16, 0))
+        ttk.Label(region_frame, text="Region:", style="Cat.TLabel").pack(side="left", padx=(0, 4))
+        self._bundle_region_var = tk.StringVar(value="")
+        self._bundle_region_var.trace_add("write", self._on_region_change)
+        self._bundle_region_om = make_option_menu(region_frame, self._bundle_region_var, ["—"], width=12)
+        self._bundle_region_om.pack(side="left")
+        self._bundle_region_frame = region_frame
+        self._bundle_region_frame.grid_remove()
+
         self._bundle_text = make_textbox(right)
         self._bundle_text.grid(row=2, column=0, sticky="nsew", padx=4, pady=(0, 4))
 
@@ -151,6 +164,7 @@ class BundlesTabMixin:
         if bundle is None:
             return
         self._update_bundle_curse_ui()
+        self._update_bundle_region_ui()
         self._bundle_title_var.set(bundle.get("name", ""))
         lines: list[tuple[str, str]] = [
             ("cat", f"{bundle.get('game', '')}  —  {len(bundle.get('rolls', []))} roll steps"),
@@ -170,6 +184,39 @@ class BundlesTabMixin:
             if item.get("note"):
                 lines.append(("cat", f"    ↳ {item['note']}"))
         set_text_lines(self._bundle_text, lines)
+
+    # ------------------------------------------------------------------
+    # Region UI state
+    # ------------------------------------------------------------------
+
+    def _update_bundle_region_ui(self: "App") -> None:
+        bundle = self._current_bundle
+        if bundle is None:
+            self._bundle_region_frame.grid_remove()
+            return
+        game = bundle.get("game", "")
+        regions: list[str] = self._game_regions.get(game, [])
+        has_regions = bool(regions) and any(
+            item.get("region_map") for item in bundle.get("rolls", [])
+        )
+        if has_regions:
+            current = self._settings.get("regions", {}).get(game, regions[0])
+            rebuild_option_menu(self._bundle_region_om, self._bundle_region_var, regions)
+            self._bundle_region_var.set(current if current in regions else regions[0])
+            self._bundle_region_frame.grid()
+        else:
+            self._bundle_region_frame.grid_remove()
+
+    def _on_region_change(self: "App", *_: Any) -> None:
+        bundle = self._current_bundle
+        if bundle is None:
+            return
+        game = bundle.get("game", "")
+        region = self._bundle_region_var.get()
+        if not game or not region:
+            return
+        self._settings.setdefault("regions", {})[game] = region
+        save_settings(self._settings)
 
     # ------------------------------------------------------------------
     # Rolling
@@ -194,9 +241,21 @@ class BundlesTabMixin:
             count = item.get("count", 1)
             note = item.get("note", "")
 
-            # Resolve oracle (direct or cascade)
+            # Resolve oracle (region map, direct, or cascade)
             oracle_id = item.get("oracle_id", "")
-            if item.get("cascade_from"):
+            region_label = ""
+            if item.get("region_map"):
+                region = self._bundle_region_var.get()
+                oracle_id = (item.get("region_map") or {}).get(region, "")
+                region_label = f" ({region})"
+                if not oracle_id:
+                    lines += [
+                        ("bold", f"  {label}"),
+                        ("miss", f"    [No region oracle for {region!r}]"),
+                        ("body", ""),
+                    ]
+                    continue
+            elif item.get("cascade_from"):
                 source_text = label_results.get(item["cascade_from"], "")
                 cascade_map: dict[str, str] = item.get("cascade_map") or {}
                 oracle_id = cascade_map.get(source_text, "")
@@ -251,10 +310,10 @@ class BundlesTabMixin:
                     label_results[label] = result_text
 
                 if cursed:
-                    lines.append(("miss", f"  {roll_label}  [{roll}]{cursed_suffix}"))
-                    lines.append(("strong", "      ☠ " + result_text.replace("\n", "\n        ")))
+                    lines.append(("miss", f"  {roll_label}{region_label}  [{roll}]{cursed_suffix}"))
+                    lines.append(("strong", "      \u2620 " + result_text.replace("\n", "\n        ")))
                 else:
-                    lines.append(("bold", f"  {roll_label}  [{roll}]"))
+                    lines.append(("bold", f"  {roll_label}{region_label}  [{roll}]"))
                     lines.append(("body", "    " + result_text.replace("\n", "\n    ")))
 
             if note:
