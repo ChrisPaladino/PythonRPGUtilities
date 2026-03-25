@@ -87,23 +87,27 @@ class OraclesTabMixin:
             command=self._roll_oracle,
         ).pack(side="left", padx=(0, 8))
 
+        _CURSE_DIM = "#4a4a5a"
         self._cursed_enabled_var = tk.BooleanVar(value=False)
-        tk.Checkbutton(
+        self._cursed_chk = tk.Checkbutton(
             roll_bar, text="☠ Cursed Die",
             variable=self._cursed_enabled_var,
-            bg=PANEL_BG, fg=HIT_MISS, selectcolor=PANEL_BG,
-            activebackground=PANEL_BG, activeforeground=HIT_MISS,
+            bg=PANEL_BG, fg=_CURSE_DIM, selectcolor=PANEL_BG,
+            activebackground=PANEL_BG, activeforeground=_CURSE_DIM,
+            disabledforeground=_CURSE_DIM,
             font=("Segoe UI", 9), relief="flat", bd=0, highlightthickness=0,
-        ).pack(side="left", padx=(0, 4))
+            state="disabled",
+        )
+        self._cursed_chk.pack(side="left", padx=(0, 4))
 
         self._cursed_die_var = tk.StringVar(value="d10")
-        cursed_die_om = tk.OptionMenu(roll_bar, self._cursed_die_var, "d10", "d12", "d20")
-        cursed_die_om.config(
-            bg=PANEL_BG, fg=HIT_MISS, activebackground=SEL_BG, activeforeground=HIT_MISS,
-            highlightthickness=0, relief="flat", width=3,
+        self._cursed_die_om = tk.OptionMenu(roll_bar, self._cursed_die_var, "d10", "d12", "d20")
+        self._cursed_die_om.config(
+            bg=PANEL_BG, fg=_CURSE_DIM, activebackground=SEL_BG, activeforeground=_CURSE_DIM,
+            highlightthickness=0, relief="flat", width=3, state="disabled",
         )
-        cursed_die_om["menu"].config(bg=PANEL_BG, fg=HIT_MISS, activebackground=SEL_BG, activeforeground=HIT_MISS)
-        cursed_die_om.pack(side="left", padx=(0, 12))
+        self._cursed_die_om["menu"].config(bg=PANEL_BG, fg=HIT_MISS, activebackground=SEL_BG, activeforeground=HIT_MISS)
+        self._cursed_die_om.pack(side="left", padx=(0, 12))
 
         ttk.Label(roll_bar, textvariable=self._roll_result_var, style="Title.TLabel").pack(
             side="left"
@@ -169,7 +173,29 @@ class OraclesTabMixin:
         oracle = self._oracles_visible[selection[0]]
         self._current_oracle = oracle
         self._roll_result_var.set("")
+        self._update_curse_ui()
         self._display_oracle(oracle)
+
+    def _update_curse_ui(self: "App") -> None:
+        """Highlight curse controls when the current oracle has a cursed variant."""
+        _CURSE_DIM = "#4a4a5a"
+        has_curse = bool(self._current_oracle and self._current_oracle.get("cursed_version"))
+        if has_curse:
+            self._cursed_enabled_var.set(True)
+            self._cursed_chk.config(
+                state="normal", fg=HIT_MISS, activeforeground=HIT_MISS,
+            )
+            self._cursed_die_om.config(
+                state="normal", fg=HIT_MISS, activeforeground=HIT_MISS,
+            )
+        else:
+            self._cursed_enabled_var.set(False)
+            self._cursed_chk.config(
+                state="disabled", fg=_CURSE_DIM, activeforeground=_CURSE_DIM,
+            )
+            self._cursed_die_om.config(
+                state="disabled", fg=_CURSE_DIM, activeforeground=_CURSE_DIM,
+            )
 
     def _display_oracle(
         self: "App",
