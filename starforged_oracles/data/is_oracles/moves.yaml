@@ -173,7 +173,7 @@ oracles:
             text: 'It forces you to act against your best intentions.'
           - min: 95
             max: 98
-            text: 'A friend, companion, or ally is put in harm's way (or you are, if alone).'
+            text: 'A friend, companion, or ally is put in harm''s way (or you are, if alone).'
           - min: 99
             max: 100
             text: 'Roll twice more on this table. Both results occur. If they are the same result, make it worse.'
