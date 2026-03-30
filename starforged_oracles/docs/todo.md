@@ -468,3 +468,48 @@ oracles:
         description: >
           Generate this beast using the Starforged creature oracles (page 336 of the
           Starforged rulebook), giving it an air form.
+
+# Code
+- Starting Region
+- Overland waypoints (p150)
+
+Let's continue making bundles of "these usually go together" oracles / rolls in Sundered Isles:
+- Settlement
+	- Settlement location: 1 roll
+	- Settlement size: 1 roll
+	- Settlement aesthetics: 2 rolls
+	- Settlement first look: 2 rolls, curse die
+	- Settlement Controlling Faction: 1 roll
+	- Settlement Disposition: 1 roll
+	- Settlement Authority: 1 roll
+	- Settlement Focus: 2 rolls, curse die
+	- Settlement Details: 2 rolls, curse die
+	- Settlement Name: 1 roll, curse die
+- Island
+	- Island landscape
+		- Size: 1 roll
+		- Terrain: 1 roll
+		- Vitality: 1 roll
+		- Visible Habitation: 1 roll
+		- Nearby Islands: 1 roll
+		- Coastline aspects: 2 rolls
+		- Offshore observations: 2 rolls, curse die
+		- Island name: 1 roll, curse die
+- Character
+	- Character first look: 2 rolls, curse die
+	- Character disposition: 1 roll
+	- Character role: (this has a sub-table)
+		- Various sub-tables for Academic, Agent, etc.
+	- Trademark accessories: 2 rolls
+	- Trademark weapons: 1 roll, curse die
+	- Character details: 2 rolls, curse die
+	- Character goals: 2 rolls, curse die
+	- Character Name: need to discuss this one - the given name (first name) and family name (last name) is there twice (1-100), and Moniker uses a Curse die. My suggestion would be to combine the given names into a big 200 entry list, and combine family name into a big 200 entry list.
+		- Cursed moniker has sub-tables
+
+Future state
+- Rename project to be more appropriate to what it does
+- Handle Myriads, Margins, Reaches for various Tables?
+- Handle Island name based on type of grouping
+- Handle Settlement name based on location
+- Faction grid
