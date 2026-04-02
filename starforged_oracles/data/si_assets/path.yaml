@@ -241,7 +241,7 @@ assets:
               When you [Gain Ground](id:sundered_isles/moves/combat/gain_ground) by charging into close quarters with a fixed bayonet, or if you [React Under Fire](id:sundered_isles/moves/combat/react_under_fire) by holding foes at bay or parrying close quarter attacks with your rifle, add +1 and take +1 momentum on a hit.
       necromancer:
         _source: *Source
-        name: necromancer
+        name: Necromancer
         type: asset
         category: Path
         abilities:
