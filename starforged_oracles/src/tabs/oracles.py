@@ -22,7 +22,7 @@ class OraclesTabMixin:
     # Build
     # ------------------------------------------------------------------
 
-    def _build_oracles_tab(self: "App", parent: ttk.Frame) -> None:
+    def _build_oracles_tab(self, parent: ttk.Frame) -> None:
         paned = make_paned(parent)
 
         # --- Left panel ---
@@ -35,7 +35,7 @@ class OraclesTabMixin:
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
         )
         all_sources = sorted(
-            {o["source"] for o in self._sf_oracles + self._si_oracles + self._is_oracles}
+            {o["source"] for o in getattr(self, '_sf_oracles', []) + getattr(self, '_si_oracles', []) + getattr(self, '_is_oracles', [])}
         )
         self._oracle_game_var = tk.StringVar(value="All")
         self._oracle_game_var.trace_add("write", lambda *_: self._on_oracle_game_change())
@@ -47,7 +47,7 @@ class OraclesTabMixin:
             row=2, column=0, sticky="w", padx=8, pady=(4, 2)
         )
         all_cats = sorted(
-            {o["category"] for o in self._sf_oracles + self._si_oracles + self._is_oracles}
+            {o["category"] for o in getattr(self, '_sf_oracles', []) + getattr(self, '_si_oracles', []) + getattr(self, '_is_oracles', [])}
         )
         self._oracle_selected_cat = "All"
         self._oracle_cat_var = tk.StringVar(value="All")
@@ -124,9 +124,9 @@ class OraclesTabMixin:
     # Filtering
     # ------------------------------------------------------------------
 
-    def _on_oracle_game_change(self: "App") -> None:
+    def _on_oracle_game_change(self) -> None:
         game_filter = self._oracle_game_var.get() or "All"
-        all_oracles = self._sf_oracles + self._si_oracles + self._is_oracles
+        all_oracles = getattr(self, '_sf_oracles', []) + getattr(self, '_si_oracles', []) + getattr(self, '_is_oracles', [])
         if game_filter == "All":
             cats = sorted({o["category"] for o in all_oracles})
         else:
@@ -137,15 +137,15 @@ class OraclesTabMixin:
             self._oracle_cat_var.set("All")
         self._refresh_oracle_list()
 
-    def _on_oracle_cat_change(self: "App") -> None:
+    def _on_oracle_cat_change(self) -> None:
         self._oracle_selected_cat = self._oracle_cat_var.get()
         self._refresh_oracle_list()
 
-    def _refresh_oracle_list(self: "App") -> None:
+    def _refresh_oracle_list(self) -> None:
         game_filter = self._oracle_game_var.get() or "All"
         cat_filter = self._oracle_selected_cat
         query = self._oracle_search_var.get().strip().lower()
-        all_oracles = self._sf_oracles + self._si_oracles + self._is_oracles
+        all_oracles = getattr(self, '_sf_oracles', []) + getattr(self, '_si_oracles', []) + getattr(self, '_is_oracles', [])
         filtered = [
             o for o in all_oracles
             if (game_filter == "All" or o["source"] == game_filter)
@@ -158,15 +158,16 @@ class OraclesTabMixin:
         filtered.sort(key=lambda o: (o["source"], o["category"], o["name"]))
         self._oracles_visible = filtered
         self._oracle_listbox.delete(0, tk.END)
+        short_source = getattr(self, '_short_source', lambda s: s)
         for o in filtered:
-            label = f"[{self._short_source(o['source'])}]  {o['category']} › {o['name']}"
+            label = f"[{short_source(o['source'])}]  {o['category']} › {o['name']}"
             self._oracle_listbox.insert(tk.END, label)
 
     # ------------------------------------------------------------------
     # Selection & display
     # ------------------------------------------------------------------
 
-    def _on_oracle_select(self: "App", _event: tk.Event) -> None:  # type: ignore[type-arg]
+    def _on_oracle_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
         selection = self._oracle_listbox.curselection()
         if not selection:
             return
@@ -176,7 +177,7 @@ class OraclesTabMixin:
         self._update_curse_ui()
         self._display_oracle(oracle)
 
-    def _update_curse_ui(self: "App") -> None:
+    def _update_curse_ui(self) -> None:
         """Highlight curse controls when the current oracle has a cursed variant."""
         _CURSE_DIM = "#4a4a5a"
         has_curse = bool(self._current_oracle and self._current_oracle.get("cursed_version"))
@@ -198,7 +199,7 @@ class OraclesTabMixin:
             )
 
     def _display_oracle(
-        self: "App",
+        self,
         oracle: dict[str, Any],
         highlight_roll: int | None = None,
         cursed: bool = False,
@@ -226,7 +227,7 @@ class OraclesTabMixin:
             lines.append((tag, prefix + text_indented))
         set_text_lines(self._oracle_text, lines)
 
-    def _roll_oracle(self: "App") -> None:
+    def _roll_oracle(self) -> None:
         if self._current_oracle is None:
             return
         roll = random.randint(1, 100)
@@ -240,7 +241,7 @@ class OraclesTabMixin:
             cursed_roll_str = f"  |  ☠ {die_str}: {cursed_roll}{'  → CURSED!' if cursed else ''}"
         display_oracle = self._current_oracle
         if cursed:
-            co = self._oracle_by_id.get(self._current_oracle["cursed_version"])
+            co = getattr(self, '_oracle_by_id', {}).get(self._current_oracle["cursed_version"])
             if co:
                 display_oracle = co
         matching = next(

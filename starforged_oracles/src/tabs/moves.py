@@ -22,7 +22,7 @@ class MovesTabMixin:
     # Build
     # ------------------------------------------------------------------
 
-    def _build_moves_tab(self: "App", parent: ttk.Frame) -> None:
+    def _build_moves_tab(self, parent: ttk.Frame) -> None:
         paned = make_paned(parent)
 
         # --- Left panel ---
@@ -98,7 +98,7 @@ class MovesTabMixin:
     # Filtering
     # ------------------------------------------------------------------
 
-    def _on_move_game_change(self: "App") -> None:
+    def _on_move_game_change(self) -> None:
         game_filter = self._move_game_var.get()
         all_moves = self._sf_moves + self._si_moves
         if game_filter == "All":
@@ -111,11 +111,11 @@ class MovesTabMixin:
             self._move_cat_var.set("All")
         self._refresh_move_list()
 
-    def _on_move_cat_change(self: "App") -> None:
+    def _on_move_cat_change(self) -> None:
         self._move_selected_cat = self._move_cat_var.get()
         self._refresh_move_list()
 
-    def _refresh_move_list(self: "App") -> None:
+    def _refresh_move_list(self) -> None:
         game_filter = self._move_game_var.get()
         cat_filter = self._move_selected_cat
         query = self._move_search_var.get().strip().lower()
@@ -140,7 +140,7 @@ class MovesTabMixin:
     # Selection & display
     # ------------------------------------------------------------------
 
-    def _on_move_select(self: "App", _event: tk.Event) -> None:  # type: ignore[type-arg]
+    def _on_move_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
         selection = self._move_listbox.curselection()
         if not selection:
             return
@@ -149,7 +149,7 @@ class MovesTabMixin:
         self._display_move(move)
 
     def _display_move(
-        self: "App", move: dict[str, Any], highlight_roll: int | None = None
+        self, move: dict[str, Any], highlight_roll: int | None = None
     ) -> None:
         self._current_move = move
         tables = move.get("tables", [])
@@ -203,7 +203,7 @@ class MovesTabMixin:
 
         set_text_lines(self._move_text, lines)
 
-    def _roll_move_table(self: "App") -> None:
+    def _roll_move_table(self) -> None:
         if self._current_move is None:
             return
         tables = self._current_move.get("tables", [])

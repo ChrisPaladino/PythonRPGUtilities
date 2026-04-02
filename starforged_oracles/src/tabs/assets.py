@@ -22,7 +22,7 @@ class AssetsTabMixin:
     # Build
     # ------------------------------------------------------------------
 
-    def _build_assets_tab(self: "App", parent: ttk.Frame) -> None:
+    def _build_assets_tab(self, parent: ttk.Frame) -> None:
         paned = make_paned(parent)
 
         # --- Left panel ---
@@ -35,7 +35,7 @@ class AssetsTabMixin:
             row=0, column=0, sticky="w", padx=8, pady=(8, 2)
         )
         all_sources = sorted(
-            {a["source"] for a in self._sf_assets + self._si_assets + self._is_assets}
+            {a["source"] for a in getattr(self, '_sf_assets', []) + getattr(self, '_si_assets', []) + getattr(self, '_is_assets', [])}
         )
         self._asset_game_var = tk.StringVar(value="All")
         self._asset_game_var.trace_add("write", lambda *_: self._on_asset_game_change())
@@ -47,7 +47,7 @@ class AssetsTabMixin:
             row=2, column=0, sticky="w", padx=8, pady=(4, 2)
         )
         all_cats = sorted(
-            {a["category"] for a in self._sf_assets + self._si_assets + self._is_assets}
+            {a["category"] for a in getattr(self, '_sf_assets', []) + getattr(self, '_si_assets', []) + getattr(self, '_is_assets', [])}
         )
         self._asset_selected_cat = "All"
         self._asset_cat_var = tk.StringVar(value="All")
@@ -99,17 +99,17 @@ class AssetsTabMixin:
     # Filtering
     # ------------------------------------------------------------------
 
-    def _on_asset_game_change(self: "App") -> None:
+    def _on_asset_game_change(self) -> None:
         self._refresh_asset_category_options()
         self._refresh_asset_list()
 
-    def _on_asset_cat_change(self: "App") -> None:
+    def _on_asset_cat_change(self) -> None:
         self._asset_selected_cat = self._asset_cat_var.get()
         self._refresh_asset_list()
 
-    def _refresh_asset_category_options(self: "App") -> None:
+    def _refresh_asset_category_options(self) -> None:
         game_filter = self._asset_game_var.get()
-        all_assets = self._sf_assets + self._si_assets + self._is_assets
+        all_assets = getattr(self, '_sf_assets', []) + getattr(self, '_si_assets', []) + getattr(self, '_is_assets', [])
         if game_filter == "All":
             cats = sorted({a["category"] for a in all_assets})
         else:
@@ -120,11 +120,11 @@ class AssetsTabMixin:
             self._asset_selected_cat = "All"
             self._asset_cat_var.set("All")
 
-    def _refresh_asset_list(self: "App") -> None:
+    def _refresh_asset_list(self) -> None:
         game_filter = self._asset_game_var.get()
         cat_filter = self._asset_selected_cat
         query = self._asset_search_var.get().strip().lower()
-        all_assets = self._sf_assets + self._si_assets + self._is_assets
+        all_assets = getattr(self, '_sf_assets', []) + getattr(self, '_si_assets', []) + getattr(self, '_is_assets', [])
         filtered = [
             a for a in all_assets
             if (game_filter == "All" or a["source"] == game_filter)
@@ -134,15 +134,16 @@ class AssetsTabMixin:
         filtered.sort(key=lambda a: (a["source"], a["category"], a["name"]))
         self._assets_visible = filtered
         self._asset_listbox.delete(0, tk.END)
+        short_source = getattr(self, '_short_source', lambda s: s)
         for a in filtered:
-            label = f"[{self._short_source(a['source'])}]  {a['category']} › {a['name']}"
+            label = f"[{short_source(a['source'])}]  {a['category']} › {a['name']}"
             self._asset_listbox.insert(tk.END, label)
 
     # ------------------------------------------------------------------
     # Selection & display
     # ------------------------------------------------------------------
 
-    def _pick_random_asset(self: "App") -> None:
+    def _pick_random_asset(self) -> None:
         if not self._assets_visible:
             messagebox.showinfo("No assets", "No assets match the current filters.")
             return
@@ -153,13 +154,13 @@ class AssetsTabMixin:
         self._asset_listbox.see(idx)
         self._display_asset(self._assets_visible[idx])
 
-    def _on_asset_select(self: "App", _event: tk.Event) -> None:  # type: ignore[type-arg]
+    def _on_asset_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
         selection = self._asset_listbox.curselection()
         if not selection:
             return
         self._display_asset(self._assets_visible[selection[0]])
 
-    def _display_asset(self: "App", asset: dict[str, Any]) -> None:
+    def _display_asset(self, asset: dict[str, Any]) -> None:
         self._asset_title_var.set(f"{asset['name']}  —  {asset['category']}")
         lines: list[tuple[str, str]] = [
             ("cat", f"{asset['source']}  ·  {asset['category']}"),

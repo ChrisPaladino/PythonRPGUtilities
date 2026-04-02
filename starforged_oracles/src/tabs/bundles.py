@@ -23,7 +23,7 @@ class BundlesTabMixin:
     # Build
     # ------------------------------------------------------------------
 
-    def _build_bundles_tab(self: "App", parent: ttk.Frame) -> None:
+    def _build_bundles_tab(self, parent: ttk.Frame) -> None:
         paned = make_paned(parent)
 
         # --- Left panel ---
@@ -113,7 +113,7 @@ class BundlesTabMixin:
     # Curse UI state
     # ------------------------------------------------------------------
 
-    def _update_bundle_curse_ui(self: "App") -> None:
+    def _update_bundle_curse_ui(self) -> None:
         _CURSE_DIM = "#4a4a5a"
         bundle = self._current_bundle
         has_curse = bool(
@@ -140,7 +140,7 @@ class BundlesTabMixin:
     # Filtering
     # ------------------------------------------------------------------
 
-    def _refresh_bundle_list(self: "App") -> None:
+    def _refresh_bundle_list(self) -> None:
         game_filter = self._bundle_game_var.get() or "All"
         self._bundles_visible = [
             b for b in self._bundles
@@ -155,7 +155,7 @@ class BundlesTabMixin:
     # Selection & preview
     # ------------------------------------------------------------------
 
-    def _on_bundle_select(self: "App", _event: tk.Event) -> None:  # type: ignore[type-arg]
+    def _on_bundle_select(self, _event: tk.Event) -> None:  # type: ignore[type-arg]
         selection = self._bundle_listbox.curselection()
         if not selection:
             return
@@ -189,7 +189,7 @@ class BundlesTabMixin:
     # Region UI state
     # ------------------------------------------------------------------
 
-    def _update_bundle_region_ui(self: "App") -> None:
+    def _update_bundle_region_ui(self) -> None:
         bundle = self._current_bundle
         if bundle is None:
             self._bundle_region_frame.grid_remove()
@@ -207,7 +207,7 @@ class BundlesTabMixin:
         else:
             self._bundle_region_frame.grid_remove()
 
-    def _on_region_change(self: "App", *_: Any) -> None:
+    def _on_region_change(self, *_: Any) -> None:
         bundle = self._current_bundle
         if bundle is None:
             return
@@ -222,7 +222,7 @@ class BundlesTabMixin:
     # Rolling
     # ------------------------------------------------------------------
 
-    def _roll_bundle(self: "App") -> None:
+    def _roll_bundle(self) -> None:
         if self._current_bundle is None:
             return
 
