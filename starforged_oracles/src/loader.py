@@ -36,9 +36,9 @@ SF_ORACLES_DIR = DATA_DIR / "sf_oracles"
 SI_ORACLES_DIR = DATA_DIR / "si_oracles"
 CUSTOM_ORACLES_DIR = DATA_DIR / "custom_oracles"
 IS_ORACLES_DIR = DATA_DIR / "is_oracles"
-SF_ASSETS_DIR = DATA_DIR / "sf_assets"
-SI_ASSETS_DIR = DATA_DIR / "si_assets"
-IS_ASSETS_DIR = DATA_DIR / "is_assets"
+SF_ASSETS_YAML = DATA_DIR / "sf_assets.yaml"
+SI_ASSETS_YAML = DATA_DIR / "si_assets.yaml"
+IS_ASSETS_YAML = DATA_DIR / "is_assets.yaml"
 BUNDLES_YAML = DATA_DIR / "bundles.yaml"
 SETTINGS_JSON = DATA_DIR / "user_settings.json"
 
@@ -189,20 +189,9 @@ def load_all_data() -> dict[str, Any]:
         for f in sorted(IS_ORACLES_DIR.glob("*.yaml")):
             is_oracles.extend(extract_oracles(load_yaml(f), "Ironsworn"))
 
-    sf_assets: list[dict[str, Any]] = []
-    if SF_ASSETS_DIR.is_dir():
-        for f in sorted(SF_ASSETS_DIR.glob("*.yaml")):
-            sf_assets.extend(extract_assets(load_yaml(f), "Starforged"))
-
-    si_assets: list[dict[str, Any]] = []
-    if SI_ASSETS_DIR.is_dir():
-        for f in sorted(SI_ASSETS_DIR.glob("*.yaml")):
-            si_assets.extend(extract_assets(load_yaml(f), "Sundered Isles"))
-
-    is_assets: list[dict[str, Any]] = []
-    if IS_ASSETS_DIR.is_dir():
-        for f in sorted(IS_ASSETS_DIR.glob("*.yaml")):
-            is_assets.extend(extract_assets(load_yaml(f), "Ironsworn"))
+    sf_assets = extract_assets(load_yaml(SF_ASSETS_YAML), "Starforged") if SF_ASSETS_YAML.exists() else []
+    si_assets = extract_assets(load_yaml(SI_ASSETS_YAML), "Sundered Isles") if SI_ASSETS_YAML.exists() else []
+    is_assets = extract_assets(load_yaml(IS_ASSETS_YAML), "Ironsworn") if IS_ASSETS_YAML.exists() else []
 
     all_oracles = sf_oracles + si_oracles + is_oracles
     oracle_by_id: dict[str, dict[str, Any]] = {

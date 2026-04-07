@@ -1,0 +1,216 @@
+source: Sundered Isles
+assets:
+- category: Module
+  name: Chase Guns
+  abilities:
+  - Your vessel is fitted fore and aft with powerful cannons. When you Strike at a pursuing or
+    fleeing target, take +1 momentum on a strong hit.
+  - Once per fight, when you Gain Ground by firing your chase guns to find the range of your target,
+    add +1. On a strong hit, add +1 if you immediately Strike, and continue to add +1 on each
+    subsequent Strike as long as you remain in control. If you score a strong hit with a match when
+    using this ability, you damage a vital component; mark progress.
+  - When you Face Defeat in a fight and set a new objective to escape, you may (one time only)
+    immediately Clash by firing your chase guns as you maneuver away from your foe; if you do,
+    reroll any dice. On a strong hit, take +2 momentum.
+
+- category: Module
+  name: Harpoon Cannon
+  abilities:
+  - You may Secure an Advantage or Gain Ground by firing your harpoon cannon at a large foe or
+    threat. On a hit, the target is grappled. For the duration of the situation, if you make a move
+    to maneuver against, attack, or board a grappled target, add +1.
+  - If you roll a 1 on your action die while taking action against a grappled target, the line is
+    cut, broken, or works against you; Pay the Price, and you no longer gain the bonus.
+  - As above, and if you fire the cannon in close quarters, add +2. If at a distance, take +1
+    momentum on a hit.
+
+- category: Module
+  name: Improved Armory
+  abilities:
+  - When you Enter the Fray by rallying your crew to repel boarders or board an enemy ship, you may
+    roll +supply. If you do, take +2 momentum on a hit. On a strong hit with a match, take +1
+    momentum more. Allies may gain the benefits without rolling.
+  - When you Resupply by scavenging weapons or ammo from your foes after a fight, add +1.
+  - When you are out of options and set the fuse to self-destruct your command vehicle, activate
+    this ability at no cost. Envision how you escape or overcome your foes. Mark one box on your
+    quests legacy track and Overcome Destruction.
+
+- category: Module
+  name: Improved Gunnery
+  abilities:
+  - Your gundecks house an intimidating array of heavy cannons. When you Compel or Enter the Fray
+    by opening your gunports, add +1 and take +1 momentum on a hit. On a strong hit with a match,
+    take +1 momentum.
+  - "When you Strike, choose one. Coordinated fire: Add +1 and take +1 momentum on a hit. Unleash
+    hell: Mark progress on a hit, but Lose Momentum (-1) or Sacrifice Resources (-1)."
+  - Once per fight, when you Clash by committing to an all-or-nothing exchange of fire, add +1,
+    count a weak hit as a strong hit, and mark progress. On a miss, suffer a dire outcome.
+
+- category: Module
+  name: Gilded Adornments
+  abilities:
+  - When you Secure an Advantage by making a showy display of your ship, you may roll +integrity.
+    On a hit, take +1 momentum.
+  - When you host a ceremony aboard ship, roll +heart or +integrity. On a strong hit, attendees
+    mark two ticks on the bonds legacy track. On a weak hit, resolve a conflict first. On a miss,
+    Pay the Price.
+  - When you Withstand Damage and the finery bears the cost, you may mark this module as broken and
+    ignore the damage. When you Repair it, take +2 momentum.
+
+- category: Module
+  name: Armored Prow
+  abilities:
+  - When you Face Danger or React Under Fire by sailing through an obstacle or barrier, add +1. If
+    you Withstand Damage as an outcome of this action, also add +1.
+  - "When you Strike by ramming your foe, choose the force of the hit: 1, 2, or 3. Then, add +that
+    amount. On a strong hit, mark progress. On a weak hit or miss, Withstand Damage and suffer
+    damage equal to the force."
+  - When you Secure an Advantage or Gain Ground by bringing your ship to ramming speed, roll
+    +integrity or +heart, whichever is higher. On a strong hit, take +1 momentum.
+
+- category: Module
+  name: Improved Galley
+  abilities:
+  - When you indulge onboard, roll +supply and Sacrifice Resources (-2). On a strong hit, each ally
+    chooses two benefits. On a weak hit, one. On a miss, Pay the Price.
+  - When you Set a Course, you may reroll one challenge die.
+  - When you Sojourn and score a strong hit, take +1 supply.
+
+- category: Module
+  name: Improved Sick Bay
+  abilities:
+  - When aid follows a shipwide crisis, roll +supply. On a strong hit, choose two. On a weak hit,
+    choose one. On a miss, Pay the Price.
+  - When you Heal, make the cost of a weak hit -1 instead of -2.
+  - When permanently harmed is marked, Heal with a strong hit to clear it and envision the scar.
+
+- category: Module
+  name: Improved Lookout
+  abilities:
+  - While manned, when you Undertake an Expedition (+wits) or Face Danger to spot a threat, reroll
+    one challenge die.
+  - Once per situation, when you Secure an Advantage by studying a sighting, add +1 and take +1
+    momentum. On a strong hit with a match, take +1 momentum.
+  - When you witness a rare sight, choose insight (+1 momentum) or inspiration (+1 spirit).
+
+- category: Module
+  name: Ironclad Hull
+  abilities:
+  - Your ship has 4 hull. When you Withstand Damage, ignore damage up to your hull value and suffer
+    -1 hull. At 0 hull, mark this module as broken.
+  - When you Face Danger or React Under Fire by letting the hull take the hit, roll +hull and take
+    +1 momentum on a strong hit. On a match, take +2 momentum.
+  - When you Undertake an Expedition through rough seas, roll +hull and reroll your action die if
+    less than hull.
+
+- category: Module
+  name: Improved Hold
+  abilities:
+  - When you Resupply your hold, take +1 momentum for each +2 supply gained.
+  - When Sacrifice Resources reduces hold to 0, roll +integrity instead. On a strong hit, take +1
+    supply. Otherwise, mark unprepared.
+  - When inspected, Ask the Oracle if secret compartments stay hidden. If no, Face Danger and
+    reroll dice.
+
+- category: Module
+  name: Map Room
+  abilities:
+  - When you Secure an Advantage or Gather Information by studying maps, reroll any dice. On a hit,
+    reroll dice for the first expedition leg.
+  - When you plan with allies, all participants take +1 momentum.
+  - When you Hearten by studying maps alone, roll +wits instead of +heart.
+
+- category: Module
+  name: Rigged for Speed
+  abilities:
+  - When you Undertake an Expedition (+edge) and score a strong hit, take +1 momentum. On a 6, take
+    +2 momentum.
+  - When you Enter the Fray, choose Battle sails (add +1, +1 momentum on strong hit) or Full sails
+    (take +2 momentum).
+  - When you push the ship after rolling, reroll dice and count a weak hit as strong, then
+    Withstand Damage (-2).
+
+- category: Module
+  name: Trophy Vault
+  abilities:
+  - When you defeat a notable foe, add a trophy. Use it to reroll dice when overcoming hazards
+    aboard ship, marking it spent.
+  - If rerolling all dice scores a strong hit with a match, mark two ticks on bonds and do not mark
+    spent. On miss with match, envision a curse.
+  - When giving a tour to impress or intimidate, add +2 and take +1 momentum.
+
+- category: Module
+  name: Lucky Figurehead
+  abilities:
+  - Choose a linked stat. When you depart port, roll +linked stat. On a strong hit, take +2
+    momentum and +1 spirit. On a miss, Lose Momentum (-1).
+  - When you roll a miss with a match aboard ship, you may reroll both challenge dice.
+  - When you Withstand Damage, you may mark this module broken and ignore all damage.
+
+- category: Module
+  name: Submersible Mode
+  abilities:
+  - When avoiding detection, add +1. When Entering the Fray by ambush, add +1 and mark progress.
+  - When Undertaking an Expedition submerged, roll +shadow and reroll your action die. On a match,
+    envision a remarkable feature.
+  - When poised to Strike submerged, roll +shadow and choose to reroll dice or mark progress.
+
+- category: Support Vehicle
+  name: Flying Machine
+  abilities:
+  - When scouting from above, add +1 and take +1 momentum on a hit.
+  - When performing risky maneuvers, add +integrity and take +2 momentum on a strong hit; weak hits
+    count as misses.
+  - When scouting ahead as you Set a Course, add +1. On a match, mark discoveries and resolve the
+    encounter.
+
+- category: Support Vehicle
+  name: Diving Bell
+  abilities:
+  - When setting off or returning from a dive, take +1 momentum.
+  - When testing its hull, roll +integrity and add +1. When Withstand Damage, take +1 momentum or
+    +1 integrity on a strong hit.
+  - When you Explore a Waypoint from the bell, add +1.
+
+- category: Support Vehicle
+  name: Longboat
+  abilities:
+  - When hauling provisions while Resupplying, roll +integrity to take +1 supply or +1 momentum.
+  - When you Withstand Damage and score a miss, reroll any dice.
+  - When boarding or landing under fire, add +1 and take +1 momentum.
+
+- category: Support Vehicle
+  name: Captain's Boat
+  abilities:
+  - When outrunning danger or racing, add +1 and take +1 momentum.
+  - When Clashing with light cannons, you may add +integrity and take +1 momentum, but mark one
+    fewer progress.
+  - When making an impressive arrival, roll +integrity to take +1 momentum or +1 spirit.
+
+- category: Deed
+  name: Damned
+  requirement: Once you mark tormented or doomed...
+  abilities:
+  - You are cursed and remade. Discard two or more assets tied to your former nature. Take up to
+    three new assets and mark them as damned. Upgrading costs 1 experience.
+  - Choose a community that accepts you. When you Sojourn there, reroll any dice.
+  - When the curse is broken, discard this and damned assets, exchange one-for-one, and increase
+    one stat by +1.
+
+- category: Deed
+  name: Old Salt
+  requirement: Once you fill discovery and bonds tracks...
+  abilities:
+  - When you set sail after land, take +2 momentum or +2 spirit, or +1 each. On landfall, Lose
+    Momentum (-1).
+  - When plotting courses or facing environmental hazards, add +1 and take +1 momentum.
+  - When dealing with sea creatures, add +1. On a match, mark discoveries.
+
+- category: Deed
+  name: Undead
+  requirement: Once you die or are cursed with undeath...
+  abilities:
+  - This asset counts as a permanent impact. When you Endure Harm, you may Lose Momentum to offset
+    harm, then roll +spirit to resist.
+  - When you intimidate using undeath, reroll any dice and take +2 momentum on a hit.
+  - You may travel between realms. When Undertaking Expeditions in death's realm, roll +spirit.
