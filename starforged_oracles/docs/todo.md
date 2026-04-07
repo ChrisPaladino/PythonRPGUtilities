@@ -34,7 +34,12 @@ once and have the relevant stat pre-selected when rolling a specific move.
 
 ## 1. YAML Files
 
-Simplify and customize the YAML files. Break free from "Datasworn" formatting and caveats. There are IDs, URLs, Author, Sources and odd symbols like <<, and it is confusing for a human to read. I want to get them simple, standard, and reusable.
+- bundles.yaml
+- si_assets\companion.yaml
+- si_oracles\encounters.yaml
+- si_oracles\other.yaml
+- si_oracles\plunder.yaml
+- si_oracles\ruins.yaml
 
 ## 2. Sundered Isles Oracles
 oracles:
@@ -125,7 +130,7 @@ oracles:
         description: >
           These masses of black-eyed, sharp-toothed eels rely on sheer numbers to
           overwhelm larger prey. Some say they are capable of chewing through a
-          ship’s hull, and pour into a breached vessel in a slithering, biting torrent.
+          ship's hull, and pour into a breached vessel in a slithering, biting torrent.
 
       - range: "71–75"
         result: Sea Serpent
@@ -214,7 +219,7 @@ oracles:
         rank: Extreme
         description: >
           This bipedal reptile is feared for its towering size, toothy maw, and
-          dreadful roar. A small circlet of bone rings the beast’s skull, leading
+          dreadful roar. A small circlet of bone rings the beast's skull, leading
           some to name the thundermaw a king among the isles. Despite its legendary
           reputation, the thundermaw prefers to scavenge its meals, and tires easily
           when giving chase.
@@ -247,7 +252,7 @@ oracles:
           These majestic, nomadic creatures have prehensile trunks, long tusks, and
           spiraling horns. The largest and oldest of a herd, the matriarch, is
           covered in a layer of moss, lichen, and plant sprigs—it wears this lush
-          garden like an elaborate, earthy cape. Birds roost along the matriarch’s
+          garden like an elaborate, earthy cape. Birds roost along the matriarch's
           back and circle above while the herd travels, providing a squawking alarm
           when danger is near.
 
@@ -417,7 +422,7 @@ oracles:
           tail. But their most potent weapon is their fiery breath, the bane of any
           wooden ship that earns their ire. Some island folk revere these creatures.
           But others harness them and ride into battle, launching from a seaside
-          fort or a ship’s deck to lay waste to their enemies.
+          fort or a ship's deck to lay waste to their enemies.
 
       - range: "36–50"
         result: Wave Skimmer

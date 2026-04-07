@@ -1,2797 +1,1134 @@
-_id: starforged
-datasworn_version: "0.0.10"
-type: ruleset
+source: Starforged
 oracles:
-  planets:
-    name: Planet Oracles
-    canonical_name: Planets
-    type: oracle_collection
-    _source:
-      <<: &Source
-        title: 'Ironsworn: Starforged Rulebook'
-        license: https://creativecommons.org/licenses/by/4.0
-        url: https://ironswornrpg.com
-        date: 2022-05-06
-        authors:
-          - name: Shawn Tomkin
-    collections:
-      desert:
-        name: Desert World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/desert-01.webp
-          - images/planets/desert-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 308
-        summary: A pitiless planet of searing heat, blowing sand, and sunbaked rock.
-        collections:
-          settlements:
-            <<: &Settlements
-              name: Settlements
-              oracle_type: table_shared_text
-              type: oracle_collection
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: &OracleTable.Terminus
-                  name: Terminus
-                  oracle_type: column_text
-                  type: oracle_rollable
-                  tags:
-                    starforged:
-                      region: terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 50
-                    <<: &Settlements.0
-                      text: None
-                  - min: 51
-                    max: 60
-                    <<: &Settlements.1
-                      text: Orbital settlement
-                  - min: 61
-                    max: 80
-                    <<: &Settlements.2
-                      text: Planetside settlement
-                  - min: 81
-                    max: 92
-                    <<: &Settlements.3
-                      text: Multiple settlements
-                  - min: 93
-                    max: 100
-                    <<: &Settlements.4
-                      text: Settlements in conflict
-              outlands:
-                <<: &OracleTable.Outlands
-                  name: Outlands
-                  oracle_type: column_text
-                  type: oracle_rollable
-                  tags:
-                    starforged:
-                      region: outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 75
-                    <<: *Settlements.0
-                  - min: 76
-                    max: 83
-                    <<: *Settlements.1
-                  - min: 84
-                    max: 95
-                    <<: *Settlements.2
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.3
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.4
-              expanse:
-                <<: &OracleTable.Expanse
-                  name: Expanse
-                  oracle_type: column_text
-                  type: oracle_rollable
-                  tags:
-                    starforged:
-                      region: expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 90
-                    <<: *Settlements.0
-                  - min: 91
-                    max: 96
-                    <<: *Settlements.1
-                  - min: 97
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: &SampleNames
-              name: Sample Names
-              dice: 1d20
-              oracle_type: table_text
-              type: oracle_rollable
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Abalos
-              - min: 2
-                max: 2
-                text: Audun
-              - min: 3
-                max: 3
-                text: Bishop
-              - min: 4
-                max: 4
-                text: Desolation
-              - min: 5
-                max: 5
-                text: Dykuma
-              - min: 6
-                max: 6
-                text: Fallow
-              - min: 7
-                max: 7
-                text: Helios
-              - min: 8
-                max: 8
-                text: Mirage
-              - min: 9
-                max: 9
-                text: Morricone
-              - min: 10
-                max: 10
-                text: Nux
-              - min: 11
-                max: 11
-                text: Ordos
-              - min: 12
-                max: 12
-                text: Petra
-              - min: 13
-                max: 13
-                text: Pyla
-              - min: 14
-                max: 14
-                text: Sabulo
-              - min: 15
-                max: 15
-                text: Saffron
-              - min: 16
-                max: 16
-                text: Sirocco
-              - min: 17
-                max: 17
-                text: Sulis
-              - min: 18
-                max: 18
-                text: Torrid
-              - min: 19
-                max: 19
-                text: Umber
-              - min: 20
-                max: 20
-                text: Vermillion
-          atmosphere:
-            <<: &Atmosphere
-              name: Atmosphere
-              oracle_type: table_text
-              type: oracle_rollable
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 10
-                <<: &Atmosphere.NoneThin
-                  text: None / thin
-              - min: 11
-                max: 25
-                <<: &Atmosphere.Toxic
-                  text: Toxic
-              - min: 26
-                max: 40
-                <<: &Atmosphere.Corrosive
-                  text: Corrosive
-              - min: 41
-                max: 70
-                <<: &Atmosphere.Marginal
-                  text: Marginal
-              - min: 71
-                max: 95
-                <<: &Atmosphere.Breathable
-                  text: Breathable
-              - min: 96
-                max: 100
-                <<: &Atmosphere.Ideal
-                  text: Ideal
-          observed_from_space:
-            <<: &ObservedFromSpace
-              name: Observed From Space
-              oracle_type: table_text
-              type: oracle_rollable
-              recommended_rolls:
-                min: 1
-                max: 2
-            _source: *CollectionSource
-            rows:
-              - <<: &ObservedFromSpace.0
-                  min: 1
-                  max: 11
-                text: Dry seabeds
-              - <<: &ObservedFromSpace.1
-                  min: 12
-                  max: 22
-                text: Expansive dune seas
-              - <<: &ObservedFromSpace.2
-                  min: 23
-                  max: 33
-                text: Massive canyons
-              - <<: &ObservedFromSpace.3
-                  min: 34
-                  max: 44
-                text: Perpetual daylight
-              - <<: &ObservedFromSpace.4
-                  min: 45
-                  max: 55
-                text: Rugged mountains
-              - <<: &ObservedFromSpace.5
-                  min: 56
-                  max: 66
-                text: Sprawling salt flats
-              - <<: &ObservedFromSpace.6
-                  min: 67
-                  max: 77
-                text: Vast plateaus
-              - <<: &ObservedFromSpace.7
-                  min: 78
-                  max: 88
-                text: Vibrant terrain colors
-              - &ObservedFromSpace.8
-                min: 89
-                max: 98
-                <<: &DescriptorFocus
-                  text: &DF.result '[Descriptor](id:starforged/oracles/core/descriptor) + [Focus](id:starforged/oracles/core/focus)'
-                  oracle_rolls: &DF.rolls
-                    - oracle: starforged/oracles/core/descriptor
-                      auto: true
-                    - oracle: starforged/oracles/core/focus
-                      auto: true
-              - &ObservedFromSpace.9
-                min: 99
-                max: 100
-                text: '[Precursor Vault](id:starforged/collections/oracles/vaults) (orbital)'
-          feature:
-            <<: &Feature
-              name: Planetside Feature
-              oracle_type: table_text
-              type: oracle_rollable
-              recommended_rolls:
-                min: 1
-                max: 2
-            _source: *CollectionSource
-            rows:
-              - <<: &Feature.0
-                  min: 1
-                  max: 7
-                text: Cavernous sinkholes
-              - <<: &Feature.1
-                  min: 8
-                  max: 14
-                text: Engulfing sandstorms
-              - <<: &Feature.2
-                  min: 15
-                  max: 21
-                text: Fleeting rainstorms and flash floods
-              - <<: &Feature.3
-                  min: 22
-                  max: 28
-                text: Flooded grottos
-              - <<: &Feature.4
-                  min: 29
-                  max: 35
-                text: Petrified forest
-              - <<: &Feature.5
-                  min: 36
-                  max: 42
-                text: Rampaging whirlwinds
-              - <<: &Feature.6
-                  min: 43
-                  max: 49
-                text: Scorched glass plains
-              - <<: &Feature.7
-                  min: 50
-                  max: 56
-                text: Severe temperature fluctuations
-              - <<: &Feature.8
-                  min: 57
-                  max: 63
-                text: Sunbaked bones of titanic creatures
-              - <<: &Feature.9
-                  min: 64
-                  max: 70
-                text: Timeworn cliffside caves
-              - <<: &Feature.10
-                  min: 71
-                  max: 77
-                text: Towering rock formations
-              - <<: &Feature.11
-                  min: 78
-                  max: 84
-                text: Violent electrical storms
-              - <<: &Feature.12
-                  min: 85
-                  max: 91
-                text: Windborne metallic sand
-              - &Feature.13
-                min: 92
-                max: 98
-                <<: *DescriptorFocus
-              - &Feature.14
-                min: 99
-                max: 100
-                text: '[Precursor Vault](id:starforged/collections/oracles/vaults) (planetside)'
-          life:
-            <<: &Life
-              name: Life
-              oracle_type: table_text
-              type: oracle_rollable
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 20
-                <<: &Life.None
-                  text: None
-              - min: 21
-                max: 40
-                <<: &Life.Extinct
-                  text: Extinct
-              - min: 41
-                max: 70
-                <<: &Life.Scarce
-                  text: Scarce
-              - min: 71
-                max: 90
-                <<: &Life.Diverse
-                  text: Diverse
-              - min: 91
-                max: 97
-                <<: &Life.Bountiful
-                  text: Bountiful
-              - min: 98
-                max: 100
-                <<: &Life.Overrun
-                  text: Overrun
-      furnace:
-        name: Furnace World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/furnace-01.webp
-          - images/planets/furnace-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 309
-        summary: A planet with relentless volcanic activity, wreathed in fire and ash.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 60
-                    <<: *Settlements.0
-                  - min: 61
-                    max: 75
-                    <<: *Settlements.1
-                  - min: 76
-                    max: 87
-                    <<: *Settlements.2
-                  - min: 88
-                    max: 96
-                    <<: *Settlements.3
-                  - min: 97
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 85
-                    <<: *Settlements.0
-                  - min: 86
-                    max: 92
-                    <<: *Settlements.1
-                  - min: 93
-                    max: 97
-                    <<: *Settlements.2
-                  - min: 98
-                    max: 99
-                    <<: *Settlements.3
-                  - min: 100
-                    max: 100
-                    <<: *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 95
-                    <<: *Settlements.0
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.1
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Ash
-              - min: 2
-                max: 2
-                text: Azula
-              - min: 3
-                max: 3
-                text: Cinder
-              - min: 4
-                max: 4
-                text: Cyrus
-              - min: 5
-                max: 5
-                text: Draconus
-              - min: 6
-                max: 6
-                text: Effigy
-              - min: 7
-                max: 7
-                text: Ember
-              - min: 8
-                max: 8
-                text: Flint
-              - min: 9
-                max: 9
-                text: Hades
-              - min: 10
-                max: 10
-                text: Hera
-              - min: 11
-                max: 11
-                text: Ignis
-              - min: 12
-                max: 12
-                text: Inferno
-              - min: 13
-                max: 13
-                text: Ishum
-              - min: 14
-                max: 14
-                text: Kresnik
-              - min: 15
-                max: 15
-                text: Nemesis
-              - min: 16
-                max: 16
-                text: Obsidian
-              - min: 17
-                max: 17
-                text: Scorch
-              - min: 18
-                max: 18
-                text: Tana
-              - min: 19
-                max: 19
-                text: Vesta
-              - min: 20
-                max: 20
-                text: Vesuvius
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 10
-                <<: *Atmosphere.NoneThin
-              - min: 11
-                max: 50
-                <<: *Atmosphere.Toxic
-              - min: 51
-                max: 65
-                <<: *Atmosphere.Corrosive
-              - min: 66
-                max: 90
-                <<: *Atmosphere.Marginal
-              - min: 91
-                max: 100
-                <<: *Atmosphere.Breathable
-              - *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Fiery world-spanning chasms
-              - <<: *ObservedFromSpace.1
-                text: Glowing rivers of lava
-              - <<: *ObservedFromSpace.2
-                text: Lightning-wracked ash clouds
-              - <<: *ObservedFromSpace.3
-                text: Magma seas
-              - <<: *ObservedFromSpace.4
-                text: Massive supervolcano
-              - <<: *ObservedFromSpace.5
-                text: Once verdant terrain
-              - <<: *ObservedFromSpace.6
-                text: Towering mountain ranges
-              - <<: *ObservedFromSpace.7
-                text: World-spanning fissures
-              - *ObservedFromSpace.8
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Blinding ash storms
-              - <<: *Feature.1
-                text: Catastrophic earthquakes
-              - <<: *Feature.2
-                text: Colorful geothermal springs
-              - <<: *Feature.3
-                text: Intricate volcanic rock formations
-              - <<: *Feature.4
-                text: Lava tube tunnel networks
-              - <<: *Feature.5
-                text: Masses of scorched bones
-              - <<: *Feature.6
-                text: Plains of volcanic glass
-              - <<: *Feature.7
-                text: Pools of liquid metal
-              - <<: *Feature.8
-                text: Rocky islands adrift on magma
-              - <<: *Feature.9
-                text: Roiling clouds of superheated gas
-              - <<: *Feature.10
-                text: Scalding geysers
-              - <<: *Feature.11
-                text: Silica or metal storms
-              - <<: *Feature.12
-                text: Steaming mudflats
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 35
-                <<: *Life.None
-              - min: 36
-                max: 60
-                <<: *Life.Extinct
-              - min: 61
-                max: 85
-                <<: *Life.Scarce
-              - min: 86
-                max: 95
-                <<: *Life.Diverse
-              - min: 96
-                max: 98
-                <<: *Life.Bountiful
-              - min: 99
-                max: 100
-                <<: *Life.Overrun
-      grave:
-        name: Grave World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/grave-01.webp
-          - images/planets/grave-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 310
-        summary: A once-thriving world—now a grim monument to a fallen civilization.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 80
-                    <<: *Settlements.0
-                  - min: 81
-                    max: 90
-                    <<: *Settlements.1
-                  - min: 91
-                    max: 95
-                    <<: *Settlements.2
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.3
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 90
-                    <<: *Settlements.0
-                  - min: 91
-                    max: 97
-                    <<: *Settlements.1
-                  - min: 98
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 95
-                    <<: *Settlements.0
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.1
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Anubis
-              - min: 2
-                max: 2
-                text: Banshee
-              - min: 3
-                max: 3
-                text: Barrow
-              - min: 4
-                max: 4
-                text: Cairn
-              - min: 5
-                max: 5
-                text: Cerberus
-              - min: 6
-                max: 6
-                text: Charon
-              - min: 7
-                max: 7
-                text: Elysia
-              - min: 8
-                max: 8
-                text: Keen
-              - min: 9
-                max: 9
-                text: Kur
-              - min: 10
-                max: 10
-                text: Lament
-              - min: 11
-                max: 11
-                text: Mantus
-              - min: 12
-                max: 12
-                text: Morrigan
-              - min: 13
-                max: 13
-                text: Mourn
-              - min: 14
-                max: 14
-                text: Necropolis
-              - min: 15
-                max: 15
-                text: Orcus
-              - min: 16
-                max: 16
-                text: Osiris
-              - min: 17
-                max: 17
-                text: Requiem
-              - min: 18
-                max: 18
-                text: Stygia
-              - min: 19
-                max: 19
-                text: Tartarus
-              - min: 20
-                max: 20
-                text: Thrace
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 10
-                <<: *Atmosphere.NoneThin
-              - min: 11
-                max: 45
-                <<: *Atmosphere.Toxic
-              - min: 46
-                max: 70
-                <<: *Atmosphere.Corrosive
-              - min: 71
-                max: 90
-                <<: *Atmosphere.Marginal
-              - min: 91
-                max: 100
-                <<: *Atmosphere.Breathable
-              - *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Broken moon
-              - <<: *ObservedFromSpace.1
-                text: Perpetual overcast
-              - <<: *ObservedFromSpace.2
-                text: Cratered surface
-              - <<: *ObservedFromSpace.3
-                text: Sky-breaching ruins
-              - <<: *ObservedFromSpace.4
-                text: Dry seabeds
-              - <<: *ObservedFromSpace.5
-                text: Vast wastelands
-              - <<: *ObservedFromSpace.6
-                text: Irradiated atmosphere
-              - <<: *ObservedFromSpace.7
-                text: Orbiting ship graveyard
-              - *ObservedFromSpace.8
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Acid pools
-              - <<: *Feature.1
-                text: Ash dunes
-              - <<: *Feature.2
-                text: Corrosive rains
-              - <<: *Feature.3
-                text: Dead forests
-              - <<: *Feature.4
-                text: Fetid mudflats
-              - <<: *Feature.5
-                text: Mass graves
-              - <<: *Feature.6
-                text: Moldering bones
-              - <<: *Feature.7
-                text: Noxious fog
-              - <<: *Feature.8
-                text: Radioactive hotspots
-              - <<: *Feature.9
-                text: Ravaged cities
-              - <<: *Feature.10
-                text: Scarred battlefields
-              - <<: *Feature.11
-                text: Ship graveyards
-              - <<: *Feature.12
-                text: Whispers of the dead
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 25
-                <<: *Life.None
-              - min: 26
-                max: 75
-                <<: *Life.Extinct
-              - min: 76
-                max: 95
-                <<: *Life.Scarce
-              - min: 96
-                max: 100
-                <<: *Life.Diverse
-              - *Life.Bountiful
-              - *Life.Overrun
-      ice:
-        name: Ice World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/ice-01.webp
-          - images/planets/ice-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 311
-        summary: A rugged, frozen world—locked in an unending winter.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 50
-                    <<: *Settlements.0
-                  - min: 51
-                    max: 60
-                    <<: *Settlements.1
-                  - min: 61
-                    max: 80
-                    <<: *Settlements.2
-                  - min: 81
-                    max: 92
-                    <<: *Settlements.3
-                  - min: 93
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 75
-                    <<: *Settlements.0
-                  - min: 76
-                    max: 83
-                    <<: *Settlements.1
-                  - min: 84
-                    max: 95
-                    <<: *Settlements.2
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.3
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 90
-                    <<: *Settlements.0
-                  - min: 91
-                    max: 96
-                    <<: *Settlements.1
-                  - min: 97
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Beira
-              - min: 2
-                max: 2
-                text: Boreas
-              - min: 3
-                max: 3
-                text: Caradhras
-              - min: 4
-                max: 4
-                text: Cicero
-              - min: 5
-                max: 5
-                text: Demetria
-              - min: 6
-                max: 6
-                text: Enten
-              - min: 7
-                max: 7
-                text: Fissure
-              - min: 8
-                max: 8
-                text: Frost
-              - min: 9
-                max: 9
-                text: Gelida
-              - min: 10
-                max: 10
-                text: Jotunn
-              - min: 11
-                max: 11
-                text: Kanna
-              - min: 12
-                max: 12
-                text: Karn
-              - min: 13
-                max: 13
-                text: Kheimon
-              - min: 14
-                max: 14
-                text: Moroz
-              - min: 15
-                max: 15
-                text: Nix
-              - min: 16
-                max: 16
-                text: Olwen
-              - min: 17
-                max: 17
-                text: Osolok
-              - min: 18
-                max: 18
-                text: Taiga
-              - min: 19
-                max: 19
-                text: Thule
-              - min: 20
-                max: 20
-                text: Varnholme
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 15
-                <<: *Atmosphere.NoneThin
-              - min: 16
-                max: 35
-                <<: *Atmosphere.Toxic
-              - min: 36
-                max: 40
-                <<: *Atmosphere.Corrosive
-              - min: 41
-                max: 70
-                <<: *Atmosphere.Marginal
-              - min: 71
-                max: 95
-                <<: *Atmosphere.Breathable
-              - min: 96
-                max: 100
-                <<: *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Feeble sunlight
-              - <<: *ObservedFromSpace.1
-                text: Supersized ice volcano
-              - <<: *ObservedFromSpace.2
-                text: Frozen oceans
-              - <<: *ObservedFromSpace.3
-                text: Vibrantly colored ice
-              - <<: *ObservedFromSpace.4
-                text: Rocky glacial islands
-              - <<: *ObservedFromSpace.5
-                text: World-spanning ice canyon
-              - <<: *ObservedFromSpace.6
-                text: Snowbound mountains
-              - <<: *ObservedFromSpace.7
-                text: Sky-breaching geysers
-              - *ObservedFromSpace.8
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Abyssal ice fissures
-              - <<: *Feature.1
-                text: Blinding snow storms
-              - <<: *Feature.2
-                text: Clusters of ice spikes
-              - <<: *Feature.3
-                text: Colossal ice caves
-              - <<: *Feature.4
-                text: Glistening ice spires
-              - <<: *Feature.5
-                text: Massive snow drifts
-              - <<: *Feature.6
-                text: Preserved carcasses
-              - <<: *Feature.7
-                text: Rocky islands amid icy wastes
-              - <<: *Feature.8
-                text: Shattered plains of pack ice
-              - <<: *Feature.9
-                text: Steaming hot springs
-              - <<: *Feature.10
-                text: Subsurface liquid oceans
-              - <<: *Feature.11
-                text: Vibrant auroras
-              - <<: *Feature.12
-                text: Wind-carved ice formations
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 20
-                <<: *Life.None
-              - min: 21
-                max: 40
-                <<: *Life.Extinct
-              - min: 41
-                max: 70
-                <<: *Life.Scarce
-              - min: 71
-                max: 90
-                <<: *Life.Diverse
-              - min: 91
-                max: 97
-                <<: *Life.Bountiful
-              - min: 98
-                max: 100
-                <<: *Life.Overrun
-      jovian:
-        name: Jovian World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/jovian-01.webp
-          - images/planets/jovian-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 312
-        summary: A massive planet with vast layers of dense gases surrounding a rocky core.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 50
-                    <<: *Settlements.0
-                  - min: 51
-                    max: 70
-                    <<: *Settlements.1
-                  - min: 71
-                    max: 85
-                    <<: *Settlements.2
-                  - min: 86
-                    max: 95
-                    <<: *Settlements.3
-                  - min: 96
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 75
-                    <<: *Settlements.0
-                  - min: 76
-                    max: 87
-                    <<: *Settlements.1
-                  - min: 88
-                    max: 95
-                    <<: *Settlements.2
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.3
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 90
-                    <<: *Settlements.0
-                  - min: 91
-                    max: 96
-                    <<: *Settlements.1
-                  - min: 97
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Aether
-              - min: 2
-                max: 2
-                text: Arrokoth
-              - min: 3
-                max: 3
-                text: Esen
-              - min: 4
-                max: 4
-                text: Hanish
-              - min: 5
-                max: 5
-                text: Magnus
-              - min: 6
-                max: 6
-                text: Magonia
-              - min: 7
-                max: 7
-                text: Mistral
-              - min: 8
-                max: 8
-                text: Nephele
-              - min: 9
-                max: 9
-                text: Nimbus
-              - min: 10
-                max: 10
-                text: Nuada
-              - min: 11
-                max: 11
-                text: Nubium
-              - min: 12
-                max: 12
-                text: Serein
-              - min: 13
-                max: 13
-                text: Stratus
-              - min: 14
-                max: 14
-                text: Taranis
-              - min: 15
-                max: 15
-                text: Tempest
-              - min: 16
-                max: 16
-                text: Tenzin
-              - min: 17
-                max: 17
-                text: Tyr
-              - min: 18
-                max: 18
-                text: Veil
-              - min: 19
-                max: 19
-                text: Velum
-              - min: 20
-                max: 20
-                text: Zephyr
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - *Atmosphere.NoneThin
-              - min: 1
-                max: 50
-                <<: *Atmosphere.Toxic
-              - min: 51
-                max: 65
-                <<: *Atmosphere.Corrosive
-              - min: 66
-                max: 85
-                <<: *Atmosphere.Marginal
-              - min: 86
-                max: 100
-                <<: *Atmosphere.Breathable
-              - *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Complex ring system
-              - <<: *ObservedFromSpace.1
-                text: Intense gravity well
-              - <<: *ObservedFromSpace.2
-                text: Numerous moons
-              - <<: *ObservedFromSpace.3
-                text: Perpetual superstorm
-              - <<: *ObservedFromSpace.4
-                text: Powerful magnetic field
-              - <<: *ObservedFromSpace.5
-                text: Severe electrical storms
-              - <<: *ObservedFromSpace.6
-                text: Superheated atmosphere
-              - <<: *ObservedFromSpace.7
-                text: Unusual atmospheric colors
-              - *ObservedFromSpace.8
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Clouds of metal particles
-              - <<: *Feature.1
-                text: Crystalline rains
-              - <<: *Feature.2
-                text: Floating glaciers
-              - <<: *Feature.3
-                text: Floating islands
-              - <<: *Feature.4
-                text: Layer of suspended liquid
-              - <<: *Feature.5
-                text: Pockets of explosive gases
-              - <<: *Feature.6
-                text: Powerful vortexes
-              - <<: *Feature.7
-                text: Radiation fields
-              - <<: *Feature.8
-                text: Storm-swept rocky debris
-              - <<: *Feature.9
-                text: Torrential rain
-              - <<: *Feature.10
-                text: Towering thunderheads
-              - <<: *Feature.11
-                text: Violent turbulence
-              - <<: *Feature.12
-                text: Zones of localized atmosphere
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 35
-                <<: *Life.None
-              - min: 36
-                max: 60
-                <<: *Life.Extinct
-              - min: 61
-                max: 85
-                <<: *Life.Scarce
-              - min: 86
-                max: 95
-                <<: *Life.Diverse
-              - min: 96
-                max: 98
-                <<: *Life.Bountiful
-              - min: 99
-                max: 100
-                <<: *Life.Overrun
-      jungle:
-        name: Jungle World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/jungle-01.webp
-          - images/planets/jungle-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 313
-        summary: A humid, rain-soaked planet that keeps its secrets under a thick canopy of vegetation.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 40
-                    <<: *Settlements.0
-                  - min: 41
-                    max: 55
-                    <<: *Settlements.1
-                  - min: 56
-                    max: 80
-                    <<: *Settlements.2
-                  - min: 81
-                    max: 92
-                    <<: *Settlements.3
-                  - min: 93
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 65
-                    <<: *Settlements.0
-                  - min: 66
-                    max: 75
-                    <<: *Settlements.1
-                  - min: 76
-                    max: 92
-                    <<: *Settlements.2
-                  - min: 93
-                    max: 97
-                    <<: *Settlements.3
-                  - min: 98
-                    max: 100
-                    <<: *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 85
-                    <<: *Settlements.0
-                  - min: 86
-                    max: 90
-                    <<: *Settlements.1
-                  - min: 91
-                    max: 97
-                    <<: *Settlements.2
-                  - min: 98
-                    max: 99
-                    <<: *Settlements.3
-                  - min: 100
-                    max: 100
-                    <<: *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Acacia
-              - min: 2
-                max: 2
-                text: Aster
-              - min: 3
-                max: 3
-                text: Beryl
-              - min: 4
-                max: 4
-                text: Celadon
-              - min: 5
-                max: 5
-                text: Ceres
-              - min: 6
-                max: 6
-                text: Damu
-              - min: 7
-                max: 7
-                text: Dryad
-              - min: 8
-                max: 8
-                text: Flora
-              - min: 9
-                max: 9
-                text: Iridum
-              - min: 10
-                max: 10
-                text: Iris
-              - min: 11
-                max: 11
-                text: Kishar
-              - min: 12
-                max: 12
-                text: Penumbra
-              - min: 13
-                max: 13
-                text: Roris
-              - min: 14
-                max: 14
-                text: Sylva
-              - min: 15
-                max: 15
-                text: Tangle
-              - min: 16
-                max: 16
-                text: Thorn
-              - min: 17
-                max: 17
-                text: Venom
-              - min: 18
-                max: 18
-                text: Verdure
-              - min: 19
-                max: 19
-                text: Veris
-              - min: 20
-                max: 20
-                text: Viridian
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - *Atmosphere.NoneThin
-              - min: 1
-                max: 25
-                <<: *Atmosphere.Toxic
-              - min: 26
-                max: 30
-                <<: *Atmosphere.Corrosive
-              - min: 31
-                max: 60
-                <<: *Atmosphere.Marginal
-              - min: 61
-                max: 90
-                <<: *Atmosphere.Breathable
-              - min: 91
-                max: 100
-                <<: *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Cloud-breaching trees
-              - <<: *ObservedFromSpace.1
-                text: Towering mountains
-              - <<: *ObservedFromSpace.2
-                text: Expansive rivers or wetlands
-              - <<: *ObservedFromSpace.3
-                text: Unbroken canopy
-              - <<: *ObservedFromSpace.4
-                text: Inland seas
-              - <<: *ObservedFromSpace.5
-                text: Unusual vegetation color
-              - <<: *ObservedFromSpace.6
-                text: Massive canyons
-              - <<: *ObservedFromSpace.7
-                text: Persistent cloud cover
-              - *ObservedFromSpace.8
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Bioluminescent flora
-              - <<: *Feature.1
-                text: Deep river gorges
-              - <<: *Feature.2
-                text: Extensive exposed root systems
-              - <<: *Feature.3
-                text: Immense tiered waterfalls
-              - <<: *Feature.4
-                text: Languid rivers
-              - <<: *Feature.5
-                text: Low-lying fog
-              - <<: *Feature.6
-                text: Plunging sinkholes
-              - <<: *Feature.7
-                text: Scarred clearings
-              - <<: *Feature.8
-                text: Sinking quagmires
-              - <<: *Feature.9
-                text: Surging rivers
-              - <<: *Feature.10
-                text: Torrential rainstorms
-              - <<: *Feature.11
-                text: Violent electrical storms
-              - <<: *Feature.12
-                text: Waterlogged caves
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - *Life.None
-              - *Life.Extinct
-              - min: 1
-                max: 5
-                <<: *Life.Scarce
-              - min: 6
-                max: 35
-                <<: *Life.Diverse
-              - min: 36
-                max: 75
-                <<: *Life.Bountiful
-              - min: 76
-                max: 100
-                <<: *Life.Overrun
-      ocean:
-        name: Ocean World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/ocean-01.webp
-          - images/planets/ocean-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 314
-        summary: A planet completely or almost entirely covered by a boundless ocean.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 40
-                    <<: *Settlements.0
-                  - min: 41
-                    max: 55
-                    <<: *Settlements.1
-                  - min: 56
-                    max: 80
-                    <<: *Settlements.2
-                  - min: 81
-                    max: 92
-                    <<: *Settlements.3
-                  - min: 93
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 65
-                    <<: *Settlements.0
-                  - min: 66
-                    max: 75
-                    <<: *Settlements.1
-                  - min: 76
-                    max: 92
-                    <<: *Settlements.2
-                  - min: 93
-                    max: 97
-                    <<: *Settlements.3
-                  - min: 98
-                    max: 100
-                    <<: *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 85
-                    <<: *Settlements.0
-                  - min: 86
-                    max: 90
-                    <<: *Settlements.1
-                  - min: 91
-                    max: 97
-                    <<: *Settlements.2
-                  - min: 98
-                    max: 99
-                    <<: *Settlements.3
-                  - min: 100
-                    max: 100
-                    <<: *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Aegir
-              - min: 2
-                max: 2
-                text: Alon
-              - min: 3
-                max: 3
-                text: Clarion
-              - min: 4
-                max: 4
-                text: Darya
-              - min: 5
-                max: 5
-                text: Eldoris
-              - min: 6
-                max: 6
-                text: Horizon
-              - min: 7
-                max: 7
-                text: Hydra
-              - min: 8
-                max: 8
-                text: Kai
-              - min: 9
-                max: 9
-                text: Larimar
-              - min: 10
-                max: 10
-                text: Lotan
-              - min: 11
-                max: 11
-                text: Mira
-              - min: 12
-                max: 12
-                text: Navini
-              - min: 13
-                max: 13
-                text: Nerida
-              - min: 14
-                max: 14
-                text: Oceanus
-              - min: 15
-                max: 15
-                text: Pelagic
-              - min: 16
-                max: 16
-                text: Proteus
-              - min: 17
-                max: 17
-                text: Russalka
-              - min: 18
-                max: 18
-                text: Siren
-              - min: 19
-                max: 19
-                text: Thalassa
-              - min: 20
-                max: 20
-                text: Triton
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 5
-                <<: *Atmosphere.NoneThin
-              - min: 6
-                max: 20
-                <<: *Atmosphere.Toxic
-              - min: 21
-                max: 25
-                <<: *Atmosphere.Corrosive
-              - min: 26
-                max: 60
-                <<: *Atmosphere.Marginal
-              - min: 61
-                max: 90
-                <<: *Atmosphere.Breathable
-              - min: 91
-                max: 100
-                <<: *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Complex reef systems
-              - <<: *ObservedFromSpace.1
-                text: Emerging volcanoes
-              - <<: *ObservedFromSpace.2
-                text: Floating forests
-              - <<: *ObservedFromSpace.3
-                text: Global hurricanes
-              - <<: *ObservedFromSpace.4
-                text: Large moon and strong tides
-              - <<: *ObservedFromSpace.5
-                text: Scattered islands
-              - <<: *ObservedFromSpace.6
-                text: Semi-frozen oceans
-              - <<: *ObservedFromSpace.7
-                text: Unusual water color
-              - *ObservedFromSpace.8
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Abyssal trenches
-              - <<: *Feature.1
-                text: Living islands
-              - <<: *Feature.2
-                text: Luminescent seas
-              - <<: *Feature.3
-                text: Roaming icebergs
-              - <<: *Feature.4
-                text: Shallow-water plains
-              - <<: *Feature.5
-                text: Subsurface volcanoes
-              - <<: *Feature.6
-                text: Titanic waves
-              - <<: *Feature.7
-                text: Undersea air pockets
-              - <<: *Feature.8
-                text: Undersea caves
-              - <<: *Feature.9
-                text: Undersea forests
-              - <<: *Feature.10
-                text: Unrelenting rainfall
-              - <<: *Feature.11
-                text: Violent currents
-              - <<: *Feature.12
-                text: Windborne waterspouts
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 5
-                <<: *Life.None
-              - min: 6
-                max: 15
-                <<: *Life.Extinct
-              - min: 16
-                max: 30
-                <<: *Life.Scarce
-              - min: 31
-                max: 60
-                <<: *Life.Diverse
-              - min: 61
-                max: 90
-                <<: *Life.Bountiful
-              - min: 91
-                max: 100
-                <<: *Life.Overrun
-      rocky:
-        name: Rocky World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/rocky-01.webp
-          - images/planets/rocky-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 315
-        summary: A rugged planet scarred by eons of destructive asteroid impacts.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 50
-                    <<: *Settlements.0
-                  - min: 51
-                    max: 70
-                    <<: *Settlements.1
-                  - min: 71
-                    max: 85
-                    <<: *Settlements.2
-                  - min: 86
-                    max: 95
-                    <<: *Settlements.3
-                  - min: 96
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 75
-                    <<: *Settlements.0
-                  - min: 76
-                    max: 87
-                    <<: *Settlements.1
-                  - min: 88
-                    max: 95
-                    <<: *Settlements.2
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.3
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 90
-                    <<: *Settlements.0
-                  - min: 91
-                    max: 96
-                    <<: *Settlements.1
-                  - min: 97
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Aphelion
-              - min: 2
-                max: 2
-                text: Artemis
-              - min: 3
-                max: 3
-                text: Capella
-              - min: 4
-                max: 4
-                text: Cobalt
-              - min: 5
-                max: 5
-                text: Crag
-              - min: 6
-                max: 6
-                text: Dusk
-              - min: 7
-                max: 7
-                text: Eos
-              - min: 8
-                max: 8
-                text: Hecate
-              - min: 9
-                max: 9
-                text: Imbrium
-              - min: 10
-                max: 10
-                text: Latona
-              - min: 11
-                max: 11
-                text: Losna
-              - min: 12
-                max: 12
-                text: Orpheus
-              - min: 13
-                max: 13
-                text: Ory
-              - min: 14
-                max: 14
-                text: Quietus
-              - min: 15
-                max: 15
-                text: Selene
-              - min: 16
-                max: 16
-                text: Silas
-              - min: 17
-                max: 17
-                text: Silex
-              - min: 18
-                max: 18
-                text: Slate
-              - min: 19
-                max: 19
-                text: Themis
-              - min: 20
-                max: 20
-                text: Umbra
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 65
-                <<: *Atmosphere.NoneThin
-              - min: 66
-                max: 85
-                <<: *Atmosphere.Toxic
-              - min: 86
-                max: 90
-                <<: *Atmosphere.Corrosive
-              - min: 91
-                max: 100
-                <<: *Atmosphere.Marginal
-              - *Atmosphere.Breathable
-              - *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Barren plains
-              - <<: *ObservedFromSpace.1
-                text: Constant asteroid strikes
-              - <<: *ObservedFromSpace.2
-                text: Dense ring system
-              - <<: *ObservedFromSpace.3
-                text: Jagged mountains
-              - <<: *ObservedFromSpace.4
-                text: Massive impact crater
-              - <<: *ObservedFromSpace.5
-                text: Misshapen form (low gravity)
-              - <<: *ObservedFromSpace.6
-                text: Perpetual night
-              - <<: *ObservedFromSpace.7
-                text: Towering plateaus
-              - *ObservedFromSpace.8
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Crystalline formations
-              - <<: *Feature.1
-                text: Crystalline caves
-              - <<: *Feature.2
-                text: Exposed mineral deposits
-              - <<: *Feature.3
-                text: Geometric terrain features
-              - <<: *Feature.4
-                text: Geothermal vents
-              - <<: *Feature.5
-                text: Glassy impact craters
-              - <<: *Feature.6
-                text: Massive dust dunes
-              - <<: *Feature.7
-                text: Powerful magnetic fields
-              - <<: *Feature.8
-                text: Rubble-strewn lava fields
-              - <<: *Feature.9
-                text: Steam-heated caves
-              - <<: *Feature.10
-                text: Subsurface magma flows
-              - <<: *Feature.11
-                text: Swirling low-lying gases
-              - <<: *Feature.12
-                text: Towering rocky spires
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 65
-                <<: *Life.None
-              - min: 66
-                max: 80
-                <<: *Life.Extinct
-              - min: 81
-                max: 90
-                <<: *Life.Scarce
-              - min: 91
-                max: 95
-                <<: *Life.Diverse
-              - min: 96
-                max: 98
-                <<: *Life.Bountiful
-              - min: 99
-                max: 100
-                <<: *Life.Overrun
-      shattered:
-        name: Shattered World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/shattered-01.webp
-          - images/planets/shattered-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 316
-        summary: A planet sundered by cataclysmic destruction.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 70
-                    <<: *Settlements.0
-                  - min: 71
-                    max: 90
-                    <<: *Settlements.1
-                  - min: 91
-                    max: 95
-                    <<: *Settlements.2
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.3
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 85
-                    <<: *Settlements.0
-                  - min: 86
-                    max: 96
-                    <<: *Settlements.1
-                  - min: 97
-                    max: 99
-                    <<: *Settlements.2
-                  - min: 100
-                    max: 100
-                    <<: *Settlements.3
-                  - *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 95
-                    <<: *Settlements.0
-                  - min: 96
-                    max: 99
-                    <<: *Settlements.1
-                  - min: 100
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Cavus
-              - min: 2
-                max: 2
-                text: Chrysalis
-              - min: 3
-                max: 3
-                text: Fragment
-              - min: 4
-                max: 4
-                text: Havoc
-              - min: 5
-                max: 5
-                text: Keres
-              - min: 6
-                max: 6
-                text: Lux
-              - min: 7
-                max: 7
-                text: Nemain
-              - min: 8
-                max: 8
-                text: Praxis
-              - min: 9
-                max: 9
-                text: Riven
-              - min: 10
-                max: 10
-                text: Schism
-              - min: 11
-                max: 11
-                text: Shell
-              - min: 12
-                max: 12
-                text: Slag
-              - min: 13
-                max: 13
-                text: Sliver
-              - min: 14
-                max: 14
-                text: Sunder
-              - min: 15
-                max: 15
-                text: Torment
-              - min: 16
-                max: 16
-                text: Vestige
-              - min: 17
-                max: 17
-                text: Vigrid
-              - min: 18
-                max: 18
-                text: Vortex
-              - min: 19
-                max: 19
-                text: Wrath
-              - min: 20
-                max: 20
-                text: Zix
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 93
-                <<: *Atmosphere.NoneThin
-              - min: 94
-                max: 95
-                <<: *Atmosphere.Toxic
-              - min: 96
-                max: 97
-                <<: *Atmosphere.Corrosive
-              - min: 98
-                max: 99
-                <<: *Atmosphere.Marginal
-              - min: 100
-                max: 100
-                <<: *Atmosphere.Breathable
-              - *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Demolished space fleet
-              - <<: *ObservedFromSpace.1
-                text: Preserved planetary fragment
-              - <<: *ObservedFromSpace.2
-                text: Dense ring system
-              - <<: *ObservedFromSpace.3
-                text: Swirling debris field
-              - <<: *ObservedFromSpace.4
-                text: Fiery planetary core
-              - <<: *ObservedFromSpace.5
-                text: Unbroken moon
-              - <<: *ObservedFromSpace.6
-                text: Geomagnetic storms
-              - <<: *ObservedFromSpace.7
-                text: Intense solar radiation
-              - *ObservedFromSpace.8
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Broken cities
-              - <<: *Feature.1
-                text: Colliding fragments
-              - <<: *Feature.2
-                text: Energy storms
-              - <<: *Feature.3
-                text: Exposed caverns
-              - <<: *Feature.4
-                text: Fluctuating gravity
-              - <<: *Feature.5
-                text: Magnetic disturbances
-              - <<: *Feature.6
-                text: Molten fissures
-              - <<: *Feature.7
-                text: Phantom visions of the past
-              - <<: *Feature.8
-                text: Pocket atmosphere
-              - <<: *Feature.9
-                text: Residual energy storms
-              - <<: *Feature.10
-                text: Swirling corrosive gases
-              - <<: *Feature.11
-                text: Unstable and fracturing terrain
-              - <<: *Feature.12
-                text: Venting magma
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 30
-                <<: *Life.None
-              - min: 31
-                max: 85
-                <<: *Life.Extinct
-              - min: 86
-                max: 95
-                <<: *Life.Scarce
-              - min: 96
-                max: 100
-                <<: *Life.Diverse
-              - *Life.Bountiful
-              - *Life.Overrun
-      tainted:
-        name: Tainted World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/tainted-01.webp
-          - images/planets/tainted-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 317
-        summary: A foul planet wracked by a poisonous climate and virulent growths.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 80
-                    <<: *Settlements.0
-                  - min: 81
-                    max: 90
-                    <<: *Settlements.1
-                  - min: 91
-                    max: 95
-                    <<: *Settlements.2
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.3
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 90
-                    <<: *Settlements.0
-                  - min: 91
-                    max: 97
-                    <<: *Settlements.1
-                  - min: 98
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 95
-                    <<: *Settlements.0
-                  - min: 96
-                    max: 98
-                    <<: *Settlements.1
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.2
-                  - *Settlements.3
-                  - *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Achlys
-              - min: 2
-                max: 2
-                text: Animus
-              - min: 3
-                max: 3
-                text: Bane
-              - min: 4
-                max: 4
-                text: Blight
-              - min: 5
-                max: 5
-                text: Carrion
-              - min: 6
-                max: 6
-                text: Chitin
-              - min: 7
-                max: 7
-                text: Datura
-              - min: 8
-                max: 8
-                text: Dreck
-              - min: 9
-                max: 9
-                text: Erra
-              - min: 10
-                max: 10
-                text: Febris
-              - min: 11
-                max: 11
-                text: Malacia
-              - min: 12
-                max: 12
-                text: Miasma
-              - min: 13
-                max: 13
-                text: Morbus
-              - min: 14
-                max: 14
-                text: Pathosis
-              - min: 15
-                max: 15
-                text: Pestis
-              - min: 16
-                max: 16
-                text: Scourge
-              - min: 17
-                max: 17
-                text: Telium
-              - min: 18
-                max: 18
-                text: Timoris
-              - min: 19
-                max: 19
-                text: Verus
-              - min: 20
-                max: 20
-                text: Xanthous
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - *Atmosphere.NoneThin
-              - min: 1
-                max: 65
-                <<: *Atmosphere.Toxic
-              - min: 66
-                max: 85
-                <<: *Atmosphere.Corrosive
-              - min: 86
-                max: 95
-                <<: *Atmosphere.Marginal
-              - min: 96
-                max: 100
-                <<: *Atmosphere.Breathable
-              - *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Expansive fungal plains
-              - <<: *ObservedFromSpace.1
-                text: Stagnant cloud cover
-              - <<: *ObservedFromSpace.2
-                text: Fungal forests
-              - <<: *ObservedFromSpace.3
-                text: Thick, murky atmosphere
-              - <<: *ObservedFromSpace.4
-                text: Scabrous, infected terrain
-              - <<: *ObservedFromSpace.5
-                text: Toxic seas
-              - <<: *ObservedFromSpace.6
-                text: Sky-breaching fungus
-              - <<: *ObservedFromSpace.7
-                text: Sludge-filled river networks
-              - min: 89
-                max: 98
-                <<: &DescriptorFocus
-                  text: '[Descriptor](id:starforged/oracles/core/descriptor) + [Focus](id:starforged/oracles/core/focus)'
-                  oracle_rolls:
-                    - oracle: starforged/oracles/core/descriptor
-                      auto: true
-                    - oracle: starforged/oracles/core/focus
-                      auto: true
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Caustic gas storms
-              - <<: *Feature.1
-                text: Corrosive, low-lying fog
-              - <<: *Feature.2
-                text: Fungus-encrusted caves
-              - <<: *Feature.3
-                text: Gelatinous ponds
-              - <<: *Feature.4
-                text: Hallucinogenic toxins
-              - <<: *Feature.5
-                text: Layers of fast-growing lichen
-              - <<: *Feature.6
-                text: Moldering bones
-              - <<: *Feature.7
-                text: Mutated flora
-              - <<: *Feature.8
-                text: Poisonous gas vents
-              - <<: *Feature.9
-                text: Spore clouds
-              - <<: *Feature.10
-                text: Terrain marred by fleshy pustules
-              - <<: *Feature.11
-                text: Toxic rain
-              - <<: *Feature.12
-                text: Virulent fungal infestations
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - *Life.None
-              - *Life.Extinct
-              - min: 1
-                max: 10
-                <<: *Life.Scarce
-              - min: 11
-                max: 35
-                <<: *Life.Diverse
-              - min: 36
-                max: 65
-                <<: *Life.Bountiful
-              - min: 66
-                max: 100
-                <<: *Life.Overrun
-      vital:
-        name: Vital World
-        oracle_type: tables
-        type: oracle_collection
-        images:
-          - images/planets/vital-01.webp
-          - images/planets/vital-02.webp
-        _source: &CollectionSource
-          <<: *Source
-          page: 318
-        summary: This diverse, life-bearing planet might provide some small measure of hope.
-        collections:
-          settlements:
-            <<: *Settlements
-            _source: *CollectionSource
-            contents:
-              terminus:
-                <<: *OracleTable.Terminus
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 20
-                    <<: *Settlements.0
-                  - min: 21
-                    max: 30
-                    <<: *Settlements.1
-                  - min: 31
-                    max: 70
-                    <<: *Settlements.2
-                  - min: 71
-                    max: 90
-                    <<: *Settlements.3
-                  - min: 91
-                    max: 100
-                    <<: *Settlements.4
-              outlands:
-                <<: *OracleTable.Outlands
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 50
-                    <<: *Settlements.0
-                  - min: 51
-                    max: 55
-                    <<: *Settlements.1
-                  - min: 56
-                    max: 85
-                    <<: *Settlements.2
-                  - min: 86
-                    max: 95
-                    <<: *Settlements.3
-                  - min: 96
-                    max: 100
-                    <<: *Settlements.4
-              expanse:
-                <<: *OracleTable.Expanse
-                # source: *CollectionSource
-                rows:
-                  - min: 1
-                    max: 80
-                    <<: *Settlements.0
-                  - min: 81
-                    max: 83
-                    <<: *Settlements.1
-                  - min: 84
-                    max: 93
-                    <<: *Settlements.2
-                  - min: 94
-                    max: 98
-                    <<: *Settlements.3
-                  - min: 99
-                    max: 100
-                    <<: *Settlements.4
-        contents:
-          name:
-            # not rendered as a table in the text, but commonly requested
-            <<: *SampleNames
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 1
-                text: Chiron
-              - min: 2
-                max: 2
-                text: Demeter
-              - min: 3
-                max: 3
-                text: Erebos
-              - min: 4
-                max: 4
-                text: Erembour
-              - min: 5
-                max: 5
-                text: Feronia
-              - min: 6
-                max: 6
-                text: Fortuna
-              - min: 7
-                max: 7
-                text: Gaia
-              - min: 8
-                max: 8
-                text: Harbinger
-              - min: 9
-                max: 9
-                text: Haven
-              - min: 10
-                max: 10
-                text: Hope
-              - min: 11
-                max: 11
-                text: Morpheus
-              - min: 12
-                max: 12
-                text: Nemus
-              - min: 13
-                max: 13
-                text: Sapphire
-              - min: 14
-                max: 14
-                text: Serenity
-              - min: 15
-                max: 15
-                text: Sif
-              - min: 16
-                max: 16
-                text: Silva
-              - min: 17
-                max: 17
-                text: Sirona
-              - min: 18
-                max: 18
-                text: Solstice
-              - min: 19
-                max: 19
-                text: Vale
-              - min: 20
-                max: 20
-                text: Valinor
-          atmosphere:
-            <<: *Atmosphere
-            _source: *CollectionSource
-            rows:
-              - *Atmosphere.NoneThin
-              - *Atmosphere.Toxic
-              - *Atmosphere.Corrosive
-              - min: 1
-                max: 20
-                <<: *Atmosphere.Marginal
-              - min: 21
-                max: 50
-                <<: *Atmosphere.Breathable
-              - min: 51
-                max: 100
-                <<: *Atmosphere.Ideal
-          observed_from_space:
-            <<: *ObservedFromSpace
-            _source: *CollectionSource
-            rows:
-              - <<: *ObservedFromSpace.0
-                text: Complex ring system
-              - <<: *ObservedFromSpace.1
-                text: Numerous small moons
-              - <<: *ObservedFromSpace.2
-                text: Dramatic seasonal variation
-              - <<: *ObservedFromSpace.3
-                text: Unusual day or night cycle
-              - <<: *ObservedFromSpace.4
-                text: High gravity
-              - <<: *ObservedFromSpace.5
-                text: Vibrantly colored landscapes
-              - <<: *ObservedFromSpace.6
-                text: Large moon
-              - <<: *ObservedFromSpace.7
-                text: Narrow livable band
-              - min: 89
-                max: 98
-                <<: &DescriptorFocus
-                  text: '[Descriptor](id:starforged/oracles/core/descriptor) + [Focus](id:starforged/oracles/core/focus)'
-                  oracle_rolls:
-                    - oracle: starforged/oracles/core/descriptor
-                      auto: true
-                    - oracle: starforged/oracles/core/focus
-                      auto: true
-              - *ObservedFromSpace.9
-          feature:
-            <<: *Feature
-            _source: *CollectionSource
-            rows:
-              - <<: *Feature.0
-                text: Background radiation
-              - <<: *Feature.1
-                text: Chaotically juxtaposed biomes
-              - <<: *Feature.2
-                text: Creature boneyards
-              - <<: *Feature.3
-                text: Creature lairs or watering holes
-              - <<: *Feature.4
-                text: Crystalline formations
-              - <<: *Feature.5
-                text: Fierce electrical storms
-              - <<: *Feature.6
-                text: Floating terrain
-              - <<: *Feature.7
-                text: Frequent seismic activity
-              - <<: *Feature.8
-                text: Magnetic disturbances
-              - <<: *Feature.9
-                text: Scarred or excavated terrain
-              - <<: *Feature.10
-                text: Signs of an engineered biosphere
-              - <<: *Feature.11
-                text: Sudden weather fluctuations
-              - <<: *Feature.12
-                text: Towering geological formations
-              - *Feature.13
-              - *Feature.14
-          life:
-            <<: *Life
-            _source: *CollectionSource
-            rows:
-              - *Life.None
-              - *Life.Extinct
-              - min: 1
-                max: 10
-                <<: *Life.Scarce
-              - min: 11
-                max: 45
-                <<: *Life.Diverse
-              - min: 46
-                max: 85
-                <<: *Life.Bountiful
-              - min: 86
-                max: 100
-                <<: *Life.Overrun
-          diversity:
-            name: Diversity
-            oracle_type: table_text
-            type: oracle_rollable
-            _source: *CollectionSource
-            summary: To learn the major terrain and environment types found on a Vital World, first roll on the diversity table. Then, roll the indicated number of times on the biomes table. If you get a duplicate result, roll again, or envision that landscape as more dominant, unusual, or dramatic.
-            rows:
-              - min: 1
-                max: 20
-                text: Simple (two biomes)
-                _i18n: &i18n.result.adjective
-                  text:
-                    part_of_speech: adjective
-                oracle_rolls:
-                  - number_of_rolls: 2
-                    oracle: &biome starforged/oracles/planets/vital/biomes
-              - min: 21
-                max: 70
-                text: Diverse (three biomes)
-                _i18n: *i18n.result.adjective
-                oracle_rolls:
-                  - number_of_rolls: 3
-                    oracle: *biome
-              - min: 71
-                max: 90
-                text: Complex (four biomes)
-                _i18n: *i18n.result.adjective
-                oracle_rolls:
-                  - number_of_rolls: 4
-                    oracle: *biome
-              - min: 91
-                max: 100
-                text: Garden world (five or more biomes)
-                _i18n: *i18n.result.adjective
-                oracle_rolls:
-                  - number_of_rolls: 5
-                    oracle: *biome
-          biomes:
-            name: Biomes
-            oracle_type: table_text
-            type: oracle_rollable
-            _source: *CollectionSource
-            rows:
-              - min: 1
-                max: 5
-                text: Caves
-                _i18n: &i18n.result.common_noun
-                  text:
-                    part_of_speech: common_noun
-              - min: 6
-                max: 10
-                text: Cold forest
-                _i18n: *i18n.result.common_noun
-              - min: 11
-                max: 15
-                text: Fungal
-                _i18n: *i18n.result.common_noun
-              - min: 16
-                max: 20
-                text: Glacial or snow
-                _i18n: *i18n.result.common_noun
-              - min: 21
-                max: 25
-                text: Grassland
-                _i18n: *i18n.result.common_noun
-              - min: 26
-                max: 30
-                text: Islands
-                _i18n: *i18n.result.common_noun
-              - min: 31
-                max: 35
-                text: Jungle
-                _i18n: *i18n.result.common_noun
-              - min: 36
-                max: 40
-                text: Mountainous
-                _i18n: *i18n.result.common_noun
-              - min: 41
-                max: 45
-                text: Ocean
-                _i18n: *i18n.result.common_noun
-              - min: 46
-                max: 50
-                text: Rocky desert
-                _i18n: *i18n.result.common_noun
-              - min: 51
-                max: 55
-                text: Sandy desert
-                _i18n: *i18n.result.common_noun
-              - min: 56
-                max: 60
-                text: Savanna
-                _i18n: *i18n.result.common_noun
-              - min: 61
-                max: 65
-                text: Shallow seas
-                _i18n: *i18n.result.common_noun
-              - min: 66
-                max: 70
-                text: Shrubland
-                _i18n: *i18n.result.common_noun
-              - min: 71
-                max: 75
-                text: Temperate rainforest
-                _i18n: *i18n.result.common_noun
-              - min: 76
-                max: 80
-                text: Temperate forest
-                _i18n: *i18n.result.common_noun
-              - min: 81
-                max: 85
-                text: Tundra
-                _i18n: *i18n.result.common_noun
-              - min: 86
-                max: 90
-                text: Volcanic
-                _i18n: *i18n.result.common_noun
-              - min: 91
-                max: 95
-                text: Waterways
-                _i18n: *i18n.result.common_noun
-              - min: 96
-                max: 100
-                text: Wetland
-                _i18n: *i18n.result.common_noun
+- category: Desert World
+  name: Sample Names
+  id: starforged/oracles/planets/desert/name
+  rows:
+  - {min: 1, max: 1, text: "Abalos"}
+  - {min: 2, max: 2, text: "Audun"}
+  - {min: 3, max: 3, text: "Bishop"}
+  - {min: 4, max: 4, text: "Desolation"}
+  - {min: 5, max: 5, text: "Dykuma"}
+  - {min: 6, max: 6, text: "Fallow"}
+  - {min: 7, max: 7, text: "Helios"}
+  - {min: 8, max: 8, text: "Mirage"}
+  - {min: 9, max: 9, text: "Morricone"}
+  - {min: 10, max: 10, text: "Nux"}
+  - {min: 11, max: 11, text: "Ordos"}
+  - {min: 12, max: 12, text: "Petra"}
+  - {min: 13, max: 13, text: "Pyla"}
+  - {min: 14, max: 14, text: "Sabulo"}
+  - {min: 15, max: 15, text: "Saffron"}
+  - {min: 16, max: 16, text: "Sirocco"}
+  - {min: 17, max: 17, text: "Sulis"}
+  - {min: 18, max: 18, text: "Torrid"}
+  - {min: 19, max: 19, text: "Umber"}
+  - {min: 20, max: 20, text: "Vermillion"}
+- category: Desert World
+  name: Atmosphere
+  id: starforged/oracles/planets/desert/atmosphere
+  rows:
+  - {min: 1, max: 10, text: "None / thin"}
+  - {min: 11, max: 25, text: "Toxic"}
+  - {min: 26, max: 40, text: "Corrosive"}
+  - {min: 41, max: 70, text: "Marginal"}
+  - {min: 71, max: 95, text: "Breathable"}
+  - {min: 96, max: 100, text: "Ideal"}
+- category: Desert World
+  name: Observed From Space
+  id: starforged/oracles/planets/desert/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Dry seabeds"}
+  - {min: 12, max: 22, text: "Expansive dune seas"}
+  - {min: 23, max: 33, text: "Massive canyons"}
+  - {min: 34, max: 44, text: "Perpetual daylight"}
+  - {min: 45, max: 55, text: "Rugged mountains"}
+  - {min: 56, max: 66, text: "Sprawling salt flats"}
+  - {min: 67, max: 77, text: "Vast plateaus"}
+  - {min: 78, max: 88, text: "Vibrant terrain colors"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Desert World
+  name: Planetside Feature
+  id: starforged/oracles/planets/desert/feature
+  rows:
+  - {min: 1, max: 7, text: "Cavernous sinkholes"}
+  - {min: 8, max: 14, text: "Engulfing sandstorms"}
+  - {min: 15, max: 21, text: "Fleeting rainstorms and flash floods"}
+  - {min: 22, max: 28, text: "Flooded grottos"}
+  - {min: 29, max: 35, text: "Petrified forest"}
+  - {min: 36, max: 42, text: "Rampaging whirlwinds"}
+  - {min: 43, max: 49, text: "Scorched glass plains"}
+  - {min: 50, max: 56, text: "Severe temperature fluctuations"}
+  - {min: 57, max: 63, text: "Sunbaked bones of titanic creatures"}
+  - {min: 64, max: 70, text: "Timeworn cliffside caves"}
+  - {min: 71, max: 77, text: "Towering rock formations"}
+  - {min: 78, max: 84, text: "Violent electrical storms"}
+  - {min: 85, max: 91, text: "Windborne metallic sand"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Desert World
+  name: Life
+  id: starforged/oracles/planets/desert/life
+  rows:
+  - {min: 1, max: 20, text: "None"}
+  - {min: 21, max: 40, text: "Extinct"}
+  - {min: 41, max: 70, text: "Scarce"}
+  - {min: 71, max: 90, text: "Diverse"}
+  - {min: 91, max: 97, text: "Bountiful"}
+  - {min: 98, max: 100, text: "Overrun"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/desert/settlements/terminus
+  rows:
+  - {min: 1, max: 50, text: "None"}
+  - {min: 51, max: 60, text: "Orbital settlement"}
+  - {min: 61, max: 80, text: "Planetside settlement"}
+  - {min: 81, max: 92, text: "Multiple settlements"}
+  - {min: 93, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/desert/settlements/outlands
+  rows:
+  - {min: 1, max: 75, text: "None"}
+  - {min: 76, max: 83, text: "Orbital settlement"}
+  - {min: 84, max: 95, text: "Planetside settlement"}
+  - {min: 96, max: 98, text: "Multiple settlements"}
+  - {min: 99, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/desert/settlements/expanse
+  rows:
+  - {min: 1, max: 90, text: "None"}
+  - {min: 91, max: 96, text: "Orbital settlement"}
+  - {min: 97, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/furnace/settlements/terminus
+  rows:
+  - {min: 1, max: 60, text: "None"}
+  - {min: 61, max: 75, text: "Orbital settlement"}
+  - {min: 76, max: 87, text: "Planetside settlement"}
+  - {min: 88, max: 96, text: "Multiple settlements"}
+  - {min: 97, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/furnace/settlements/outlands
+  rows:
+  - {min: 1, max: 85, text: "None"}
+  - {min: 86, max: 92, text: "Orbital settlement"}
+  - {min: 93, max: 97, text: "Planetside settlement"}
+  - {min: 98, max: 99, text: "Multiple settlements"}
+  - {min: 100, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/furnace/settlements/expanse
+  rows:
+  - {min: 1, max: 95, text: "None"}
+  - {min: 96, max: 98, text: "Orbital settlement"}
+  - {min: 99, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/grave/settlements/terminus
+  rows:
+  - {min: 1, max: 80, text: "None"}
+  - {min: 81, max: 90, text: "Orbital settlement"}
+  - {min: 91, max: 95, text: "Planetside settlement"}
+  - {min: 96, max: 98, text: "Multiple settlements"}
+  - {min: 99, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/grave/settlements/outlands
+  rows:
+  - {min: 1, max: 90, text: "None"}
+  - {min: 91, max: 97, text: "Orbital settlement"}
+  - {min: 98, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/grave/settlements/expanse
+  rows:
+  - {min: 1, max: 95, text: "None"}
+  - {min: 96, max: 98, text: "Orbital settlement"}
+  - {min: 99, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/ice/settlements/terminus
+  rows:
+  - {min: 1, max: 50, text: "None"}
+  - {min: 51, max: 60, text: "Orbital settlement"}
+  - {min: 61, max: 80, text: "Planetside settlement"}
+  - {min: 81, max: 92, text: "Multiple settlements"}
+  - {min: 93, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/ice/settlements/outlands
+  rows:
+  - {min: 1, max: 75, text: "None"}
+  - {min: 76, max: 83, text: "Orbital settlement"}
+  - {min: 84, max: 95, text: "Planetside settlement"}
+  - {min: 96, max: 98, text: "Multiple settlements"}
+  - {min: 99, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/ice/settlements/expanse
+  rows:
+  - {min: 1, max: 90, text: "None"}
+  - {min: 91, max: 96, text: "Orbital settlement"}
+  - {min: 97, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/jovian/settlements/terminus
+  rows:
+  - {min: 1, max: 50, text: "None"}
+  - {min: 51, max: 70, text: "Orbital settlement"}
+  - {min: 71, max: 85, text: "Planetside settlement"}
+  - {min: 86, max: 95, text: "Multiple settlements"}
+  - {min: 96, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/jovian/settlements/outlands
+  rows:
+  - {min: 1, max: 75, text: "None"}
+  - {min: 76, max: 87, text: "Orbital settlement"}
+  - {min: 88, max: 95, text: "Planetside settlement"}
+  - {min: 96, max: 98, text: "Multiple settlements"}
+  - {min: 99, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/jovian/settlements/expanse
+  rows:
+  - {min: 1, max: 90, text: "None"}
+  - {min: 91, max: 96, text: "Orbital settlement"}
+  - {min: 97, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/jungle/settlements/terminus
+  rows:
+  - {min: 1, max: 40, text: "None"}
+  - {min: 41, max: 55, text: "Orbital settlement"}
+  - {min: 56, max: 80, text: "Planetside settlement"}
+  - {min: 81, max: 92, text: "Multiple settlements"}
+  - {min: 93, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/jungle/settlements/outlands
+  rows:
+  - {min: 1, max: 65, text: "None"}
+  - {min: 66, max: 75, text: "Orbital settlement"}
+  - {min: 76, max: 92, text: "Planetside settlement"}
+  - {min: 93, max: 97, text: "Multiple settlements"}
+  - {min: 98, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/jungle/settlements/expanse
+  rows:
+  - {min: 1, max: 85, text: "None"}
+  - {min: 86, max: 90, text: "Orbital settlement"}
+  - {min: 91, max: 97, text: "Planetside settlement"}
+  - {min: 98, max: 99, text: "Multiple settlements"}
+  - {min: 100, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/ocean/settlements/terminus
+  rows:
+  - {min: 1, max: 40, text: "None"}
+  - {min: 41, max: 55, text: "Orbital settlement"}
+  - {min: 56, max: 80, text: "Planetside settlement"}
+  - {min: 81, max: 92, text: "Multiple settlements"}
+  - {min: 93, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/ocean/settlements/outlands
+  rows:
+  - {min: 1, max: 65, text: "None"}
+  - {min: 66, max: 75, text: "Orbital settlement"}
+  - {min: 76, max: 92, text: "Planetside settlement"}
+  - {min: 93, max: 97, text: "Multiple settlements"}
+  - {min: 98, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/ocean/settlements/expanse
+  rows:
+  - {min: 1, max: 85, text: "None"}
+  - {min: 86, max: 90, text: "Orbital settlement"}
+  - {min: 91, max: 97, text: "Planetside settlement"}
+  - {min: 98, max: 99, text: "Multiple settlements"}
+  - {min: 100, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/rocky/settlements/terminus
+  rows:
+  - {min: 1, max: 50, text: "None"}
+  - {min: 51, max: 70, text: "Orbital settlement"}
+  - {min: 71, max: 85, text: "Planetside settlement"}
+  - {min: 86, max: 95, text: "Multiple settlements"}
+  - {min: 96, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/rocky/settlements/outlands
+  rows:
+  - {min: 1, max: 75, text: "None"}
+  - {min: 76, max: 87, text: "Orbital settlement"}
+  - {min: 88, max: 95, text: "Planetside settlement"}
+  - {min: 96, max: 98, text: "Multiple settlements"}
+  - {min: 99, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/rocky/settlements/expanse
+  rows:
+  - {min: 1, max: 90, text: "None"}
+  - {min: 91, max: 96, text: "Orbital settlement"}
+  - {min: 97, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/shattered/settlements/terminus
+  rows:
+  - {min: 1, max: 70, text: "None"}
+  - {min: 71, max: 90, text: "Orbital settlement"}
+  - {min: 91, max: 95, text: "Planetside settlement"}
+  - {min: 96, max: 98, text: "Multiple settlements"}
+  - {min: 99, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/shattered/settlements/outlands
+  rows:
+  - {min: 1, max: 85, text: "None"}
+  - {min: 86, max: 96, text: "Orbital settlement"}
+  - {min: 97, max: 99, text: "Planetside settlement"}
+  - {min: 100, max: 100, text: "Multiple settlements"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/shattered/settlements/expanse
+  rows:
+  - {min: 1, max: 95, text: "None"}
+  - {min: 96, max: 99, text: "Orbital settlement"}
+  - {min: 100, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/tainted/settlements/terminus
+  rows:
+  - {min: 1, max: 80, text: "None"}
+  - {min: 81, max: 90, text: "Orbital settlement"}
+  - {min: 91, max: 95, text: "Planetside settlement"}
+  - {min: 96, max: 98, text: "Multiple settlements"}
+  - {min: 99, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/tainted/settlements/outlands
+  rows:
+  - {min: 1, max: 90, text: "None"}
+  - {min: 91, max: 97, text: "Orbital settlement"}
+  - {min: 98, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/tainted/settlements/expanse
+  rows:
+  - {min: 1, max: 95, text: "None"}
+  - {min: 96, max: 98, text: "Orbital settlement"}
+  - {min: 99, max: 100, text: "Planetside settlement"}
+- category: Settlements
+  name: Terminus
+  id: starforged/oracles/planets/vital/settlements/terminus
+  rows:
+  - {min: 1, max: 20, text: "None"}
+  - {min: 21, max: 30, text: "Orbital settlement"}
+  - {min: 31, max: 70, text: "Planetside settlement"}
+  - {min: 71, max: 90, text: "Multiple settlements"}
+  - {min: 91, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Outlands
+  id: starforged/oracles/planets/vital/settlements/outlands
+  rows:
+  - {min: 1, max: 50, text: "None"}
+  - {min: 51, max: 55, text: "Orbital settlement"}
+  - {min: 56, max: 85, text: "Planetside settlement"}
+  - {min: 86, max: 95, text: "Multiple settlements"}
+  - {min: 96, max: 100, text: "Settlements in conflict"}
+- category: Settlements
+  name: Expanse
+  id: starforged/oracles/planets/vital/settlements/expanse
+  rows:
+  - {min: 1, max: 80, text: "None"}
+  - {min: 81, max: 83, text: "Orbital settlement"}
+  - {min: 84, max: 93, text: "Planetside settlement"}
+  - {min: 94, max: 98, text: "Multiple settlements"}
+  - {min: 99, max: 100, text: "Settlements in conflict"}
+- category: Furnace World
+  name: Sample Names
+  id: starforged/oracles/planets/furnace/name
+  rows:
+  - {min: 1, max: 1, text: "Ash"}
+  - {min: 2, max: 2, text: "Azula"}
+  - {min: 3, max: 3, text: "Cinder"}
+  - {min: 4, max: 4, text: "Cyrus"}
+  - {min: 5, max: 5, text: "Draconus"}
+  - {min: 6, max: 6, text: "Effigy"}
+  - {min: 7, max: 7, text: "Ember"}
+  - {min: 8, max: 8, text: "Flint"}
+  - {min: 9, max: 9, text: "Hades"}
+  - {min: 10, max: 10, text: "Hera"}
+  - {min: 11, max: 11, text: "Ignis"}
+  - {min: 12, max: 12, text: "Inferno"}
+  - {min: 13, max: 13, text: "Ishum"}
+  - {min: 14, max: 14, text: "Kresnik"}
+  - {min: 15, max: 15, text: "Nemesis"}
+  - {min: 16, max: 16, text: "Obsidian"}
+  - {min: 17, max: 17, text: "Scorch"}
+  - {min: 18, max: 18, text: "Tana"}
+  - {min: 19, max: 19, text: "Vesta"}
+  - {min: 20, max: 20, text: "Vesuvius"}
+- category: Furnace World
+  name: Atmosphere
+  id: starforged/oracles/planets/furnace/atmosphere
+  rows:
+  - {min: 1, max: 10, text: "None / thin"}
+  - {min: 11, max: 50, text: "Toxic"}
+  - {min: 51, max: 65, text: "Corrosive"}
+  - {min: 66, max: 90, text: "Marginal"}
+  - {min: 91, max: 100, text: "Breathable"}
+- category: Furnace World
+  name: Observed From Space
+  id: starforged/oracles/planets/furnace/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Fiery world-spanning chasms"}
+  - {min: 12, max: 22, text: "Glowing rivers of lava"}
+  - {min: 23, max: 33, text: "Lightning-wracked ash clouds"}
+  - {min: 34, max: 44, text: "Magma seas"}
+  - {min: 45, max: 55, text: "Massive supervolcano"}
+  - {min: 56, max: 66, text: "Once verdant terrain"}
+  - {min: 67, max: 77, text: "Towering mountain ranges"}
+  - {min: 78, max: 88, text: "World-spanning fissures"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Furnace World
+  name: Planetside Feature
+  id: starforged/oracles/planets/furnace/feature
+  rows:
+  - {min: 1, max: 7, text: "Blinding ash storms"}
+  - {min: 8, max: 14, text: "Catastrophic earthquakes"}
+  - {min: 15, max: 21, text: "Colorful geothermal springs"}
+  - {min: 22, max: 28, text: "Intricate volcanic rock formations"}
+  - {min: 29, max: 35, text: "Lava tube tunnel networks"}
+  - {min: 36, max: 42, text: "Masses of scorched bones"}
+  - {min: 43, max: 49, text: "Plains of volcanic glass"}
+  - {min: 50, max: 56, text: "Pools of liquid metal"}
+  - {min: 57, max: 63, text: "Rocky islands adrift on magma"}
+  - {min: 64, max: 70, text: "Roiling clouds of superheated gas"}
+  - {min: 71, max: 77, text: "Scalding geysers"}
+  - {min: 78, max: 84, text: "Silica or metal storms"}
+  - {min: 85, max: 91, text: "Steaming mudflats"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Furnace World
+  name: Life
+  id: starforged/oracles/planets/furnace/life
+  rows:
+  - {min: 1, max: 35, text: "None"}
+  - {min: 36, max: 60, text: "Extinct"}
+  - {min: 61, max: 85, text: "Scarce"}
+  - {min: 86, max: 95, text: "Diverse"}
+  - {min: 96, max: 98, text: "Bountiful"}
+  - {min: 99, max: 100, text: "Overrun"}
+- category: Grave World
+  name: Sample Names
+  id: starforged/oracles/planets/grave/name
+  rows:
+  - {min: 1, max: 1, text: "Anubis"}
+  - {min: 2, max: 2, text: "Banshee"}
+  - {min: 3, max: 3, text: "Barrow"}
+  - {min: 4, max: 4, text: "Cairn"}
+  - {min: 5, max: 5, text: "Cerberus"}
+  - {min: 6, max: 6, text: "Charon"}
+  - {min: 7, max: 7, text: "Elysia"}
+  - {min: 8, max: 8, text: "Keen"}
+  - {min: 9, max: 9, text: "Kur"}
+  - {min: 10, max: 10, text: "Lament"}
+  - {min: 11, max: 11, text: "Mantus"}
+  - {min: 12, max: 12, text: "Morrigan"}
+  - {min: 13, max: 13, text: "Mourn"}
+  - {min: 14, max: 14, text: "Necropolis"}
+  - {min: 15, max: 15, text: "Orcus"}
+  - {min: 16, max: 16, text: "Osiris"}
+  - {min: 17, max: 17, text: "Requiem"}
+  - {min: 18, max: 18, text: "Stygia"}
+  - {min: 19, max: 19, text: "Tartarus"}
+  - {min: 20, max: 20, text: "Thrace"}
+- category: Grave World
+  name: Atmosphere
+  id: starforged/oracles/planets/grave/atmosphere
+  rows:
+  - {min: 1, max: 10, text: "None / thin"}
+  - {min: 11, max: 45, text: "Toxic"}
+  - {min: 46, max: 70, text: "Corrosive"}
+  - {min: 71, max: 90, text: "Marginal"}
+  - {min: 91, max: 100, text: "Breathable"}
+- category: Grave World
+  name: Observed From Space
+  id: starforged/oracles/planets/grave/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Broken moon"}
+  - {min: 12, max: 22, text: "Perpetual overcast"}
+  - {min: 23, max: 33, text: "Cratered surface"}
+  - {min: 34, max: 44, text: "Sky-breaching ruins"}
+  - {min: 45, max: 55, text: "Dry seabeds"}
+  - {min: 56, max: 66, text: "Vast wastelands"}
+  - {min: 67, max: 77, text: "Irradiated atmosphere"}
+  - {min: 78, max: 88, text: "Orbiting ship graveyard"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Grave World
+  name: Planetside Feature
+  id: starforged/oracles/planets/grave/feature
+  rows:
+  - {min: 1, max: 7, text: "Acid pools"}
+  - {min: 8, max: 14, text: "Ash dunes"}
+  - {min: 15, max: 21, text: "Corrosive rains"}
+  - {min: 22, max: 28, text: "Dead forests"}
+  - {min: 29, max: 35, text: "Fetid mudflats"}
+  - {min: 36, max: 42, text: "Mass graves"}
+  - {min: 43, max: 49, text: "Moldering bones"}
+  - {min: 50, max: 56, text: "Noxious fog"}
+  - {min: 57, max: 63, text: "Radioactive hotspots"}
+  - {min: 64, max: 70, text: "Ravaged cities"}
+  - {min: 71, max: 77, text: "Scarred battlefields"}
+  - {min: 78, max: 84, text: "Ship graveyards"}
+  - {min: 85, max: 91, text: "Whispers of the dead"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Grave World
+  name: Life
+  id: starforged/oracles/planets/grave/life
+  rows:
+  - {min: 1, max: 25, text: "None"}
+  - {min: 26, max: 75, text: "Extinct"}
+  - {min: 76, max: 95, text: "Scarce"}
+  - {min: 96, max: 100, text: "Diverse"}
+- category: Ice World
+  name: Sample Names
+  id: starforged/oracles/planets/ice/name
+  rows:
+  - {min: 1, max: 1, text: "Beira"}
+  - {min: 2, max: 2, text: "Boreas"}
+  - {min: 3, max: 3, text: "Caradhras"}
+  - {min: 4, max: 4, text: "Cicero"}
+  - {min: 5, max: 5, text: "Demetria"}
+  - {min: 6, max: 6, text: "Enten"}
+  - {min: 7, max: 7, text: "Fissure"}
+  - {min: 8, max: 8, text: "Frost"}
+  - {min: 9, max: 9, text: "Gelida"}
+  - {min: 10, max: 10, text: "Jotunn"}
+  - {min: 11, max: 11, text: "Kanna"}
+  - {min: 12, max: 12, text: "Karn"}
+  - {min: 13, max: 13, text: "Kheimon"}
+  - {min: 14, max: 14, text: "Moroz"}
+  - {min: 15, max: 15, text: "Nix"}
+  - {min: 16, max: 16, text: "Olwen"}
+  - {min: 17, max: 17, text: "Osolok"}
+  - {min: 18, max: 18, text: "Taiga"}
+  - {min: 19, max: 19, text: "Thule"}
+  - {min: 20, max: 20, text: "Varnholme"}
+- category: Ice World
+  name: Atmosphere
+  id: starforged/oracles/planets/ice/atmosphere
+  rows:
+  - {min: 1, max: 15, text: "None / thin"}
+  - {min: 16, max: 35, text: "Toxic"}
+  - {min: 36, max: 40, text: "Corrosive"}
+  - {min: 41, max: 70, text: "Marginal"}
+  - {min: 71, max: 95, text: "Breathable"}
+  - {min: 96, max: 100, text: "Ideal"}
+- category: Ice World
+  name: Observed From Space
+  id: starforged/oracles/planets/ice/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Feeble sunlight"}
+  - {min: 12, max: 22, text: "Supersized ice volcano"}
+  - {min: 23, max: 33, text: "Frozen oceans"}
+  - {min: 34, max: 44, text: "Vibrantly colored ice"}
+  - {min: 45, max: 55, text: "Rocky glacial islands"}
+  - {min: 56, max: 66, text: "World-spanning ice canyon"}
+  - {min: 67, max: 77, text: "Snowbound mountains"}
+  - {min: 78, max: 88, text: "Sky-breaching geysers"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Ice World
+  name: Planetside Feature
+  id: starforged/oracles/planets/ice/feature
+  rows:
+  - {min: 1, max: 7, text: "Abyssal ice fissures"}
+  - {min: 8, max: 14, text: "Blinding snow storms"}
+  - {min: 15, max: 21, text: "Clusters of ice spikes"}
+  - {min: 22, max: 28, text: "Colossal ice caves"}
+  - {min: 29, max: 35, text: "Glistening ice spires"}
+  - {min: 36, max: 42, text: "Massive snow drifts"}
+  - {min: 43, max: 49, text: "Preserved carcasses"}
+  - {min: 50, max: 56, text: "Rocky islands amid icy wastes"}
+  - {min: 57, max: 63, text: "Shattered plains of pack ice"}
+  - {min: 64, max: 70, text: "Steaming hot springs"}
+  - {min: 71, max: 77, text: "Subsurface liquid oceans"}
+  - {min: 78, max: 84, text: "Vibrant auroras"}
+  - {min: 85, max: 91, text: "Wind-carved ice formations"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Ice World
+  name: Life
+  id: starforged/oracles/planets/ice/life
+  rows:
+  - {min: 1, max: 20, text: "None"}
+  - {min: 21, max: 40, text: "Extinct"}
+  - {min: 41, max: 70, text: "Scarce"}
+  - {min: 71, max: 90, text: "Diverse"}
+  - {min: 91, max: 97, text: "Bountiful"}
+  - {min: 98, max: 100, text: "Overrun"}
+- category: Jovian World
+  name: Sample Names
+  id: starforged/oracles/planets/jovian/name
+  rows:
+  - {min: 1, max: 1, text: "Aether"}
+  - {min: 2, max: 2, text: "Arrokoth"}
+  - {min: 3, max: 3, text: "Esen"}
+  - {min: 4, max: 4, text: "Hanish"}
+  - {min: 5, max: 5, text: "Magnus"}
+  - {min: 6, max: 6, text: "Magonia"}
+  - {min: 7, max: 7, text: "Mistral"}
+  - {min: 8, max: 8, text: "Nephele"}
+  - {min: 9, max: 9, text: "Nimbus"}
+  - {min: 10, max: 10, text: "Nuada"}
+  - {min: 11, max: 11, text: "Nubium"}
+  - {min: 12, max: 12, text: "Serein"}
+  - {min: 13, max: 13, text: "Stratus"}
+  - {min: 14, max: 14, text: "Taranis"}
+  - {min: 15, max: 15, text: "Tempest"}
+  - {min: 16, max: 16, text: "Tenzin"}
+  - {min: 17, max: 17, text: "Tyr"}
+  - {min: 18, max: 18, text: "Veil"}
+  - {min: 19, max: 19, text: "Velum"}
+  - {min: 20, max: 20, text: "Zephyr"}
+- category: Jovian World
+  name: Atmosphere
+  id: starforged/oracles/planets/jovian/atmosphere
+  rows:
+  - {min: 1, max: 50, text: "Toxic"}
+  - {min: 51, max: 65, text: "Corrosive"}
+  - {min: 66, max: 85, text: "Marginal"}
+  - {min: 86, max: 100, text: "Breathable"}
+- category: Jovian World
+  name: Observed From Space
+  id: starforged/oracles/planets/jovian/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Complex ring system"}
+  - {min: 12, max: 22, text: "Intense gravity well"}
+  - {min: 23, max: 33, text: "Numerous moons"}
+  - {min: 34, max: 44, text: "Perpetual superstorm"}
+  - {min: 45, max: 55, text: "Powerful magnetic field"}
+  - {min: 56, max: 66, text: "Severe electrical storms"}
+  - {min: 67, max: 77, text: "Superheated atmosphere"}
+  - {min: 78, max: 88, text: "Unusual atmospheric colors"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Jovian World
+  name: Planetside Feature
+  id: starforged/oracles/planets/jovian/feature
+  rows:
+  - {min: 1, max: 7, text: "Clouds of metal particles"}
+  - {min: 8, max: 14, text: "Crystalline rains"}
+  - {min: 15, max: 21, text: "Floating glaciers"}
+  - {min: 22, max: 28, text: "Floating islands"}
+  - {min: 29, max: 35, text: "Layer of suspended liquid"}
+  - {min: 36, max: 42, text: "Pockets of explosive gases"}
+  - {min: 43, max: 49, text: "Powerful vortexes"}
+  - {min: 50, max: 56, text: "Radiation fields"}
+  - {min: 57, max: 63, text: "Storm-swept rocky debris"}
+  - {min: 64, max: 70, text: "Torrential rain"}
+  - {min: 71, max: 77, text: "Towering thunderheads"}
+  - {min: 78, max: 84, text: "Violent turbulence"}
+  - {min: 85, max: 91, text: "Zones of localized atmosphere"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Jovian World
+  name: Life
+  id: starforged/oracles/planets/jovian/life
+  rows:
+  - {min: 1, max: 35, text: "None"}
+  - {min: 36, max: 60, text: "Extinct"}
+  - {min: 61, max: 85, text: "Scarce"}
+  - {min: 86, max: 95, text: "Diverse"}
+  - {min: 96, max: 98, text: "Bountiful"}
+  - {min: 99, max: 100, text: "Overrun"}
+- category: Jungle World
+  name: Sample Names
+  id: starforged/oracles/planets/jungle/name
+  rows:
+  - {min: 1, max: 1, text: "Acacia"}
+  - {min: 2, max: 2, text: "Aster"}
+  - {min: 3, max: 3, text: "Beryl"}
+  - {min: 4, max: 4, text: "Celadon"}
+  - {min: 5, max: 5, text: "Ceres"}
+  - {min: 6, max: 6, text: "Damu"}
+  - {min: 7, max: 7, text: "Dryad"}
+  - {min: 8, max: 8, text: "Flora"}
+  - {min: 9, max: 9, text: "Iridum"}
+  - {min: 10, max: 10, text: "Iris"}
+  - {min: 11, max: 11, text: "Kishar"}
+  - {min: 12, max: 12, text: "Penumbra"}
+  - {min: 13, max: 13, text: "Roris"}
+  - {min: 14, max: 14, text: "Sylva"}
+  - {min: 15, max: 15, text: "Tangle"}
+  - {min: 16, max: 16, text: "Thorn"}
+  - {min: 17, max: 17, text: "Venom"}
+  - {min: 18, max: 18, text: "Verdure"}
+  - {min: 19, max: 19, text: "Veris"}
+  - {min: 20, max: 20, text: "Viridian"}
+- category: Jungle World
+  name: Atmosphere
+  id: starforged/oracles/planets/jungle/atmosphere
+  rows:
+  - {min: 1, max: 25, text: "Toxic"}
+  - {min: 26, max: 30, text: "Corrosive"}
+  - {min: 31, max: 60, text: "Marginal"}
+  - {min: 61, max: 90, text: "Breathable"}
+  - {min: 91, max: 100, text: "Ideal"}
+- category: Jungle World
+  name: Observed From Space
+  id: starforged/oracles/planets/jungle/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Cloud-breaching trees"}
+  - {min: 12, max: 22, text: "Towering mountains"}
+  - {min: 23, max: 33, text: "Expansive rivers or wetlands"}
+  - {min: 34, max: 44, text: "Unbroken canopy"}
+  - {min: 45, max: 55, text: "Inland seas"}
+  - {min: 56, max: 66, text: "Unusual vegetation color"}
+  - {min: 67, max: 77, text: "Massive canyons"}
+  - {min: 78, max: 88, text: "Persistent cloud cover"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Jungle World
+  name: Planetside Feature
+  id: starforged/oracles/planets/jungle/feature
+  rows:
+  - {min: 1, max: 7, text: "Bioluminescent flora"}
+  - {min: 8, max: 14, text: "Deep river gorges"}
+  - {min: 15, max: 21, text: "Extensive exposed root systems"}
+  - {min: 22, max: 28, text: "Immense tiered waterfalls"}
+  - {min: 29, max: 35, text: "Languid rivers"}
+  - {min: 36, max: 42, text: "Low-lying fog"}
+  - {min: 43, max: 49, text: "Plunging sinkholes"}
+  - {min: 50, max: 56, text: "Scarred clearings"}
+  - {min: 57, max: 63, text: "Sinking quagmires"}
+  - {min: 64, max: 70, text: "Surging rivers"}
+  - {min: 71, max: 77, text: "Torrential rainstorms"}
+  - {min: 78, max: 84, text: "Violent electrical storms"}
+  - {min: 85, max: 91, text: "Waterlogged caves"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Jungle World
+  name: Life
+  id: starforged/oracles/planets/jungle/life
+  rows:
+  - {min: 1, max: 5, text: "Scarce"}
+  - {min: 6, max: 35, text: "Diverse"}
+  - {min: 36, max: 75, text: "Bountiful"}
+  - {min: 76, max: 100, text: "Overrun"}
+- category: Ocean World
+  name: Sample Names
+  id: starforged/oracles/planets/ocean/name
+  rows:
+  - {min: 1, max: 1, text: "Aegir"}
+  - {min: 2, max: 2, text: "Alon"}
+  - {min: 3, max: 3, text: "Clarion"}
+  - {min: 4, max: 4, text: "Darya"}
+  - {min: 5, max: 5, text: "Eldoris"}
+  - {min: 6, max: 6, text: "Horizon"}
+  - {min: 7, max: 7, text: "Hydra"}
+  - {min: 8, max: 8, text: "Kai"}
+  - {min: 9, max: 9, text: "Larimar"}
+  - {min: 10, max: 10, text: "Lotan"}
+  - {min: 11, max: 11, text: "Mira"}
+  - {min: 12, max: 12, text: "Navini"}
+  - {min: 13, max: 13, text: "Nerida"}
+  - {min: 14, max: 14, text: "Oceanus"}
+  - {min: 15, max: 15, text: "Pelagic"}
+  - {min: 16, max: 16, text: "Proteus"}
+  - {min: 17, max: 17, text: "Russalka"}
+  - {min: 18, max: 18, text: "Siren"}
+  - {min: 19, max: 19, text: "Thalassa"}
+  - {min: 20, max: 20, text: "Triton"}
+- category: Ocean World
+  name: Atmosphere
+  id: starforged/oracles/planets/ocean/atmosphere
+  rows:
+  - {min: 1, max: 5, text: "None / thin"}
+  - {min: 6, max: 20, text: "Toxic"}
+  - {min: 21, max: 25, text: "Corrosive"}
+  - {min: 26, max: 60, text: "Marginal"}
+  - {min: 61, max: 90, text: "Breathable"}
+  - {min: 91, max: 100, text: "Ideal"}
+- category: Ocean World
+  name: Observed From Space
+  id: starforged/oracles/planets/ocean/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Complex reef systems"}
+  - {min: 12, max: 22, text: "Emerging volcanoes"}
+  - {min: 23, max: 33, text: "Floating forests"}
+  - {min: 34, max: 44, text: "Global hurricanes"}
+  - {min: 45, max: 55, text: "Large moon and strong tides"}
+  - {min: 56, max: 66, text: "Scattered islands"}
+  - {min: 67, max: 77, text: "Semi-frozen oceans"}
+  - {min: 78, max: 88, text: "Unusual water color"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Ocean World
+  name: Planetside Feature
+  id: starforged/oracles/planets/ocean/feature
+  rows:
+  - {min: 1, max: 7, text: "Abyssal trenches"}
+  - {min: 8, max: 14, text: "Living islands"}
+  - {min: 15, max: 21, text: "Luminescent seas"}
+  - {min: 22, max: 28, text: "Roaming icebergs"}
+  - {min: 29, max: 35, text: "Shallow-water plains"}
+  - {min: 36, max: 42, text: "Subsurface volcanoes"}
+  - {min: 43, max: 49, text: "Titanic waves"}
+  - {min: 50, max: 56, text: "Undersea air pockets"}
+  - {min: 57, max: 63, text: "Undersea caves"}
+  - {min: 64, max: 70, text: "Undersea forests"}
+  - {min: 71, max: 77, text: "Unrelenting rainfall"}
+  - {min: 78, max: 84, text: "Violent currents"}
+  - {min: 85, max: 91, text: "Windborne waterspouts"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Ocean World
+  name: Life
+  id: starforged/oracles/planets/ocean/life
+  rows:
+  - {min: 1, max: 5, text: "None"}
+  - {min: 6, max: 15, text: "Extinct"}
+  - {min: 16, max: 30, text: "Scarce"}
+  - {min: 31, max: 60, text: "Diverse"}
+  - {min: 61, max: 90, text: "Bountiful"}
+  - {min: 91, max: 100, text: "Overrun"}
+- category: Rocky World
+  name: Sample Names
+  id: starforged/oracles/planets/rocky/name
+  rows:
+  - {min: 1, max: 1, text: "Aphelion"}
+  - {min: 2, max: 2, text: "Artemis"}
+  - {min: 3, max: 3, text: "Capella"}
+  - {min: 4, max: 4, text: "Cobalt"}
+  - {min: 5, max: 5, text: "Crag"}
+  - {min: 6, max: 6, text: "Dusk"}
+  - {min: 7, max: 7, text: "Eos"}
+  - {min: 8, max: 8, text: "Hecate"}
+  - {min: 9, max: 9, text: "Imbrium"}
+  - {min: 10, max: 10, text: "Latona"}
+  - {min: 11, max: 11, text: "Losna"}
+  - {min: 12, max: 12, text: "Orpheus"}
+  - {min: 13, max: 13, text: "Ory"}
+  - {min: 14, max: 14, text: "Quietus"}
+  - {min: 15, max: 15, text: "Selene"}
+  - {min: 16, max: 16, text: "Silas"}
+  - {min: 17, max: 17, text: "Silex"}
+  - {min: 18, max: 18, text: "Slate"}
+  - {min: 19, max: 19, text: "Themis"}
+  - {min: 20, max: 20, text: "Umbra"}
+- category: Rocky World
+  name: Atmosphere
+  id: starforged/oracles/planets/rocky/atmosphere
+  rows:
+  - {min: 1, max: 65, text: "None / thin"}
+  - {min: 66, max: 85, text: "Toxic"}
+  - {min: 86, max: 90, text: "Corrosive"}
+  - {min: 91, max: 100, text: "Marginal"}
+- category: Rocky World
+  name: Observed From Space
+  id: starforged/oracles/planets/rocky/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Barren plains"}
+  - {min: 12, max: 22, text: "Constant asteroid strikes"}
+  - {min: 23, max: 33, text: "Dense ring system"}
+  - {min: 34, max: 44, text: "Jagged mountains"}
+  - {min: 45, max: 55, text: "Massive impact crater"}
+  - {min: 56, max: 66, text: "Misshapen form (low gravity)"}
+  - {min: 67, max: 77, text: "Perpetual night"}
+  - {min: 78, max: 88, text: "Towering plateaus"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Rocky World
+  name: Planetside Feature
+  id: starforged/oracles/planets/rocky/feature
+  rows:
+  - {min: 1, max: 7, text: "Crystalline formations"}
+  - {min: 8, max: 14, text: "Crystalline caves"}
+  - {min: 15, max: 21, text: "Exposed mineral deposits"}
+  - {min: 22, max: 28, text: "Geometric terrain features"}
+  - {min: 29, max: 35, text: "Geothermal vents"}
+  - {min: 36, max: 42, text: "Glassy impact craters"}
+  - {min: 43, max: 49, text: "Massive dust dunes"}
+  - {min: 50, max: 56, text: "Powerful magnetic fields"}
+  - {min: 57, max: 63, text: "Rubble-strewn lava fields"}
+  - {min: 64, max: 70, text: "Steam-heated caves"}
+  - {min: 71, max: 77, text: "Subsurface magma flows"}
+  - {min: 78, max: 84, text: "Swirling low-lying gases"}
+  - {min: 85, max: 91, text: "Towering rocky spires"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Rocky World
+  name: Life
+  id: starforged/oracles/planets/rocky/life
+  rows:
+  - {min: 1, max: 65, text: "None"}
+  - {min: 66, max: 80, text: "Extinct"}
+  - {min: 81, max: 90, text: "Scarce"}
+  - {min: 91, max: 95, text: "Diverse"}
+  - {min: 96, max: 98, text: "Bountiful"}
+  - {min: 99, max: 100, text: "Overrun"}
+- category: Shattered World
+  name: Sample Names
+  id: starforged/oracles/planets/shattered/name
+  rows:
+  - {min: 1, max: 1, text: "Cavus"}
+  - {min: 2, max: 2, text: "Chrysalis"}
+  - {min: 3, max: 3, text: "Fragment"}
+  - {min: 4, max: 4, text: "Havoc"}
+  - {min: 5, max: 5, text: "Keres"}
+  - {min: 6, max: 6, text: "Lux"}
+  - {min: 7, max: 7, text: "Nemain"}
+  - {min: 8, max: 8, text: "Praxis"}
+  - {min: 9, max: 9, text: "Riven"}
+  - {min: 10, max: 10, text: "Schism"}
+  - {min: 11, max: 11, text: "Shell"}
+  - {min: 12, max: 12, text: "Slag"}
+  - {min: 13, max: 13, text: "Sliver"}
+  - {min: 14, max: 14, text: "Sunder"}
+  - {min: 15, max: 15, text: "Torment"}
+  - {min: 16, max: 16, text: "Vestige"}
+  - {min: 17, max: 17, text: "Vigrid"}
+  - {min: 18, max: 18, text: "Vortex"}
+  - {min: 19, max: 19, text: "Wrath"}
+  - {min: 20, max: 20, text: "Zix"}
+- category: Shattered World
+  name: Atmosphere
+  id: starforged/oracles/planets/shattered/atmosphere
+  rows:
+  - {min: 1, max: 93, text: "None / thin"}
+  - {min: 94, max: 95, text: "Toxic"}
+  - {min: 96, max: 97, text: "Corrosive"}
+  - {min: 98, max: 99, text: "Marginal"}
+  - {min: 100, max: 100, text: "Breathable"}
+- category: Shattered World
+  name: Observed From Space
+  id: starforged/oracles/planets/shattered/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Demolished space fleet"}
+  - {min: 12, max: 22, text: "Preserved planetary fragment"}
+  - {min: 23, max: 33, text: "Dense ring system"}
+  - {min: 34, max: 44, text: "Swirling debris field"}
+  - {min: 45, max: 55, text: "Fiery planetary core"}
+  - {min: 56, max: 66, text: "Unbroken moon"}
+  - {min: 67, max: 77, text: "Geomagnetic storms"}
+  - {min: 78, max: 88, text: "Intense solar radiation"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Shattered World
+  name: Planetside Feature
+  id: starforged/oracles/planets/shattered/feature
+  rows:
+  - {min: 1, max: 7, text: "Broken cities"}
+  - {min: 8, max: 14, text: "Colliding fragments"}
+  - {min: 15, max: 21, text: "Energy storms"}
+  - {min: 22, max: 28, text: "Exposed caverns"}
+  - {min: 29, max: 35, text: "Fluctuating gravity"}
+  - {min: 36, max: 42, text: "Magnetic disturbances"}
+  - {min: 43, max: 49, text: "Molten fissures"}
+  - {min: 50, max: 56, text: "Phantom visions of the past"}
+  - {min: 57, max: 63, text: "Pocket atmosphere"}
+  - {min: 64, max: 70, text: "Residual energy storms"}
+  - {min: 71, max: 77, text: "Swirling corrosive gases"}
+  - {min: 78, max: 84, text: "Unstable and fracturing terrain"}
+  - {min: 85, max: 91, text: "Venting magma"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Shattered World
+  name: Life
+  id: starforged/oracles/planets/shattered/life
+  rows:
+  - {min: 1, max: 30, text: "None"}
+  - {min: 31, max: 85, text: "Extinct"}
+  - {min: 86, max: 95, text: "Scarce"}
+  - {min: 96, max: 100, text: "Diverse"}
+- category: Tainted World
+  name: Sample Names
+  id: starforged/oracles/planets/tainted/name
+  rows:
+  - {min: 1, max: 1, text: "Achlys"}
+  - {min: 2, max: 2, text: "Animus"}
+  - {min: 3, max: 3, text: "Bane"}
+  - {min: 4, max: 4, text: "Blight"}
+  - {min: 5, max: 5, text: "Carrion"}
+  - {min: 6, max: 6, text: "Chitin"}
+  - {min: 7, max: 7, text: "Datura"}
+  - {min: 8, max: 8, text: "Dreck"}
+  - {min: 9, max: 9, text: "Erra"}
+  - {min: 10, max: 10, text: "Febris"}
+  - {min: 11, max: 11, text: "Malacia"}
+  - {min: 12, max: 12, text: "Miasma"}
+  - {min: 13, max: 13, text: "Morbus"}
+  - {min: 14, max: 14, text: "Pathosis"}
+  - {min: 15, max: 15, text: "Pestis"}
+  - {min: 16, max: 16, text: "Scourge"}
+  - {min: 17, max: 17, text: "Telium"}
+  - {min: 18, max: 18, text: "Timoris"}
+  - {min: 19, max: 19, text: "Verus"}
+  - {min: 20, max: 20, text: "Xanthous"}
+- category: Tainted World
+  name: Atmosphere
+  id: starforged/oracles/planets/tainted/atmosphere
+  rows:
+  - {min: 1, max: 65, text: "Toxic"}
+  - {min: 66, max: 85, text: "Corrosive"}
+  - {min: 86, max: 95, text: "Marginal"}
+  - {min: 96, max: 100, text: "Breathable"}
+- category: Tainted World
+  name: Observed From Space
+  id: starforged/oracles/planets/tainted/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Expansive fungal plains"}
+  - {min: 12, max: 22, text: "Stagnant cloud cover"}
+  - {min: 23, max: 33, text: "Fungal forests"}
+  - {min: 34, max: 44, text: "Thick, murky atmosphere"}
+  - {min: 45, max: 55, text: "Scabrous, infected terrain"}
+  - {min: 56, max: 66, text: "Toxic seas"}
+  - {min: 67, max: 77, text: "Sky-breaching fungus"}
+  - {min: 78, max: 88, text: "Sludge-filled river networks"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Tainted World
+  name: Planetside Feature
+  id: starforged/oracles/planets/tainted/feature
+  rows:
+  - {min: 1, max: 7, text: "Caustic gas storms"}
+  - {min: 8, max: 14, text: "Corrosive, low-lying fog"}
+  - {min: 15, max: 21, text: "Fungus-encrusted caves"}
+  - {min: 22, max: 28, text: "Gelatinous ponds"}
+  - {min: 29, max: 35, text: "Hallucinogenic toxins"}
+  - {min: 36, max: 42, text: "Layers of fast-growing lichen"}
+  - {min: 43, max: 49, text: "Moldering bones"}
+  - {min: 50, max: 56, text: "Mutated flora"}
+  - {min: 57, max: 63, text: "Poisonous gas vents"}
+  - {min: 64, max: 70, text: "Spore clouds"}
+  - {min: 71, max: 77, text: "Terrain marred by fleshy pustules"}
+  - {min: 78, max: 84, text: "Toxic rain"}
+  - {min: 85, max: 91, text: "Virulent fungal infestations"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Tainted World
+  name: Life
+  id: starforged/oracles/planets/tainted/life
+  rows:
+  - {min: 1, max: 10, text: "Scarce"}
+  - {min: 11, max: 35, text: "Diverse"}
+  - {min: 36, max: 65, text: "Bountiful"}
+  - {min: 66, max: 100, text: "Overrun"}
+- category: Vital World
+  name: Sample Names
+  id: starforged/oracles/planets/vital/name
+  rows:
+  - {min: 1, max: 1, text: "Chiron"}
+  - {min: 2, max: 2, text: "Demeter"}
+  - {min: 3, max: 3, text: "Erebos"}
+  - {min: 4, max: 4, text: "Erembour"}
+  - {min: 5, max: 5, text: "Feronia"}
+  - {min: 6, max: 6, text: "Fortuna"}
+  - {min: 7, max: 7, text: "Gaia"}
+  - {min: 8, max: 8, text: "Harbinger"}
+  - {min: 9, max: 9, text: "Haven"}
+  - {min: 10, max: 10, text: "Hope"}
+  - {min: 11, max: 11, text: "Morpheus"}
+  - {min: 12, max: 12, text: "Nemus"}
+  - {min: 13, max: 13, text: "Sapphire"}
+  - {min: 14, max: 14, text: "Serenity"}
+  - {min: 15, max: 15, text: "Sif"}
+  - {min: 16, max: 16, text: "Silva"}
+  - {min: 17, max: 17, text: "Sirona"}
+  - {min: 18, max: 18, text: "Solstice"}
+  - {min: 19, max: 19, text: "Vale"}
+  - {min: 20, max: 20, text: "Valinor"}
+- category: Vital World
+  name: Atmosphere
+  id: starforged/oracles/planets/vital/atmosphere
+  rows:
+  - {min: 1, max: 20, text: "Marginal"}
+  - {min: 21, max: 50, text: "Breathable"}
+  - {min: 51, max: 100, text: "Ideal"}
+- category: Vital World
+  name: Observed From Space
+  id: starforged/oracles/planets/vital/observed_from_space
+  rows:
+  - {min: 1, max: 11, text: "Complex ring system"}
+  - {min: 12, max: 22, text: "Numerous small moons"}
+  - {min: 23, max: 33, text: "Dramatic seasonal variation"}
+  - {min: 34, max: 44, text: "Unusual day or night cycle"}
+  - {min: 45, max: 55, text: "High gravity"}
+  - {min: 56, max: 66, text: "Vibrantly colored landscapes"}
+  - {min: 67, max: 77, text: "Large moon"}
+  - {min: 78, max: 88, text: "Narrow livable band"}
+  - {min: 89, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (orbital)"}
+- category: Vital World
+  name: Planetside Feature
+  id: starforged/oracles/planets/vital/feature
+  rows:
+  - {min: 1, max: 7, text: "Background radiation"}
+  - {min: 8, max: 14, text: "Chaotically juxtaposed biomes"}
+  - {min: 15, max: 21, text: "Creature boneyards"}
+  - {min: 22, max: 28, text: "Creature lairs or watering holes"}
+  - {min: 29, max: 35, text: "Crystalline formations"}
+  - {min: 36, max: 42, text: "Fierce electrical storms"}
+  - {min: 43, max: 49, text: "Floating terrain"}
+  - {min: 50, max: 56, text: "Frequent seismic activity"}
+  - {min: 57, max: 63, text: "Magnetic disturbances"}
+  - {min: 64, max: 70, text: "Scarred or excavated terrain"}
+  - {min: 71, max: 77, text: "Signs of an engineered biosphere"}
+  - {min: 78, max: 84, text: "Sudden weather fluctuations"}
+  - {min: 85, max: 91, text: "Towering geological formations"}
+  - {min: 92, max: 98, text: "Descriptor + Focus"}
+  - {min: 99, max: 100, text: "Precursor Vault (planetside)"}
+- category: Vital World
+  name: Life
+  id: starforged/oracles/planets/vital/life
+  rows:
+  - {min: 1, max: 10, text: "Scarce"}
+  - {min: 11, max: 45, text: "Diverse"}
+  - {min: 46, max: 85, text: "Bountiful"}
+  - {min: 86, max: 100, text: "Overrun"}
+- category: Vital World
+  name: Diversity
+  id: starforged/oracles/planets/vital/diversity
+  rows:
+  - {min: 1, max: 20, text: "Simple (two biomes)"}
+  - {min: 21, max: 70, text: "Diverse (three biomes)"}
+  - {min: 71, max: 90, text: "Complex (four biomes)"}
+  - {min: 91, max: 100, text: "Garden world (five or more biomes)"}
+- category: Vital World
+  name: Biomes
+  id: starforged/oracles/planets/vital/biomes
+  rows:
+  - {min: 1, max: 5, text: "Caves"}
+  - {min: 6, max: 10, text: "Cold forest"}
+  - {min: 11, max: 15, text: "Fungal"}
+  - {min: 16, max: 20, text: "Glacial or snow"}
+  - {min: 21, max: 25, text: "Grassland"}
+  - {min: 26, max: 30, text: "Islands"}
+  - {min: 31, max: 35, text: "Jungle"}
+  - {min: 36, max: 40, text: "Mountainous"}
+  - {min: 41, max: 45, text: "Ocean"}
+  - {min: 46, max: 50, text: "Rocky desert"}
+  - {min: 51, max: 55, text: "Sandy desert"}
+  - {min: 56, max: 60, text: "Savanna"}
+  - {min: 61, max: 65, text: "Shallow seas"}
+  - {min: 66, max: 70, text: "Shrubland"}
+  - {min: 71, max: 75, text: "Temperate rainforest"}
+  - {min: 76, max: 80, text: "Temperate forest"}
+  - {min: 81, max: 85, text: "Tundra"}
+  - {min: 86, max: 90, text: "Volcanic"}
+  - {min: 91, max: 95, text: "Waterways"}
+  - {min: 96, max: 100, text: "Wetland"}

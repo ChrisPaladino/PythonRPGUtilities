@@ -1,28 +1,56 @@
-_id: sundered_isles
-datasworn_version: "0.0.10"
-type: ruleset
+source: Sundered Isles
 assets:
-  module:
-    name: Module Assets
-    type: asset_collection
-    _source: &Source
-      title: Sundered Isles Book Preview
-      authors:
-        - name: Shawn Tomkin
-      license: null
-      url: https://ironswornrpg.com
-      date: 2023-12-03
-    contents:
-      trophy_vault:
-        name: Trophy Vault
-        category: Module
-        type: asset
-        abilities:
-          - enabled: true
-            text: |-
-              When you defeat a notable ship or sea beast, envision the trophy you take. Then, add it to a list of trophies on display in your ship's vault. When you make a move to overcome an obstacle or hazard at sea, you may use the imbued power of a trophy to reroll any dice. If you do, mark that trophy's power as spent.
-          - text: |-
-              As above, and if you you use a trophy to reroll all dice and score a strong hit with a match, the legacy of that object favors you; mark two ticks on your bonds legacy track, and do not mark the trophy as spent. If you instead score a miss with a match, envision the cursed legacy that now haunts you.
-          - text: |-
-              When you give a tour of the vault and make a move in that space to impress or intimidate, add +2 and take +1 momentum on a hit.
-        _source: *Source
+- category: Module
+  name: Armored Prow
+  abilities:
+  - When you Face Danger or React Under Fire by sailing through an obstacle or barrier, add +1. If you Withstand Damage
+    as an outcome of this action, also add +1.
+  - "When you Strike by ramming your foe, choose the force of the hit: 1, 2, or 3. Then, add +that amount. On a strong
+    hit, mark progress. On a weak hit or miss, in addition to the outcome of the move, Withstand Damage and suffer
+    damage equal to the force of the hit."
+  - When you Secure an Advantage or Gain Ground by bringing your ship to ramming speed and sailing headlong toward a
+    threat, roll +integrity or +heart, whichever is higher. On a strong hit, take +1 momentum.
+- category: Module
+  name: Chase Guns
+  abilities:
+  - Your vessel is fitted fore and aft with powerful cannons. When you Strike at a pursuing or fleeing target, take +1
+    momentum on a strong hit.
+  - Once per fight, when you Secure an Advantage by firing your chase guns to find the range of your target, add +1. On
+    a strong hit, add +1 if you immediately Strike, and continue to add +1 on each subsequent Strike as long as you 
+    remain in control. If you score a strong hit with a match when using this ability, you damage a vital component;
+    mark progress.
+  - When you Face Defeat in a fight and set a new objective to escape, you may (one time only) immediately Clash by
+    firing your chase guns as you maneuver away from your foe; if you do, reroll any dice. On a strong hit, take +2
+    momentum.
+- category: Module
+  name: Gilded Adornments
+  abilities:
+  - When you Secure an Advantage by making a showy display of your ship, you may roll +integrity. If you do, take +1
+    momentum on a hit.
+  - When you host a formal ceremony or reception aboard your ship, roll +heart or +integrity, whichever is higher. On a
+    strong hit, the event goes as planned; you and any allies in attendance mark two ticks on your bonds legacy track.
+    On a weak hit, as above, but you must first deal with an unfortunate conflict or interruption. On a miss, the event
+    flops or is dramatically cut short; Pay the Price.
+  - When you Withstand Damage and the ship's finery bear the cost, you may mark this module as broken and ignore the
+    damage. When you Repair and fix this asset, take +2 momentum.
+- category: Module
+  name: Harpoon Cannon
+  abilities:
+  - You may Secure an Advantage or Gain Ground by firing your harpoon cannon at a large foe or threat. On a hit, the
+    target is grappled. For the duration of the situation, if you make a move to maneuver against, attack, or board a
+    grappled target, add +1. If you roll a 1 on your action die while taking action against a grappled target, the line
+    is cut, broken, or works against you; Pay the Price, and you no longer gain the bonus against that target.
+  - As above, and if you fire the cannon in close quarters, add +2. If at a distance, take +1 momentum on a hit.
+  - When you Gain Ground by manuevering against a harpooned target to entangle or hinder, take +1 momentum on a strong
+    hit and envision the ensuing chaos.
+- category: Module
+  name: Improved Armory
+  abilities:
+  - When you Enter the Fray by rallying your crew to repel borders or board an enemy ship, you may roll +supply; if you
+    do, take +2 momentum on a hit. On a strong hit with a match, you are poised to overwhelm your foes; take +1 momentum
+    more. In addition, any allies joining the effort may gain the outcome and benefits of your move without rolling to
+    Enter the Fray.
+  - When you Resupply by scavenging weapons or ammo from your foes after a fight, add +1.
+  - When you are out of options and set the fuse to self-destruct your command vehicle, activate this ability at no
+    cost. If you do, envision how you escape or overcome your foes in the midst of the chaos. Then, mark one box on your
+    quests legacy track and Overcome Destruction.

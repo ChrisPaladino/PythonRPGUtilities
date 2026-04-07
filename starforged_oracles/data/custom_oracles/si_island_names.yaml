@@ -1,815 +1,266 @@
-_id: sundered_isles
-type: ruleset
+source: Sundered Isles
 oracles:
-  islands_custom:
-    name: Islands
-    type: oracle_collection
-    contents:
-      island_name:
-        type: oracle_rollable
-        name: Island Name
-        rows:
-          - min: 1
-            max: 1
-            text: Aegis
-          - min: 2
-            max: 2
-            text: Akun
-          - min: 3
-            max: 3
-            text: Amara
-          - min: 4
-            max: 4
-            text: Amaryllis
-          - min: 5
-            max: 5
-            text: Amber
-          - min: 6
-            max: 6
-            text: Amity
-          - min: 7
-            max: 7
-            text: Anchor
-          - min: 8
-            max: 8
-            text: Apex
-          - min: 9
-            max: 9
-            text: Arrowhead
-          - min: 10
-            max: 10
-            text: Atami
-          - min: 11
-            max: 11
-            text: Auki
-          - min: 12
-            max: 12
-            text: Avian
-          - min: 13
-            max: 13
-            text: Azure
-          - min: 14
-            max: 14
-            text: Barrier
-          - min: 15
-            max: 15
-            text: Blackrock
-          - min: 16
-            max: 16
-            text: Blade
-          - min: 17
-            max: 17
-            text: Boulder
-          - min: 18
-            max: 18
-            text: Carmine
-          - min: 19
-            max: 19
-            text: Carrick
-          - min: 20
-            max: 20
-            text: Colossus
-          - min: 21
-            max: 21
-            text: Coral
-          - min: 22
-            max: 22
-            text: Crag
-          - min: 23
-            max: 23
-            text: Crater
-          - min: 24
-            max: 24
-            text: Crescent
-          - min: 25
-            max: 25
-            text: Crown
-          - min: 26
-            max: 26
-            text: Dagger
-          - min: 27
-            max: 27
-            text: Denaga
-          - min: 28
-            max: 28
-            text: Diamond
-          - min: 29
-            max: 29
-            text: Dragon
-          - min: 30
-            max: 30
-            text: Emerald
-          - min: 31
-            max: 31
-            text: Emira
-          - min: 32
-            max: 32
-            text: Espirion
-          - min: 33
-            max: 33
-            text: Flint
-          - min: 34
-            max: 34
-            text: Garrison
-          - min: 35
-            max: 35
-            text: Gull
-          - min: 36
-            max: 36
-            text: Hakana
-          - min: 37
-            max: 37
-            text: Halcyon
-          - min: 38
-            max: 38
-            text: Harlock
-          - min: 39
-            max: 39
-            text: Hideaway
-          - min: 40
-            max: 40
-            text: Hook
-          - min: 41
-            max: 41
-            text: Horn
-          - min: 42
-            max: 42
-            text: Ignis
-          - min: 43
-            max: 43
-            text: Iron
-          - min: 44
-            max: 44
-            text: Kahatu
-          - min: 45
-            max: 45
-            text: Kairos
-          - min: 46
-            max: 46
-            text: Kamua
-          - min: 47
-            max: 47
-            text: Kathos
-          - min: 48
-            max: 48
-            text: Kepara
-          - min: 49
-            max: 49
-            text: Keyana
-          - min: 50
-            max: 50
-            text: Kiora
-          - min: 51
-            max: 51
-            text: Kiritari
-          - min: 52
-            max: 52
-            text: Kortaka
-          - min: 53
-            max: 53
-            text: Kouri
-          - min: 54
-            max: 54
-            text: Kytha
-          - min: 55
-            max: 55
-            text: Lahan
-          - min: 56
-            max: 56
-            text: Maheena
-          - min: 57
-            max: 57
-            text: Mako
-          - min: 58
-            max: 58
-            text: Malau
-          - min: 59
-            max: 59
-            text: Matanga
-          - min: 60
-            max: 60
-            text: Matuna
-          - min: 61
-            max: 61
-            text: Meridian
-          - min: 62
-            max: 62
-            text: Monument
-          - min: 63
-            max: 63
-            text: Motu
-          - min: 64
-            max: 64
-            text: Mameera
-          - min: 65
-            max: 65
-            text: Nanuca
-          - min: 66
-            max: 66
-            text: Navini
-          - min: 67
-            max: 67
-            text: Nerida
-          - min: 68
-            max: 68
-            text: Neris
-          - min: 69
-            max: 69
-            text: Nobuka
-          - min: 70
-            max: 70
-            text: Nuana
-          - min: 71
-            max: 71
-            text: Ottago
-          - min: 72
-            max: 72
-            text: Palm
-          - min: 73
-            max: 73
-            text: Pirate
-          - min: 74
-            max: 74
-            text: Raitu
-          - min: 75
-            max: 75
-            text: Rauku
-          - min: 76
-            max: 76
-            text: Raven
-          - min: 77
-            max: 77
-            text: Razor
-          - min: 78
-            max: 78
-            text: Relic
-          - min: 79
-            max: 79
-            text: Salida
-          - min: 80
-            max: 80
-            text: Sanctuary
-          - min: 81
-            max: 81
-            text: Sapphire
-          - min: 82
-            max: 82
-            text: Serenity
-          - min: 83
-            max: 83
-            text: Serpent
-          - min: 84
-            max: 84
-            text: Shale
-          - min: 85
-            max: 85
-            text: Shard
-          - min: 86
-            max: 86
-            text: Sickle
-          - min: 87
-            max: 87
-            text: Solen
-          - min: 88
-            max: 88
-            text: Spire
-          - min: 89
-            max: 89
-            text: Talon
-          - min: 90
-            max: 90
-            text: Taura
-          - min: 91
-            max: 91
-            text: Temoo
-          - min: 92
-            max: 92
-            text: Terion
-          - min: 93
-            max: 93
-            text: Treasure
-          - min: 94
-            max: 94
-            text: Umbra
-          - min: 95
-            max: 95
-            text: Vaheena
-          - min: 96
-            max: 96
-            text: Vanuca
-          - min: 97
-            max: 97
-            text: Vasha
-          - min: 98
-            max: 98
-            text: Vatuku
-          - min: 99
-            max: 99
-            text: Vaunti
-          - min: 100
-            max: 100
-            text: Witaka
-      cursed_island_name:
-        type: oracle_rollable
-        name: Cursed Island Name
-        rows:
-          - min: 1
-            max: 1
-            text: Ash
-          - min: 2
-            max: 2
-            text: Bane
-          - min: 3
-            max: 3
-            text: Banshee
-          - min: 4
-            max: 4
-            text: Barrow
-          - min: 5
-            max: 5
-            text: Blight
-          - min: 6
-            max: 6
-            text: Bloody
-          - min: 7
-            max: 7
-            text: Bog
-          - min: 8
-            max: 8
-            text: Bone
-          - min: 9
-            max: 9
-            text: Broken
-          - min: 10
-            max: 10
-            text: Carnage
-          - min: 11
-            max: 11
-            text: Carrion
-          - min: 12
-            max: 12
-            text: Castaway
-          - min: 13
-            max: 13
-            text: Charnel
-          - min: 14
-            max: 14
-            text: Cutthroat
-          - min: 15
-            max: 15
-            text: Deadwood
-          - min: 16
-            max: 16
-            text: Drowned
-          - min: 17
-            max: 17
-            text: Eidolon
-          - min: 18
-            max: 18
-            text: Forsaken
-          - min: 19
-            max: 19
-            text: Frost
-          - min: 20
-            max: 20
-            text: Ghast
-          - min: 21
-            max: 21
-            text: Grave
-          - min: 22
-            max: 22
-            text: Harrow
-          - min: 23
-            max: 23
-            text: Lacuna
-          - min: 24
-            max: 24
-            text: Leech
-          - min: 25
-            max: 25
-            text: Lost
-          - min: 26
-            max: 26
-            text: Marauder
-          - min: 27
-            max: 27
-            text: Marrow
-          - min: 28
-            max: 28
-            text: Muck
-          - min: 29
-            max: 29
-            text: Oblivion
-          - min: 30
-            max: 30
-            text: Phantom
-          - min: 31
-            max: 31
-            text: Portent
-          - min: 32
-            max: 32
-            text: Rot
-          - min: 33
-            max: 33
-            text: Scar
-          - min: 34
-            max: 34
-            text: Scorch
-          - min: 35
-            max: 35
-            text: Scorn
-          - min: 36
-            max: 36
-            text: Scourge
-          - min: 37
-            max: 37
-            text: Shadow
-          - min: 38
-            max: 38
-            text: Shattered
-          - min: 39
-            max: 39
-            text: Shipwreck
-          - min: 40
-            max: 40
-            text: Shroud
-          - min: 41
-            max: 41
-            text: Sinking
-          - min: 42
-            max: 42
-            text: Skull
-          - min: 43
-            max: 43
-            text: Sorrow
-          - min: 44
-            max: 44
-            text: Specter
-          - min: 45
-            max: 45
-            text: Storm
-          - min: 46
-            max: 46
-            text: Tempest
-          - min: 47
-            max: 47
-            text: Thorn
-          - min: 48
-            max: 48
-            text: Torment
-          - min: 49
-            max: 49
-            text: Wither
-          - min: 50
-            max: 50
-            text: Wraith
-          - min: 51
-            max: 51
-            text: Abyss
-          - min: 52
-            max: 52
-            text: Balefire
-          - min: 53
-            max: 53
-            text: Blacktide
-          - min: 54
-            max: 54
-            text: Bleak
-          - min: 55
-            max: 55
-            text: Bloodwake
-          - min: 56
-            max: 56
-            text: Brinefang
-          - min: 57
-            max: 57
-            text: Cairn
-          - min: 58
-            max: 58
-            text: Catacomb
-          - min: 59
-            max: 59
-            text: Cinder
-          - min: 60
-            max: 60
-            text: Coffin
-          - min: 61
-            max: 61
-            text: Coldwake
-          - min: 62
-            max: 62
-            text: Crow
-          - min: 63
-            max: 63
-            text: Crypt
-          - min: 64
-            max: 64
-            text: Curse
-          - min: 65
-            max: 65
-            text: Darkwater
-          - min: 66
-            max: 66
-            text: Doom
-          - min: 67
-            max: 67
-            text: Dread
-          - min: 68
-            max: 68
-            text: Driftgrave
-          - min: 69
-            max: 69
-            text: Emberrot
-          - min: 70
-            max: 70
-            text: Fell
-          - min: 71
-            max: 71
-            text: Fogbound
-          - min: 72
-            max: 72
-            text: Gallows
-          - min: 73
-            max: 73
-            text: Gloam
-          - min: 74
-            max: 74
-            text: Grim
-          - min: 75
-            max: 75
-            text: Grimwake
-          - min: 76
-            max: 76
-            text: Hex
-          - min: 77
-            max: 77
-            text: Hollow
-          - min: 78
-            max: 78
-            text: Ironwind
-          - min: 79
-            max: 79
-            text: Knell
-          - min: 80
-            max: 80
-            text: Lurker
-          - min: 81
-            max: 81
-            text: Mire
-          - min: 82
-            max: 82
-            text: Mourn
-          - min: 83
-            max: 83
-            text: Nightfall
-          - min: 84
-            max: 84
-            text: Nocturne
-          - min: 85
-            max: 85
-            text: Pale
-          - min: 86
-            max: 86
-            text: Ravenous
-          - min: 87
-            max: 87
-            text: Revenant
-          - min: 88
-            max: 88
-            text: Rime
-          - min: 89
-            max: 89
-            text: Ruin
-          - min: 90
-            max: 90
-            text: Saltwound
-          - min: 91
-            max: 91
-            text: Shade
-          - min: 92
-            max: 92
-            text: Skarn
-          - min: 93
-            max: 93
-            text: Spine
-          - min: 94
-            max: 94
-            text: Stygian
-          - min: 95
-            max: 95
-            text: Sunder
-          - min: 96
-            max: 96
-            text: Tarn
-          - min: 97
-            max: 97
-            text: Threnody
-          - min: 98
-            max: 98
-            text: Umbral
-          - min: 99
-            max: 99
-            text: Vile
-          - min: 100
-            max: 100
-            text: Woe
-      starting_region_notable_locations:
-        type: oracle_rollable
-        name: Starting Region Notable Locations
-        rows:
-          - min: 1
-            max: 4
-            text: Abyssal sinkhole
-            text2: What is rumored to lie at the bottom of these depths?
-          - min: 5
-            max: 8
-            text: Active volcano
-            text2: What important location does this eruption threaten?
-          - min: 9
-            max: 12
-            text: Ancient ruins
-            text2: Who or what defends this place against intruders?
-          - min: 13
-            max: 15
-            text: Colossal monument
-            text2: What legendary figure or god does this monument honor?
-          - min: 16
-            max: 19
-            text: Crucial trade route
-            text2: What is disrupting trade along this route?
-          - min: 20
-            max: 23
-            text: Deserted settlement
-            text2: Why was this place abandoned?
-          - min: 24
-            max: 27
-            text: Expansive cave
-            text2: What treasure is said to lie at the heart of this cave?
-          - min: 28
-            max: 30
-            text: Floating tradepost
-            text2: Who is hounding these traders, demanding tribute?
-          - min: 31
-            max: 34
-            text: Hull-breaching rocks
-            text2: Who or what preys upon careless ships in this area?
-          - min: 35
-            max: 38
-            text: Kelp-clogged waters
-            text2: What ship went missing here?
-          - min: 39
-            max: 41
-            text: Meteorite scar
-            text2: What prophecy foretold the meteorite's fall?
-          - min: 42
-            max: 45
-            text: Military encampment
-            text2: Who is this faction warring against?
-          - min: 46
-            max: 49
-            text: Military fort
-            text2: What notable prisoner is held here?
-          - min: 50
-            max: 52
-            text: Mining operation
-            text2: What danger have these miners unearthed?
-          - min: 53
-            max: 55
-            text: Mist-shrouded peak
-            text2: What is said to stand atop this mountain?
-          - min: 56
-            max: 58
-            text: Navigation beacon
-            text2: Why has this lighthouse fallen into disrepair?
-          - min: 59
-            max: 61
-            text: Ongoing naval blockade
-            text2: Who seeks an escort through or around this blockade?
-          - min: 62
-            max: 65
-            text: Palatial manor
-            text2: What lavish event is scheduled to take place here?
-          - min: 66
-            max: 69
-            text: Pirate conclave
-            text2: What opportunity or crisis brings the pirates together?
-          - min: 70
-            max: 73
-            text: Recently wrecked ship
-            text2: What prize was this ship rumored to carry?
-          - min: 74
-            max: 76
-            text: Refugee encampment
-            text2: What danger or crisis displaced these refugees?
-          - min: 77
-            max: 79
-            text: Religious commune
-            text2: Why are these adherents desperate for supplies?
-          - min: 80
-            max: 83
-            text: Sentinel tree
-            text2: What threatens this sacred site?
-          - min: 84
-            max: 87
-            text: Sheltered anchorage
-            text2: What infamous ship lies anchored here?
-          - min: 88
-            max: 91
-            text: Warship patrols
-            text2: What are these ships hunting?
-          - min: 92
-            max: 94
-            text: Whale graveyard
-            text2: Who seeks to harvest these bones?
-          - min: 95
-            max: 97
-            text: Whaling grounds
-            text2: Who or what is hunting these creatures to near-extinction?
-          - min: 98
-            max: 100
-            text: Wide, navigable river
-            text2: What important location lies upriver?
-      cursed_starting_region_notable_locations:
-        type: oracle_rollable
-        name: Cursed Starting Region Notable Locations
-        rows:
-          - min: 1
-            max: 5
-            text: Area of endless dead calm
-            text2: What ship is trapped in these waters?
-          - min: 6
-            max: 10
-            text: Colossal bones
-            text2: Who lives in the shadow of this age-old corpse?
-          - min: 11
-            max: 15
-            text: Corrupted cave
-            text2: What cult is said to practice foul rites here?
-          - min: 16
-            max: 20
-            text: Eldritch monument
-            text2: What forsaken god or entity does this monument honor?
-          - min: 21
-            max: 25
-            text: Forsaken settlement
-            text2: What foul creatures now dwell here?
-          - min: 26
-            max: 30
-            text: Frozen wastes
-            text2: What long-lost ship lies trapped here?
-          - min: 31
-            max: 35
-            text: Ghost-haunted waters
-            text2: What infamous cursed ship sails these waters?
-          - min: 36
-            max: 40
-            text: Ghost-plagued ruins
-            text2: What sad fate befell these people?
-          - min: 41
-            max: 45
-            text: Haunted battlefield
-            text2: What force or faction was defeated in this battle?
-          - min: 46
-            max: 50
-            text: Hidden island
-            text2: On what rare event does this mystical island reappear?
-          - min: 51
-            max: 55
-            text: Inscrutable iron pillars
-            text2: What faction worships these mysterious relics?
-          - min: 56
-            max: 60
-            text: Lair of a beast
-            text2: What beast is reputed to dwell here?
-          - min: 61
-            max: 65
-            text: Perpetual fog bank
-            text2: What is said to lie on the other side of this mist?
-          - min: 66
-            max: 70
-            text: Powerful maelstrom
-            text2: Who do you know that was lost to this swirling vortex?
-          - min: 71
-            max: 75
-            text: Ship graveyard
-            text2: What monstrous creature lurks here?
-          - min: 76
-            max: 80
-            text: Shipwreck on high ground
-            text2: To which faction did this ship belong?
-          - min: 81
-            max: 85
-            text: Skull-shaped outcrop
-            text2: Why does this place haunt your dreams?
-          - min: 86
-            max: 90
-            text: Sorcerous nexus
-            text2: Who has gathered to reap the chaotic energy of this place?
-          - min: 91
-            max: 95
-            text: Titanic machinery
-            text2: Who seeks to reactivate this ancient machine?
-          - min: 96
-            max: 100
-            text: Unending cyclonic storm
-            text2: What is said to lie at this storm's center?
+- category: Islands
+  name: Island Name
+  id: sundered_isles/oracles/islands_custom/island_name
+  rows:
+  - {min: 1, max: 1, text: "Aegis"}
+  - {min: 2, max: 2, text: "Akun"}
+  - {min: 3, max: 3, text: "Amara"}
+  - {min: 4, max: 4, text: "Amaryllis"}
+  - {min: 5, max: 5, text: "Amber"}
+  - {min: 6, max: 6, text: "Amity"}
+  - {min: 7, max: 7, text: "Anchor"}
+  - {min: 8, max: 8, text: "Apex"}
+  - {min: 9, max: 9, text: "Arrowhead"}
+  - {min: 10, max: 10, text: "Atami"}
+  - {min: 11, max: 11, text: "Auki"}
+  - {min: 12, max: 12, text: "Avian"}
+  - {min: 13, max: 13, text: "Azure"}
+  - {min: 14, max: 14, text: "Barrier"}
+  - {min: 15, max: 15, text: "Blackrock"}
+  - {min: 16, max: 16, text: "Blade"}
+  - {min: 17, max: 17, text: "Boulder"}
+  - {min: 18, max: 18, text: "Carmine"}
+  - {min: 19, max: 19, text: "Carrick"}
+  - {min: 20, max: 20, text: "Colossus"}
+  - {min: 21, max: 21, text: "Coral"}
+  - {min: 22, max: 22, text: "Crag"}
+  - {min: 23, max: 23, text: "Crater"}
+  - {min: 24, max: 24, text: "Crescent"}
+  - {min: 25, max: 25, text: "Crown"}
+  - {min: 26, max: 26, text: "Dagger"}
+  - {min: 27, max: 27, text: "Denaga"}
+  - {min: 28, max: 28, text: "Diamond"}
+  - {min: 29, max: 29, text: "Dragon"}
+  - {min: 30, max: 30, text: "Emerald"}
+  - {min: 31, max: 31, text: "Emira"}
+  - {min: 32, max: 32, text: "Espirion"}
+  - {min: 33, max: 33, text: "Flint"}
+  - {min: 34, max: 34, text: "Garrison"}
+  - {min: 35, max: 35, text: "Gull"}
+  - {min: 36, max: 36, text: "Hakana"}
+  - {min: 37, max: 37, text: "Halcyon"}
+  - {min: 38, max: 38, text: "Harlock"}
+  - {min: 39, max: 39, text: "Hideaway"}
+  - {min: 40, max: 40, text: "Hook"}
+  - {min: 41, max: 41, text: "Horn"}
+  - {min: 42, max: 42, text: "Ignis"}
+  - {min: 43, max: 43, text: "Iron"}
+  - {min: 44, max: 44, text: "Kahatu"}
+  - {min: 45, max: 45, text: "Kairos"}
+  - {min: 46, max: 46, text: "Kamua"}
+  - {min: 47, max: 47, text: "Kathos"}
+  - {min: 48, max: 48, text: "Kepara"}
+  - {min: 49, max: 49, text: "Keyana"}
+  - {min: 50, max: 50, text: "Kiora"}
+  - {min: 51, max: 51, text: "Kiritari"}
+  - {min: 52, max: 52, text: "Kortaka"}
+  - {min: 53, max: 53, text: "Kouri"}
+  - {min: 54, max: 54, text: "Kytha"}
+  - {min: 55, max: 55, text: "Lahan"}
+  - {min: 56, max: 56, text: "Maheena"}
+  - {min: 57, max: 57, text: "Mako"}
+  - {min: 58, max: 58, text: "Malau"}
+  - {min: 59, max: 59, text: "Matanga"}
+  - {min: 60, max: 60, text: "Matuna"}
+  - {min: 61, max: 61, text: "Meridian"}
+  - {min: 62, max: 62, text: "Monument"}
+  - {min: 63, max: 63, text: "Motu"}
+  - {min: 64, max: 64, text: "Mameera"}
+  - {min: 65, max: 65, text: "Nanuca"}
+  - {min: 66, max: 66, text: "Navini"}
+  - {min: 67, max: 67, text: "Nerida"}
+  - {min: 68, max: 68, text: "Neris"}
+  - {min: 69, max: 69, text: "Nobuka"}
+  - {min: 70, max: 70, text: "Nuana"}
+  - {min: 71, max: 71, text: "Ottago"}
+  - {min: 72, max: 72, text: "Palm"}
+  - {min: 73, max: 73, text: "Pirate"}
+  - {min: 74, max: 74, text: "Raitu"}
+  - {min: 75, max: 75, text: "Rauku"}
+  - {min: 76, max: 76, text: "Raven"}
+  - {min: 77, max: 77, text: "Razor"}
+  - {min: 78, max: 78, text: "Relic"}
+  - {min: 79, max: 79, text: "Salida"}
+  - {min: 80, max: 80, text: "Sanctuary"}
+  - {min: 81, max: 81, text: "Sapphire"}
+  - {min: 82, max: 82, text: "Serenity"}
+  - {min: 83, max: 83, text: "Serpent"}
+  - {min: 84, max: 84, text: "Shale"}
+  - {min: 85, max: 85, text: "Shard"}
+  - {min: 86, max: 86, text: "Sickle"}
+  - {min: 87, max: 87, text: "Solen"}
+  - {min: 88, max: 88, text: "Spire"}
+  - {min: 89, max: 89, text: "Talon"}
+  - {min: 90, max: 90, text: "Taura"}
+  - {min: 91, max: 91, text: "Temoo"}
+  - {min: 92, max: 92, text: "Terion"}
+  - {min: 93, max: 93, text: "Treasure"}
+  - {min: 94, max: 94, text: "Umbra"}
+  - {min: 95, max: 95, text: "Vaheena"}
+  - {min: 96, max: 96, text: "Vanuca"}
+  - {min: 97, max: 97, text: "Vasha"}
+  - {min: 98, max: 98, text: "Vatuku"}
+  - {min: 99, max: 99, text: "Vaunti"}
+  - {min: 100, max: 100, text: "Witaka"}
+- category: Islands
+  name: Cursed Island Name
+  id: sundered_isles/oracles/islands_custom/cursed_island_name
+  rows:
+  - {min: 1, max: 1, text: "Ash"}
+  - {min: 2, max: 2, text: "Bane"}
+  - {min: 3, max: 3, text: "Banshee"}
+  - {min: 4, max: 4, text: "Barrow"}
+  - {min: 5, max: 5, text: "Blight"}
+  - {min: 6, max: 6, text: "Bloody"}
+  - {min: 7, max: 7, text: "Bog"}
+  - {min: 8, max: 8, text: "Bone"}
+  - {min: 9, max: 9, text: "Broken"}
+  - {min: 10, max: 10, text: "Carnage"}
+  - {min: 11, max: 11, text: "Carrion"}
+  - {min: 12, max: 12, text: "Castaway"}
+  - {min: 13, max: 13, text: "Charnel"}
+  - {min: 14, max: 14, text: "Cutthroat"}
+  - {min: 15, max: 15, text: "Deadwood"}
+  - {min: 16, max: 16, text: "Drowned"}
+  - {min: 17, max: 17, text: "Eidolon"}
+  - {min: 18, max: 18, text: "Forsaken"}
+  - {min: 19, max: 19, text: "Frost"}
+  - {min: 20, max: 20, text: "Ghast"}
+  - {min: 21, max: 21, text: "Grave"}
+  - {min: 22, max: 22, text: "Harrow"}
+  - {min: 23, max: 23, text: "Lacuna"}
+  - {min: 24, max: 24, text: "Leech"}
+  - {min: 25, max: 25, text: "Lost"}
+  - {min: 26, max: 26, text: "Marauder"}
+  - {min: 27, max: 27, text: "Marrow"}
+  - {min: 28, max: 28, text: "Muck"}
+  - {min: 29, max: 29, text: "Oblivion"}
+  - {min: 30, max: 30, text: "Phantom"}
+  - {min: 31, max: 31, text: "Portent"}
+  - {min: 32, max: 32, text: "Rot"}
+  - {min: 33, max: 33, text: "Scar"}
+  - {min: 34, max: 34, text: "Scorch"}
+  - {min: 35, max: 35, text: "Scorn"}
+  - {min: 36, max: 36, text: "Scourge"}
+  - {min: 37, max: 37, text: "Shadow"}
+  - {min: 38, max: 38, text: "Shattered"}
+  - {min: 39, max: 39, text: "Shipwreck"}
+  - {min: 40, max: 40, text: "Shroud"}
+  - {min: 41, max: 41, text: "Sinking"}
+  - {min: 42, max: 42, text: "Skull"}
+  - {min: 43, max: 43, text: "Sorrow"}
+  - {min: 44, max: 44, text: "Specter"}
+  - {min: 45, max: 45, text: "Storm"}
+  - {min: 46, max: 46, text: "Tempest"}
+  - {min: 47, max: 47, text: "Thorn"}
+  - {min: 48, max: 48, text: "Torment"}
+  - {min: 49, max: 49, text: "Wither"}
+  - {min: 50, max: 50, text: "Wraith"}
+  - {min: 51, max: 51, text: "Abyss"}
+  - {min: 52, max: 52, text: "Balefire"}
+  - {min: 53, max: 53, text: "Blacktide"}
+  - {min: 54, max: 54, text: "Bleak"}
+  - {min: 55, max: 55, text: "Bloodwake"}
+  - {min: 56, max: 56, text: "Brinefang"}
+  - {min: 57, max: 57, text: "Cairn"}
+  - {min: 58, max: 58, text: "Catacomb"}
+  - {min: 59, max: 59, text: "Cinder"}
+  - {min: 60, max: 60, text: "Coffin"}
+  - {min: 61, max: 61, text: "Coldwake"}
+  - {min: 62, max: 62, text: "Crow"}
+  - {min: 63, max: 63, text: "Crypt"}
+  - {min: 64, max: 64, text: "Curse"}
+  - {min: 65, max: 65, text: "Darkwater"}
+  - {min: 66, max: 66, text: "Doom"}
+  - {min: 67, max: 67, text: "Dread"}
+  - {min: 68, max: 68, text: "Driftgrave"}
+  - {min: 69, max: 69, text: "Emberrot"}
+  - {min: 70, max: 70, text: "Fell"}
+  - {min: 71, max: 71, text: "Fogbound"}
+  - {min: 72, max: 72, text: "Gallows"}
+  - {min: 73, max: 73, text: "Gloam"}
+  - {min: 74, max: 74, text: "Grim"}
+  - {min: 75, max: 75, text: "Grimwake"}
+  - {min: 76, max: 76, text: "Hex"}
+  - {min: 77, max: 77, text: "Hollow"}
+  - {min: 78, max: 78, text: "Ironwind"}
+  - {min: 79, max: 79, text: "Knell"}
+  - {min: 80, max: 80, text: "Lurker"}
+  - {min: 81, max: 81, text: "Mire"}
+  - {min: 82, max: 82, text: "Mourn"}
+  - {min: 83, max: 83, text: "Nightfall"}
+  - {min: 84, max: 84, text: "Nocturne"}
+  - {min: 85, max: 85, text: "Pale"}
+  - {min: 86, max: 86, text: "Ravenous"}
+  - {min: 87, max: 87, text: "Revenant"}
+  - {min: 88, max: 88, text: "Rime"}
+  - {min: 89, max: 89, text: "Ruin"}
+  - {min: 90, max: 90, text: "Saltwound"}
+  - {min: 91, max: 91, text: "Shade"}
+  - {min: 92, max: 92, text: "Skarn"}
+  - {min: 93, max: 93, text: "Spine"}
+  - {min: 94, max: 94, text: "Stygian"}
+  - {min: 95, max: 95, text: "Sunder"}
+  - {min: 96, max: 96, text: "Tarn"}
+  - {min: 97, max: 97, text: "Threnody"}
+  - {min: 98, max: 98, text: "Umbral"}
+  - {min: 99, max: 99, text: "Vile"}
+  - {min: 100, max: 100, text: "Woe"}
+- category: Islands
+  name: Starting Region Notable Locations
+  id: sundered_isles/oracles/islands_custom/starting_region_notable_locations
+  rows:
+  - {min: 1, max: 4, text: "Abyssal sinkhole: What is rumored to lie at the bottom of these depths?"}
+  - {min: 5, max: 8, text: "Active volcano: What important location does this eruption threaten?"}
+  - {min: 9, max: 12, text: "Ancient ruins: Who or what defends this place against intruders?"}
+  - {min: 13, max: 15, text: "Colossal monument: What legendary figure or god does this monument honor?"}
+  - {min: 16, max: 19, text: "Crucial trade route: What is disrupting trade along this route?"}
+  - {min: 20, max: 23, text: "Deserted settlement: Why was this place abandoned?"}
+  - {min: 24, max: 27, text: "Expansive cave: What treasure is said to lie at the heart of this cave?"}
+  - {min: 28, max: 30, text: "Floating tradepost: Who is hounding these traders, demanding tribute?"}
+  - {min: 31, max: 34, text: "Hull-breaching rocks: Who or what preys upon careless ships in this area?"}
+  - {min: 35, max: 38, text: "Kelp-clogged waters: What ship went missing here?"}
+  - {min: 39, max: 41, text: "Meteorite scar: What prophecy foretold the meteorite's fall?"}
+  - {min: 42, max: 45, text: "Military encampment: Who is this faction warring against?"}
+  - {min: 46, max: 49, text: "Military fort: What notable prisoner is held here?"}
+  - {min: 50, max: 52, text: "Mining operation: What danger have these miners unearthed?"}
+  - {min: 53, max: 55, text: "Mist-shrouded peak: What is said to stand atop this mountain?"}
+  - {min: 56, max: 58, text: "Navigation beacon: Why has this lighthouse fallen into disrepair?"}
+  - {min: 59, max: 61, text: "Ongoing naval blockade: Who seeks an escort through or around this blockade?"}
+  - {min: 62, max: 65, text: "Palatial manor: What lavish event is scheduled to take place here?"}
+  - {min: 66, max: 69, text: "Pirate conclave: What opportunity or crisis brings the pirates together?"}
+  - {min: 70, max: 73, text: "Recently wrecked ship: What prize was this ship rumored to carry?"}
+  - {min: 74, max: 76, text: "Refugee encampment: What danger or crisis displaced these refugees?"}
+  - {min: 77, max: 79, text: "Religious commune: Why are these adherents desperate for supplies?"}
+  - {min: 80, max: 83, text: "Sentinel tree: What threatens this sacred site?"}
+  - {min: 84, max: 87, text: "Sheltered anchorage: What infamous ship lies anchored here?"}
+  - {min: 88, max: 91, text: "Warship patrols: What are these ships hunting?"}
+  - {min: 92, max: 94, text: "Whale graveyard: Who seeks to harvest these bones?"}
+  - {min: 95, max: 97, text: "Whaling grounds: Who or what is hunting these creatures to near-extinction?"}
+  - {min: 98, max: 100, text: "Wide, navigable river: What important location lies upriver?"}
+- category: Islands
+  name: Cursed Starting Region Notable Locations
+  id: sundered_isles/oracles/islands_custom/cursed_starting_region_notable_locations
+  rows:
+  - {min: 1, max: 5, text: "Area of endless dead calm: What ship is trapped in these waters?"}
+  - {min: 6, max: 10, text: "Colossal bones: Who lives in the shadow of this age-old corpse?"}
+  - {min: 11, max: 15, text: "Corrupted cave: What cult is said to practice foul rites here?"}
+  - {min: 16, max: 20, text: "Eldritch monument: What forsaken god or entity does this monument honor?"}
+  - {min: 21, max: 25, text: "Forsaken settlement: What foul creatures now dwell here?"}
+  - {min: 26, max: 30, text: "Frozen wastes: What long-lost ship lies trapped here?"}
+  - {min: 31, max: 35, text: "Ghost-haunted waters: What infamous cursed ship sails these waters?"}
+  - {min: 36, max: 40, text: "Ghost-plagued ruins: What sad fate befell these people?"}
+  - {min: 41, max: 45, text: "Haunted battlefield: What force or faction was defeated in this battle?"}
+  - {min: 46, max: 50, text: "Hidden island: On what rare event does this mystical island reappear?"}
+  - {min: 51, max: 55, text: "Inscrutable iron pillars: What faction worships these mysterious relics?"}
+  - {min: 56, max: 60, text: "Lair of a beast: What beast is reputed to dwell here?"}
+  - {min: 61, max: 65, text: "Perpetual fog bank: What is said to lie on the other side of this mist?"}
+  - {min: 66, max: 70, text: "Powerful maelstrom: Who do you know that was lost to this swirling vortex?"}
+  - {min: 71, max: 75, text: "Ship graveyard: What monstrous creature lurks here?"}
+  - {min: 76, max: 80, text: "Shipwreck on high ground: To which faction did this ship belong?"}
+  - {min: 81, max: 85, text: "Skull-shaped outcrop: Why does this place haunt your dreams?"}
+  - {min: 86, max: 90, text: "Sorcerous nexus: Who has gathered to reap the chaotic energy of this place?"}
+  - {min: 91, max: 95, text: "Titanic machinery: Who seeks to reactivate this ancient machine?"}
+  - {min: 96, max: 100, text: "Unending cyclonic storm: What is said to lie at this storm's center?"}

@@ -1,626 +1,209 @@
-_id: sundered_isles
-datasworn_version: "0.0.10"
-type: ruleset
+source: Sundered Isles
 oracles:
-  ship_names:
-    oracle_type: tables
-    type: oracle_collection
-    _source: &Source
-      title: Sundered Isles
-      authors:
-        - name: Shawn Tomkin
-      license: null
-      url: https://ironswornrpg.com
-      date: 2023-09-11
-    name: Ship Names
-    contents:
-      ship_name:
-        _source: *Source
-        oracle_type: table_text
-        type: oracle_rollable
-        name: Ship Name
-        tags:
-          sundered_isles:
-            cursed_version: sundered_isles/oracles/ship_names/cursed_ship_name
-        rows:
-          - min: 1
-            max: 1
-            text: Aegis
-          - min: 2
-            max: 2
-            text: Akiya
-          - min: 3
-            max: 3
-            text: Albatross
-          - min: 4
-            max: 4
-            text: Alliance
-          - min: 5
-            max: 5
-            text: Ascendancy
-          - min: 6
-            max: 6
-            text: Black Iron
-          - min: 7
-            max: 7
-            text: Bounds Runner
-          - min: 8
-            max: 8
-            text: Broken Compass
-          - min: 9
-            max: 9
-            text: Celestial
-          - min: 10
-            max: 10
-            text: "Cinder's Light"
-          - min: 11
-            max: 11
-            text: Clarion Call
-          - min: 12
-            max: 12
-            text: Covenant
-          - min: 13
-            max: 13
-            text: Crested Dawn
-          - min: 14
-            max: 14
-            text: Dauntless
-          - min: 15
-            max: 15
-            text: "Dawn's Herald"
-          - min: 16
-            max: 16
-            text: Defiance
-          - min: 17
-            max: 17
-            text: Demeter
-          - min: 18
-            max: 18
-            text: Dreamweaver
-          - min: 19
-            max: 19
-            text: Eclipse
-          - min: 20
-            max: 20
-            text: Elizabeth Dane
-          - min: 21
-            max: 21
-            text: Emelyn
-          - min: 22
-            max: 22
-            text: Endurance
-          - min: 23
-            max: 23
-            text: Enigma
-          - min: 24
-            max: 24
-            text: Erasmus
-          - min: 25
-            max: 25
-            text: Erisia
-          - min: 26
-            max: 26
-            text: Eye of the Storm
-          - min: 27
-            max: 27
-            text: "Farina's Folly"
-          - min: 28
-            max: 28
-            text: Farthest Horizon
-          - min: 29
-            max: 29
-            text: Fire Opal
-          - min: 30
-            max: 30
-            text: Following Seas
-          - min: 31
-            max: 31
-            text: Forerunner
-          - min: 32
-            max: 32
-            text: "Fortune's Favor"
-          - min: 33
-            max: 33
-            text: "Fortune's Fool"
-          - min: 34
-            max: 34
-            text: Gambit
-          - min: 35
-            max: 35
-            text: Gilded Sea
-          - min: 36
-            max: 36
-            text: Gray Eagle
-          - min: 37
-            max: 37
-            text: Guiding Star
-          - min: 38
-            max: 38
-            text: Honorbound
-          - min: 39
-            max: 39
-            text: Implacable
-          - min: 40
-            max: 40
-            text: Implicit
-          - min: 41
-            max: 41
-            text: Indomitable
-          - min: 42
-            max: 42
-            text: Intrepid
-          - min: 43
-            max: 43
-            text: Iron Aegis
-          - min: 44
-            max: 44
-            text: Ithela
-          - min: 45
-            max: 45
-            text: Jade Empress
-          - min: 46
-            max: 46
-            text: "Jadina's Vow"
-          - min: 47
-            max: 47
-            text: Kalida
-          - min: 48
-            max: 48
-            text: Last Chance
-          - min: 49
-            max: 49
-            text: Legacy
-          - min: 50
-            max: 50
-            text: Lodestar
-          - min: 51
-            max: 51
-            text: Makari
-          - min: 52
-            max: 52
-            text: Mistress of the Isles
-          - min: 53
-            max: 53
-            text: Moonless Eve
-          - min: 54
-            max: 54
-            text: Moonrise
-          - min: 55
-            max: 55
-            text: Moonshadow
-          - min: 56
-            max: 56
-            text: "Morgan's Promise"
-          - min: 57
-            max: 57
-            text: Morraine
-          - min: 58
-            max: 58
-            text: Opportunity
-          - min: 59
-            max: 59
-            text: Oracle
-          - min: 60
-            max: 60
-            text: Perilous Venture
-          - min: 61
-            max: 61
-            text: Profit Margin
-          - min: 62
-            max: 62
-            text: Prosperity
-          - min: 63
-            max: 63
-            text: Razeena
-          - min: 64
-            max: 64
-            text: Red Diamond
-          - min: 65
-            max: 65
-            text: Redemption
-          - min: 66
-            max: 66
-            text: Reef Scraper
-          - min: 67
-            max: 67
-            text: Reforged Blade
-          - min: 68
-            max: 68
-            text: Rhaskar
-          - min: 69
-            max: 69
-            text: Sadia
-          - min: 70
-            max: 70
-            text: Sea Hawk
-          - min: 71
-            max: 71
-            text: "Sidura's Hope"
-          - min: 72
-            max: 72
-            text: Silver Arrow
-          - min: 73
-            max: 73
-            text: Silver Shark
-          - min: 74
-            max: 74
-            text: Stardancer
-          - min: 75
-            max: 75
-            text: Stardust
-          - min: 76
-            max: 76
-            text: Starfall
-          - min: 77
-            max: 77
-            text: Starlume
-          - min: 78
-            max: 78
-            text: Steadfast
-          - min: 79
-            max: 79
-            text: Stormbreaker
-          - min: 80
-            max: 80
-            text: Stormchaser
-          - min: 81
-            max: 81
-            text: Stormwatch
-          - min: 82
-            max: 82
-            text: Supremacy
-          - min: 83
-            max: 83
-            text: Swiftsure
-          - min: 84
-            max: 84
-            text: Thrice Sunk
-          - min: 85
-            max: 85
-            text: Tide Chaser
-          - min: 86
-            max: 86
-            text: Trident
-          - min: 87
-            max: 87
-            text: Twin Fates
-          - min: 88
-            max: 88
-            text: Unsheathed Blade
-          - min: 89
-            max: 89
-            text: Valiant
-          - min: 90
-            max: 90
-            text: Vanguard
-          - min: 91
-            max: 91
-            text: Victory
-          - min: 92
-            max: 92
-            text: Vigilant
-          - min: 93
-            max: 93
-            text: Waveswept
-          - min: 94
-            max: 94
-            text: Whispering Fate
-          - min: 95
-            max: 95
-            text: White Gull
-          - min: 96
-            max: 96
-            text: Windward Lady
-          - min: 97
-            max: 97
-            text: Zakaria
-          - min: 98
-            max: 98
-            text: Zephyr
-          - min: 99
-            max: 100
-            text: Unbroken Vow
-
-      cursed_ship_name:
-        _source: *Source
-        oracle_type: table_text
-        type: oracle_rollable
-        name: Cursed Ship Name
-        rows:
-          - min: 1
-            max: 1
-            text: Acheron
-          - min: 2
-            max: 2
-            text: Apparition
-          - min: 3
-            max: 3
-            text: Balefire
-          - min: 4
-            max: 4
-            text: "Banshee's Cry"
-          - min: 5
-            max: 5
-            text: Basilisk
-          - min: 6
-            max: 6
-            text: Bitter End
-          - min: 7
-            max: 7
-            text: Black Fang
-          - min: 8
-            max: 8
-            text: Blackstar
-          - min: 9
-            max: 9
-            text: Blood Oath
-          - min: 10
-            max: 10
-            text: Bloodhawk
-          - min: 11
-            max: 11
-            text: Bloodwake
-          - min: 12
-            max: 12
-            text: Bloody Bargain
-          - min: 13
-            max: 13
-            text: Bloody Marrow
-          - min: 14
-            max: 14
-            text: Bloody Vengeance
-          - min: 15
-            max: 15
-            text: Broken Blade
-          - min: 16
-            max: 16
-            text: Call of the Abyss
-          - min: 17
-            max: 17
-            text: Carnage
-          - min: 18
-            max: 18
-            text: Carrion Feast
-          - min: 19
-            max: 19
-            text: Coup de Grace
-          - min: 20
-            max: 20
-            text: Crimson Cutlass
-          - min: 21
-            max: 21
-            text: Crucible
-          - min: 22
-            max: 22
-            text: Cry Havoc
-          - min: 23
-            max: 23
-            text: Cyclops
-          - min: 24
-            max: 24
-            text: Dark Fate
-          - min: 25
-            max: 25
-            text: Dead Reckoning
-          - min: 26
-            max: 26
-            text: "Death's Hand"
-          - min: 27
-            max: 27
-            text: Deathwind
-          - min: 28
-            max: 28
-            text: Desolation
-          - min: 29
-            max: 29
-            text: Doomsayer
-          - min: 30
-            max: 30
-            text: Doomstorm
-          - min: 31
-            max: 31
-            text: "Dragon's Bite"
-          - min: 32
-            max: 32
-            text: "Dragon's Breath"
-          - min: 33
-            max: 33
-            text: Drowned Prince
-          - min: 34
-            max: 34
-            text: Ebon Tide
-          - min: 35
-            max: 35
-            text: Eidolon
-          - min: 36
-            max: 36
-            text: Enchantress
-          - min: 37
-            max: 37
-            text: Eventide
-          - min: 38
-            max: 38
-            text: Executioner
-          - min: 39
-            max: 39
-            text: False Hope
-          - min: 40
-            max: 40
-            text: "Forge's Fury"
-          - min: 41
-            max: 41
-            text: Forsworn
-          - min: 42
-            max: 42
-            text: Foul Luck
-          - min: 43
-            max: 43
-            text: Frostwind
-          - min: 44
-            max: 44
-            text: Ghostwind
-          - min: 45
-            max: 45
-            text: Gloamtide
-          - min: 46
-            max: 46
-            text: Grim Fate
-          - min: 47
-            max: 47
-            text: Harrowheart
-          - min: 48
-            max: 48
-            text: Headless Jack
-          - min: 49
-            max: 49
-            text: "Hell's Heart"
-          - min: 50
-            max: 50
-            text: Hellbound
-          - min: 51
-            max: 51
-            text: Herald of Doom
-          - min: 52
-            max: 52
-            text: Hydra
-          - min: 53
-            max: 53
-            text: Imp
-          - min: 54
-            max: 54
-            text: Iron Talon
-          - min: 55
-            max: 55
-            text: Kiss of Death
-          - min: 56
-            max: 56
-            text: "Kraken's Bane"
-          - min: 57
-            max: 57
-            text: Last Breath
-          - min: 58
-            max: 58
-            text: "Leviathan's Rage"
-          - min: 59
-            max: 59
-            text: Lidless Eye
-          - min: 60
-            max: 60
-            text: Marauder
-          - min: 61
-            max: 61
-            text: "Medusa's Gaze"
-          - min: 62
-            max: 62
-            text: Misery
-          - min: 63
-            max: 63
-            text: Nemesis
-          - min: 64
-            max: 64
-            text: Nightfall
-          - min: 65
-            max: 65
-            text: Nightmare
-          - min: 66
-            max: 66
-            text: Oathbreaker
-          - min: 67
-            max: 67
-            text: Obsidian Dagger
-          - min: 68
-            max: 68
-            text: Phantasm
-          - min: 69
-            max: 69
-            text: Phoenix Fire
-          - min: 70
-            max: 70
-            text: Pierced Heart
-          - min: 71
-            max: 71
-            text: Plague Tide
-          - min: 72
-            max: 72
-            text: Premonition
-          - min: 73
-            max: 73
-            text: Quietus
-          - min: 74
-            max: 74
-            text: Rack and Ruin
-          - min: 75
-            max: 75
-            text: Ravager
-          - min: 76
-            max: 76
-            text: Relentless
-          - min: 77
-            max: 77
-            text: Retaliation
-          - min: 78
-            max: 78
-            text: Retribution
-          - min: 79
-            max: 79
-            text: Revenant
-          - min: 80
-            max: 80
-            text: Scorched Sea
-          - min: 81
-            max: 81
-            text: Scorpion
-          - min: 82
-            max: 82
-            text: Scourge Tide
-          - min: 83
-            max: 83
-            text: Screaming Skull
-          - min: 84
-            max: 84
-            text: Sea Cleaver
-          - min: 85
-            max: 85
-            text: Sea Wolf
-          - min: 86
-            max: 86
-            text: Sepulcher
-          - min: 87
-            max: 87
-            text: "Serpent's Bite"
-          - min: 88
-            max: 88
-            text: "Siren's Song"
-          - min: 89
-            max: 89
-            text: "Slayer's Sigil"
-          - min: 90
-            max: 90
-            text: Soul Reaver
-          - min: 91
-            max: 91
-            text: Stormbringer
-          - min: 92
-            max: 92
-            text: Tormentor
-          - min: 93
-            max: 93
-            text: Umbra
-          - min: 94
-            max: 94
-            text: Venom
-          - min: 95
-            max: 95
-            text: Wailing Keen
-          - min: 96
-            max: 96
-            text: Wicked Squall
-          - min: 97
-            max: 97
-            text: Witchfire
-          - min: 98
-            max: 98
-            text: "Wraith's Gaze"
-          - min: 99
-            max: 100
-            text: Forsaken Vow
+- category: Ship Names
+  name: Ship Name
+  id: sundered_isles/oracles/ship_names/ship_name
+  cursed_version: sundered_isles/oracles/ship_names/cursed_ship_name
+  rows:
+  - {min: 1, max: 1, text: "Aegis"}
+  - {min: 2, max: 2, text: "Akiya"}
+  - {min: 3, max: 3, text: "Albatross"}
+  - {min: 4, max: 4, text: "Alliance"}
+  - {min: 5, max: 5, text: "Ascendancy"}
+  - {min: 6, max: 6, text: "Black Iron"}
+  - {min: 7, max: 7, text: "Bounds Runner"}
+  - {min: 8, max: 8, text: "Broken Compass"}
+  - {min: 9, max: 9, text: "Celestial"}
+  - {min: 10, max: 10, text: "Cinder's Light"}
+  - {min: 11, max: 11, text: "Clarion Call"}
+  - {min: 12, max: 12, text: "Covenant"}
+  - {min: 13, max: 13, text: "Crested Dawn"}
+  - {min: 14, max: 14, text: "Dauntless"}
+  - {min: 15, max: 15, text: "Dawn's Herald"}
+  - {min: 16, max: 16, text: "Defiance"}
+  - {min: 17, max: 17, text: "Demeter"}
+  - {min: 18, max: 18, text: "Dreamweaver"}
+  - {min: 19, max: 19, text: "Eclipse"}
+  - {min: 20, max: 20, text: "Elizabeth Dane"}
+  - {min: 21, max: 21, text: "Emelyn"}
+  - {min: 22, max: 22, text: "Endurance"}
+  - {min: 23, max: 23, text: "Enigma"}
+  - {min: 24, max: 24, text: "Erasmus"}
+  - {min: 25, max: 25, text: "Erisia"}
+  - {min: 26, max: 26, text: "Eye of the Storm"}
+  - {min: 27, max: 27, text: "Farina's Folly"}
+  - {min: 28, max: 28, text: "Farthest Horizon"}
+  - {min: 29, max: 29, text: "Fire Opal"}
+  - {min: 30, max: 30, text: "Following Seas"}
+  - {min: 31, max: 31, text: "Forerunner"}
+  - {min: 32, max: 32, text: "Fortune's Favor"}
+  - {min: 33, max: 33, text: "Fortune's Fool"}
+  - {min: 34, max: 34, text: "Gambit"}
+  - {min: 35, max: 35, text: "Gilded Sea"}
+  - {min: 36, max: 36, text: "Gray Eagle"}
+  - {min: 37, max: 37, text: "Guiding Star"}
+  - {min: 38, max: 38, text: "Honorbound"}
+  - {min: 39, max: 39, text: "Implacable"}
+  - {min: 40, max: 40, text: "Implicit"}
+  - {min: 41, max: 41, text: "Indomitable"}
+  - {min: 42, max: 42, text: "Intrepid"}
+  - {min: 43, max: 43, text: "Iron Aegis"}
+  - {min: 44, max: 44, text: "Ithela"}
+  - {min: 45, max: 45, text: "Jade Empress"}
+  - {min: 46, max: 46, text: "Jadina's Vow"}
+  - {min: 47, max: 47, text: "Kalida"}
+  - {min: 48, max: 48, text: "Last Chance"}
+  - {min: 49, max: 49, text: "Legacy"}
+  - {min: 50, max: 50, text: "Lodestar"}
+  - {min: 51, max: 51, text: "Makari"}
+  - {min: 52, max: 52, text: "Mistress of the Isles"}
+  - {min: 53, max: 53, text: "Moonless Eve"}
+  - {min: 54, max: 54, text: "Moonrise"}
+  - {min: 55, max: 55, text: "Moonshadow"}
+  - {min: 56, max: 56, text: "Morgan's Promise"}
+  - {min: 57, max: 57, text: "Morraine"}
+  - {min: 58, max: 58, text: "Opportunity"}
+  - {min: 59, max: 59, text: "Oracle"}
+  - {min: 60, max: 60, text: "Perilous Venture"}
+  - {min: 61, max: 61, text: "Profit Margin"}
+  - {min: 62, max: 62, text: "Prosperity"}
+  - {min: 63, max: 63, text: "Razeena"}
+  - {min: 64, max: 64, text: "Red Diamond"}
+  - {min: 65, max: 65, text: "Redemption"}
+  - {min: 66, max: 66, text: "Reef Scraper"}
+  - {min: 67, max: 67, text: "Reforged Blade"}
+  - {min: 68, max: 68, text: "Rhaskar"}
+  - {min: 69, max: 69, text: "Sadia"}
+  - {min: 70, max: 70, text: "Sea Hawk"}
+  - {min: 71, max: 71, text: "Sidura's Hope"}
+  - {min: 72, max: 72, text: "Silver Arrow"}
+  - {min: 73, max: 73, text: "Silver Shark"}
+  - {min: 74, max: 74, text: "Stardancer"}
+  - {min: 75, max: 75, text: "Stardust"}
+  - {min: 76, max: 76, text: "Starfall"}
+  - {min: 77, max: 77, text: "Starlume"}
+  - {min: 78, max: 78, text: "Steadfast"}
+  - {min: 79, max: 79, text: "Stormbreaker"}
+  - {min: 80, max: 80, text: "Stormchaser"}
+  - {min: 81, max: 81, text: "Stormwatch"}
+  - {min: 82, max: 82, text: "Supremacy"}
+  - {min: 83, max: 83, text: "Swiftsure"}
+  - {min: 84, max: 84, text: "Thrice Sunk"}
+  - {min: 85, max: 85, text: "Tide Chaser"}
+  - {min: 86, max: 86, text: "Trident"}
+  - {min: 87, max: 87, text: "Twin Fates"}
+  - {min: 88, max: 88, text: "Unsheathed Blade"}
+  - {min: 89, max: 89, text: "Valiant"}
+  - {min: 90, max: 90, text: "Vanguard"}
+  - {min: 91, max: 91, text: "Victory"}
+  - {min: 92, max: 92, text: "Vigilant"}
+  - {min: 93, max: 93, text: "Waveswept"}
+  - {min: 94, max: 94, text: "Whispering Fate"}
+  - {min: 95, max: 95, text: "White Gull"}
+  - {min: 96, max: 96, text: "Windward Lady"}
+  - {min: 97, max: 97, text: "Zakaria"}
+  - {min: 98, max: 98, text: "Zephyr"}
+  - {min: 99, max: 100, text: "Unbroken Vow"}
+- category: Ship Names
+  name: Cursed Ship Name
+  id: sundered_isles/oracles/ship_names/cursed_ship_name
+  rows:
+  - {min: 1, max: 1, text: "Acheron"}
+  - {min: 2, max: 2, text: "Apparition"}
+  - {min: 3, max: 3, text: "Balefire"}
+  - {min: 4, max: 4, text: "Banshee's Cry"}
+  - {min: 5, max: 5, text: "Basilisk"}
+  - {min: 6, max: 6, text: "Bitter End"}
+  - {min: 7, max: 7, text: "Black Fang"}
+  - {min: 8, max: 8, text: "Blackstar"}
+  - {min: 9, max: 9, text: "Blood Oath"}
+  - {min: 10, max: 10, text: "Bloodhawk"}
+  - {min: 11, max: 11, text: "Bloodwake"}
+  - {min: 12, max: 12, text: "Bloody Bargain"}
+  - {min: 13, max: 13, text: "Bloody Marrow"}
+  - {min: 14, max: 14, text: "Bloody Vengeance"}
+  - {min: 15, max: 15, text: "Broken Blade"}
+  - {min: 16, max: 16, text: "Call of the Abyss"}
+  - {min: 17, max: 17, text: "Carnage"}
+  - {min: 18, max: 18, text: "Carrion Feast"}
+  - {min: 19, max: 19, text: "Coup de Grace"}
+  - {min: 20, max: 20, text: "Crimson Cutlass"}
+  - {min: 21, max: 21, text: "Crucible"}
+  - {min: 22, max: 22, text: "Cry Havoc"}
+  - {min: 23, max: 23, text: "Cyclops"}
+  - {min: 24, max: 24, text: "Dark Fate"}
+  - {min: 25, max: 25, text: "Dead Reckoning"}
+  - {min: 26, max: 26, text: "Death's Hand"}
+  - {min: 27, max: 27, text: "Deathwind"}
+  - {min: 28, max: 28, text: "Desolation"}
+  - {min: 29, max: 29, text: "Doomsayer"}
+  - {min: 30, max: 30, text: "Doomstorm"}
+  - {min: 31, max: 31, text: "Dragon's Bite"}
+  - {min: 32, max: 32, text: "Dragon's Breath"}
+  - {min: 33, max: 33, text: "Drowned Prince"}
+  - {min: 34, max: 34, text: "Ebon Tide"}
+  - {min: 35, max: 35, text: "Eidolon"}
+  - {min: 36, max: 36, text: "Enchantress"}
+  - {min: 37, max: 37, text: "Eventide"}
+  - {min: 38, max: 38, text: "Executioner"}
+  - {min: 39, max: 39, text: "False Hope"}
+  - {min: 40, max: 40, text: "Forge's Fury"}
+  - {min: 41, max: 41, text: "Forsworn"}
+  - {min: 42, max: 42, text: "Foul Luck"}
+  - {min: 43, max: 43, text: "Frostwind"}
+  - {min: 44, max: 44, text: "Ghostwind"}
+  - {min: 45, max: 45, text: "Gloamtide"}
+  - {min: 46, max: 46, text: "Grim Fate"}
+  - {min: 47, max: 47, text: "Harrowheart"}
+  - {min: 48, max: 48, text: "Headless Jack"}
+  - {min: 49, max: 49, text: "Hell's Heart"}
+  - {min: 50, max: 50, text: "Hellbound"}
+  - {min: 51, max: 51, text: "Herald of Doom"}
+  - {min: 52, max: 52, text: "Hydra"}
+  - {min: 53, max: 53, text: "Imp"}
+  - {min: 54, max: 54, text: "Iron Talon"}
+  - {min: 55, max: 55, text: "Kiss of Death"}
+  - {min: 56, max: 56, text: "Kraken's Bane"}
+  - {min: 57, max: 57, text: "Last Breath"}
+  - {min: 58, max: 58, text: "Leviathan's Rage"}
+  - {min: 59, max: 59, text: "Lidless Eye"}
+  - {min: 60, max: 60, text: "Marauder"}
+  - {min: 61, max: 61, text: "Medusa's Gaze"}
+  - {min: 62, max: 62, text: "Misery"}
+  - {min: 63, max: 63, text: "Nemesis"}
+  - {min: 64, max: 64, text: "Nightfall"}
+  - {min: 65, max: 65, text: "Nightmare"}
+  - {min: 66, max: 66, text: "Oathbreaker"}
+  - {min: 67, max: 67, text: "Obsidian Dagger"}
+  - {min: 68, max: 68, text: "Phantasm"}
+  - {min: 69, max: 69, text: "Phoenix Fire"}
+  - {min: 70, max: 70, text: "Pierced Heart"}
+  - {min: 71, max: 71, text: "Plague Tide"}
+  - {min: 72, max: 72, text: "Premonition"}
+  - {min: 73, max: 73, text: "Quietus"}
+  - {min: 74, max: 74, text: "Rack and Ruin"}
+  - {min: 75, max: 75, text: "Ravager"}
+  - {min: 76, max: 76, text: "Relentless"}
+  - {min: 77, max: 77, text: "Retaliation"}
+  - {min: 78, max: 78, text: "Retribution"}
+  - {min: 79, max: 79, text: "Revenant"}
+  - {min: 80, max: 80, text: "Scorched Sea"}
+  - {min: 81, max: 81, text: "Scorpion"}
+  - {min: 82, max: 82, text: "Scourge Tide"}
+  - {min: 83, max: 83, text: "Screaming Skull"}
+  - {min: 84, max: 84, text: "Sea Cleaver"}
+  - {min: 85, max: 85, text: "Sea Wolf"}
+  - {min: 86, max: 86, text: "Sepulcher"}
+  - {min: 87, max: 87, text: "Serpent's Bite"}
+  - {min: 88, max: 88, text: "Siren's Song"}
+  - {min: 89, max: 89, text: "Slayer's Sigil"}
+  - {min: 90, max: 90, text: "Soul Reaver"}
+  - {min: 91, max: 91, text: "Stormbringer"}
+  - {min: 92, max: 92, text: "Tormentor"}
+  - {min: 93, max: 93, text: "Umbra"}
+  - {min: 94, max: 94, text: "Venom"}
+  - {min: 95, max: 95, text: "Wailing Keen"}
+  - {min: 96, max: 96, text: "Wicked Squall"}
+  - {min: 97, max: 97, text: "Witchfire"}
+  - {min: 98, max: 98, text: "Wraith's Gaze"}
+  - {min: 99, max: 100, text: "Forsaken Vow"}

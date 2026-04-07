@@ -1,578 +1,198 @@
-_id: sundered_isles
-datasworn_version: "0.0.10"
-type: ruleset
+source: Sundered Isles
 oracles:
-  settlement_names:
-    oracle_type: tables
-    type: oracle_collection
-    _source: &Source
-      title: Sundered Isles Book Preview
-      authors:
-        - name: Shawn Tomkin
-      license: null
-      url: https://ironswornrpg.com
-      date: 2023-09-11
-    name: Settlement Names
-    contents:
-      settlement_name:
-        _source: *Source
-        oracle_type: table_text
-        type: oracle_rollable
-        name: Settlement Name
-        tags:
-          sundered_isles:
-            cursed_version: sundered_isles/oracles/settlement_names/cursed_settlement_name
-        rows:
-          - min: 1
-            max: 1
-            text: Alerius
-          - min: 2
-            max: 2
-            text: Altura
-          - min: 3
-            max: 3
-            text: Ankarta
-          - min: 4
-            max: 4
-            text: Argosy
-          - min: 5
-            max: 5
-            text: Arika
-          - min: 6
-            max: 6
-            text: Azurith
-          - min: 7
-            max: 7
-            text: Beacon
-          - min: 8
-            max: 8
-            text: Belaru
-          - min: 9
-            max: 9
-            text: Bladestone
-          - min: 10
-            max: 10
-            text: Brightwater
-          - min: 11
-            max: 11
-            text: Bulwark
-          - min: 12
-            max: 12
-            text: Caldera
-          - min: 13
-            max: 13
-            text: Crown Falls
-          - min: 14
-            max: 14
-            text: Danua
-          - min: 15
-            max: 15
-            text: Darkwell
-          - min: 16
-            max: 16
-            text: Deepwater
-          - min: 17
-            max: 17
-            text: Dragonspine
-          - min: 18
-            max: 18
-            text: "Eagle's Perch"
-          - min: 19
-            max: 19
-            text: Eladus
-          - min: 20
-            max: 20
-            text: Elago
-          - min: 21
-            max: 21
-            text: Emberlyn
-          - min: 22
-            max: 22
-            text: Emberwind
-          - min: 23
-            max: 23
-            text: Emmerby
-          - min: 24
-            max: 24
-            text: "Endira's Rest"
-          - min: 25
-            max: 25
-            text: Fortune
-          - min: 26
-            max: 26
-            text: Galoon
-          - min: 27
-            max: 27
-            text: Goldcrest
-          - min: 28
-            max: 28
-            text: Gullpoint
-          - min: 29
-            max: 29
-            text: Hawknest
-          - min: 30
-            max: 30
-            text: Highcairn
-          - min: 31
-            max: 31
-            text: Highcliff
-          - min: 32
-            max: 32
-            text: Hightower
-          - min: 33
-            max: 33
-            text: Indari
-          - min: 34
-            max: 34
-            text: Ironhold
-          - min: 35
-            max: 35
-            text: Islan
-          - min: 36
-            max: 36
-            text: Jade Hollow
-          - min: 37
-            max: 37
-            text: Kerebos
-          - min: 38
-            max: 38
-            text: Kharna
-          - min: 39
-            max: 39
-            text: Kirita
-          - min: 40
-            max: 40
-            text: Kitan
-          - min: 41
-            max: 41
-            text: Korova
-          - min: 42
-            max: 42
-            text: Kotana
-          - min: 43
-            max: 43
-            text: Kuinan
-          - min: 44
-            max: 44
-            text: Lonefort
-          - min: 45
-            max: 45
-            text: Lumina
-          - min: 46
-            max: 46
-            text: Malau
-          - min: 47
-            max: 47
-            text: Marivo
-          - min: 48
-            max: 48
-            text: Mistfall
-          - min: 49
-            max: 49
-            text: Mohana
-          - min: 50
-            max: 50
-            text: Moonshadow
-          - min: 51
-            max: 51
-            text: Moonstone
-          - min: 52
-            max: 52
-            text: Morgan
-          - min: 53
-            max: 53
-            text: Nairene
-          - min: 54
-            max: 54
-            text: Nanua
-          - min: 55
-            max: 55
-            text: Neoma
-          - min: 56
-            max: 56
-            text: Nerio
-          - min: 57
-            max: 57
-            text: Northbridge
-          - min: 58
-            max: 58
-            text: Okholm
-          - min: 59
-            max: 59
-            text: Palatia
-          - min: 60
-            max: 60
-            text: Ramoa
-          - min: 61
-            max: 61
-            text: Ravan
-          - min: 62
-            max: 62
-            text: Ravenholm
-          - min: 63
-            max: 63
-            text: Redgate
-          - min: 64
-            max: 64
-            text: Riftcrag
-          - min: 65
-            max: 65
-            text: Saltmarsh
-          - min: 66
-            max: 66
-            text: Samara
-          - min: 67
-            max: 67
-            text: Sartha
-          - min: 68
-            max: 68
-            text: Seaward
-          - min: 69
-            max: 69
-            text: Serene
-          - min: 70
-            max: 70
-            text: Shadowbrook
-          - min: 71
-            max: 71
-            text: Silvercliff
-          - min: 72
-            max: 72
-            text: Silvermist
-          - min: 73
-            max: 73
-            text: Skeld
-          - min: 74
-            max: 74
-            text: Sova
-          - min: 75
-            max: 75
-            text: Starfall
-          - min: 76
-            max: 76
-            text: Stonesong
-          - min: 77
-            max: 77
-            text: Stonewood
-          - min: 78
-            max: 78
-            text: Stormcrest
-          - min: 79
-            max: 79
-            text: Stormwatch
-          - min: 80
-            max: 80
-            text: Suluva
-          - min: 81
-            max: 81
-            text: Swiftwater
-          - min: 82
-            max: 82
-            text: Swordbreak
-          - min: 83
-            max: 83
-            text: Tadena
-          - min: 84
-            max: 84
-            text: Tahine
-          - min: 85
-            max: 85
-            text: Tataran
-          - min: 86
-            max: 86
-            text: Teika
-          - min: 87
-            max: 87
-            text: Tidecrest
-          - min: 88
-            max: 88
-            text: Turia
-          - min: 89
-            max: 89
-            text: Two Rivers
-          - min: 90
-            max: 90
-            text: Ulan
-          - min: 91
-            max: 91
-            text: Valanu
-          - min: 92
-            max: 92
-            text: Vanuca
-          - min: 93
-            max: 93
-            text: Vaya
-          - min: 94
-            max: 94
-            text: Wellspring
-          - min: 95
-            max: 95
-            text: Westwind
-          - min: 96
-            max: 96
-            text: Whitebridge
-          - min: 97
-            max: 97
-            text: Windhaven
-          - min: 98
-            max: 98
-            text: Windward
-          - min: 99
-            max: 99
-            text: Yersk
-          - min: 100
-            max: 100
-            text: Zhale
-
-      cursed_settlement_name:
-        _source: *Source
-        oracle_type: table_text
-        type: oracle_rollable
-        name: Cursed Settlement Name
-        rows:
-          - min: 1
-            max: 2
-            text: Barrowcrest
-          - min: 3
-            max: 4
-            text: Bedlam
-          - min: 5
-            max: 6
-            text: Blackwood
-          - min: 7
-            max: 8
-            text: Bleakspire
-          - min: 9
-            max: 10
-            text: Bloodmarsh
-          - min: 11
-            max: 12
-            text: Boneridge
-          - min: 13
-            max: 14
-            text: Bramble
-          - min: 15
-            max: 16
-            text: Brink
-          - min: 17
-            max: 18
-            text: Burrow
-          - min: 19
-            max: 20
-            text: Calamity
-          - min: 21
-            max: 22
-            text: Darkfall
-          - min: 23
-            max: 24
-            text: Darkwater
-          - min: 25
-            max: 26
-            text: Deadrock
-          - min: 27
-            max: 28
-            text: Deception
-          - min: 29
-            max: 30
-            text: Desolation
-          - min: 31
-            max: 32
-            text: Dreck
-          - min: 33
-            max: 35
-            text: Duskwatch
-          - min: 36
-            max: 37
-            text: "Fool's Rest"
-          - min: 38
-            max: 39
-            text: Foulwater
-          - min: 40
-            max: 41
-            text: Gallows
-          - min: 42
-            max: 43
-            text: Ghostlight
-          - min: 44
-            max: 45
-            text: Gloomwood
-          - min: 46
-            max: 47
-            text: Gravehome
-          - min: 48
-            max: 49
-            text: Grimstone
-          - min: 50
-            max: 51
-            text: Grimtree
-          - min: 52
-            max: 53
-            text: Lament
-          - min: 54
-            max: 55
-            text: Losthope
-          - min: 56
-            max: 57
-            text: Misfortune
-          - min: 58
-            max: 59
-            text: Mournhaunt
-          - min: 60
-            max: 61
-            text: Nightfall
-          - min: 62
-            max: 63
-            text: Portent
-          - min: 64
-            max: 65
-            text: Quagmire
-          - min: 66
-            max: 67
-            text: "Rat's Nest"
-          - min: 68
-            max: 69
-            text: Rotwood
-          - min: 70
-            max: 71
-            text: Rubble
-          - min: 72
-            max: 73
-            text: Ruckus
-          - min: 74
-            max: 75
-            text: Sepulcher
-          - min: 76
-            max: 77
-            text: Shadowreach
-          - min: 78
-            max: 79
-            text: Shadowvale
-          - min: 80
-            max: 81
-            text: Shambles
-          - min: 82
-            max: 84
-            text: Skullcrag
-          - min: 85
-            max: 87
-            text: Stillgrave
-          - min: 88
-            max: 90
-            text: Stormwreck
-          - min: 91
-            max: 92
-            text: Swillwater
-          - min: 93
-            max: 94
-            text: Tinderbox
-          - min: 95
-            max: 96
-            text: Vigil
-          - min: 97
-            max: 98
-            text: "Widow's Watch"
-          - min: 99
-            max: 100
-            text: Wrack
-
-      name_suffix_shore:
-        _source: *Source
-        oracle_type: table_text
-        type: oracle_rollable
-        name: Name Suffix (Shore)
-        rows:
-          - min: 1
-            max: 10
-            text: Anchorage
-          - min: 11
-            max: 20
-            text: Bay
-          - min: 21
-            max: 30
-            text: Cape
-          - min: 31
-            max: 40
-            text: Cove
-          - min: 41
-            max: 50
-            text: Harbor
-          - min: 51
-            max: 60
-            text: Lagoon
-          - min: 61
-            max: 70
-            text: Landing
-          - min: 71
-            max: 80
-            text: Point
-          - min: 81
-            max: 90
-            text: Port
-          - min: 91
-            max: 100
-            text: Sands
-
-      name_suffix_inland:
-        _source: *Source
-        oracle_type: table_text
-        type: oracle_rollable
-        name: Name Suffix (Inland)
-        rows:
-          - min: 1
-            max: 10
-            text: Crest
-          - min: 11
-            max: 20
-            text: Glen
-          - min: 21
-            max: 30
-            text: Haven
-          - min: 31
-            max: 40
-            text: Hill
-          - min: 41
-            max: 50
-            text: Hollow
-          - min: 51
-            max: 60
-            text: Pass
-          - min: 61
-            max: 70
-            text: Ridge
-          - min: 71
-            max: 80
-            text: Rock
-          - min: 81
-            max: 90
-            text: Springs
-          - min: 91
-            max: 100
-            text: Wood
-
-      name_suffix_waterside:
-        _source: *Source
-        oracle_type: table_text
-        type: oracle_rollable
-        name: Name Suffix (Waterside)
-        rows:
-          - min: 1
-            max: 14
-            text: Banks
-          - min: 15
-            max: 28
-            text: Bridge
-          - min: 29
-            max: 43
-            text: Crossing
-          - min: 44
-            max: 57
-            text: Lake
-          - min: 58
-            max: 71
-            text: River
-          - min: 72
-            max: 86
-            text: Shallows
-          - min: 87
-            max: 100
-            text: Shore
+- category: Settlement Names
+  name: Settlement Name
+  id: sundered_isles/oracles/settlement_names/settlement_name
+  cursed_version: sundered_isles/oracles/settlement_names/cursed_settlement_name
+  rows:
+  - {min: 1, max: 1, text: "Alerius"}
+  - {min: 2, max: 2, text: "Altura"}
+  - {min: 3, max: 3, text: "Ankarta"}
+  - {min: 4, max: 4, text: "Argosy"}
+  - {min: 5, max: 5, text: "Arika"}
+  - {min: 6, max: 6, text: "Azurith"}
+  - {min: 7, max: 7, text: "Beacon"}
+  - {min: 8, max: 8, text: "Belaru"}
+  - {min: 9, max: 9, text: "Bladestone"}
+  - {min: 10, max: 10, text: "Brightwater"}
+  - {min: 11, max: 11, text: "Bulwark"}
+  - {min: 12, max: 12, text: "Caldera"}
+  - {min: 13, max: 13, text: "Crown Falls"}
+  - {min: 14, max: 14, text: "Danua"}
+  - {min: 15, max: 15, text: "Darkwell"}
+  - {min: 16, max: 16, text: "Deepwater"}
+  - {min: 17, max: 17, text: "Dragonspine"}
+  - {min: 18, max: 18, text: "Eagle's Perch"}
+  - {min: 19, max: 19, text: "Eladus"}
+  - {min: 20, max: 20, text: "Elago"}
+  - {min: 21, max: 21, text: "Emberlyn"}
+  - {min: 22, max: 22, text: "Emberwind"}
+  - {min: 23, max: 23, text: "Emmerby"}
+  - {min: 24, max: 24, text: "Endira's Rest"}
+  - {min: 25, max: 25, text: "Fortune"}
+  - {min: 26, max: 26, text: "Galoon"}
+  - {min: 27, max: 27, text: "Goldcrest"}
+  - {min: 28, max: 28, text: "Gullpoint"}
+  - {min: 29, max: 29, text: "Hawknest"}
+  - {min: 30, max: 30, text: "Highcairn"}
+  - {min: 31, max: 31, text: "Highcliff"}
+  - {min: 32, max: 32, text: "Hightower"}
+  - {min: 33, max: 33, text: "Indari"}
+  - {min: 34, max: 34, text: "Ironhold"}
+  - {min: 35, max: 35, text: "Islan"}
+  - {min: 36, max: 36, text: "Jade Hollow"}
+  - {min: 37, max: 37, text: "Kerebos"}
+  - {min: 38, max: 38, text: "Kharna"}
+  - {min: 39, max: 39, text: "Kirita"}
+  - {min: 40, max: 40, text: "Kitan"}
+  - {min: 41, max: 41, text: "Korova"}
+  - {min: 42, max: 42, text: "Kotana"}
+  - {min: 43, max: 43, text: "Kuinan"}
+  - {min: 44, max: 44, text: "Lonefort"}
+  - {min: 45, max: 45, text: "Lumina"}
+  - {min: 46, max: 46, text: "Malau"}
+  - {min: 47, max: 47, text: "Marivo"}
+  - {min: 48, max: 48, text: "Mistfall"}
+  - {min: 49, max: 49, text: "Mohana"}
+  - {min: 50, max: 50, text: "Moonshadow"}
+  - {min: 51, max: 51, text: "Moonstone"}
+  - {min: 52, max: 52, text: "Morgan"}
+  - {min: 53, max: 53, text: "Nairene"}
+  - {min: 54, max: 54, text: "Nanua"}
+  - {min: 55, max: 55, text: "Neoma"}
+  - {min: 56, max: 56, text: "Nerio"}
+  - {min: 57, max: 57, text: "Northbridge"}
+  - {min: 58, max: 58, text: "Okholm"}
+  - {min: 59, max: 59, text: "Palatia"}
+  - {min: 60, max: 60, text: "Ramoa"}
+  - {min: 61, max: 61, text: "Ravan"}
+  - {min: 62, max: 62, text: "Ravenholm"}
+  - {min: 63, max: 63, text: "Redgate"}
+  - {min: 64, max: 64, text: "Riftcrag"}
+  - {min: 65, max: 65, text: "Saltmarsh"}
+  - {min: 66, max: 66, text: "Samara"}
+  - {min: 67, max: 67, text: "Sartha"}
+  - {min: 68, max: 68, text: "Seaward"}
+  - {min: 69, max: 69, text: "Serene"}
+  - {min: 70, max: 70, text: "Shadowbrook"}
+  - {min: 71, max: 71, text: "Silvercliff"}
+  - {min: 72, max: 72, text: "Silvermist"}
+  - {min: 73, max: 73, text: "Skeld"}
+  - {min: 74, max: 74, text: "Sova"}
+  - {min: 75, max: 75, text: "Starfall"}
+  - {min: 76, max: 76, text: "Stonesong"}
+  - {min: 77, max: 77, text: "Stonewood"}
+  - {min: 78, max: 78, text: "Stormcrest"}
+  - {min: 79, max: 79, text: "Stormwatch"}
+  - {min: 80, max: 80, text: "Suluva"}
+  - {min: 81, max: 81, text: "Swiftwater"}
+  - {min: 82, max: 82, text: "Swordbreak"}
+  - {min: 83, max: 83, text: "Tadena"}
+  - {min: 84, max: 84, text: "Tahine"}
+  - {min: 85, max: 85, text: "Tataran"}
+  - {min: 86, max: 86, text: "Teika"}
+  - {min: 87, max: 87, text: "Tidecrest"}
+  - {min: 88, max: 88, text: "Turia"}
+  - {min: 89, max: 89, text: "Two Rivers"}
+  - {min: 90, max: 90, text: "Ulan"}
+  - {min: 91, max: 91, text: "Valanu"}
+  - {min: 92, max: 92, text: "Vanuca"}
+  - {min: 93, max: 93, text: "Vaya"}
+  - {min: 94, max: 94, text: "Wellspring"}
+  - {min: 95, max: 95, text: "Westwind"}
+  - {min: 96, max: 96, text: "Whitebridge"}
+  - {min: 97, max: 97, text: "Windhaven"}
+  - {min: 98, max: 98, text: "Windward"}
+  - {min: 99, max: 99, text: "Yersk"}
+  - {min: 100, max: 100, text: "Zhale"}
+- category: Settlement Names
+  name: Cursed Settlement Name
+  id: sundered_isles/oracles/settlement_names/cursed_settlement_name
+  rows:
+  - {min: 1, max: 2, text: "Barrowcrest"}
+  - {min: 3, max: 4, text: "Bedlam"}
+  - {min: 5, max: 6, text: "Blackwood"}
+  - {min: 7, max: 8, text: "Bleakspire"}
+  - {min: 9, max: 10, text: "Bloodmarsh"}
+  - {min: 11, max: 12, text: "Boneridge"}
+  - {min: 13, max: 14, text: "Bramble"}
+  - {min: 15, max: 16, text: "Brink"}
+  - {min: 17, max: 18, text: "Burrow"}
+  - {min: 19, max: 20, text: "Calamity"}
+  - {min: 21, max: 22, text: "Darkfall"}
+  - {min: 23, max: 24, text: "Darkwater"}
+  - {min: 25, max: 26, text: "Deadrock"}
+  - {min: 27, max: 28, text: "Deception"}
+  - {min: 29, max: 30, text: "Desolation"}
+  - {min: 31, max: 32, text: "Dreck"}
+  - {min: 33, max: 35, text: "Duskwatch"}
+  - {min: 36, max: 37, text: "Fool's Rest"}
+  - {min: 38, max: 39, text: "Foulwater"}
+  - {min: 40, max: 41, text: "Gallows"}
+  - {min: 42, max: 43, text: "Ghostlight"}
+  - {min: 44, max: 45, text: "Gloomwood"}
+  - {min: 46, max: 47, text: "Gravehome"}
+  - {min: 48, max: 49, text: "Grimstone"}
+  - {min: 50, max: 51, text: "Grimtree"}
+  - {min: 52, max: 53, text: "Lament"}
+  - {min: 54, max: 55, text: "Losthope"}
+  - {min: 56, max: 57, text: "Misfortune"}
+  - {min: 58, max: 59, text: "Mournhaunt"}
+  - {min: 60, max: 61, text: "Nightfall"}
+  - {min: 62, max: 63, text: "Portent"}
+  - {min: 64, max: 65, text: "Quagmire"}
+  - {min: 66, max: 67, text: "Rat's Nest"}
+  - {min: 68, max: 69, text: "Rotwood"}
+  - {min: 70, max: 71, text: "Rubble"}
+  - {min: 72, max: 73, text: "Ruckus"}
+  - {min: 74, max: 75, text: "Sepulcher"}
+  - {min: 76, max: 77, text: "Shadowreach"}
+  - {min: 78, max: 79, text: "Shadowvale"}
+  - {min: 80, max: 81, text: "Shambles"}
+  - {min: 82, max: 84, text: "Skullcrag"}
+  - {min: 85, max: 87, text: "Stillgrave"}
+  - {min: 88, max: 90, text: "Stormwreck"}
+  - {min: 91, max: 92, text: "Swillwater"}
+  - {min: 93, max: 94, text: "Tinderbox"}
+  - {min: 95, max: 96, text: "Vigil"}
+  - {min: 97, max: 98, text: "Widow's Watch"}
+  - {min: 99, max: 100, text: "Wrack"}
+- category: Settlement Names
+  name: Name Suffix (Shore)
+  id: sundered_isles/oracles/settlement_names/name_suffix_shore
+  rows:
+  - {min: 1, max: 10, text: "Anchorage"}
+  - {min: 11, max: 20, text: "Bay"}
+  - {min: 21, max: 30, text: "Cape"}
+  - {min: 31, max: 40, text: "Cove"}
+  - {min: 41, max: 50, text: "Harbor"}
+  - {min: 51, max: 60, text: "Lagoon"}
+  - {min: 61, max: 70, text: "Landing"}
+  - {min: 71, max: 80, text: "Point"}
+  - {min: 81, max: 90, text: "Port"}
+  - {min: 91, max: 100, text: "Sands"}
+- category: Settlement Names
+  name: Name Suffix (Inland)
+  id: sundered_isles/oracles/settlement_names/name_suffix_inland
+  rows:
+  - {min: 1, max: 10, text: "Crest"}
+  - {min: 11, max: 20, text: "Glen"}
+  - {min: 21, max: 30, text: "Haven"}
+  - {min: 31, max: 40, text: "Hill"}
+  - {min: 41, max: 50, text: "Hollow"}
+  - {min: 51, max: 60, text: "Pass"}
+  - {min: 61, max: 70, text: "Ridge"}
+  - {min: 71, max: 80, text: "Rock"}
+  - {min: 81, max: 90, text: "Springs"}
+  - {min: 91, max: 100, text: "Wood"}
+- category: Settlement Names
+  name: Name Suffix (Waterside)
+  id: sundered_isles/oracles/settlement_names/name_suffix_waterside
+  rows:
+  - {min: 1, max: 14, text: "Banks"}
+  - {min: 15, max: 28, text: "Bridge"}
+  - {min: 29, max: 43, text: "Crossing"}
+  - {min: 44, max: 57, text: "Lake"}
+  - {min: 58, max: 71, text: "River"}
+  - {min: 72, max: 86, text: "Shallows"}
+  - {min: 87, max: 100, text: "Shore"}
