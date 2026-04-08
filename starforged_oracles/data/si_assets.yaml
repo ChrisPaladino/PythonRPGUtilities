@@ -1,61 +1,26 @@
 source: Sundered Isles
 assets:
-- category: Module
-  name: Chase Guns
+- category: Incidental Vehicle
+  name: Sailing Ship
   abilities:
-  - Your vessel is fitted fore and aft with powerful cannons. When you Strike at a pursuing or
-    fleeing target, take +1 momentum on a strong hit.
-  - Once per fight, when you Gain Ground by firing your chase guns to find the range of your target,
-    add +1. On a strong hit, add +1 if you immediately Strike, and continue to add +1 on each
-    subsequent Strike as long as you remain in control. If you score a strong hit with a match when
-    using this ability, you damage a vital component; mark progress.
-  - When you Face Defeat in a fight and set a new objective to escape, you may (one time only)
-    immediately Clash by firing your chase guns as you maneuver away from your foe; if you do,
-    reroll any dice. On a strong hit, take +2 momentum.
+  - When you gain command of this ship, envision its nature and assign a max integrity (5, 4, or
+    3). If this is your primary ship, it has up to 5 hold. You and your allies use your hold value
+    as supply when taking action or suffering a cost related to cargo and shipwide provisions.
+  - The ship cannot be marked as battered or cursed and cannot be enhanced with modules. If it is
+    destroyed, sunk, lost, abandoned, or upgraded to FLAGSHIP status, discard this card.
 
-- category: Module
-  name: Harpoon Cannon
+- category: Command Vehicle
+  name: Flagship
   abilities:
-  - You may Secure an Advantage or Gain Ground by firing your harpoon cannon at a large foe or
-    threat. On a hit, the target is grappled. For the duration of the situation, if you make a move
-    to maneuver against, attack, or board a grappled target, add +1.
-  - If you roll a 1 on your action die while taking action against a grappled target, the line is
-    cut, broken, or works against you; Pay the Price, and you no longer gain the bonus.
-  - As above, and if you fire the cannon in close quarters, add +2. If at a distance, take +1
-    momentum on a hit.
-
-- category: Module
-  name: Improved Armory
-  abilities:
-  - When you Enter the Fray by rallying your crew to repel boarders or board an enemy ship, you may
-    roll +supply. If you do, take +2 momentum on a hit. On a strong hit with a match, take +1
-    momentum more. Allies may gain the benefits without rolling.
-  - When you Resupply by scavenging weapons or ammo from your foes after a fight, add +1.
-  - When you are out of options and set the fuse to self-destruct your command vehicle, activate
-    this ability at no cost. Envision how you escape or overcome your foes. Mark one box on your
-    quests legacy track and Overcome Destruction.
-
-- category: Module
-  name: Improved Gunnery
-  abilities:
-  - Your gundecks house an intimidating array of heavy cannons. When you Compel or Enter the Fray
-    by opening your gunports, add +1 and take +1 momentum on a hit. On a strong hit with a match,
-    take +1 momentum.
-  - "When you Strike, choose one. Coordinated fire: Add +1 and take +1 momentum on a hit. Unleash
-    hell: Mark progress on a hit, but Lose Momentum (-1) or Sacrifice Resources (-1)."
-  - Once per fight, when you Clash by committing to an all-or-nothing exchange of fire, add +1,
-    count a weak hit as a strong hit, and mark progress. On a miss, suffer a dire outcome.
-
-- category: Module
-  name: Gilded Adornments
-  abilities:
-  - When you Secure an Advantage by making a showy display of your ship, you may roll +integrity.
-    On a hit, take +1 momentum.
-  - When you host a ceremony aboard ship, roll +heart or +integrity. On a strong hit, attendees
-    mark two ticks on the bonds legacy track. On a weak hit, resolve a conflict first. On a miss,
-    Pay the Price.
-  - When you Withstand Damage and the finery bears the cost, you may mark this module as broken and
-    ignore the damage. When you Repair it, take +2 momentum.
+  - Your seagoing flagship is armed with cannons, transports crew, cargo, and passengers, and can
+    equip support vehicle and module assets. In addition, it has up to 5 hold which acts as supply
+    for you and your allies when taking action or suffering a cost related to shipwide gear and
+    provisions.
+  - When you Finish an Expedition (dangerous or greater) on a seagoing journey and score a hit,
+    this expedition strengthened your ties to your ship and crew. You and your allies may mark
+    1 tick on your bonds legacy track.
+  - You fly a distinctive flag. Envision its design. Once per situation, when you hoist the colors
+    in a dramatic moment, you and your allies take +1 momentum.
 
 - category: Module
   name: Armored Prow
@@ -63,154 +28,712 @@ assets:
   - When you Face Danger or React Under Fire by sailing through an obstacle or barrier, add +1. If
     you Withstand Damage as an outcome of this action, also add +1.
   - "When you Strike by ramming your foe, choose the force of the hit: 1, 2, or 3. Then, add +that
-    amount. On a strong hit, mark progress. On a weak hit or miss, Withstand Damage and suffer
-    damage equal to the force."
-  - When you Secure an Advantage or Gain Ground by bringing your ship to ramming speed, roll
-    +integrity or +heart, whichever is higher. On a strong hit, take +1 momentum.
+    amount. On a strong hit, mark progress. On a weak hit or miss, in addition to the outcome of
+    the move, Withstand Damage and suffer damage equal to the force of the hit."
+  - When you Secure an Advantage or Gain Ground by bringing your ship to ramming speed and sailing
+    headlong toward a threat, roll +integrity or +heart, whichever is higher. On a strong hit,
+    take +1 momentum.
+
+- category: Module
+  name: Chase Guns
+  abilities:
+  - Your vessel is fitted fore and aft with powerful cannons. When you Strike at a pursuing or
+    fleeing target, take +1 momentum on a strong hit.
+  - Once per fight, when you Gain Ground by firing your chase guns to find the range of your
+    target, add +1. On a strong hit, add +1 if you immediately Strike, and continue to add +1 on
+    each subsequent Strike as long as you remain in control. If you score a strong hit with a
+    match when using this ability, you damage a vital component; mark progress.
+  - When you Face Defeat in a fight and set a new objective to escape, you may (one time only)
+    immediately Clash by firing your chase guns as you maneuver away from your foe; if you do,
+    reroll any dice. On a strong hit, take +2 momentum.
+
+- category: Module
+  name: Gilded Adornments
+  abilities:
+  - When you Secure an Advantage by making a showy display of your ship, you may roll +integrity.
+    If you do, take +1 momentum on a hit.
+  - When you host a formal ceremony or reception aboard your ship, roll +heart or +integrity,
+    whichever is higher. On a strong hit, the event goes as planned; you and any allies in
+    attendance mark two ticks on your bonds legacy track. On a weak hit, first deal with an
+    unfortunate conflict or interruption. On a miss, Pay the Price.
+  - When you Withstand Damage and the ship's finery bear the cost, you may mark this module as
+    broken and ignore the damage. When you Repair and fix this asset, take +2 momentum.
+
+- category: Module
+  name: Harpoon Cannon
+  abilities:
+  - You may Secure an Advantage or Gain Ground by firing your harpoon cannon at a large foe or
+    threat. On a hit, the target is grappled. For the duration of the situation, if you make a
+    move to maneuver against, attack, or board a grappled target, add +1.
+  - If you roll a 1 on your action die while taking action against a grappled target, the line is
+    cut, broken, or works against you; Pay the Price, and you no longer gain the bonus against
+    that target.
+  - As above, and if you fire the cannon in close quarters, add +2. If at a distance, take +1
+    momentum on a hit.
+
+- category: Module
+  name: Improved Armory
+  abilities:
+  - When you Enter the Fray by rallying your crew to repel boarders or board an enemy ship, you may
+    roll +supply; if you do, take +2 momentum on a hit. On a strong hit with a match, take +1
+    momentum more. In addition, any allies joining the effort may gain the outcome and benefits of
+    your move without rolling.
+  - When you Resupply by scavenging weapons or ammo from your foes after a fight, add +1.
+  - When you are out of options and set the fuse to self-destruct your command vehicle, activate
+    this ability at no cost. If you do, envision how you escape or overcome your foes in the midst
+    of the chaos. Then, mark one box on your quests legacy track and Overcome Destruction.
 
 - category: Module
   name: Improved Galley
   abilities:
-  - When you indulge onboard, roll +supply and Sacrifice Resources (-2). On a strong hit, each ally
-    chooses two benefits. On a weak hit, one. On a miss, Pay the Price.
-  - When you Set a Course, you may reroll one challenge die.
-  - When you Sojourn and score a strong hit, take +1 supply.
+  - When you draw on your provisions to indulge yourself and others onboard, roll +supply and
+    Sacrifice Resources (-2). On a strong hit, you and your allies each choose two. On a weak hit,
+    you each choose one. On a miss, the event is thwarted by crisis, complication, or dispute.
+  - You make the most of your provisions on a journey. When you Set a Course, you may reroll one
+    challenge die.
+  - When you Sojourn and score a strong hit, take +1 supply as the galley is restocked.
 
 - category: Module
-  name: Improved Sick Bay
+  name: Improved Gunnery
   abilities:
-  - When aid follows a shipwide crisis, roll +supply. On a strong hit, choose two. On a weak hit,
-    choose one. On a miss, Pay the Price.
-  - When you Heal, make the cost of a weak hit -1 instead of -2.
-  - When permanently harmed is marked, Heal with a strong hit to clear it and envision the scar.
+  - Your gundecks house an intimidating array of heavy cannons. When you Compel or Enter the Fray
+    by opening your gunports to send a promise of violence, add +1 and take +1 momentum on a hit.
+    On a strong hit with a match, take another +1 momentum.
+  - "When you Strike, choose one. Coordinated fire: Add +1 and take +1 momentum on a hit. Unleash
+    hell: Mark progress on a hit, but Lose Momentum (-1) or Sacrifice Resources (-1)."
+  - Once per fight, when you Clash by committing to an all-or-nothing exchange of fire, add +1,
+    count a weak hit as a strong hit, and mark progress on a hit. On a miss, you must suffer a dire
+    outcome.
+
+assets:
+- category: Module
+  name: Improved Hold
+  abilities:
+  - When you Resupply to gain gear or provisions for your ship's hold, you and your allies take
+    +1 momentum for each +2 supply gained through this action.
+  - Your ship's hold is stocked with reserves. When you Sacrifice Resources and your hold supply
+    is reduced to 0, first roll +integrity instead of marking unprepared. On a strong hit, take
+    +1 supply. On a weak hit or miss, mark unprepared.
+  - Your hold is fitted with secret compartments. When the ship undergoes an inspection or
+    search, Ask the Oracle if the compartments stay hidden, setting the odds as likely. If the
+    answer is no, the searchers are suspicious but you may Face Danger to distract or direct their
+    attention elsewhere; if you do, reroll any dice.
 
 - category: Module
   name: Improved Lookout
   abilities:
-  - While manned, when you Undertake an Expedition (+wits) or Face Danger to spot a threat, reroll
-    one challenge die.
-  - Once per situation, when you Secure an Advantage by studying a sighting, add +1 and take +1
-    momentum. On a strong hit with a match, take +1 momentum.
-  - When you witness a rare sight, choose insight (+1 momentum) or inspiration (+1 spirit).
+  - While the lookout post is manned, you are forewarned. When you Undertake an Expedition
+    (+wits) to carefully navigate a perilous course, or if you Face Danger to spot a hidden or
+    distant threat, you may reroll one challenge die.
+  - Once per situation, when you Secure an Advantage by studying a notable sighting or location
+    from a distance, add +1 and take +1 momentum on a hit. On a strong hit with a match, envision
+    an aspect of the situation or a vulnerability of your foe you can use; take another +1
+    momentum.
+  - "When you come upon a rare and awe‑inspiring sight and use the lookout post for a better
+    vantage point, choose one. Gain insight: take +1 momentum. Gain inspiration: take +1 spirit."
+
+- category: Module
+  name: Improved Sick Bay
+  abilities:
+  - When the wounded or stricken receive aid following a shipwide crisis, roll +supply. On a
+    hit, the aid is effective; choose two on a strong hit and one on a weak hit. On a miss, you
+    must count the cost; Pay the Price.
+  - "Build loyalty: Mark 1 tick on your bonds legacy track. Rally: You and your allies take
+    +1 health or +2 momentum. Get to work: Take +1 integrity."
+  - When you Heal, make the cost of a weak hit -1 instead of -2.
+  - When you or an ally mark the permanently harmed impact, you have a chance to make things
+    right. If you Heal and score a strong hit, clear the impact. Envision the scar that remains.
 
 - category: Module
   name: Ironclad Hull
   abilities:
-  - Your ship has 4 hull. When you Withstand Damage, ignore damage up to your hull value and suffer
-    -1 hull. At 0 hull, mark this module as broken.
-  - When you Face Danger or React Under Fire by letting the hull take the hit, roll +hull and take
-    +1 momentum on a strong hit. On a match, take +2 momentum.
-  - When you Undertake an Expedition through rough seas, roll +hull and reroll your action die if
-    less than hull.
-
-- category: Module
-  name: Improved Hold
-  abilities:
-  - When you Resupply your hold, take +1 momentum for each +2 supply gained.
-  - When Sacrifice Resources reduces hold to 0, roll +integrity instead. On a strong hit, take +1
-    supply. Otherwise, mark unprepared.
-  - When inspected, Ask the Oracle if secret compartments stay hidden. If no, Face Danger and
-    reroll dice.
-
-- category: Module
-  name: Map Room
-  abilities:
-  - When you Secure an Advantage or Gather Information by studying maps, reroll any dice. On a hit,
-    reroll dice for the first expedition leg.
-  - When you plan with allies, all participants take +1 momentum.
-  - When you Hearten by studying maps alone, roll +wits instead of +heart.
-
-- category: Module
-  name: Rigged for Speed
-  abilities:
-  - When you Undertake an Expedition (+edge) and score a strong hit, take +1 momentum. On a 6, take
-    +2 momentum.
-  - When you Enter the Fray, choose Battle sails (add +1, +1 momentum on strong hit) or Full sails
-    (take +2 momentum).
-  - When you push the ship after rolling, reroll dice and count a weak hit as strong, then
-    Withstand Damage (-2).
-
-- category: Module
-  name: Trophy Vault
-  abilities:
-  - When you defeat a notable foe, add a trophy. Use it to reroll dice when overcoming hazards
-    aboard ship, marking it spent.
-  - If rerolling all dice scores a strong hit with a match, mark two ticks on bonds and do not mark
-    spent. On miss with match, envision a curse.
-  - When giving a tour to impress or intimidate, add +2 and take +1 momentum.
+  - Your ship has a 4 hull. When you Withstand Damage, you may ignore damage up to the value of
+    your hull. If you do, suffer -1 hull. At 0 hull, mark this module as broken.
+  - When you Face Danger or React Under Fire by letting your ironclad hull take the hit, roll
+    +hull and take +1 momentum on a strong hit. On a strong hit with a match, you are impervious;
+    take another +2 momentum.
+  - When you Undertake a Journey across an area of rough seas or dangerous shallows, you may rely
+    on your ironclad hull. If you do, roll +hull. You may reroll your action die if its value is
+    less than your hull.
 
 - category: Module
   name: Lucky Figurehead
   abilities:
-  - Choose a linked stat. When you depart port, roll +linked stat. On a strong hit, take +2
-    momentum and +1 spirit. On a miss, Lose Momentum (-1).
-  - When you roll a miss with a match aboard ship, you may reroll both challenge dice.
-  - When you Withstand Damage, you may mark this module broken and ignore all damage.
+  - Choose one of your stats to represent the figurehead's theme. When you depart a port or
+    anchorage, you may roll +linked stat. You cannot burn momentum on this roll. On a strong hit,
+    you and your allies take +2 momentum and +1 spirit. On a weak hit, take +1 momentum. On a
+    miss, Lose Momentum (-1) and the figurehead offers no benefits.
+  - When you make a move +linked stat while aboard ship and score a miss with a match, you may
+    reroll both challenge dice.
+  - When you must Withstand Damage, you may mark this module as broken and ignore all damage.
+
+- category: Module
+  name: Map Room
+  abilities:
+  - When you Secure an Advantage or Gather Information by studying or preparing your maps prior
+    to setting off on an expedition, reroll any dice. On a hit, you may also reroll any dice for
+    the first leg of the journey as you Undertake an Expedition.
+  - When you assemble others in the map room to formulate a plan or speculate on a mysterious
+    aspect of the world, you and any participating allies take +1 momentum.
+  - When you Hearten by working on or studying your maps in isolation, roll +wits instead of
+    +heart. On a hit, take +1 spirit or +1 momentum. On a match, mark two ticks on discoveries.
+
+- category: Module
+  name: Rigged for Speed
+  abilities:
+  - "Your ship's shallow draft, quality sails, and well‑drilled crew make it fast and maneuverable.
+    When you Undertake an Expedition (+edge) and score a strong hit, take +1 momentum. On a
+    strong hit with a 6 on your action die, take +2 momentum instead of +1."
+  - "When you Enter the Fray, choose one before rolling. Battle sails: Add +1 and take +1 momentum
+    on a strong hit. Full sails: Take +2 momentum on a hit."
+  - When you make a move to close distance, escape a threat, or maneuver for advantage, you may
+    push the crew after rolling. Reroll any dice and count a weak hit as a strong hit. Then,
+    Withstand Damage (-2).
 
 - category: Module
   name: Submersible Mode
   abilities:
-  - When avoiding detection, add +1. When Entering the Fray by ambush, add +1 and mark progress.
-  - When Undertaking an Expedition submerged, roll +shadow and reroll your action die. On a match,
-    envision a remarkable feature.
-  - When poised to Strike submerged, roll +shadow and choose to reroll dice or mark progress.
+  - Your ship can cruise unseen below the surface. When you make a move against a foe or threat
+    to avoid detection, add +1. If you Enter the Fray by ambushing an unaware foe, add +1 and mark
+    progress on a strong hit.
+  - When you travel submerged as you Undertake an Expedition (+shadow), you may reroll your
+    action die. On a strong hit with a match, envision a remarkable underwater feature. If you
+    then Explore a Waypoint, reroll any dice.
+  - "When you are poised to Strike at a foe while submerged, you may roll +shadow. Choose one
+    before rolling: Strike true (reroll any dice). Strike hard (mark progress on a hit). On a
+    strong hit with a match, remain undetected; take +2 momentum and add +1 on your next Strike."
 
-- category: Support Vehicle
-  name: Flying Machine
+- category: Module
+  name: Trophy Vault
   abilities:
-  - When scouting from above, add +1 and take +1 momentum on a hit.
-  - When performing risky maneuvers, add +integrity and take +2 momentum on a strong hit; weak hits
-    count as misses.
-  - When scouting ahead as you Set a Course, add +1. On a match, mark discoveries and resolve the
-    encounter.
+  - "When you defeat a notable foe, envision the trophy you take and add it to a list displayed
+    in your ship's vault. When you make a move to overcome an obstacle aboard ship, you may use a
+    trophy to reroll any dice and mark it as spent."
+  - If you reroll all dice using a trophy and score a strong hit with a match, mark two ticks on
+    your bonds legacy track and do not mark the trophy as spent. If you score a miss with a match,
+    envision the cursed legacy that now haunts you.
+  - When you give a tour of the vault and make a move in that space to impress or intimidate,
+    add +2 and take +1 momentum on a hit.
+
+assets:
+- category: Support Vehicle
+  name: Captain's Boat
+  abilities:
+  - Your sleek and speedy personal transport can carry a small number of crew or passengers. When
+    you make a move to outrun a danger, pursue a target, or race against a deadline, add +1 and
+    take +1 momentum on a hit.
+  - Your boat is armed with light cannons. When you Clash by firing the cannons, you may add
+    +integrity. If you do, take +1 momentum on a hit, but mark one fewer progress.
+  - Your boat is fitted with impressive or imposing regalia. When you Secure an Advantage by
+    seeking to make an impression as you arrive at a location or event, roll +integrity. On a hit,
+    take +1 momentum or +1 spirit.
 
 - category: Support Vehicle
   name: Diving Bell
   abilities:
-  - When setting off or returning from a dive, take +1 momentum.
-  - When testing its hull, roll +integrity and add +1. When Withstand Damage, take +1 momentum or
-    +1 integrity on a strong hit.
-  - When you Explore a Waypoint from the bell, add +1.
+  - Your diving bell carries passengers into the depths within an air‑filled chamber. It offers a
+    refuge when diving the seabed, or while exploring underwater wrecks, ruins, or caves. When you
+    set off from the bell on a perilous undersea dive or return after a dive, take +1 momentum.
+  - Your diving bell is fitted with a rigid hull. When you Face Danger to test its strength against
+    the crushing depths, roll +integrity and add +1. When you must Withstand Damage, take +1
+    momentum or +1 integrity on a strong hit.
+  - When you use the diving bell to Explore a Waypoint, add +1.
+
+- category: Support Vehicle
+  name: Flying Machine
+  abilities:
+  - Your flying machine can carry you and a passenger on aerial missions. When you make a move to
+    scout or survey from above, add +1 and take +1 momentum on a hit.
+  - When you perform a risky maneuver to overcome an obstacle or danger, you may add +integrity
+    and take +2 momentum on a strong hit. If you do, count a weak hit as a miss.
+  - When you scout ahead as you Set a Course, add +1. On a strong hit with a match, you spot a
+    remarkable location or opportunity en route. Mark one tick on your discoveries legacy track
+    and resolve the encounter.
 
 - category: Support Vehicle
   name: Longboat
   abilities:
-  - When hauling provisions while Resupplying, roll +integrity to take +1 supply or +1 momentum.
-  - When you Withstand Damage and score a miss, reroll any dice.
-  - When boarding or landing under fire, add +1 and take +1 momentum.
+  - Your longboat transports crew, passengers, and cargo to and from your flagship. When you (or a
+    landing party under your command) use the craft to haul provisions as you Resupply, you may
+    roll +integrity. If you do, take +1 supply or +1 momentum on a hit.
+  - Your longboat is reinforced to endure storm, shoals, and cannon fire. When you Withstand Damage
+    and score a miss, you may reroll any dice. When you Repair a battered longboat, clear the
+    impact for 1 repair point (instead of 2).
+  - Your crew is trained for a stealthy approach. When you Face Danger or Gain Ground using your
+    longboat to board an enemy vessel or land on hostile shores, add +1 and take +1 momentum on a
+    hit.
 
-- category: Support Vehicle
-  name: Captain's Boat
+- category: Path
+  name: Cannoneer
   abilities:
-  - When outrunning danger or racing, add +1 and take +1 momentum.
-  - When Clashing with light cannons, you may add +integrity and take +1 momentum, but mark one
-    fewer progress.
-  - When making an impressive arrival, roll +integrity to take +1 momentum or +1 spirit.
+  - When you Strike using a vehicle's weapons and hold your fire for maximum effect, decide the
+    amount of momentum you risk (1, 2, or 3) and add +that amount. On a strong hit, mark progress.
+    On a weak hit or miss, Lose Momentum equal to 1 + the amount risked.
+  - When you make a move by firing or directing the fire of a vehicle's weapons and burn momentum
+    to improve your result, roll your action die. On a 5 or 6, do not reset momentum. Otherwise,
+    take +1 momentum after you reset.
+  - When you Secure an Advantage or Gain Ground by preparing or loading special ammunition for a
+    vehicle's weapons, roll +supply. On a hit, take +1 momentum. Then, when you first make a move
+    to fire this ammunition, reroll any dice.
+
+- category: Path
+  name: Construct
+  abilities:
+  - You are a machine. You do not eat, drink, or breathe, and are immune to toxins and poisons. You
+    Endure Harm as normal, but restore health only when you Repair. Spend 1 repair point to take
+    +1 health, or 2 points to clear the wounded impact.
+  - You have a kinship with other machines. When you make a move to build, repair, or study a
+    mechanical device, or question or convince a mechanical being, you may roll +spirit. On a
+    match, mark 1 tick on your bonds legacy track.
+  - You may purchase paths (except Augmented) to reflect your mechanical nature for 1 less
+    experience. When you Pay the Price, you may mark one of these assets as broken. Spend 2 repair
+    points to restore a broken asset.
+
+- category: Path
+  name: Crew Commander
+  abilities:
+  - You have 2 command; your max is 4. When you or an ally make a move leading or aided by the
+    crew, you may suffer -1 command after rolling to improve a weak hit to a strong hit, or a miss
+    to a weak hit. When you Pay the Price, you may suffer the cost as -1 command.
+  - While at 0 command, this asset counts as an impact. To bolster your crew, provide a notable
+    reward or respite and roll +heart. On a strong hit, take +4 command. On a weak hit, take +2.
+    On a miss, take +2 and envision a threat to your crew or leadership.
+  - Take +2 command; your max is now 6. When command is 0 and the situation desperate, you may
+    Compel your crew to action. On a hit, take +2 command.
+
+- category: Path
+  name: Cutthroat
+  requirement: If you wield knives...
+  abilities:
+  - When you Strike, add +1. When you make a move using a knife not to attack or threaten, but as a
+    tool to cut an object, gain leverage, or grab hold, add +1 and take +1 momentum on a hit.
+  - Once per situation, when you ambush an unaware foe or perform a feint or misdirection, reroll
+    any dice. If in a fight, mark progress on a hit. When you hold an ambushed foe at knifepoint
+    and make a move aided by violence, add +1.
+  - When you End the Fight without mercy or restraint, you may reroll one challenge die. If you do,
+    Endure Stress (-2). If you resist the stress, roll +iron instead of +spirit or +heart.
+
+- category: Path
+  name: Duelist
+  abilities:
+  - When you Enter the Fray or Battle in a duel against a single notable foe, add +2. If you set a
+    new objective in a fight by challenging a worthy foe, take +2 momentum.
+  - When you Gain Ground in personal combat using superficial attacks or verbal repartee, take
+    +1 momentum on a hit. On a strong hit, also add +1 if you immediately Strike.
+  - When you roll a miss with a match in a situation where your reputation is known, you may suffer
+    the cost by envisioning a notable rival who challenges you to a duel. If you defeat them, mark
+    two ticks on your quests legacy track. If you decline, mark one tick on bonds and envision the
+    fallout.
+
+- category: Path
+  name: Harpooner
+  abilities:
+  - When you make a move to throw or stab your harpoon at a large target, add +1 and take +1 momentum on a hit. When
+    making a move to attack person-sized foes, the harpoon is a powerful but ungainly weapon; add +2, but suffer -1
+    momentum on a weak hit or miss (in addition to any other cost of the outcome).
+  - When you Strike a large foe in close quarters, you may drive your harpoon home. If you do, mark progress on a hit.
+    If the fight continues, and you choose to pull the harpoon free, you must Gain Ground (+Iron), score a hit, and
+    forgo one of the choices awarded by that move.
+  - When you Resupply by hunting large game, add +1 and take +1 supply on a hit. On a miss with a match, there's always
+    a bigger fish; you draw the attention of a notable threat.
+
+- category: Path
+  name: Jinx
+  abilities:
+  - You are cursed by ill luck, but persisting offers its own rewards. If you score a miss with a match, this asset
+    counts as an impact for you and your allies. You may undo this only by scoring a strong hit with a match; if you do,
+    you and your allies each clear the impact and mark 1 tick on your bonds legacy track.
+  - When you score a weak hit on a progress move, you may test your luck by reducing the progress score by 1 and
+    rerolling all dice.
+  - When you roll matched 1's on your challenge dice while suffering from this asset's impact, you may activate this
+    ability at no cost. If you do, you are favored by fortune; you and your allies clear the impact and mark 1 box on
+    your bonds legacy track. Then, discard this asset and increase your momentum reset and max momentum (if less than
+    10) by 1
+
+- category: Path
+  name: Musician
+  abilities:
+  - When you Hearten, Secure an Advantage, or Gain Ground by encouraging yourself or others with a musical performance,
+    add +1. On a strong hit with a match, also mark 1 tick on your bonds legacy track.
+  - When you score a hit as you Sojourn during your first visit to a community, and Hearten by honoring them with a
+    song, you may take an extra recovery move.
+  - "When you suffer or encounter a tragic loss and perform a song to memorialize the dead, roll +heart. On a strong hit,
+    take both. On a weak hit, choose one.  On a miss, the performance leaves you or others troubled; Pay the Price.\n\n
+    * Honor the lost: mark 2 ticks on your bonds legacy track.\n
+    * Offer comfort or inspiration: you and your allies take +2 spirit or +2 momentum."
+
+- category: Path
+  name: Musketeer
+  requirement: If you wield a musket...
+  abilities:
+  - When you make a move to shoot at a specific target from a distance, but score a miss, you set your sights on your
+    quarry. The next time you make a move to shoot at the next time you make a move to shoot at the same target, add +2.
+  - When you Clash, you may attempt to turn the tide of the fight with a difficult but bold shot. If you do, roll an
+    extra challenge die and keep the two highest. A weak hit then counts as a strong hit. On a strong hit with a match,
+    mark progress.
+  - When you Gain Ground by charging into close quarters with a fixed bayonet, or if you React Under Fire by holding
+    foes at bay or parrying close quarter attacks with your rifle, add +1 and take +1 momentum on a hit.
+
+- category: Path
+  name: Necromancer
+  abilities:
+  - While in the presence of the remains of an intelligent being, you may Gather Information by summoning their spirit
+    to answer your questions. If you do, roll +heart and take +1 momentum on a hit.
+  - When you Face Death, or if you Aid your Ally by serving as their guide as they face death, mark 2 ticks on your
+    bonds legacy track.
+  - You may Face Danger (+heart) to animate a corpse with soulless life. On a hit, it is under your control. When it
+    aids you through force, threat, or fear as you make a move, add +2 and fill one segment of a 4-segment clock. You
+    may also suffer the cost of a move by filling a segment. When the clock is full, the corpse crumbles to ash. You may
+    control only a single corpse at a time.
+
+- category: Path
+  name: Overlander
+  abilities:
+  - When you Undertake an Expedition through uncharted or unfamiliar overland territory, you may reroll one challenge
+    die.
+  - When you find or make shelter in the wilds, roll +wits. On a strong hit, you and your allies envision how you pass
+    the time and each take +2 spirit or +2 health, or +1 to each. In addition, any companions in your company take +1
+    health. On a weak hit, the comfort is fleeting; you and your allies take +1 health or +1 spirit. On a miss, you
+    encounter hardship or a new danger; Pay the Price.
+  - When you Resupply by searching out a source of food, water, or other natural resources in the wilds, add +1. On a
+    strong hit with a match, you encounter an unusual or extraordinary location; you may Explore a Waypoint (even if not
+    on an expedition) and reroll any dice.
+  - When you Resupply by searching out a source of food, water, or other natural resources in the wilds, add +1. On a
+    strong hit with a match, you encounter an unusual or extraordinary location; you may Explore a Waypoint (even if not
+    on an expedition) and reroll any dice.
+
+- category: Path
+  name: Peddler
+  abilities:
+  - "Once per visit, when you offload goods in a community, roll +wits. On a strong hit, choose two. On a weak hit,
+    choose one. On a miss, you make a bad deal; Pay the Price.\n\n
+    * Trade for services: Make one recovery move (not Sojourn) with an automatic strong hit\n
+    * Trade for clout: Mark 1 tick on your bonds legacy track\n
+    * Trade for goods or coin: Mark 1 tick on your quests legacy track"
+  - As above, and on a match you uncover a chance to obtain a unique (if a strong hit) or problematic (if a miss)
+    resource or item. Envision the opportunity. If you secure it, mark 2 ticks on your quests legacy track.
+  - When you make a move to barter with a connection and score a hit, Advance Your Relationship and take +1 momentum
+
+- category: Path
+  name: Pirate Captain
+  abilities:
+  - "When you seize a notable ship or treasure, roll +wits. On a strong hit, take both, or choose one twice. On a weak
+    hit, choose one. On a miss, choose one, but this prize also brings an unexpected danger; Pay the Price.\n\n
+    * Build your fortune: Mark one tick on your quests legacy track.\n
+    * Share the spoils: Mark one tick on your bonds legacy track."
+  - When you Set a Course for familiar hunting grounds or to intercept a specific target, you may reroll your action die
+    if its value is less than your ship's integrity. When you Face Danger by stalking an area in search of prey, add +1
+    and take +1 momentum on a hit.
+  - You may spend 1 experience to Sojourn with an automatic strong hit. If you do, you and your allies take one extra
+    recovery move.
+
+- category: Path
+  name: Pistoleer
+  requirement: If you wield a brace of pistols...
+  abilities:
+  - When you Enter the Fray with pistols in hand, or Battle by unleashing a whirlwind of gunfire, add +2.
+  - When you Strike or Clash with a flurry of shots, you may roll your action die up to three times (or roll three
+    action dice at once), keeping the highest. On a strong hit, mark progress. On a weak hit or miss, after resolving
+    the outcome of the attack, immediately Check Your Gear to see if you have more pistols and ammo at the ready. If
+    not, this asset is unusable for the remainder of the fight.
+  - When you participate in a charged or antagonistic parlay with your pistols on display, take +2 momentum at the start
+    of the interaction.
+
+- category: Path
+  name: Scattershot
+  requirement: If you wield a scattergun...
+  abilities:
+  - Your scattergun is armed with a single shot, which you may use to Strike or Clash against a large target, a group of
+    massed foes, or a close quarters enemy. When you do, reroll any dice. To use the scattergun more than once in the
+    same fight, you must first score a hit as you Gain Ground (+edge), forgoing one of the choices awarded by that move
+    to instead reload and ready your next shot.
+  - When you make a move by firing your scattergun to damage or destroy an inanimate object, or to create a distraction,
+    add +1 and take +1 momentum on a hit.
+  - When you Take Decisive Action with a devastating shot or by demanding surrender at the point of a readied
+    scattergun, you may reroll one challenge die.
+
+- category: Path
+  name: Scholar
+  abilities:
+  - Choose a field of study to represent your scholarly expertise. When you Gather Information by conducting extended
+    research within your field of study, or when you Hearten through the comfort of dedicated learning, add +1 and take
+    +1 momentum on a hit. On a match, you piece together an enlightening or harrowing theory; envision the nature of
+    this revelation and mark 1 tick on your discoveries legacy track.
+  - When you Secure an Advantage or Gain Ground through cursory observation of a situation that falls within your field
+    of study, or when you Compel using your expertise to speak truth or logic, add +1.
+  - You apply yourself to another discipline. Choose a second field of study
+
+- category: Path
+  name: Shapechanger
+  abilities:
+  - You have an alternate form and a trigger that sparks the transformation. If you encounter or activate the trigger,
+    Face Danger (roll +health) to hasten, endure, or resist the transformation. When you make a move in your alternate
+    form, roll an extra action die. If the move is true to your alternate form's nature, keep the highest as your action
+    die value. If it is contrary, keep the lowest. To willingly return to your normal form, Lose Momentum (-2).
+  - As above, and when you score a hit with matching values on both action dice, your identities are in harmony; take +1
+    momentum.
+  - Choose your normal or alternate form as your ideal self. When you change to that form, you are partially restored
+    and may take +1 health or +1 spirit.
+
+- category: Path
+  name: Shipwright
+  abilities:
+  - When you Repair, take 1 extra repair point or +1 momentum on a hit. When you Resupply by scavenging parts or
+    materials from a ship or wreck, take +1 supply or +1 momentum on a strong hit.
+  - When you Enter the Fray (+wits), you may study an enemy vessel to pointpoint weakneses and strengths in its
+    construction or configuration. On a strong hit, you spot a vulnerability or devise a means of overcoming its
+    advantages; envision what you learn and take +2 momentum. One time only, you or an ally may reroll any dice when
+    using this insight to make a move.
+  - When you Advance by conducting a refit at port, you may purchase or upgrade module assets for 1 less experience.
+
+- category: Path
+  name: Socialite
+  abilities:
+  - When you make a move using using charm, flattery, or seduction, or by navigating elite social circles, add +1.
+  - "When you first make an appearance at a social event, you may attempt a grand or memorable entrace. If you do, roll
+    +heart. On a strong hit, mark one tick on your bonds legacy track and take +3 momentum. On a weak hit, take +2
+    momentum. On a miss, choose one and Endure Stress (-2).\n\n
+    * You spot an unwelcome rival, authority, or former beau.\n
+    * You commit an embarrassing faux pas.\n
+    * You are upstaged by another's entrance."
+  - When you Hearten while attending an exclusive social event, reroll any dice. On a strong hit, you and any allies in
+    your company take +1 momentum.
+
+- category: Path
+  name: Sorcerer
+  abilities:
+  - When you Secure an Advantage or Gain Ground by creating a minor mystical effect, roll +spirit. On a strong hit, take
+    +1 momentum. On a weak hit, take the standard benefits of the move, but first Endure Stress (-1). On a match, you
+    learn something of magic's nature through an unexpected boon or harrowing backlash; mark 1 tick on your discoveries
+    legacy track.
+  - You may purchase assets of a supernatural nature for 1 experience (instead of 3).
+  - When you Swear an Iron Vow (extreme or greater) to gather the components and lore of a complex and powerful ritual,
+    reroll any dice. When you Reach a Milestone on this quest, take +2 momentum. When you enact the ritual to Fulfill
+    Your Vow, you may reroll any challenge dice to draw on unknowable powers at the risk of your soul. If you do, Face
+    Desolation.
+
+- category: Path
+  name: Spy
+  abilities:
+  - When you make a move to covertly observe a target, infiltrate a protected location, or uncover or decipher secret
+    information, add +1 and take +1 momentum on a hit.
+  - When you Face Danger or Secure an Advantage to establish a false identity or adopt a disguise, add +1. On a hit,
+    add +1 when using that identity to deceive or influence others. If you score a miss with a match when using a false
+    identity, your deception is completely and dramatically undone.
+  - "When you Forge a Bond for a relationship founded on deception, choose one.\n\n
+    * Keep the secret: You may reroll one challenge die.\n
+    * Reveal the truth: On a strong hit, make the legacy reward one rank higher (1 extra box if already epic)."
+
+- category: Path
+  name: Swashbuckler
+  abilities:
+  - When you make a move with outrageous style, and do not roll a 1 on your action die, you may reroll that die. If you
+    burn momentum to improve your result on this move, roll your action die again; on a 5 or 6, do not reset momentum.
+  - When you Enter the Fray in personal combat, or when an ongoing fight transitions to personal combat, you may
+    envision up to three useful aspects of your surroundings. Take +1 momentum for each. Then, when you make a daring or
+    unexpected move incorporating one of those aspects (once per aspect), add +1.
+  - When you React Under Fire in close quarters by parrying, and score a strong hit, you counter or turn your foe's
+    attack against them; mark progress.
+
+- category: Path
+  name: Urchin
+  abilities:
+  - You are unnoticed and underestimated. When you make a move to sneak, hide, or pilfer, add +1 and take +1 momentum on
+    a hit. When you make a move to defy expectations (decide before rolling) add +1 and reroll any dice, but count a
+    weak hit as a miss.
+  - Name a connection as your mentor. When you Develop Your Relationship with them, take +2 momentum. When you
+    successfully Fulfill Your Vow in their service or to their benefit, also mark two ticks on your bonds legacy track.
+    When you Forge a Bond with them and score a hit, make the legacy reward one rank higher (1 extra box if already
+    epic).
+  - When you come of age or take on a role beyond your years, gain this ability at no cost. Then, discard this asset and
+    take two others (at no cost) to represent your new status.
+
+- category: Path
+  name: Waterborn
+  abilities:
+  - You have an affinity for the depths. You can spend extended time underwater without need of a breath, and have 5
+    air. When you exert yourself to make a move underwater, you may suffer -1 air and add +1. When your air is 0, you
+    must Endure Harm (-2) before making any move involving physical action. When you return to the surface or an
+    air-filled environment, set your air to 5.
+  - Once per foray into an underwater environ, you may trade air for momentum, or vice-versa. Suffer -2 air and take +2
+    momentum, or Lose Momentum (-2) and take +2 air.
+  - When you make a move to maneuver while diving or swimming, take +1 momentum on a strong hit.
+
+- category: Path
+  name: Windbinder
+  abilities:
+  - When you bind the winds to your will, roll +edge. On a strong hit, the winds are fine; you and your allies take +2
+    momentum, and may add +1 when you make a move to navigate or maneuver. On a weak hit, the winds are fair; take +2
+    momentum. On a miss, the winds are foul; you and your allies Lose Momentum (-2), and should face weather-related
+    hazards and costs as appropriate. No matter the outcome, set the winds to fair after a few hours.
+  - As above, and add +1 when you bind the winds.
+  - Once per situation, you may summon a mighty cyclone. Take an automatic miss as defined above, but also wreak havoc
+    on your foes; mark progress on a related quest, or mark progress twice on related objectives in a fight.
+
+- category: Compantion
+  name: Albatross
+  abilities:
+  - Your albatross companion brings good luck, but its fate is tied to your own. When you are at sea, increase your
+    momentum reset by 1. If the albatross is killed, discard this asset and suffer a permanent impact.
+  - When the albatross flies ahead of your ship or perches on the ship's mast as you Finish an Expedition, its luck is
+    on your side. You may reroll one challenge die.
+  - When you Secure an Advantage at sea by asking the spirit embodied by the albatross for a favorable boon, you may
+    roll +its health. If you do, take +1 momentum on a hit. On a strong hit with a match, also mark 1 tick on your bonds
+    legacy track as you deepen your connection to your companion.
+
+- category: Companion
+  name: Chattering Skull
+  abilities:
+  - "This animated skull does not use a health meter, but is as vulnerable to destruction or loss as any object. When you
+    make a move in its presence, add a cursed die (ten-sided) to the roll. If that die rolls a 10, you glean insight
+    from the skull's incessant chatter as follows.\n\n
+    * If you rolled a miss, reroll all dice. If you miss again, the skull led you astray.\n
+    * If you rolled a hit, take +1 momentum and add +1 on your next related move."
+  - When you roll a match with a 10 on the cursed die, you learn a surprising or dreadful aspect of the skull's history
+    or nature; mark one box on your bonds legacy track.
+  - Once per situation, when you make a move against a supernatural foe, challenge, or mystery, you may use the value of
+    the cursed die in place of your action die.
+
+- category: Companion
+  name: Dolphin
+  abilities:
+  - Your dolphin companion is a helpful but often errant friend. When you call the dolphin, roll +heart. On a hit, it
+    appears and will remain in the area for an hour or two. You may (one time only) reroll any dice on a move to
+    overcome an obstacle or hazard with its help. On a strong hit, also take +2 momentum, On a miss, it is away or
+    unable to respond; Pay the Price.
+  - When you make a move to detect or evade a threat while swimming in the company of the dolphin, roll +its health and
+    take +1 momentum on a hit.
+  - When you Undertake an Expedition and score a miss with a match, you may envision the dolphin appearing unbidden to
+    guide you out of trouble. If you do, reroll both challenge dice.
+
+- category: Companion
+  name: Dragon
+  abilities:
+  - Your dragon companion wards off trouble. When you Secure an Advantage by letting it roam, roll +its health. You must
+    Sacrifice Resources (-1) about once a day to satiate its fierce appetite; otherwise, make the Companion Takes a Hit
+    (-2) move.
+  - The dragon accepts you as a rider. It will fly under your direction, and will assail your foes using tooth, tail,
+    claw, and fiery breath. When you make a move from the saddle to lead an expedition or leverage the dragon as a
+    weapon, you may roll +its health. If you then roll a 1 or 2 on your action die, the dragon must bear the brunt of
+    any cost or counterattack.
+  - When you make the Companion Takes a Hit move, take +1 momentum on a strong hit.
+
+- category: Companion
+  name: Jungle Cat
+  abilities:
+  - Your jungle cat companion leaps into the fight at your side. When you Strike aided by the cat, or if you make a move
+    to intimidate your foes, add +1. If you Clash, take +1 momentum on a hit.
+  - The jungle cat leads the way on treacherous overland journeys. When you Undertake an Expedition through wilderness,
+    add +1. On a strong hit with a match, the cat guides you to an otherwise unseen opportunity; envision what you find
+    and take +2 momentum.
+  - When you Endure Stress in the company of the jungle cat, or if you Hearten in their company, add +1. On a strong hit
+    with a match, you find inspiration or solace; take +momentum equal to their health.
+
+- category: Companion
+  name: Monkey
+  abilities:
+  - Your monkey companion finds its own trouble. Once per situation, when you score a miss, you may envision a cost
+    involving the monkey causing mischief or getting into danger. If you do, roll +its health. On a strong hit, the
+    monkey unwittingly turns the situation to your favor; take +2 momentum. On a weak hit, it provides a distraction or
+    mild boon; take +1 momentum. On a miss, it faces its own cost or makes the situation worse.
+  - When you make a move by sending the monkey to complete a task involving theft, infiltration, or sabotage, roll +its
+    health. On a hit, take +1 momentum.
+  - When you Resupply by asking the monkey to search or scavenge, add +1.
+
+- category: Companion
+  name: Parrot
+  abilities:
+  - "Your parrot companion offers random wisdom. When you seek inspiration, context, or direction, use your oracle dice
+    to choose a table\n
+    (1–25: Action, 26–50: Theme, 51–75: Descriptor, 76–100: Focus)\n
+    Then, roll to learn what your parrot says. If you connect this prompt to your current situation for new insight,
+    take +1 momentum."
+  - Once per fight, when you score a miss, you may envision how the companion appears on the scene to cause a timely
+    distraction. If you do, make it a strong hit instead.
+  - The parrot squawks a warning when danger is near. When you Face Danger to detect a threat, or if you Enter the Fray
+    against an ambush, add +its health.
+
+- category: Companion
+  name: Rat
+  - Your rat companion shows the way. When you make a move to flee a danger aboard a ship or within a confined site, and
+    let your rat take the lead, add +its health.
+  - When you make a move by setting loose the rat to cause a distraction or commotion among a crowd or in a public
+    space, add +1 and take +1 momentum on a hit. On a strong hit with a match, it creates unexpected chaos; take +1
+    momentum more.
+  - You may Explore a Waypoint (even if not on an expedition) by sending the rat to search a promising confined area for
+    something of interest or value. If you do, roll +its health. On a miss, its instincts have you forewarned; you may
+    reroll one challenge die.
+
+- category: Companion
+  name: The Kraken
+  abilities:
+  requirement: While it is your companion, the Kraken cannot be harmed.
+  - When you summon the Kraken, fill one segment of a four-segment clock. The Kraken will heed a single command to
+    destroy or overcome any foe or obstacle. If you are in a fight, Take Decisive Action with an automatic strong hit.
+    When the clock is filled, Ask the Oracle (using the yes/no table) if the Kraken turns against you, making it 50/50.
+    On a yes, discard this asset; the Kraken is now an epic foe. On a no, clear one segment of the clock.
+  - When you make a move using a threat to call the Kraken as leverage, add +2.
+  - One time only, when you Fulfill Your Vow (formidable or greater) in service to the Kraken and score a hit, choose
+    one: clear all clock segments, or discard this asset and mark three boxes on your bonds legacy track.
+
+- category: Deed
+  name: Cohort
+  requirement: Once you Make a Connection and accept them as a crewmate...
+  abilities:
+  - You gain a specialist. The specialist is part of your crew, but is tracked as a connection and provides benefits to
+    you and your allies per their role. When you Withstand Damage and score a miss, or if you Pay the Price, you may
+    suffer the cost by noting the specialist as out of action. An out of action specialist provides no benefit. To
+    restore a specialist to duty, resolve the situation as appropriate to the nature of the injury, trauma, or dispute.
+  - Gain additional specialists by spending 1 experience to add a connection to your crew as a specialist. Specialist
+    bonuses may not be stacked for a single action.
+  - When you Secure an Advantage by gathering your specialists to strategize or problem-solve, you may reroll one die
+    for each participating specialist.
 
 - category: Deed
   name: Damned
   requirement: Once you mark tormented or doomed...
   abilities:
-  - You are cursed and remade. Discard two or more assets tied to your former nature. Take up to
-    three new assets and mark them as damned. Upgrading costs 1 experience.
-  - Choose a community that accepts you. When you Sojourn there, reroll any dice.
-  - When the curse is broken, discard this and damned assets, exchange one-for-one, and increase
-    one stat by +1.
+  - You are cursed and remade by your encounter with death or desolation. Discard two or more assets connected to your
+    former nature, and take up to three assets to represent your damned existence. Give the new assets a special mark.
+    When you Advance and upgrade a damned asset, spend 1 experience (instead of 2).
+  - Choose a community where you are accepted in spite of (or because of) your cursed nature. When you Sojourn there,
+    reroll any dice.
+  - When your curse is broken through the fulfillment of a vow or other event, activate this ability at no cost. Discard
+    this asset and any of your damned assets, exchanging them one-for-one for new assets with an equal number of marked
+    abilities. You may then improve one of your stats by +1.
+
+- category: Deed
+  name: Fleet Commander
+  requirement: Once you fill 12 legacy track boxes and take command of a mighty fleet...
+  abilities:
+  - Your fleet has a starting and max power of 4. When you make a move as a fleetwide action to get in position, avoid a
+    hazard, or fight, roll +power. If you Pay the Price and your fleet bears the cost, suffer -1 power. At 0 power, mark
+    the fleet as wrecked. To refit the fleet, Sojourn and forgo an automatic strong hit on a recover move to take +2
+    power; if the fleet is wrecked, first spend 2 experience to clear that status.
+  - Take +2 power and set your max power to 5.
+  - When you Undertake an Expedition, you may reroll your action die if its value is less than your fleet's power.
 
 - category: Deed
   name: Old Salt
-  requirement: Once you fill discovery and bonds tracks...
+  requirement: Once you fill 4 boxes each on your discovery and bonds legacy tracks...
   abilities:
-  - When you set sail after land, take +2 momentum or +2 spirit, or +1 each. On landfall, Lose
-    Momentum (-1).
-  - When plotting courses or facing environmental hazards, add +1 and take +1 momentum.
-  - When dealing with sea creatures, add +1. On a match, mark discoveries.
+  - You have grown accustomed to life aboard ship. When you set sail after a landlocked layover, take +2 momentum or +2
+    spirit, or +1 of each. When you make landfall, Lose Momentum (-1).
+  - When you Secure an Advantage to plot a course through careful study of currents and weather, or if you Face Danger
+    aboard ship to overcome or avoid an environmental hazard such as a storm or rogue wave, add +1 and take +1 momentum
+    on a hit.
+  - When you make a move to hunt, oppose, study, pacify, or gain the favor of a creature of the sea, add +1. On a strong
+    hit with a match, envision the surprising insight you gain; mark one tick on your discoveries legacy track.
 
 - category: Deed
   name: Undead
   requirement: Once you die or are cursed with undeath...
   abilities:
-  - This asset counts as a permanent impact. When you Endure Harm, you may Lose Momentum to offset
-    harm, then roll +spirit to resist.
-  - When you intimidate using undeath, reroll any dice and take +2 momentum on a hit.
-  - You may travel between realms. When Undertaking Expeditions in death's realm, roll +spirit.
+  - This is not your end. Envision your undead form and nature. This asset counts as a permanent impact, but you are now
+    resistant to mortal harm. When you Endure Harm, you may first Lose Momentum (-1, -2, or -3) to offset an equal
+    amount of harm. If potential harm remains, and you choose to resist the harm, roll +spirit.
+  - When you make a move using your undead aspect to intimidate, scare, or confound, reroll any dice; on a hit, take +2
+    momentum.
+  - You may move at-will between the mortal world and the realm of the dead, can take others with you, and may navigate
+    those paths to bypass or hasten a mortal journey. When you Undertake an Expedition within the realms of the dead,
+    roll +spirit. On a strong hit, mark progress.
