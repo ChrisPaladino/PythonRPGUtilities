@@ -105,7 +105,6 @@ assets:
     count a weak hit as a strong hit, and mark progress on a hit. On a miss, you must suffer a dire
     outcome.
 
-assets:
 - category: Module
   name: Improved Hold
   abilities:
@@ -215,7 +214,6 @@ assets:
   - When you give a tour of the vault and make a move in that space to impress or intimidate,
     add +2 and take +1 momentum on a hit.
 
-assets:
 - category: Support Vehicle
   name: Captain's Boat
   abilities:
@@ -655,6 +653,7 @@ assets:
 
 - category: Companion
   name: Rat
+  abilities:
   - Your rat companion shows the way. When you make a move to flee a danger aboard a ship or within a confined site, and
     let your rat take the lead, add +its health.
   - When you make a move by setting loose the rat to cause a distraction or commotion among a crowd or in a public
@@ -666,15 +665,15 @@ assets:
 
 - category: Companion
   name: The Kraken
-  abilities:
   requirement: While it is your companion, the Kraken cannot be harmed.
+  abilities:
   - When you summon the Kraken, fill one segment of a four-segment clock. The Kraken will heed a single command to
     destroy or overcome any foe or obstacle. If you are in a fight, Take Decisive Action with an automatic strong hit.
     When the clock is filled, Ask the Oracle (using the yes/no table) if the Kraken turns against you, making it 50/50.
     On a yes, discard this asset; the Kraken is now an epic foe. On a no, clear one segment of the clock.
   - When you make a move using a threat to call the Kraken as leverage, add +2.
-  - One time only, when you Fulfill Your Vow (formidable or greater) in service to the Kraken and score a hit, choose
-    one: clear all clock segments, or discard this asset and mark three boxes on your bonds legacy track.
+  - "One time only, when you Fulfill Your Vow (formidable or greater) in service to the Kraken and score a hit, choose
+    one: clear all clock segments, or discard this asset and mark three boxes on your bonds legacy track."
 
 - category: Deed
   name: Cohort
