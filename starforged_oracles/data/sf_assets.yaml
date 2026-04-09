@@ -233,8 +233,9 @@ assets:
 - category: Module
   name: Heavy Cannons
   abilities:
-  - "When you aim your cannons and use them to Strike, choose one.\n\n  * Strafing run: Add +1 and take +1 momentum\
-    \ on a hit.\n  * Focus fire: Mark progress on a hit, but Lose Momentum (-1)."
+  - "When you aim your cannons and use them to Strike, choose one.\n\n
+    * Strafing run: Add +1 and take +1 momentum on a hit.\n
+    * Focus fire: Mark progress on a hit, but Lose Momentum (-1)."
   - Once per fight, when you Clash by committing to an all-or-nothing exchange of fire, add +1, count a weak hit
     as a strong hit, and mark progress on a hit. On a miss, you must suffer a dire outcome.
   - When you Compel, Enter the Fray, or Gain Ground by bringing your cannons to bear and sending a promise of violence
@@ -309,9 +310,10 @@ assets:
   abilities:
   - Your advanced sensors scan the paths ahead to help spot dangers. When you Undertake an Expedition (+wits), you
     may reroll one challenge die.
-  - "When you Secure an Advantage or Gather Information by scanning your vehicle's surroundings or analyzing a nearby\
-    \ object, choose one and take +1 momentum on a hit.\n\n  * Manual scan: Add +1\n  * Automated scan: Instead\
-    \ of rolling the action die, make it the value of your vehicle's integrity"
+  - "When you Secure an Advantage or Gather Information by scanning your vehicle's surroundings or analyzing a nearby
+    object, choose one and take +1 momentum on a hit.\n\n
+    * Manual scan: Add +1\n
+    * Automated scan: Instead of rolling the action die, make it the value of your vehicle's integrity"
   - When you Enter the Fray against an ambush, or Face Danger to detect a hidden threat, you may roll +integrity.
     If you do, reroll any dice and take +1 momentum on a hit.
 - category: Module
@@ -332,8 +334,9 @@ assets:
     add +1. If you Enter the Fray by ambushing an unaware foe, add +1 and mark progress on a strong hit.
   - When you travel stealthily as you Undertake an Expedition (+shadow), you may reroll your action die.
   - "When you are poised to Strike from hiding, you may roll +shadow. If you do, choose one (before rolling).\n\n\
-    \  * Strike true: Reroll any dice.\n  * Strike hard: Mark progress on a hit.\n\nOn a strong hit with a match,\
-    \ you also remain totally undetected; take +2 momentum and add +1 on your next Strike."
+    * Strike true: Reroll any dice.\n
+    * Strike hard: Mark progress on a hit.\n\n
+    On a strong hit with a match, you also remain totally undetected; take +2 momentum and add +1 on your next Strike."
 - category: Module
   name: Vehicle Bay
   abilities:
@@ -429,8 +432,9 @@ assets:
   abilities:
   - When you Clash or Strike in close quarters, add +1. On a strong hit with a match, you are unstoppable; mark
     progress.
-  - "If you Gain Ground by moving into close quarters against your foe, choose your approach.\n\n  * Charge: Roll\
-    \ +heart, and mark progress on a hit.\n  * Evade: Roll +edge, and take +1 momentum on a hit."
+  - "If you Gain Ground by moving into close quarters against your foe, choose your approach.\n\n
+    * Charge: Roll +heart, and mark progress on a hit.\n
+    * Evade: Roll +edge, and take +1 momentum on a hit."
   - You wield an iconic blade. Give it a name. When you Swear an Iron Vow by binding your promise to the blade,
     add +1. On a hit, fill the box below. If you make a move (including a progress move) using this oathbound blade
     and score a miss, you may clear the box to reroll any dice.
@@ -440,10 +444,10 @@ assets:
   - When you take a bounty contract and Swear an Iron Vow to see it done, add +1. On a strong hit, you've got a
     solid lead and may mark progress on the quest. When you Fulfill Your Vow on a hunt, make the legacy reward one
     rank higher (1 extra box if already epic).
-  - "When you Gather Information related to a bounty, add +1. On a match, you reveal a surprising or sinister aspect\
-    \ of the contract; envision what you discover, and choose one.\n\n  * Forge ahead: Mark progress on the quest.\
-    \ If you scored a strong hit with a match, also take +2 momentum.\n  * Change loyalties: Forsake Your Vow and\
-    \ mark 2 ticks on your bonds legacy track."
+  - "When you Gather Information related to a bounty, add +1. On a match, you reveal a surprising or sinister aspect of
+    the contract; envision what you discover, and choose one.\n\n
+    * Forge ahead: Mark progress on the quest. If you scored a strong hit with a match, also take +2 momentum.\n
+    * Change loyalties: Forsake Your Vow and mark 2 ticks on your bonds legacy track."
   - When you Take Decisive Action in a fight against a bounty target or their agents, you may reroll one challenge
     die.
 - category: Path
@@ -452,9 +456,10 @@ assets:
   abilities:
   - When you Gain Ground by attempting to disarm, trip, shove, grapple, or stun your foe, add +1 and take +1 momentum
     on a hit.
-  - "When you Clash in close quarters, you may draw on your momentum to gain advantage. If you do, Lose Momentum\
-    \ (-2) and choose one (before rolling).\n\n  * Aggressive: Count a weak hit as a strong hit.\n  * Defensive:\
-    \ Count a miss as a weak hit."
+  - "When you Clash in close quarters, you may draw on your momentum to gain advantage. If you do, Lose Momentum (-2)
+    and choose one (before rolling).\n\n
+    * Aggressive: Count a weak hit as a strong hit.\n
+    * Defensive: Count a miss as a weak hit."
   - When you Enter the Fray already positioned in close quarters against your foe, mark progress on a hit. On a
     strong hit with a match, your initial assault leaves them stunned; also take +2 momentum.
 - category: Path
@@ -470,11 +475,11 @@ assets:
 - category: Path
   name: Demolitionist
   abilities:
-  - 'When you make a move to attack, destroy, or sabotage by deploying or triggering an explosive device, choose
+  - "When you make a move to attack, destroy, or sabotage by deploying or triggering an explosive device, choose
     the value of your charge before rolling: normal=1, high=2, or overcharged=3. If either challenge die is equal
     to or less than the charge, count a weak hit as a strong hit. If not, and your action die is equal to or less
     than the charge, you are caught up in the destruction or set off an unintended effect; count a weak hit as a
-    miss.'
+    miss."
   - When you make a move to craft, modify, or disarm an explosive device, or if you threaten or provoke by arming
     an explosive device, add +1 and take +1 momentum on a hit.
   - When your momentum is at its max, you may reset momentum (before rolling) to trigger an explosive device as
@@ -899,9 +904,10 @@ assets:
   abilities:
   - Your unarmed utility vehicle houses one pilot for short-range, low gravity operations. When you make a move
     using the pod's manipulator arms to perform a delicate or forceful task, add +1 and take +1 momentum on a hit.
-  - "When you Face Danger, Gain Ground, or React Under Fire by maneuvering your pod through a hazardous or obstructed\
-    \ area, choose an approach and roll +integrity.\n\n  * Careful: Add +2 and Lose Momentum (-1)\n  * Reckless:\
-    \ Take +1 momentum on a hit"
+  - "When you Face Danger, Gain Ground, or React Under Fire by maneuvering your pod through a hazardous or obstructed
+    area, choose an approach and roll +integrity.\n\n
+    * Careful: Add +2 and Lose Momentum (-1)\n
+    * Reckless: Take +1 momentum on a hit"
   - When you make a move while controlling the pod and push its capabilities to the limit, you may take an automatic
     strong hit. If you do, Withstand Damage (-2).
 - category: Support Vehicle
