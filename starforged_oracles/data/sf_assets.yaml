@@ -523,9 +523,10 @@ assets:
   abilities:
   - When you Explore a Waypoint, take +1 momentum on a hit. When you Finish an Expedition and score a hit, mark
     1 extra tick on your discoveries legacy track.
-  - "When you come across a wondrous sight or phenomenon, such as an extraordinary planet, majestic creature, or\
-    \ dazzling stellar object, choose one:\n\n  * Find inspiration: Take +1 momentum\n  * Soak it all in: Hearten;\
-    \ add +1, and take +1 momentum on a hit."
+  - "When you come across a wondrous sight or phenomenon, such as an extraordinary planet, majestic creature, or
+    dazzling stellar object, choose one:\n\n
+    * Find inspiration: Take +1 momentum\n
+    * Soak it all in: Hearten; add +1, and take +1 momentum on a hit."
   - When you Secure an Advantage by studying a newfound place from a safe position, add +1 and take +1 momentum
     on a hit. On a strong hit with a match, take another +1 momentum and envision an unusual aspect of the site.
 - category: Path
@@ -575,8 +576,9 @@ assets:
   name: Gunner
   requirement: If you wield a heavy ranged personal weapon...
   abilities:
-  - "When you Strike, choose one (before rolling).\n\n  * Pin them down: Add +1 and take +1 momentum on a hit.\n\
-    \  * Make them hurt: Mark progress on a hit."
+  - "When you Strike, choose one (before rolling).\n\n
+    * Pin them down: Add +1 and take +1 momentum on a hit.\n
+    * Make them hurt: Mark progress on a hit."
   - When you Take Decisive Action by emptying your gun (decide before rolling), you may Sacrifice Resources (-1)
     and reroll one challenge die. If the fight continues or you are caught up another fight, Check Your Gear to
     see if you have more ammo on-hand.
@@ -602,10 +604,10 @@ assets:
     1 tick on your bonds legacy track.
   - When you Face Death guided by the spirit, add +1. On a strong hit, envision what you learn from them or about
     them, and mark 2 ticks on your bonds legacy track.
-  - "One time only, when you Fulfill Your Vow (extreme or greater) in service to the spirit, take this ability at\
-    \ no cost and choose one.\n\n  * Let them go: Mark 2 ticks on your bonds legacy track for each marked ability,\
-    \ and discard this asset.\n  * Bolster your link: When you use a HAUNTED asset ability, take +1 momentum on\
-    \ a hit."
+  - "One time only, when you Fulfill Your Vow (extreme or greater) in service to the spirit, take this ability at no
+    cost and choose one.\n\n
+    * Let them go: Mark 2 ticks on your bonds legacy track for each marked ability,and discard this asset.\n
+    * Bolster your link: When you use a HAUNTED asset ability, take +1 momentum on a hit."
 - category: Path
   name: Healer
   abilities:
@@ -710,9 +712,11 @@ assets:
 - category: Path
   name: Navigator
   abilities:
-  - "When you Set a Course, choose one.\n\n  * Follow the fastest path: Take +2 momentum on a strong hit.\n  * Follow\
-    \ the safest path: Add +1\n\nOn a strong hit with a match, you charted a new path during the journey; mark 1\
-    \ tick on your discoveries legacy track."
+  - "When you Set a Course, choose one.\n\n
+    * Follow the fastest path: Take +2 momentum on a strong hit.\n
+    * Follow the safest path: Add +1\n\n
+    On a strong hit with a match, you charted a new path during the journey; mark 1 tick on your discoveries legacy
+    track."
   - When you Secure an Advantage by charting the way forward, Face Danger to find a path around a hazard, or Gather
     Information about a location by studying your charts, add +1 and take +1 momentum on a hit.
   - Once per expedition, when you or an ally Undertake an Expedition and score a weak hit or miss, you may ignore
@@ -842,10 +846,10 @@ assets:
   abilities:
   - When you are in a fight, increase your momentum reset by 1. Then, if you burn momentum to improve your result,
     add +1 on your next move.
-  - "When you Make a Connection, add +1. If you roll a match, you have a history.\n\n  * On a strong hit with a\
-    \ match, you once fought beside them, and they owe you a favor. Mark 1 tick on your bonds legacy track, and\
-    \ Develop Your Relationship now.\n  * On a miss with a match, you once fought against them, and they hold a\
-    \ grudge."
+  - "When you Make a Connection, add +1. If you roll a match, you have a history.\n\n
+    * On a strong hit with a match, you once fought beside them, and they owe you a favor. Mark 1 tick on your bonds
+      legacy track, and Develop Your Relationship now.\n
+    * On a miss with a match, you once fought against them, and they hold a grudge."
   - When you Secure an Advantage or Gain Ground by recounting or recalling a hard-won lesson from your battlefield
     experiences, envision the memory and add +1. On a hit, take +1 momentum.
 - category: Path
