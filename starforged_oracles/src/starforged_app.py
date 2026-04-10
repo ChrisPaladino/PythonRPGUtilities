@@ -18,11 +18,12 @@ from loader import load_all_data
 from styles import BG, configure_styles
 from tabs.assets import AssetsTabMixin
 from tabs.bundles import BundlesTabMixin
+from tabs.dice import DiceTabMixin
 from tabs.moves import MovesTabMixin
 from tabs.oracles import OraclesTabMixin
 
 
-class App(MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesTabMixin, tk.Tk):
+class App(DiceTabMixin, MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesTabMixin, tk.Tk):
 
     def __init__(self) -> None:
         super().__init__()
@@ -60,6 +61,7 @@ class App(MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesTabMixin, tk.Tk
         notebook.pack(fill="both", expand=True, padx=6, pady=6)
 
         for label, builder in (
+            ("  Roller  ", self._build_dice_tab),
             ("  Moves  ",   self._build_moves_tab),
             ("  Oracles  ", self._build_oracles_tab),
             ("  Bundles  ", self._build_bundles_tab),
