@@ -41,6 +41,9 @@ python src/starforged_app.py
   - Live search by table or category name
   - **Roll d100** button — rolls and highlights the matching result in the table
   - Tables with weighted options (no min/max range) are displayed as lists
+- **Settings tab** — Choose default regions for games with regional oracle variants
+  - Region-sensitive bundles use these defaults automatically
+  - Bundle-level region changes persist back to the same saved setting
 
 ## Data Source
 

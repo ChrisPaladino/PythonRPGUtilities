@@ -7,7 +7,6 @@ from tkinter import ttk
 from typing import Any, TYPE_CHECKING
 
 from styles import ACCENT, BG, BORDER, FG, HIT_MISS, PANEL_BG
-from loader import save_settings
 from widgets import (
     make_listbox_frame, make_option_menu, make_paned, make_textbox, rebuild_option_menu,
     set_text_lines,
@@ -215,8 +214,7 @@ class BundlesTabMixin:
         region = self._bundle_region_var.get()
         if not game or not region:
             return
-        self._settings.setdefault("regions", {})[game] = region
-        save_settings(self._settings)
+        self._set_region_setting(game, region)
 
     # ------------------------------------------------------------------
     # Rolling

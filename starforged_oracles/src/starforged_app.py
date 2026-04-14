@@ -14,16 +14,25 @@ from tkinter import ttk
 from typing import Any
 
 import widgets  # applies the tk.Text.grid monkey-patch on import
-from loader import load_all_data
+from loader import load_all_data, save_settings
 from styles import BG, configure_styles
 from tabs.assets import AssetsTabMixin
 from tabs.bundles import BundlesTabMixin
 from tabs.dice import DiceTabMixin
 from tabs.moves import MovesTabMixin
 from tabs.oracles import OraclesTabMixin
+from tabs.settings import SettingsTabMixin
 
 
-class App(DiceTabMixin, MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesTabMixin, tk.Tk):
+class App(
+    DiceTabMixin,
+    MovesTabMixin,
+    OraclesTabMixin,
+    AssetsTabMixin,
+    BundlesTabMixin,
+    SettingsTabMixin,
+    tk.Tk,
+):
 
     def __init__(self) -> None:
         super().__init__()
@@ -51,6 +60,8 @@ class App(DiceTabMixin, MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesT
         self._is_assets: list[dict[str, Any]] = data["is_assets"]
         self._oracle_by_id: dict[str, dict[str, Any]] = data["oracle_by_id"]
         self._bundles: list[dict[str, Any]] = data["bundles"]
+        self._game_regions: dict[str, list[str]] = data["game_regions"]
+        self._settings: dict[str, Any] = data["settings"]
 
     # ------------------------------------------------------------------
     # UI
@@ -66,6 +77,7 @@ class App(DiceTabMixin, MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesT
             ("  Oracles  ", self._build_oracles_tab),
             ("  Bundles  ", self._build_bundles_tab),
             ("  Assets  ",  self._build_assets_tab),
+            ("  Settings  ", self._build_settings_tab),
         ):
             tab = ttk.Frame(notebook)
             notebook.add(tab, text=label)
@@ -86,6 +98,33 @@ class App(DiceTabMixin, MovesTabMixin, OraclesTabMixin, AssetsTabMixin, BundlesT
 
     def _set_text_lines(self, txt: tk.Text, lines: list[tuple[str, str]]) -> None:
         widgets.set_text_lines(txt, lines)
+
+    def _set_region_setting(self, game: str, region: str) -> None:
+        if not game or not region:
+            return
+        regions = self._game_regions.get(game, [])
+        if regions and region not in regions:
+            return
+
+        current = self._settings.setdefault("regions", {}).get(game)
+        if current != region:
+            self._settings["regions"][game] = region
+            save_settings(self._settings)
+
+        settings_region_vars = getattr(self, "_settings_region_vars", {})
+        settings_var = settings_region_vars.get(game)
+        if settings_var is not None and settings_var.get() != region:
+            settings_var.set(region)
+
+        current_bundle = getattr(self, "_current_bundle", None)
+        bundle_region_var = getattr(self, "_bundle_region_var", None)
+        if (
+            current_bundle
+            and bundle_region_var is not None
+            and current_bundle.get("game") == game
+            and bundle_region_var.get() != region
+        ):
+            bundle_region_var.set(region)
 
     @staticmethod
     def _rebuild_option_menu(
