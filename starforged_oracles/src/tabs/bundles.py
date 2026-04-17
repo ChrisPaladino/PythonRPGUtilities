@@ -18,6 +18,32 @@ if TYPE_CHECKING:
 
 class BundlesTabMixin:
 
+    @staticmethod
+    def _is_roll_twice_result(text: str) -> bool:
+        return text.strip().lower() == "roll twice"
+
+    def _resolve_oracle_roll_text(self, oracle: dict[str, Any], depth: int = 0) -> str:
+        if depth > 4:
+            return "[Roll recursion limit reached]"
+
+        roll = random.randint(1, 100)
+        result_text = next(
+            (
+                row["text"] for row in oracle.get("rows", [])
+                if row.get("min") is not None and row["min"] <= roll <= row["max"]
+            ),
+            "",
+        )
+
+        if self._is_roll_twice_result(result_text):
+            a = self._resolve_oracle_roll_text(oracle, depth + 1)
+            b = self._resolve_oracle_roll_text(oracle, depth + 1)
+            if depth == 0:
+                return f"Roll twice -> {a} + {b}"
+            return f"{a} + {b}"
+
+        return result_text
+
     # ------------------------------------------------------------------
     # Build
     # ------------------------------------------------------------------
@@ -101,6 +127,13 @@ class BundlesTabMixin:
         self._bundle_region_frame = region_frame
         self._bundle_region_frame.grid_remove()
 
+        selector_frame = ttk.Frame(roll_bar, style="Panel.TFrame")
+        selector_frame.grid(row=0, column=4, sticky="w", padx=(16, 0))
+        self._bundle_selector_frame = selector_frame
+        self._bundle_selector_vars: dict[str, tk.StringVar] = {}
+        self._bundle_selector_widgets: list[tk.Widget] = []
+        self._bundle_selector_frame.grid_remove()
+
         self._bundle_text = make_textbox(right)
         self._bundle_text.grid(row=2, column=0, sticky="nsew", padx=4, pady=(0, 4))
 
@@ -164,6 +197,7 @@ class BundlesTabMixin:
             return
         self._update_bundle_curse_ui()
         self._update_bundle_region_ui()
+        self._update_bundle_selector_ui()
         self._bundle_title_var.set(bundle.get("name", ""))
         lines: list[tuple[str, str]] = [
             ("cat", f"{bundle.get('game', '')}  —  {len(bundle.get('rolls', []))} roll steps"),
@@ -216,6 +250,53 @@ class BundlesTabMixin:
             return
         self._set_region_setting(game, region)
 
+    def _update_bundle_selector_ui(self) -> None:
+        for w in self._bundle_selector_widgets:
+            w.destroy()
+        self._bundle_selector_widgets = []
+        self._bundle_selector_vars = {}
+
+        bundle = self._current_bundle
+        if bundle is None:
+            self._bundle_selector_frame.grid_remove()
+            return
+
+        selectors = bundle.get("selectors") or []
+        if not selectors:
+            self._bundle_selector_frame.grid_remove()
+            return
+
+        for idx, selector in enumerate(selectors):
+            key = selector.get("key", "")
+            if not key:
+                continue
+            label = ttk.Label(
+                self._bundle_selector_frame,
+                text=f"{selector.get('label', key)}:",
+                style="Cat.TLabel",
+            )
+            label.grid(row=0, column=idx * 2, sticky="w", padx=(0, 4))
+            self._bundle_selector_widgets.append(label)
+
+            options = [str(v) for v in selector.get("options", []) if str(v)]
+            if not options:
+                options = ["Random"]
+            default = str(selector.get("default", ""))
+            if default not in options:
+                default = options[0]
+
+            var = tk.StringVar(value=default)
+            om = make_option_menu(self._bundle_selector_frame, var, options, width=12)
+            om.grid(row=0, column=idx * 2 + 1, sticky="w", padx=(0, 12))
+
+            self._bundle_selector_vars[key] = var
+            self._bundle_selector_widgets.append(om)
+
+        if self._bundle_selector_vars:
+            self._bundle_selector_frame.grid()
+        else:
+            self._bundle_selector_frame.grid_remove()
+
     # ------------------------------------------------------------------
     # Rolling
     # ------------------------------------------------------------------
@@ -233,11 +314,26 @@ class BundlesTabMixin:
             ("body", ""),
         ]
         label_results: dict[str, str] = {}
+        selector_values = {
+            key: var.get() for key, var in self._bundle_selector_vars.items()
+        }
 
         for item in self._current_bundle.get("rolls", []):
             label = item.get("label", "?")
             count = item.get("count", 1)
             note = item.get("note", "")
+
+            fixed_selector = item.get("fixed_value_from_selector", "")
+            if fixed_selector:
+                selected_value = selector_values.get(fixed_selector, "")
+                if selected_value and selected_value.lower() != "random":
+                    label_results[label] = selected_value
+                    lines.append(("bold", f"  {label}"))
+                    lines.append(("body", f"    {selected_value}"))
+                    if note:
+                        lines.append(("cat", f"    ↳ {note}"))
+                    lines.append(("body", ""))
+                    continue
 
             # Resolve oracle (region map, direct, or cascade)
             oracle_id = item.get("oracle_id", "")
@@ -299,10 +395,14 @@ class BundlesTabMixin:
                         active_oracle = co
 
                 result_text = next(
-                    (row["text"] for row in active_oracle.get("rows", [])
-                     if row.get("min") is not None and row["min"] <= roll <= row["max"]),
-                    ""
+                    (
+                        row["text"] for row in active_oracle.get("rows", [])
+                        if row.get("min") is not None and row["min"] <= roll <= row["max"]
+                    ),
+                    "",
                 )
+                if self._is_roll_twice_result(result_text):
+                    result_text = self._resolve_oracle_roll_text(active_oracle)
 
                 if roll_num == 0:
                     label_results[label] = result_text

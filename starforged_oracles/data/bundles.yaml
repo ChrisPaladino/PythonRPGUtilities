@@ -129,3 +129,40 @@ bundles:
         oracle_id: "sundered_isles/oracles/settlements/details"
         count: 2
         cursed_oracle_id: "sundered_isles/oracles/settlements/details_cursed"
+
+  - id: sf_creature_creator
+    name: "Creature Creator"
+    game: "Starforged"
+    selectors:
+      - key: environment
+        label: "Environment"
+        options: [Random, Space, Interior, Land, Liquid, Air]
+        default: Random
+    rolls:
+      - label: "Environment"
+        fixed_value_from_selector: environment
+        oracle_id: "starforged/oracles/creatures/environment"
+      - label: "Scale"
+        oracle_id: "starforged/oracles/creatures/scale"
+      - label: "Ultra-Scale"
+        cascade_from: "Scale"
+        cascade_map:
+          Ultra-scale: "starforged/oracles/creatures/ultra_scale"
+        note: "Roll only if Scale is Ultra-scale."
+      - label: "Basic Creature Form"
+        cascade_from: "Environment"
+        cascade_map:
+          Space: "starforged/oracles/creatures/basic_form/space"
+          Interior: "starforged/oracles/creatures/basic_form/interior"
+          Land: "starforged/oracles/creatures/basic_form/land"
+          Liquid: "starforged/oracles/creatures/basic_form/liquid"
+          Air: "starforged/oracles/creatures/basic_form/air"
+        note: "Uses selected environment when set; otherwise uses the rolled Environment result."
+      - label: "Creature First Look"
+        oracle_id: "starforged/oracles/creatures/first_look"
+        count: 2
+      - label: "Encountered Behavior"
+        oracle_id: "starforged/oracles/creatures/encountered_behavior"
+      - label: "Revealed Creature Aspect"
+        oracle_id: "starforged/oracles/creatures/revealed_aspect"
+        count: 2

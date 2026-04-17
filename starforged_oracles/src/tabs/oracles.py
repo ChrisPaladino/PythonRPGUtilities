@@ -18,6 +18,32 @@ if TYPE_CHECKING:
 
 class OraclesTabMixin:
 
+    @staticmethod
+    def _is_roll_twice_result(text: str) -> bool:
+        return text.strip().lower() == "roll twice"
+
+    def _resolve_oracle_roll_text(self, oracle: dict[str, Any], depth: int = 0) -> str:
+        if depth > 4:
+            return "[Roll recursion limit reached]"
+
+        roll = random.randint(1, 100)
+        result_text = next(
+            (
+                row["text"] for row in oracle.get("rows", [])
+                if row.get("min") is not None and row["min"] <= roll <= row["max"]
+            ),
+            "",
+        )
+
+        if self._is_roll_twice_result(result_text):
+            a = self._resolve_oracle_roll_text(oracle, depth + 1)
+            b = self._resolve_oracle_roll_text(oracle, depth + 1)
+            if depth == 0:
+                return f"Roll twice -> {a} + {b}"
+            return f"{a} + {b}"
+
+        return result_text
+
     # ------------------------------------------------------------------
     # Build
     # ------------------------------------------------------------------
@@ -249,5 +275,7 @@ class OraclesTabMixin:
              if row.get("min") is not None and row["min"] <= roll <= row["max"]),
             ""
         )
+        if self._is_roll_twice_result(matching):
+            matching = self._resolve_oracle_roll_text(display_oracle)
         self._roll_result_var.set(f"Rolled {roll}  →  {matching}{cursed_roll_str}")
         self._display_oracle(display_oracle, highlight_roll=roll, cursed=cursed)
