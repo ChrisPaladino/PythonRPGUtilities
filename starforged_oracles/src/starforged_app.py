@@ -23,7 +23,6 @@ from tabs.moves import MovesTabMixin
 from tabs.oracles import OraclesTabMixin
 from tabs.settings import SettingsTabMixin
 
-
 class App(
     DiceTabMixin,
     MovesTabMixin,
@@ -132,11 +131,9 @@ class App(
     ) -> None:
         widgets.rebuild_option_menu(om, var, values)
 
-
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
-
 
 def main() -> None:
     app = App()
