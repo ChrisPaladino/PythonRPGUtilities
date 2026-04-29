@@ -1,0 +1,31 @@
+{
+  "characters": [
+    {
+      "id": "2f18e45f-03df-4fea-b5ed-08b34f5ab6aa",
+      "name": "Roderick",
+      "game": "Sundered Isles",
+      "stats": {
+        "edge": 1,
+        "heart": 1,
+        "iron": 2,
+        "shadow": 3,
+        "wits": 1
+      },
+      "condition": {
+        "health": 5,
+        "spirit": 5,
+        "supply": 5,
+        "momentum": 4,
+        "max_momentum": 10,
+        "momentum_reset": 2
+      },
+      "xp_tracks": {
+        "quests": 0,
+        "bonds": 0,
+        "discoveries": 0
+      },
+      "assets": [],
+      "progress_tracks": []
+    }
+  ]
+}

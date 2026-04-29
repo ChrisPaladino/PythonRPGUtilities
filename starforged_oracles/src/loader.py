@@ -41,6 +41,7 @@ SI_ASSETS_YAML = DATA_DIR / "si_assets.yaml"
 IS_ASSETS_YAML = DATA_DIR / "is_assets.yaml"
 BUNDLES_YAML = DATA_DIR / "bundles.yaml"
 SETTINGS_JSON = DATA_DIR / "user_settings.json"
+CHARACTERS_JSON = DATA_DIR / "user_characters.json"
 
 # ---------------------------------------------------------------------------
 # YAML loading
@@ -140,6 +141,10 @@ _DEFAULT_SETTINGS: dict[str, Any] = {
     },
 }
 
+_DEFAULT_CHARACTERS: dict[str, Any] = {
+    "characters": [],
+}
+
 
 def load_settings() -> dict[str, Any]:
     """Load user_settings.json, merging missing keys from defaults."""
@@ -162,6 +167,27 @@ def load_settings() -> dict[str, Any]:
 def save_settings(settings: dict[str, Any]) -> None:
     """Persist settings to user_settings.json."""
     SETTINGS_JSON.write_text(json.dumps(settings, indent=2), encoding="utf-8")
+
+
+def load_characters() -> list[dict[str, Any]]:
+    """Load user_characters.json and return the character list."""
+    defaults = copy.deepcopy(_DEFAULT_CHARACTERS)
+    if not CHARACTERS_JSON.exists():
+        return defaults["characters"]
+    try:
+        data: dict[str, Any] = json.loads(CHARACTERS_JSON.read_text(encoding="utf-8"))
+        chars = data.get("characters")
+        if isinstance(chars, list):
+            return chars
+        return defaults["characters"]
+    except Exception:
+        return defaults["characters"]
+
+
+def save_characters(characters: list[dict[str, Any]]) -> None:
+    """Persist character data to user_characters.json."""
+    payload = {"characters": characters}
+    CHARACTERS_JSON.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
 # ---------------------------------------------------------------------------
@@ -206,6 +232,7 @@ def load_all_data() -> dict[str, Any]:
         game_regions = bundles_data.get("game_regions") or {}
 
     settings = load_settings()
+    characters = load_characters()
 
     return {
         "sf_moves": sf_moves,
@@ -220,4 +247,5 @@ def load_all_data() -> dict[str, Any]:
         "bundles": bundles,
         "game_regions": game_regions,
         "settings": settings,
+        "characters": characters,
     }

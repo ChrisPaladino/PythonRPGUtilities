@@ -18,12 +18,14 @@ from loader import load_all_data, save_settings
 from styles import BG, configure_styles
 from tabs.assets import AssetsTabMixin
 from tabs.bundles import BundlesTabMixin
+from tabs.character import CharacterTabMixin
 from tabs.dice import DiceTabMixin
 from tabs.moves import MovesTabMixin
 from tabs.oracles import OraclesTabMixin
 from tabs.settings import SettingsTabMixin
 
 class App(
+    CharacterTabMixin,
     DiceTabMixin,
     MovesTabMixin,
     OraclesTabMixin,
@@ -61,6 +63,7 @@ class App(
         self._bundles: list[dict[str, Any]] = data["bundles"]
         self._game_regions: dict[str, list[str]] = data["game_regions"]
         self._settings: dict[str, Any] = data["settings"]
+        self._characters: list[dict[str, Any]] = data["characters"]
 
     # ------------------------------------------------------------------
     # UI
@@ -71,6 +74,7 @@ class App(
         notebook.pack(fill="both", expand=True, padx=6, pady=6)
 
         for label, builder in (
+            ("  Character  ", self._build_character_tab),
             ("  Roller  ", self._build_dice_tab),
             ("  Moves  ",   self._build_moves_tab),
             ("  Oracles  ", self._build_oracles_tab),

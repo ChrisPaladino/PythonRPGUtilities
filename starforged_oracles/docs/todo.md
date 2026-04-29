@@ -21,7 +21,26 @@ Long-term: support a character sheet / stats object so the STAT is pre-filled pe
 
 ## 2. Character stats (longer term)
 
-Store a simple character object with the five stats used for action rolls:
+Store a simple character object with
+
+- Name
+- Stats (see below)
+- Assets (from the assets yaml), typical characters start with 3
+- Condition meters (Health, Spirit, Supply - all start at 5, and can go down to 0)
+- Momentum (starts at +2, can go from -6 to +10), Max Momentum (starts at 10), Momentum Reset (starts at +2)
+- Quests XP (a 10 box tracker that can be incremented in between 1 and 4 ticks - 4 filling the box completely -
+  dependant on the difficulty of the achieved quest. Each full box grants 2 experience points.
+- Bonds XP (another 10 box tracker that can be incretemented and each full box gives 2 xp)
+- Discovery XP (you see the pattern here, same - it's a 3rd track)
+- Progress tracks (between 0 and a theoretical infinite amount of 10 box tracks that can be incremented between 1 and 4
+  ticks. 4 ticks being a full box). Note this tracker does have text associated with it (the vow name, the journey, the
+  goal) and a difficulty: Troublesome (3 full boxes per milestone), Dangerous (2 full boxes per progress milestone),
+  Formidable (1 full box per progress milestone), Extreme (2 ticks per progress milestone) and Epic (1 tick for passing
+  a milestone)
+
+
+The five stats used for action rolls. These stats typically range from 1 to 3 (although rare
+occurances could allow slightly lower or higher). The typical score array for new characters is 3, 2, 2, 1, 1
 
 - **Edge** — speed, agility, ranged combat
 - **Heart** — courage, social, leadership
