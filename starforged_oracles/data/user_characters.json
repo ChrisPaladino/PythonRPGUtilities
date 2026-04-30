@@ -15,14 +15,14 @@
         "health": 5,
         "spirit": 5,
         "supply": 5,
-        "momentum": 2,
+        "momentum": 1,
         "max_momentum": 10,
         "momentum_reset": 2
       },
       "xp_tracks": {
         "quests": 16,
-        "bonds": 0,
-        "discoveries": 0
+        "bonds": 4,
+        "discoveries": 6
       },
       "assets": [
         {

@@ -155,19 +155,21 @@ class CharacterTabMixin:
         stat_row = 3
         for col, (name, var) in enumerate(self._char_stat_vars.items()):
             ttk.Label(panel, text=name.title()).grid(row=stat_row, column=col, sticky="w")
+            stat_controls = ttk.Frame(panel, style="Panel.TFrame")
+            stat_controls.grid(row=stat_row + 1, column=col, sticky="w", padx=(0, 8), pady=(0, 8))
             tk.Spinbox(
-                panel,
+                stat_controls,
                 from_=0,
                 to=5,
                 width=4,
                 textvariable=var,
                 justify="center",
-            ).grid(row=stat_row + 1, column=col, sticky="w", padx=(0, 4), pady=(0, 8))
+            ).pack(side="left")
             ttk.Button(
-                panel,
+                stat_controls,
                 text="Roll",
                 command=lambda n=name, v=var: self._roll_with_bonus(n.title(), int(v.get())),
-            ).grid(row=stat_row + 1, column=col, sticky="e", padx=(0, 8), pady=(0, 8))
+            ).pack(side="left", padx=(4, 0))
 
         ttk.Label(panel, text="Condition", style="Cat.TLabel").grid(
             row=5, column=0, columnspan=6, sticky="w", pady=(0, 2)
@@ -250,6 +252,7 @@ class CharacterTabMixin:
             "<Configure>",
             lambda _e: self._asset_cards_canvas.configure(scrollregion=self._asset_cards_canvas.bbox("all")),
         )
+        self._asset_cards_canvas.bind("<Configure>", lambda _e: self._render_asset_cards())
 
         self._render_asset_cards()
 
@@ -350,19 +353,21 @@ class CharacterTabMixin:
         min_value: int = 0,
     ) -> None:
         ttk.Label(parent, text=label).grid(row=row, column=column, sticky="w")
+        meter_controls = ttk.Frame(parent, style="Panel.TFrame")
+        meter_controls.grid(row=row + 1, column=column, sticky="w", padx=(0, 8), pady=(0, 8))
         tk.Spinbox(
-            parent,
+            meter_controls,
             from_=min_value,
             to=max_value,
             width=5,
             textvariable=var,
             justify="center",
-        ).grid(row=row + 1, column=column, sticky="w", padx=(0, 4), pady=(0, 8))
+        ).pack(side="left")
         ttk.Button(
-            parent,
+            meter_controls,
             text="Roll",
             command=lambda lbl=label, v=var: self._roll_with_bonus(lbl, int(v.get())),
-        ).grid(row=row + 1, column=column, sticky="e", padx=(0, 8), pady=(0, 8))
+        ).pack(side="left", padx=(4, 0))
 
     def _add_meter_spin(
         self,
@@ -586,7 +591,7 @@ class CharacterTabMixin:
                 current_used.append(False)
             asset["abilities_used"] = current_used
 
-            wraplength = max(280, self._asset_cards_canvas.winfo_width() - 120)
+            wraplength = max(160, self._asset_cards_canvas.winfo_width() - 180)
 
             for ability_idx in range(3):
                 ability_text = abilities[ability_idx] if ability_idx < len(abilities) else "(No ability text)"
@@ -971,15 +976,29 @@ class CharacterTabMixin:
         for idx, track in enumerate(self._char_progress_tracks):
             rowf = ttk.Frame(self._progress_rows, style="Panel.TFrame", padding=(2, 2))
             rowf.grid(row=idx, column=0, sticky="ew", pady=2)
-            rowf.columnconfigure(1, weight=1)
+            rowf.columnconfigure(0, weight=1)
 
             name = str(track.get("name", "Unnamed"))
             difficulty = str(track.get("difficulty", self._DIFFICULTIES[0]))
             ticks = int(track.get("ticks", 0))
 
-            ttk.Label(rowf, text=f"{name} [{difficulty}]", style="Cat.TLabel").grid(
+            header_row = ttk.Frame(rowf, style="Panel.TFrame")
+            header_row.grid(row=0, column=0, sticky="ew")
+            header_row.columnconfigure(0, weight=1)
+
+            ttk.Label(header_row, text=f"{name} [{difficulty}]", style="Cat.TLabel").grid(
                 row=0, column=0, sticky="w", padx=(0, 8)
             )
+            ttk.Button(header_row, text="- Milestone", command=lambda i=idx: self._adjust_progress_row_milestone(i, -1)).grid(
+                row=0, column=1, padx=1
+            )
+            ttk.Button(header_row, text="+ Milestone", command=lambda i=idx: self._adjust_progress_row_milestone(i, 1)).grid(
+                row=0, column=2, padx=1
+            )
+            ttk.Button(header_row, text="Delete", command=lambda i=idx: self._delete_progress_track_row(i)).grid(
+                row=0, column=3, padx=1
+            )
+
             tk.Label(
                 rowf,
                 text=self._render_progress_track_summary(ticks),
@@ -988,16 +1007,7 @@ class CharacterTabMixin:
                 anchor="w",
                 justify="left",
                 font=self._TRACK_FONT,
-            ).grid(row=0, column=1, sticky="w", padx=(0, 8))
-            ttk.Button(rowf, text="- Milestone", command=lambda i=idx: self._adjust_progress_row_milestone(i, -1)).grid(
-                row=0, column=2, padx=1
-            )
-            ttk.Button(rowf, text="+ Milestone", command=lambda i=idx: self._adjust_progress_row_milestone(i, 1)).grid(
-                row=0, column=3, padx=1
-            )
-            ttk.Button(rowf, text="Delete", command=lambda i=idx: self._delete_progress_track_row(i)).grid(
-                row=0, column=4, padx=1
-            )
+            ).grid(row=1, column=0, sticky="w", padx=(0, 8), pady=(2, 0))
 
     def _add_progress_track(self) -> None:
         name = self._char_track_name_var.get().strip()
