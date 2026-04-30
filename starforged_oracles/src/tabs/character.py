@@ -67,10 +67,11 @@ class CharacterTabMixin:
             "bonds": tk.IntVar(value=0),
             "discoveries": tk.IntVar(value=0),
         }
-        self._xp_display_vars = {
-            "quests": tk.StringVar(value=""),
-            "bonds": tk.StringVar(value=""),
-            "discoveries": tk.StringVar(value=""),
+        self._xp_track_canvases: dict[str, tk.Canvas] = {}
+        self._xp_ticks_label_vars = {
+            "quests": tk.StringVar(value="0/40 ticks"),
+            "bonds": tk.StringVar(value="0/40 ticks"),
+            "discoveries": tk.StringVar(value="0/40 ticks"),
         }
 
         self._asset_lookup: dict[str, dict[str, Any]] = {}
@@ -82,7 +83,7 @@ class CharacterTabMixin:
         self._char_progress_tracks: list[dict[str, Any]] = []
         self._char_track_name_var = tk.StringVar(value="")
         self._char_track_diff_var = tk.StringVar(value=self._DIFFICULTIES[0])
-        self._momentum_track_var = tk.StringVar(value="")
+        self._momentum_value_var = tk.StringVar(value="+2")
 
         header = ttk.Frame(parent, style="Panel.TFrame", padding=8)
         header.grid(row=0, column=0, sticky="ew", padx=6, pady=(6, 4))
@@ -201,16 +202,22 @@ class CharacterTabMixin:
             justify="center",
         ).grid(row=10, column=1, sticky="w", padx=(0, 8), pady=(0, 8))
 
-        tk.Label(
-            panel,
-            textvariable=self._momentum_track_var,
+        momentum_wrap = ttk.Frame(panel, style="Panel.TFrame")
+        momentum_wrap.grid(row=10, column=2, columnspan=4, sticky="ew", padx=(0, 8), pady=(0, 8))
+        momentum_wrap.columnconfigure(0, weight=1)
+        self._momentum_track_canvas = tk.Canvas(
+            momentum_wrap,
+            height=20,
             bg=PANEL_BG,
-            fg=FG,
-            anchor="w",
-            font=self._TRACK_FONT,
-            justify="left",
-        ).grid(row=10, column=2, columnspan=4, sticky="w", padx=(0, 8), pady=(0, 8))
+            highlightthickness=0,
+            bd=0,
+        )
+        self._momentum_track_canvas.grid(row=0, column=0, sticky="ew")
+        ttk.Label(momentum_wrap, textvariable=self._momentum_value_var, style="Cat.TLabel").grid(
+            row=0, column=1, sticky="e", padx=(8, 0)
+        )
         self._char_condition_vars["momentum"].trace_add("write", lambda *_: self._refresh_momentum_display())
+        self._momentum_track_canvas.bind("<Configure>", lambda _e: self._refresh_momentum_display())
         self._refresh_momentum_display()
 
     def _build_assets_subtab(self, parent: ttk.Frame) -> None:
@@ -328,19 +335,24 @@ class CharacterTabMixin:
         row_wrap.grid(row=row, column=1, sticky="ew", pady=2)
         row_wrap.columnconfigure(0, weight=1)
 
-        tk.Label(
+        canvas = tk.Canvas(
             row_wrap,
-            textvariable=self._xp_display_vars[key],
+            height=20,
             bg=PANEL_BG,
-            fg=FG,
-            anchor="w",
-            justify="left",
-            font=self._TRACK_FONT,
-        ).grid(row=0, column=0, sticky="w", padx=(0, 8))
-        ttk.Button(row_wrap, text="-1 Tick", command=lambda k=key: self._adjust_xp(k, -1)).grid(row=0, column=1, padx=1)
-        ttk.Button(row_wrap, text="+1 Tick", command=lambda k=key: self._adjust_xp(k, 1)).grid(row=0, column=2, padx=1)
-        ttk.Button(row_wrap, text="-1 Box", command=lambda k=key: self._adjust_xp(k, -4)).grid(row=0, column=3, padx=1)
-        ttk.Button(row_wrap, text="+1 Box", command=lambda k=key: self._adjust_xp(k, 4)).grid(row=0, column=4, padx=1)
+            highlightthickness=0,
+            bd=0,
+        )
+        canvas.grid(row=0, column=0, sticky="ew", padx=(0, 8))
+        canvas.bind("<Configure>", lambda _e, k=key: self._draw_xp_track(k))
+        self._xp_track_canvases[key] = canvas
+
+        ttk.Label(row_wrap, textvariable=self._xp_ticks_label_vars[key], style="Cat.TLabel").grid(
+            row=0, column=1, sticky="w", padx=(0, 8)
+        )
+        ttk.Button(row_wrap, text="-1 Tick", command=lambda k=key: self._adjust_xp(k, -1)).grid(row=0, column=2, padx=1)
+        ttk.Button(row_wrap, text="+1 Tick", command=lambda k=key: self._adjust_xp(k, 1)).grid(row=0, column=3, padx=1)
+        ttk.Button(row_wrap, text="-1 Box", command=lambda k=key: self._adjust_xp(k, -4)).grid(row=0, column=4, padx=1)
+        ttk.Button(row_wrap, text="+1 Box", command=lambda k=key: self._adjust_xp(k, 4)).grid(row=0, column=5, padx=1)
 
     def _add_meter_with_roll(
         self,
@@ -656,7 +668,8 @@ class CharacterTabMixin:
         for key, var in self._char_xp_vars.items():
             ticks = max(0, min(40, int(var.get())))
             var.set(ticks)
-            self._xp_display_vars[key].set(f"{self._render_tick_track(ticks)}  ({ticks}/40 ticks)")
+            self._xp_ticks_label_vars[key].set(f"{ticks}/40 ticks")
+            self._draw_xp_track(key)
 
     def _adjust_xp(self, key: str, delta_ticks: int) -> None:
         if key not in self._char_xp_vars:
@@ -664,23 +677,53 @@ class CharacterTabMixin:
         current = int(self._char_xp_vars[key].get())
         self._char_xp_vars[key].set(max(0, min(40, current + delta_ticks)))
         self._refresh_xp_display()
+        self._queue_character_autosave()
 
-    @staticmethod
-    def _render_tick_track(ticks: int) -> str:
-        box_states = ["[....]", "[#...]", "[##..]", "[###.]", "[####]"]
-        out: list[str] = []
-        clamped = max(0, min(40, ticks))
-        for box_idx in range(10):
-            box_ticks = max(0, min(4, clamped - (box_idx * 4)))
-            out.append(box_states[box_ticks])
-        return " ".join(out)
+    def _draw_tick_track_canvas(self, canvas: tk.Canvas, ticks: int, *, max_ticks: int = 40) -> None:
+        canvas.delete("all")
+        width = max(40, int(canvas.winfo_width()))
+        height = max(16, int(canvas.winfo_height()))
+        boxes = 10
+        gap = 4
+        total_gap = gap * (boxes - 1)
+        box_w = max(8, (width - total_gap) / boxes)
+        box_h = max(10, height - 4)
+        y = (height - box_h) / 2
 
-    def _render_progress_track_summary(self, ticks: int) -> str:
-        visible = self._render_tick_track(min(40, ticks))
-        if ticks <= 40:
-            return f"{visible} ({ticks}t)"
-        overflow = ticks - 40
-        return f"{visible} +{overflow}t"
+        clamped = max(0, min(max_ticks, ticks))
+        ticks_per_box = max_ticks // boxes
+
+        for idx in range(boxes):
+            x = idx * (box_w + gap)
+            box_ticks = max(0, min(ticks_per_box, clamped - (idx * ticks_per_box)))
+            frac = box_ticks / ticks_per_box if ticks_per_box else 0
+
+            canvas.create_rectangle(
+                x,
+                y,
+                x + box_w,
+                y + box_h,
+                outline=BORDER,
+                width=1,
+                fill=PANEL_BG,
+            )
+            if frac > 0:
+                fill_w = (box_w - 2) * frac
+                canvas.create_rectangle(
+                    x + 1,
+                    y + 1,
+                    x + 1 + fill_w,
+                    y + box_h - 1,
+                    outline="",
+                    fill=ACCENT2,
+                )
+
+    def _draw_xp_track(self, key: str) -> None:
+        canvas = self._xp_track_canvases.get(key)
+        if canvas is None:
+            return
+        ticks = int(self._char_xp_vars[key].get())
+        self._draw_tick_track_canvas(canvas, ticks, max_ticks=40)
 
     def _difficulty_milestone_ticks(self, difficulty: str) -> int:
         return self._DIFFICULTY_MILESTONE_TICKS.get(difficulty, 4)
@@ -688,15 +731,34 @@ class CharacterTabMixin:
     def _refresh_momentum_display(self) -> None:
         momentum = int(self._char_condition_vars["momentum"].get())
         momentum = max(-6, min(10, momentum))
+        self._momentum_value_var.set(f"{momentum:+d}")
+        canvas = getattr(self, "_momentum_track_canvas", None)
+        if canvas is None:
+            return
+
+        canvas.delete("all")
+        width = max(40, int(canvas.winfo_width()))
+        height = max(16, int(canvas.winfo_height()))
         positions = list(range(-6, 11))
-        cells: list[str] = []
-        for pos in positions:
-            if pos == momentum:
-                cell = "[#]"
-            else:
-                cell = "[ ]"
-            cells.append(cell)
-        self._momentum_track_var.set(f"{momentum:+d}  {' '.join(cells)}")
+        cells = len(positions)
+        gap = 2
+        total_gap = gap * (cells - 1)
+        cell_w = max(5, (width - total_gap) / cells)
+        cell_h = max(10, height - 4)
+        y = (height - cell_h) / 2
+
+        for idx, pos in enumerate(positions):
+            x = idx * (cell_w + gap)
+            fill = ACCENT2 if pos == momentum else PANEL_BG
+            canvas.create_rectangle(
+                x,
+                y,
+                x + cell_w,
+                y + cell_h,
+                outline=BORDER,
+                width=1,
+                fill=fill,
+            )
 
     def _roll_action_vs_challenge(self, bonus: int) -> dict[str, Any]:
         action_die = random.randint(1, 6)
@@ -1001,13 +1063,27 @@ class CharacterTabMixin:
 
             tk.Label(
                 rowf,
-                text=self._render_progress_track_summary(ticks),
+                text=f"{ticks} ticks",
                 bg=PANEL_BG,
                 fg=FG,
                 anchor="w",
                 justify="left",
-                font=self._TRACK_FONT,
+                font=("Segoe UI", 9),
             ).grid(row=1, column=0, sticky="w", padx=(0, 8), pady=(2, 0))
+
+            progress_track_canvas = tk.Canvas(
+                rowf,
+                height=20,
+                bg=PANEL_BG,
+                highlightthickness=0,
+                bd=0,
+            )
+            progress_track_canvas.grid(row=2, column=0, sticky="ew", padx=(0, 8), pady=(2, 0))
+            progress_track_canvas.bind(
+                "<Configure>",
+                lambda _e, canvas=progress_track_canvas, value=ticks: self._draw_tick_track_canvas(canvas, value, max_ticks=40),
+            )
+            self._draw_tick_track_canvas(progress_track_canvas, ticks, max_ticks=40)
 
     def _add_progress_track(self) -> None:
         name = self._char_track_name_var.get().strip()
