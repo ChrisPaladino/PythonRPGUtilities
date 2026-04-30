@@ -2,5 +2,8 @@
   "regions": {
     "Sundered Isles": "Reaches",
     "Starforged": "Terminus"
+  },
+  "character": {
+    "last_id": "2f18e45f-03df-4fea-b5ed-08b34f5ab6aa"
   }
 }

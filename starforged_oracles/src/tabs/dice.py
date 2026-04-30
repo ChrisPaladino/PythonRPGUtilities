@@ -70,10 +70,14 @@ class DiceTabMixin:
         action_die = random.randint(1, 6)
         challenge_1 = random.randint(1, 10)
         challenge_2 = random.randint(1, 10)
-        score = action_die + stat_value
+        score = min(10, action_die + stat_value)
         beats_1 = score > challenge_1
         beats_2 = score > challenge_2
-        if beats_1 and beats_2:
+        is_match = challenge_1 == challenge_2
+        if beats_1 and beats_2 and is_match:
+            outcome = "Strong Hit with Match"
+            outcome_tag = "strong"
+        elif beats_1 and beats_2:
             outcome = "Strong Hit"
             outcome_tag = "strong"
         elif beats_1 or beats_2:
@@ -90,7 +94,7 @@ class DiceTabMixin:
             "challenge_2": challenge_2,
             "outcome": outcome,
             "outcome_tag": outcome_tag,
-            "is_match": challenge_1 == challenge_2,
+            "is_match": is_match,
         }
 
     def _roll_from_dice_tab(self) -> None:
@@ -110,7 +114,7 @@ class DiceTabMixin:
             ("body", f"Action score: {score_expr} = {result['score']}"),
             ("body", ""),
             ("bold", f"Challenge dice: d10 → {result['challenge_1']} and {result['challenge_2']}"),
-            (result["outcome_tag"], result["outcome"]),
+            (result.get("outcome_tag", "body"), result["outcome"]),
             ("cat" if result["is_match"] else "body", match_text),
         ]
         set_text_lines(self._dice_text, lines)
