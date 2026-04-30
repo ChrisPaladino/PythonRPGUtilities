@@ -15,7 +15,7 @@
         "health": 5,
         "spirit": 5,
         "supply": 5,
-        "momentum": 1,
+        "momentum": 0,
         "max_momentum": 10,
         "momentum_reset": 2
       },
