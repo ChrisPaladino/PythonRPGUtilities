@@ -5,7 +5,7 @@
       "name": "Roderick",
       "game": "Sundered Isles",
       "stats": {
-        "edge": 1,
+        "edge": 2,
         "heart": 1,
         "iron": 2,
         "shadow": 3,
@@ -24,7 +24,23 @@
         "bonds": 0,
         "discoveries": 0
       },
-      "assets": [],
+      "assets": [
+        {
+          "source": "Starforged",
+          "category": "Path",
+          "name": "Bounty Hunter"
+        },
+        {
+          "source": "Sundered Isles",
+          "category": "Path",
+          "name": "Cutthroat"
+        },
+        {
+          "source": "Starforged",
+          "category": "Path",
+          "name": "Scoundrel"
+        }
+      ],
       "progress_tracks": []
     }
   ]
