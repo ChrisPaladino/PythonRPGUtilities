@@ -2,7 +2,7 @@
   "characters": [
     {
       "id": "2f18e45f-03df-4fea-b5ed-08b34f5ab6aa",
-      "name": "Roderick",
+      "name": "Roderick Flayn",
       "game": "Sundered Isles",
       "stats": {
         "edge": 2,
@@ -20,9 +20,9 @@
         "momentum_reset": 2
       },
       "xp_tracks": {
-        "quests": 16,
-        "bonds": 4,
-        "discoveries": 6
+        "quests": 0,
+        "bonds": 0,
+        "discoveries": 0
       },
       "assets": [
         {
@@ -58,14 +58,19 @@
       ],
       "progress_tracks": [
         {
-          "name": "Find Jim",
+          "name": "Bond: Cybele Nester",
           "difficulty": "Troublesome",
-          "ticks": 12
+          "ticks": 0
         },
         {
-          "name": "Find Jane",
-          "difficulty": "Epic",
-          "ticks": 1
+          "name": "Vow: Figure out why he's wanted by Moridan Empire",
+          "difficulty": "Troublesome",
+          "ticks": 0
+        },
+        {
+          "name": "Vow: Bounty on Segurin Mella",
+          "difficulty": "Troublesome",
+          "ticks": 0
         }
       ]
     }

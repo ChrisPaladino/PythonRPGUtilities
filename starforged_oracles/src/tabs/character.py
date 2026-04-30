@@ -9,7 +9,9 @@ from typing import Any, TYPE_CHECKING
 from uuid import uuid4
 
 from loader import save_characters, save_settings
-from styles import ACCENT2, BORDER, FG, PANEL_BG
+from styles import ACCENT2, BORDER, FG, HIT_MISS, PANEL_BG
+
+_MOMENTUM_MAX_COLOR = "#50fa7b"  # vivid green for momentum at +10
 from widgets import make_listbox_frame, make_option_menu
 
 if TYPE_CHECKING:
@@ -260,6 +262,7 @@ class CharacterTabMixin:
             lambda _e: self._asset_cards_canvas.configure(scrollregion=self._asset_cards_canvas.bbox("all")),
         )
         self._asset_cards_canvas.bind("<Configure>", lambda _e: self._render_asset_cards())
+        self._asset_cards_canvas.bind("<MouseWheel>", self._on_asset_scroll)
 
         self._render_asset_cards()
 
@@ -545,6 +548,14 @@ class CharacterTabMixin:
         self._render_asset_cards()
         self._queue_character_autosave()
 
+    def _on_asset_scroll(self, event: tk.Event) -> None:  # type: ignore[type-arg]
+        self._asset_cards_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+    def _bind_asset_scroll(self, widget: tk.Widget) -> None:  # type: ignore[type-arg]
+        widget.bind("<MouseWheel>", self._on_asset_scroll)
+        for child in widget.winfo_children():
+            self._bind_asset_scroll(child)
+
     def _render_asset_cards(self) -> None:
         if not hasattr(self, "_asset_cards_inner"):
             return
@@ -584,16 +595,22 @@ class CharacterTabMixin:
                 font=("Segoe UI", 10, "bold"),
             ).grid(row=0, column=0, sticky="w", pady=(0, 2))
 
+            src_row = tk.Frame(card, bg=PANEL_BG)
+            src_row.grid(row=1, column=0, sticky="ew", pady=(0, 6))
+            src_row.columnconfigure(0, weight=1)
             tk.Label(
-                card,
+                src_row,
                 text=asset.get("source", ""),
                 bg=PANEL_BG,
                 fg=FG,
                 anchor="w",
                 font=("Segoe UI", 9, "italic"),
-            ).grid(
-                row=1, column=0, sticky="w", pady=(0, 6)
-            )
+            ).grid(row=0, column=0, sticky="w")
+            ttk.Button(
+                src_row,
+                text="Remove",
+                command=lambda aidx=idx: self._remove_asset(aidx),
+            ).grid(row=0, column=1, sticky="e", padx=(8, 0))
 
             key = (asset.get("source", ""), asset.get("category", ""), asset.get("name", ""))
             source_asset = self._asset_by_key.get(key, {})
@@ -644,9 +661,7 @@ class CharacterTabMixin:
                     wraplength=wraplength,
                 ).grid(row=0, column=2, sticky="nw")
 
-            ttk.Button(card, text="Remove", command=lambda aidx=idx: self._remove_asset(aidx)).grid(
-                row=5, column=0, sticky="e", pady=(6, 0)
-            )
+        self._bind_asset_scroll(self._asset_cards_inner)
 
     def _set_asset_ability_used(self, asset_idx: int, ability_idx: int, value: bool) -> None:
         if asset_idx >= len(self._char_assets_selected):
@@ -749,7 +764,15 @@ class CharacterTabMixin:
 
         for idx, pos in enumerate(positions):
             x = idx * (cell_w + gap)
-            fill = ACCENT2 if pos == momentum else PANEL_BG
+            if pos == momentum:
+                if momentum <= 0:
+                    fill = HIT_MISS
+                elif momentum == 10:
+                    fill = _MOMENTUM_MAX_COLOR
+                else:
+                    fill = ACCENT2
+            else:
+                fill = PANEL_BG
             canvas.create_rectangle(
                 x,
                 y,
