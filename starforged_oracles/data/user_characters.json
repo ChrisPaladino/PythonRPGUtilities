@@ -15,7 +15,7 @@
         "health": 5,
         "spirit": 5,
         "supply": 5,
-        "momentum": 0,
+        "momentum": 4,
         "max_momentum": 10,
         "momentum_reset": 2
       },
@@ -60,15 +60,15 @@
         {
           "name": "Bond: Cybele Nester",
           "difficulty": "Troublesome",
-          "ticks": 0
+          "ticks": 12
         },
         {
-          "name": "Vow: Figure out why he's wanted by Moridan Empire",
+          "name": "Vow: Bounty on Segurin Mella",
           "difficulty": "Troublesome",
           "ticks": 0
         },
         {
-          "name": "Vow: Bounty on Segurin Mella",
+          "name": "Vow: Figure out why he's wanted by Moridan Empire",
           "difficulty": "Troublesome",
           "ticks": 0
         }

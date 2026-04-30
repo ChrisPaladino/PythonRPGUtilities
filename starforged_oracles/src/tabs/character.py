@@ -613,7 +613,7 @@ class CharacterTabMixin:
             ).grid(row=0, column=1, sticky="e", padx=(8, 0))
 
             key = (asset.get("source", ""), asset.get("category", ""), asset.get("name", ""))
-            source_asset = self._asset_by_key.get(key, {})
+            source_asset = getattr(self, "_asset_by_key", {}).get(key, {})
             abilities = list(source_asset.get("abilities", []))[:3]
             current_used = list(asset.get("abilities_used", [False, False, False]))[:3]
             while len(current_used) < 3:
@@ -812,8 +812,16 @@ class CharacterTabMixin:
         }
 
     def _roll_with_bonus(self, label: str, bonus: int) -> None:
+        # Close any previously open roll modal before opening a new one
+        existing = getattr(self, "_roll_modal", None)
+        if existing is not None:
+            try:
+                existing.destroy()
+            except Exception:
+                pass
         result = self._roll_action_vs_challenge(bonus)
         dialog = tk.Toplevel(self)
+        self._roll_modal = dialog
         dialog.title("Action Roll")
         dialog.transient(self)
         dialog.grab_set()
@@ -840,6 +848,8 @@ class CharacterTabMixin:
         ).grid(row=1, column=0, sticky="w", pady=(8, 10))
         ttk.Label(panel, text=result["outcome"], style="Title.TLabel").grid(row=2, column=0, sticky="w")
         ttk.Button(panel, text="Close", command=dialog.destroy).grid(row=3, column=0, sticky="e", pady=(12, 0))
+        dialog.protocol("WM_DELETE_WINDOW", dialog.destroy)
+        dialog.bind("<Escape>", lambda _e: dialog.destroy())
 
     def _refresh_character_picker(self) -> None:
         self._character_picker_values = []
@@ -966,15 +976,18 @@ class CharacterTabMixin:
             self._char_assets_selected.append(normalized)
         self._render_asset_cards()
 
-        self._char_progress_tracks = [
-            {
-                "name": str(track.get("name", "")),
-                "difficulty": str(track.get("difficulty", self._DIFFICULTIES[0])),
-                "ticks": max(0, int(track.get("ticks", 0))),
-            }
-            for track in character.get("progress_tracks", [])
-            if isinstance(track, dict)
-        ]
+        self._char_progress_tracks = sorted(
+            [
+                {
+                    "name": str(track.get("name", "")),
+                    "difficulty": str(track.get("difficulty", self._DIFFICULTIES[0])),
+                    "ticks": max(0, int(track.get("ticks", 0))),
+                }
+                for track in character.get("progress_tracks", [])
+                if isinstance(track, dict)
+            ],
+            key=lambda t: t.get("name", "").lower(),
+        )
         self._refresh_progress_tracks_rows()
         self._char_track_name_var.set("")
         self._char_track_diff_var.set(self._DIFFICULTIES[0])
@@ -1120,6 +1133,7 @@ class CharacterTabMixin:
                 "ticks": 0,
             }
         )
+        self._char_progress_tracks.sort(key=lambda t: t.get("name", "").lower())
         self._char_track_name_var.set("")
         self._refresh_progress_tracks_rows()
         self._queue_character_autosave()

@@ -2,11 +2,12 @@
 from __future__ import annotations
 
 import random
+import re
 import tkinter as tk
 from tkinter import ttk
 from typing import Any, TYPE_CHECKING
 
-from styles import ACCENT, ACCENT2, BG, BORDER, FG, PANEL_BG
+from styles import ACCENT, ACCENT2, BG, BORDER, FG, HIT_MISS, HIT_STRONG, HIT_WEAK, PANEL_BG
 from widgets import (
     make_listbox_frame, make_option_menu, make_paned, make_search_entry,
     make_textbox, rebuild_option_menu, set_text_lines,
@@ -15,12 +16,22 @@ from widgets import (
 if TYPE_CHECKING:
     from starforged_app import App
 
+# Canonical order for stat buttons in the roll bar
+_STAT_ORDER = ["edge", "heart", "iron", "shadow", "wits", "supply"]
+
 
 class MovesTabMixin:
 
-    # ------------------------------------------------------------------
-    # Build
-    # ------------------------------------------------------------------
+    if TYPE_CHECKING:
+        _sf_moves: list[dict[str, Any]]
+        _si_moves: list[dict[str, Any]]
+        _char_stat_vars: dict[str, tk.IntVar]
+        _char_condition_vars: dict[str, tk.IntVar]
+        _char_name_var: tk.StringVar
+
+        def _short_source(self, source: str) -> str: ...
+
+
 
     def _build_moves_tab(self, parent: ttk.Frame) -> None:
         paned = make_paned(parent)
@@ -65,7 +76,7 @@ class MovesTabMixin:
 
         # --- Right panel ---
         right = ttk.Frame(paned, style="Panel.TFrame")
-        right.rowconfigure(2, weight=1)
+        right.rowconfigure(3, weight=1)
         right.columnconfigure(0, weight=1)
         paned.add(right, minsize=200)
 
@@ -74,8 +85,28 @@ class MovesTabMixin:
             row=0, column=0, sticky="w", padx=10, pady=(10, 2)
         )
 
+        # Stat roll bar (row 1) – shown for action_roll moves
+        stat_roll_bar = ttk.Frame(right, style="Panel.TFrame")
+        stat_roll_bar.grid(row=1, column=0, sticky="ew", padx=6, pady=(0, 2))
+        stat_roll_bar.columnconfigure(0, weight=1)
+        self._move_stat_btns_frame = ttk.Frame(stat_roll_bar, style="Panel.TFrame")
+        self._move_stat_btns_frame.grid(row=0, column=0, sticky="w")
+        self._move_stat_result_var = tk.StringVar(value="")
+        self._move_stat_result_label = tk.Label(
+            stat_roll_bar,
+            textvariable=self._move_stat_result_var,
+            bg=PANEL_BG,
+            fg=FG,
+            anchor="w",
+            font=("Segoe UI", 9),
+        )
+        self._move_stat_result_label.grid(row=1, column=0, sticky="w", pady=(2, 2))
+        stat_roll_bar.grid_remove()
+        self._move_stat_bar = stat_roll_bar
+
+        # d100 roll bar (row 2) – shown for moves with tables
         move_roll_bar = ttk.Frame(right, style="Panel.TFrame")
-        move_roll_bar.grid(row=1, column=0, sticky="ew", padx=6, pady=(0, 4))
+        move_roll_bar.grid(row=2, column=0, sticky="ew", padx=6, pady=(0, 4))
         self._move_roll_result_var = tk.StringVar(value="")
         ttk.Button(
             move_roll_bar, text="Roll d100", style="Accent.TButton",
@@ -88,7 +119,7 @@ class MovesTabMixin:
         self._move_roll_bar = move_roll_bar
 
         self._move_text = make_textbox(right)
-        self._move_text.grid(row=2, column=0, sticky="nsew", padx=6, pady=4)
+        self._move_text.grid(row=3, column=0, sticky="nsew", padx=6, pady=4)
 
         self._moves_visible: list[dict[str, Any]] = []
         self._current_move: dict[str, Any] | None = None
@@ -146,6 +177,7 @@ class MovesTabMixin:
             return
         move = self._moves_visible[selection[0]]
         self._move_roll_result_var.set("")
+        self._move_stat_result_var.set("")
         self._display_move(move)
 
     def _display_move(
@@ -157,6 +189,8 @@ class MovesTabMixin:
             self._move_roll_bar.grid()
         else:
             self._move_roll_bar.grid_remove()
+
+        self._refresh_move_stat_bar(move)
 
         self._move_title_var.set(f"{move['name']}  —  {move['category']}")
         lines: list[tuple[str, str]] = []
@@ -218,3 +252,93 @@ class MovesTabMixin:
         )
         self._move_roll_result_var.set(f"Rolled {roll}  \u2192  {matching}")
         self._display_move(self._current_move, highlight_roll=roll)
+
+    # ------------------------------------------------------------------
+    # Stat roll bar
+    # ------------------------------------------------------------------
+
+    def _parse_move_stats(self, move: dict[str, Any]) -> list[str]:
+        """Return ordered list of stats mentioned in move text."""
+        combined = (move.get("text", "") + " " + move.get("trigger", "")).lower()
+        found = set(re.findall(r'\+([a-z]+)', combined))
+        return [s for s in _STAT_ORDER if s in found]
+
+    def _get_move_stat_value(self, stat: str) -> int:
+        """Read current value of a stat or condition from active character."""
+        stat_vars: dict[str, tk.IntVar] = getattr(self, "_char_stat_vars", {})
+        if stat in stat_vars:
+            return int(stat_vars[stat].get())
+        cond_vars: dict[str, tk.IntVar] = getattr(self, "_char_condition_vars", {})
+        if stat in cond_vars:
+            return int(cond_vars[stat].get())
+        return 0
+
+    def _refresh_move_stat_bar(self, move: dict[str, Any] | None) -> None:
+        """Rebuild stat buttons; show or hide the bar depending on move type."""
+        for w in self._move_stat_btns_frame.winfo_children():
+            w.destroy()
+        self._move_stat_result_var.set("")
+
+        if move is None or move.get("roll_type") != "action_roll":
+            self._move_stat_bar.grid_remove()
+            return
+
+        stats = self._parse_move_stats(move)
+        if not stats:
+            self._move_stat_bar.grid_remove()
+            return
+
+        char_name: str = ""
+        name_var = getattr(self, "_char_name_var", None)
+        if name_var:
+            char_name = name_var.get().strip()
+        char_label = f"Roll ({char_name}):" if char_name else "Roll (no character):"
+        ttk.Label(
+            self._move_stat_btns_frame, text=char_label, style="Cat.TLabel"
+        ).pack(side="left", padx=(0, 8))
+
+        for stat in stats:
+            val = self._get_move_stat_value(stat)
+            ttk.Button(
+                self._move_stat_btns_frame,
+                text=f"+{stat.upper()} ({val})",
+                command=lambda s=stat: self._do_move_action_roll(s),
+            ).pack(side="left", padx=2)
+
+        self._move_stat_bar.grid()
+
+    def _do_move_action_roll(self, stat: str) -> None:
+        """Roll action die + stat vs two challenge dice and display result."""
+        if self._current_move is None:
+            return
+        bonus = self._get_move_stat_value(stat)
+        d6 = random.randint(1, 6)
+        c1 = random.randint(1, 10)
+        c2 = random.randint(1, 10)
+        score = min(10, d6 + bonus)
+        beats_1 = score > c1
+        beats_2 = score > c2
+        is_match = c1 == c2
+
+        if beats_1 and beats_2:
+            outcome_key = "strong_hit"
+            outcome_label = "Strong Hit with Match!" if is_match else "Strong Hit"
+        elif beats_1 or beats_2:
+            outcome_key = "weak_hit"
+            outcome_label = "Weak Hit"
+        else:
+            outcome_key = "miss"
+            outcome_label = "Miss with Match!" if is_match else "Miss"
+
+        result_str = (
+            f"d6({d6}) + {stat.upper()}({bonus}) = {score}"
+            f"  vs  [{c1}, {c2}]  \u2192  {outcome_label}"
+        )
+        self._move_stat_result_var.set(result_str)
+        color = (
+            HIT_STRONG if outcome_key == "strong_hit"
+            else HIT_WEAK if outcome_key == "weak_hit"
+            else HIT_MISS
+        )
+        self._move_stat_result_label.configure(fg=color)
+
