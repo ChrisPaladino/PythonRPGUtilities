@@ -87,9 +87,9 @@
       },
       "condition": {
         "health": 5,
-        "spirit": 4,
+        "spirit": 5,
         "supply": 3,
-        "momentum": 3,
+        "momentum": 6,
         "max_momentum": 10,
         "momentum_reset": 2
       },
