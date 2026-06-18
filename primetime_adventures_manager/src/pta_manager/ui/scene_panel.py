@@ -3,6 +3,7 @@ Scene panel — center panel for configuring and resolving a scene.
 """
 import uuid
 import customtkinter as ctk
+from tkinter import messagebox
 from pta_manager.models.scene import Scene
 from pta_manager.services.card_service import is_red
 from pta_manager.services.dice_service import roll_dice
@@ -11,21 +12,22 @@ from pta_manager.ui.app_state import AppState
 
 
 class ScenePanel(ctk.CTkFrame):
-    """Scene creation and resolution panel."""
+    """Scene creation and resolution panel with participant and resolve columns."""
 
-    def __init__(self, parent, state: AppState, on_resolve, get_producer_spend, on_state_change, **kwargs):
+    def __init__(self, parent, state: AppState, on_resolve, on_state_change, **kwargs):
         super().__init__(parent, **kwargs)
         self._state = state
         self._on_resolve = on_resolve
-        self._get_producer_spend = get_producer_spend
         self._on_state_change = on_state_change
         self._scene_type = ctk.StringVar(value="character")
+        self._producer_spend = ctk.IntVar(value=0)
         self._participant_vars: dict[str, ctk.BooleanVar] = {}
         self._fan_mail_vars: dict[str, ctk.IntVar] = {}
         self._trait_vars: dict[tuple[str, int], ctk.BooleanVar] = {}
 
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(5, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_rowconfigure(2, weight=1)
 
         self._build()
         self.refresh()
@@ -36,7 +38,7 @@ class ScenePanel(ctk.CTkFrame):
         )
 
         form = ctk.CTkFrame(self)
-        form.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 8))
+        form.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 8))
         form.grid_columnconfigure(1, weight=1)
 
         ctk.CTkLabel(form, text="Title").grid(row=0, column=0, padx=8, pady=4, sticky="w")
@@ -55,17 +57,32 @@ class ScenePanel(ctk.CTkFrame):
         self._question_entry.grid(row=2, column=1, padx=8, pady=4, sticky="ew")
 
         ctk.CTkLabel(self, text="Participants").grid(row=2, column=0, padx=8, pady=(0, 4), sticky="w")
-        self._participants_frame = ctk.CTkScrollableFrame(self, height=120)
-        self._participants_frame.grid(row=3, column=0, sticky="nsew", padx=8, pady=(0, 8))
+        self._participants_frame = ctk.CTkScrollableFrame(self)
+        self._participants_frame.grid(row=3, column=0, sticky="nsew", padx=(8, 4), pady=(0, 8))
         self._participants_frame.grid_columnconfigure(0, weight=1)
 
-        ctk.CTkLabel(self, text="Trait Toggles + Fan Mail Spend").grid(row=4, column=0, padx=8, pady=(0, 4), sticky="w")
-        self._trait_panel = ctk.CTkScrollableFrame(self, height=140)
-        self._trait_panel.grid(row=5, column=0, sticky="nsew", padx=8, pady=(0, 8))
+        ctk.CTkLabel(self, text="Traits, Fan Mail, and Producer Spend").grid(row=2, column=1, padx=8, pady=(0, 4), sticky="w")
+        self._trait_panel = ctk.CTkScrollableFrame(self)
+        self._trait_panel.grid(row=3, column=1, sticky="nsew", padx=(4, 8), pady=(0, 8))
         self._trait_panel.grid_columnconfigure(0, weight=1)
 
-        ctk.CTkButton(self, text="Resolve Scene", command=self._resolve_scene).grid(
-            row=6, column=0, padx=8, pady=(0, 8), sticky="ew"
+        self._resolve_row = ctk.CTkFrame(self)
+        self._resolve_row.grid(row=4, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 8))
+        self._resolve_row.grid_columnconfigure(3, weight=1)
+
+        ctk.CTkLabel(self._resolve_row, text="Producer spend this scene:").grid(
+            row=0, column=0, padx=(8, 6), pady=8, sticky="w"
+        )
+        ctk.CTkButton(self._resolve_row, text="-", width=28, command=lambda: self._change_producer_spend(-1)).grid(
+            row=0, column=1, padx=2, pady=8
+        )
+        self._producer_spend_label = ctk.CTkLabel(self._resolve_row, textvariable=self._producer_spend, width=30)
+        self._producer_spend_label.grid(row=0, column=2, padx=2, pady=8)
+        ctk.CTkButton(self._resolve_row, text="+", width=28, command=lambda: self._change_producer_spend(1)).grid(
+            row=0, column=3, padx=2, pady=8, sticky="w"
+        )
+        ctk.CTkButton(self._resolve_row, text="Resolve Scene", command=self._resolve_scene).grid(
+            row=0, column=4, padx=(8, 8), pady=8, sticky="e"
         )
 
     def _sync_participants_ui(self):
@@ -73,8 +90,14 @@ class ScenePanel(ctk.CTkFrame):
             widget.destroy()
 
         self._participant_vars = {}
+        ctk.CTkLabel(
+            self._participants_frame,
+            text=f"Producer budget: {self._state.producer_budget} (always in scene)",
+            font=ctk.CTkFont(weight="bold"),
+        ).grid(row=0, column=0, sticky="w", padx=6, pady=(4, 8))
+
         scene_number = self._state.episode_info.get("scene", 0) + 1
-        for row, protagonist in enumerate(self._state.protagonists):
+        for row, protagonist in enumerate(self._state.protagonists, start=1):
             var = ctk.BooleanVar(value=True)
             self._participant_vars[protagonist.id] = var
             scene_sp = protagonist.get_screen_presence_for_scene(scene_number)
@@ -142,6 +165,33 @@ class ScenePanel(ctk.CTkFrame):
         new_value = max(0, min(protagonist.fan_mail, var.get() + delta))
         var.set(new_value)
 
+    def _change_producer_spend(self, delta: int):
+        current = self._producer_spend.get()
+        max_spend = min(5, self._state.producer_budget)
+        self._producer_spend.set(max(0, min(max_spend, current + delta)))
+
+    def _build_confirmation_text(self, participant_ids: list[str], producer_spend: int) -> str:
+        lines = [
+            "Resolve this scene now?",
+            "",
+            f"Mode: {self._state.mode}",
+            f"Producer spend: {producer_spend}",
+            "",
+            "Participants:",
+        ]
+        for protagonist in [p for p in self._state.protagonists if p.id in participant_ids]:
+            used_traits = [
+                trait.name
+                for trait_index, trait in enumerate(protagonist.traits)
+                if self._trait_vars.get((protagonist.id, trait_index), ctk.BooleanVar(value=False)).get()
+            ]
+            fm_spend = self._fan_mail_vars.get(protagonist.id, ctk.IntVar(value=0)).get()
+            trait_text = ", ".join(used_traits) if used_traits else "none"
+            lines.append(f"- {protagonist.name}: traits [{trait_text}], fan mail {fm_spend}")
+        lines.append("")
+        lines.append("Choose Yes to roll/draw now.")
+        return "\n".join(lines)
+
     def _resolve_scene(self):
         title = self._title_entry.get().strip() or "Untitled Scene"
         question = self._question_entry.get().strip()
@@ -152,8 +202,14 @@ class ScenePanel(ctk.CTkFrame):
             self._on_resolve("No participants selected.")
             return
 
-        producer_spend = self._get_producer_spend()
+        producer_spend = self._producer_spend.get()
         producer_dice_count = min(1 + producer_spend, 6)
+
+        confirmation_text = self._build_confirmation_text(participant_ids, producer_spend)
+        confirmed = messagebox.askyesno("Confirm Resolve", confirmation_text)
+        if not confirmed:
+            self._on_resolve("Scene resolve canceled.")
+            return
 
         scene = Scene(
             id=str(uuid.uuid4()),
@@ -223,12 +279,14 @@ class ScenePanel(ctk.CTkFrame):
         self._state.producer_budget = max(0, self._state.producer_budget - producer_spend)
         self._state.scenes.append(scene)
         self._state.current_scene_id = scene.id
+        self._producer_spend.set(0)
 
         if "scene" not in self._state.episode_info:
             self._state.episode_info["scene"] = 0
         self._state.episode_info["scene"] += 1
 
         self._on_state_change()
+        messagebox.showinfo("Scene Resolved", "Scene resolution complete. Results are in the log.")
 
     def refresh(self):
         self._sync_participants_ui()

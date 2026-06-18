@@ -2,15 +2,17 @@
 Main window — root CTk window with top menu and switchable views.
 """
 import tkinter as tk
+from tkinter import filedialog, messagebox
+from pathlib import Path
 import customtkinter as ctk
 from pta_manager.ui.app_state import AppState
 from pta_manager.ui.table_view import TableView
 from pta_manager.ui.character_view import CharacterView
 from pta_manager.services.persistence_service import (
-    list_saves,
-    save_game,
-    load_game,
-    delete_game,
+    SAVE_DIR,
+    save_game_to_path,
+    load_game_from_path,
+    delete_game_by_path,
     serialize_state,
     deserialize_state,
 )
@@ -127,6 +129,7 @@ class MainWindow(ctk.CTk):
         self._state.producer_budget = len(self._state.protagonists)
         self._table_view.refresh()
         self._character_view.refresh()
+        messagebox.showinfo("New Episode", "Started a new episode using current cast.")
 
     def _new_game(self):
         self._state = AppState()
@@ -137,9 +140,21 @@ class MainWindow(ctk.CTk):
         self._apply_initial_episode_budget()
         self._table_view.refresh()
         self._character_view.refresh()
+        messagebox.showinfo("New Game", "Started a new game with an empty cast.")
 
     def _save_game(self):
-        name = self._state.save_name or "episode_1"
+        SAVE_DIR.mkdir(parents=True, exist_ok=True)
+        initial_name = self._state.save_name or "episode_1"
+        selected_path = filedialog.asksaveasfilename(
+            title="Save Episode",
+            initialdir=str(SAVE_DIR),
+            initialfile=f"{initial_name}.json",
+            defaultextension=".json",
+            filetypes=[("JSON files", "*.json")],
+        )
+        if not selected_path:
+            return
+
         data = serialize_state(
             protagonists=self._state.protagonists,
             producer_budget=self._state.producer_budget,
@@ -148,15 +163,21 @@ class MainWindow(ctk.CTk):
             episode_info=self._state.episode_info,
             mode=self._state.mode,
         )
-        save_game(name, data)
+        save_game_to_path(selected_path, data)
+        self._state.save_name = Path(selected_path).stem
+        messagebox.showinfo("Episode Saved", f"Saved to:\n{selected_path}")
 
     def _load_game(self):
-        saves = list_saves()
-        if not saves:
+        SAVE_DIR.mkdir(parents=True, exist_ok=True)
+        selected_path = filedialog.askopenfilename(
+            title="Load Episode",
+            initialdir=str(SAVE_DIR),
+            filetypes=[("JSON files", "*.json")],
+        )
+        if not selected_path:
             return
-        # Load most recent by default — a proper dialog will replace this
-        name = saves[-1]
-        data = load_game(name)
+
+        data = load_game_from_path(selected_path)
         restored = deserialize_state(data)
         self._state.protagonists = restored["protagonists"]
         self._state.producer_budget = restored["producer_budget"]
@@ -164,11 +185,28 @@ class MainWindow(ctk.CTk):
         self._state.current_scene_id = restored["current_scene"]
         self._state.episode_info = restored["episode_info"]
         self._state.mode = restored["mode"]
-        self._state.save_name = name
+        self._state.save_name = Path(selected_path).stem
         self._mode_var.set(self._state.mode)
         self._table_view.refresh()
         self._character_view.refresh()
+        messagebox.showinfo("Episode Loaded", f"Loaded:\n{selected_path}")
 
     def _delete_game(self):
-        if self._state.save_name:
-            delete_game(self._state.save_name)
+        SAVE_DIR.mkdir(parents=True, exist_ok=True)
+        selected_path = filedialog.askopenfilename(
+            title="Delete Episode File",
+            initialdir=str(SAVE_DIR),
+            filetypes=[("JSON files", "*.json")],
+        )
+        if not selected_path:
+            return
+
+        confirmed = messagebox.askyesno(
+            "Delete Episode",
+            f"Delete this file?\n{selected_path}",
+        )
+        if not confirmed:
+            return
+
+        delete_game_by_path(selected_path)
+        messagebox.showinfo("Episode Deleted", "Episode file deleted.")

@@ -23,18 +23,34 @@ def list_saves() -> list[str]:
 def save_game(name: str, state: dict):
     _ensure_save_dir()
     path = SAVE_DIR / f"{name}.json"
+    save_game_to_path(path, state)
+
+
+def save_game_to_path(path: Path | str, state: dict):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2)
 
 
 def load_game(name: str) -> dict:
     path = SAVE_DIR / f"{name}.json"
+    return load_game_from_path(path)
+
+
+def load_game_from_path(path: Path | str) -> dict:
+    path = Path(path)
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def delete_game(name: str):
     path = SAVE_DIR / f"{name}.json"
+    delete_game_by_path(path)
+
+
+def delete_game_by_path(path: Path | str):
+    path = Path(path)
     if path.exists():
         path.unlink()
 

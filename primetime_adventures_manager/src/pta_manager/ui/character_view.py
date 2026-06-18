@@ -2,10 +2,16 @@
 Character view — Tab 2: browse and edit protagonists.
 """
 import uuid
+import json
 import customtkinter as ctk
+from pathlib import Path
+from tkinter import filedialog, messagebox
 from pta_manager.models.protagonist import Protagonist
 from pta_manager.models.trait import Trait
 from pta_manager.ui.app_state import AppState
+
+
+CHARACTER_DIR = Path.home() / ".pta_manager" / "characters"
 
 
 class CharacterView(ctk.CTkFrame):
@@ -44,6 +50,10 @@ class CharacterView(ctk.CTkFrame):
 
         ctk.CTkButton(self._list_frame, text="New Character", command=self._new_character).grid(
             row=2, column=0, sticky="ew", padx=8, pady=(0, 8)
+        )
+
+        ctk.CTkButton(self._list_frame, text="Load Character File", command=self._load_character_file).grid(
+            row=3, column=0, sticky="ew", padx=8, pady=(0, 8)
         )
 
         self._entry_frame = ctk.CTkFrame(self)
@@ -92,6 +102,10 @@ class CharacterView(ctk.CTkFrame):
         )
         ctk.CTkButton(button_row, text="Delete Character", command=self._delete_character).grid(
             row=0, column=1, padx=(4, 0), sticky="ew"
+        )
+
+        ctk.CTkButton(self._entry_frame, text="Export Character File", command=self._export_character_file).grid(
+            row=9, column=0, columnspan=2, padx=8, pady=(0, 8), sticky="ew"
         )
 
         self._new_character()
@@ -201,6 +215,54 @@ class CharacterView(ctk.CTkFrame):
         self._new_character()
         self.refresh()
         self._on_change()
+
+    def _export_character_file(self):
+        if self._selected_id is None:
+            messagebox.showwarning("No Character Selected", "Select a character to export.")
+            return
+        protagonist = next((p for p in self._state.protagonists if p.id == self._selected_id), None)
+        if protagonist is None:
+            messagebox.showwarning("No Character Selected", "Select a character to export.")
+            return
+
+        CHARACTER_DIR.mkdir(parents=True, exist_ok=True)
+        suggested = protagonist.name.strip().replace(" ", "_") or "character"
+        path = filedialog.asksaveasfilename(
+            title="Export Character",
+            initialdir=str(CHARACTER_DIR),
+            initialfile=f"{suggested}.json",
+            defaultextension=".json",
+            filetypes=[("JSON files", "*.json")],
+        )
+        if not path:
+            return
+
+        Path(path).write_text(json.dumps(protagonist.to_dict(), indent=2), encoding="utf-8")
+        messagebox.showinfo("Character Exported", f"Saved:\n{path}")
+
+    def _load_character_file(self):
+        CHARACTER_DIR.mkdir(parents=True, exist_ok=True)
+        path = filedialog.askopenfilename(
+            title="Load Character",
+            initialdir=str(CHARACTER_DIR),
+            filetypes=[("JSON files", "*.json")],
+        )
+        if not path:
+            return
+
+        try:
+            data = json.loads(Path(path).read_text(encoding="utf-8"))
+            loaded = Protagonist.from_dict(data)
+        except Exception as ex:
+            messagebox.showerror("Load Failed", f"Could not load character file.\n{ex}")
+            return
+
+        loaded.id = str(uuid.uuid4())
+        self._state.protagonists.append(loaded)
+        self._selected_id = loaded.id
+        self._select_character(loaded.id)
+        self._on_change()
+        messagebox.showinfo("Character Loaded", f"Attached to current cast:\n{loaded.name}")
 
     def refresh(self):
         for widget in self._list_buttons.winfo_children():
