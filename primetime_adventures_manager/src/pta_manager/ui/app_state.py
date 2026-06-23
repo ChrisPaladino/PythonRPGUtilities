@@ -11,6 +11,7 @@ class AppState:
     mode: str = "DICE_MODE"  # "DICE_MODE" or "CARD_MODE"
     protagonists: list[Protagonist] = field(default_factory=list)
     producer_budget: int = 3
+    audience_pool: int = 0  # shared fan mail pool
     scenes: list[Scene] = field(default_factory=list)
     current_scene_id: str = ""
     episode_info: dict = field(default_factory=dict)

@@ -76,36 +76,36 @@ class CharacterView(ctk.CTkFrame):
         self._impulse_entry = ctk.CTkEntry(self._entry_frame, placeholder_text="Impulse")
         self._impulse_entry.grid(row=3, column=1, padx=8, pady=4, sticky="ew")
 
-        ctk.CTkLabel(self._entry_frame, text="SP Track (5 scenes)").grid(row=4, column=0, padx=8, pady=4, sticky="w")
+        ctk.CTkLabel(self._entry_frame, text="Character Concept").grid(row=4, column=0, padx=8, pady=4, sticky="w")
+        self._concept_entry = ctk.CTkEntry(self._entry_frame, placeholder_text="Brief concept")
+        self._concept_entry.grid(row=4, column=1, padx=8, pady=4, sticky="ew")
+
+        ctk.CTkLabel(self._entry_frame, text="Personal Set").grid(row=5, column=0, padx=8, pady=4, sticky="w")
+        self._personal_set_entry = ctk.CTkEntry(self._entry_frame, placeholder_text="Setting/location")
+        self._personal_set_entry.grid(row=5, column=1, padx=8, pady=4, sticky="ew")
+
+        ctk.CTkLabel(self._entry_frame, text="SP Track (5 scenes)").grid(row=6, column=0, padx=8, pady=4, sticky="w")
         self._sp_track_entry = ctk.CTkEntry(self._entry_frame, placeholder_text="1,2,3,2,1")
-        self._sp_track_entry.grid(row=4, column=1, padx=8, pady=4, sticky="ew")
+        self._sp_track_entry.grid(row=6, column=1, padx=8, pady=4, sticky="ew")
 
-        ctk.CTkLabel(self._entry_frame, text="Trait 1 (Edge)").grid(row=5, column=0, padx=8, pady=4, sticky="w")
-        self._trait1_entry = ctk.CTkEntry(self._entry_frame, placeholder_text="Trait name")
-        self._trait1_entry.grid(row=5, column=1, padx=8, pady=4, sticky="ew")
-
-        ctk.CTkLabel(self._entry_frame, text="Trait 2 (Edge)").grid(row=6, column=0, padx=8, pady=4, sticky="w")
-        self._trait2_entry = ctk.CTkEntry(self._entry_frame, placeholder_text="Trait name")
-        self._trait2_entry.grid(row=6, column=1, padx=8, pady=4, sticky="ew")
-
-        ctk.CTkLabel(self._entry_frame, text="Trait 3 (Connection)").grid(row=7, column=0, padx=8, pady=4, sticky="w")
-        self._trait3_entry = ctk.CTkEntry(self._entry_frame, placeholder_text="Trait name")
-        self._trait3_entry.grid(row=7, column=1, padx=8, pady=4, sticky="ew")
+        ctk.CTkLabel(self._entry_frame, text="Traits (comma-separated)").grid(row=7, column=0, padx=8, pady=4, sticky="w")
+        self._traits_entry = ctk.CTkEntry(self._entry_frame, placeholder_text="Trait 1, Trait 2, Trait 3")
+        self._traits_entry.grid(row=7, column=1, padx=8, pady=4, sticky="ew")
 
         button_row = ctk.CTkFrame(self._entry_frame, fg_color="transparent")
         button_row.grid(row=8, column=0, columnspan=2, sticky="ew", padx=8, pady=(8, 8))
         button_row.grid_columnconfigure(0, weight=1)
         button_row.grid_columnconfigure(1, weight=1)
+        button_row.grid_columnconfigure(2, weight=1)
 
         ctk.CTkButton(button_row, text="Save Character", command=self._save_character).grid(
             row=0, column=0, padx=(0, 4), sticky="ew"
         )
         ctk.CTkButton(button_row, text="Delete Character", command=self._delete_character).grid(
-            row=0, column=1, padx=(4, 0), sticky="ew"
+            row=0, column=1, padx=2, sticky="ew"
         )
-
-        ctk.CTkButton(self._entry_frame, text="Export Character File", command=self._export_character_file).grid(
-            row=9, column=0, columnspan=2, padx=8, pady=(0, 8), sticky="ew"
+        ctk.CTkButton(button_row, text="Export Character File", command=self._export_character_file).grid(
+            row=0, column=2, padx=(4, 0), sticky="ew"
         )
 
         self._new_character()
@@ -130,32 +130,31 @@ class CharacterView(ctk.CTkFrame):
         self._name_entry.delete(0, "end")
         self._issue_entry.delete(0, "end")
         self._impulse_entry.delete(0, "end")
+        self._concept_entry.delete(0, "end")
+        self._personal_set_entry.delete(0, "end")
         self._sp_track_entry.delete(0, "end")
         self._sp_track_entry.insert(0, "1,2,3,2,1")
-        self._trait1_entry.delete(0, "end")
-        self._trait2_entry.delete(0, "end")
-        self._trait3_entry.delete(0, "end")
-        self._trait1_entry.insert(0, "Edge 1")
-        self._trait2_entry.insert(0, "Edge 2")
-        self._trait3_entry.insert(0, "Connection")
+        self._traits_entry.delete(0, "end")
+        self._traits_entry.insert(0, "Trait 1, Trait 2, Trait 3")
 
     def _save_character(self):
         name = self._name_entry.get().strip()
         issue = self._issue_entry.get().strip()
         impulse = self._impulse_entry.get().strip()
+        concept = self._concept_entry.get().strip()
+        personal_set = self._personal_set_entry.get().strip()
         sp_track = self._parse_sp_track()
-        t1 = self._trait1_entry.get().strip()
-        t2 = self._trait2_entry.get().strip()
-        t3 = self._trait3_entry.get().strip()
+        traits_raw = self._traits_entry.get().strip()
 
         if not name:
             return
 
-        traits = [
-            Trait(name=t1 or "Edge 1", type="edge"),
-            Trait(name=t2 or "Edge 2", type="edge"),
-            Trait(name=t3 or "Connection", type="connection"),
-        ]
+        traits = []
+        if traits_raw:
+            for trait_name in traits_raw.split(","):
+                trait_name = trait_name.strip()
+                if trait_name:
+                    traits.append(Trait(name=trait_name, type="trait"))
 
         protagonist = next((p for p in self._state.protagonists if p.id == self._selected_id), None)
         if protagonist is None:
@@ -164,6 +163,8 @@ class CharacterView(ctk.CTkFrame):
                 name=name,
                 issue=issue,
                 impulse=impulse,
+                character_concept=concept,
+                personal_set=personal_set,
                 screen_presence=sp_track[0],
                 screen_presence_track=sp_track,
                 traits=traits,
@@ -174,6 +175,8 @@ class CharacterView(ctk.CTkFrame):
             protagonist.name = name
             protagonist.issue = issue
             protagonist.impulse = impulse
+            protagonist.character_concept = concept
+            protagonist.personal_set = personal_set
             protagonist.screen_presence_track = sp_track
             protagonist.screen_presence = sp_track[0]
             protagonist.traits = traits
@@ -192,16 +195,14 @@ class CharacterView(ctk.CTkFrame):
         self._issue_entry.insert(0, protagonist.issue)
         self._impulse_entry.delete(0, "end")
         self._impulse_entry.insert(0, protagonist.impulse)
+        self._concept_entry.delete(0, "end")
+        self._concept_entry.insert(0, protagonist.character_concept)
+        self._personal_set_entry.delete(0, "end")
+        self._personal_set_entry.insert(0, protagonist.personal_set)
         self._sp_track_entry.delete(0, "end")
         self._sp_track_entry.insert(0, ",".join(str(v) for v in protagonist.screen_presence_track[:5]))
-
-        traits = protagonist.traits + [Trait(name="", type="edge")] * (3 - len(protagonist.traits))
-        self._trait1_entry.delete(0, "end")
-        self._trait1_entry.insert(0, traits[0].name)
-        self._trait2_entry.delete(0, "end")
-        self._trait2_entry.insert(0, traits[1].name)
-        self._trait3_entry.delete(0, "end")
-        self._trait3_entry.insert(0, traits[2].name)
+        self._traits_entry.delete(0, "end")
+        self._traits_entry.insert(0, ", ".join(t.name for t in protagonist.traits))
 
         self.refresh()
 

@@ -58,6 +58,7 @@ def delete_game_by_path(path: Path | str):
 def serialize_state(
     protagonists: list[Protagonist],
     producer_budget: int,
+    audience_pool: int,
     scenes: list[Scene],
     current_scene_id: str,
     episode_info: dict,
@@ -66,6 +67,7 @@ def serialize_state(
     return {
         "protagonists": [p.to_dict() for p in protagonists],
         "producer": {"budget": producer_budget},
+        "audience_pool": audience_pool,
         "scenes": [s.to_dict() for s in scenes],
         "current_scene": current_scene_id,
         "episode_info": episode_info,
@@ -77,6 +79,7 @@ def deserialize_state(data: dict) -> dict:
     return {
         "protagonists": [Protagonist.from_dict(p) for p in data.get("protagonists", [])],
         "producer_budget": data.get("producer", {}).get("budget", 0),
+        "audience_pool": data.get("audience_pool", 0),
         "scenes": [Scene.from_dict(s) for s in data.get("scenes", [])],
         "current_scene": data.get("current_scene", ""),
         "episode_info": data.get("episode_info", {}),

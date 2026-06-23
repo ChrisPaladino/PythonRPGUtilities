@@ -110,12 +110,22 @@ class MainWindow(ctk.CTk):
     def _apply_initial_episode_budget(self):
         if self._state.scenes:
             return
-        self._state.producer_budget = len(self._state.protagonists)
+        # Budget formula: sum all screen presence * 3 + 3
+        total_sp = sum(
+            max(1, min(3, p.screen_presence_track[0])) if p.screen_presence_track else p.screen_presence
+            for p in self._state.protagonists
+        )
+        self._state.producer_budget = total_sp * 3 + 3
+        self._state.audience_pool = 0
 
     def _on_characters_changed(self):
-        # Budget scales with protagonist count at the start of an episode.
+        # Budget scales with protagonist SP at the start of an episode.
         if not self._state.scenes:
-            self._state.producer_budget = len(self._state.protagonists)
+            total_sp = sum(
+                max(1, min(3, p.screen_presence_track[0])) if p.screen_presence_track else p.screen_presence
+                for p in self._state.protagonists
+            )
+            self._state.producer_budget = total_sp * 3 + 3
         self._table_view.refresh()
         self._character_view.refresh()
 
@@ -158,6 +168,7 @@ class MainWindow(ctk.CTk):
         data = serialize_state(
             protagonists=self._state.protagonists,
             producer_budget=self._state.producer_budget,
+            audience_pool=self._state.audience_pool,
             scenes=self._state.scenes,
             current_scene_id=self._state.current_scene_id,
             episode_info=self._state.episode_info,
@@ -181,6 +192,7 @@ class MainWindow(ctk.CTk):
         restored = deserialize_state(data)
         self._state.protagonists = restored["protagonists"]
         self._state.producer_budget = restored["producer_budget"]
+        self._state.audience_pool = restored["audience_pool"]
         self._state.scenes = restored["scenes"]
         self._state.current_scene_id = restored["current_scene"]
         self._state.episode_info = restored["episode_info"]

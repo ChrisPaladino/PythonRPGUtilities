@@ -12,7 +12,9 @@ class Protagonist:
     screen_presence: int = 1
     screen_presence_track: list[int] = field(default_factory=lambda: [1, 2, 3, 2, 1])
     fan_mail: int = 0
-    traits: list[Trait] = field(default_factory=list)  # exactly 3
+    character_concept: str = ""
+    personal_set: str = ""
+    traits: list[Trait] = field(default_factory=list)  # flexible count, not fixed to 3
 
     def get_screen_presence_for_scene(self, scene_number: int) -> int:
         if not self.screen_presence_track:
@@ -29,6 +31,8 @@ class Protagonist:
             "screen_presence": self.screen_presence,
             "screen_presence_track": self.screen_presence_track,
             "fan_mail": self.fan_mail,
+            "character_concept": self.character_concept,
+            "personal_set": self.personal_set,
             "traits": [
                 {"name": t.name, "type": t.type, "used_in_scene": t.used_in_scene}
                 for t in self.traits
@@ -51,5 +55,7 @@ class Protagonist:
             screen_presence=int(data.get("screen_presence", 1)),
             screen_presence_track=track,
             fan_mail=data.get("fan_mail", 0),
+            character_concept=data.get("character_concept", ""),
+            personal_set=data.get("personal_set", ""),
             traits=traits,
         )
