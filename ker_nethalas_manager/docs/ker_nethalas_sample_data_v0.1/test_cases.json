@@ -1,0 +1,72 @@
+[
+  {
+    "id": "TC-001",
+    "title": "Core check success",
+    "setup": "Skill 50; roll 50",
+    "expected": "Success",
+    "module": "core_rules"
+  },
+  {
+    "id": "TC-002",
+    "title": "Core check failure",
+    "setup": "Skill 50; roll 51",
+    "expected": "Failure",
+    "module": "core_rules"
+  },
+  {
+    "id": "TC-003",
+    "title": "Opposed check both succeed",
+    "setup": "A: 60/44; B: 50/38",
+    "expected": "A wins with higher successful roll",
+    "module": "combat"
+  },
+  {
+    "id": "TC-004",
+    "title": "Attack both fail",
+    "setup": "Attacker fails; defender fails",
+    "expected": "Defender suffers 1 unavoidable damage",
+    "module": "combat"
+  },
+  {
+    "id": "TC-005",
+    "title": "Dagger initiative",
+    "setup": "Perception 40; Quick weapon",
+    "expected": "Initiative target becomes 50",
+    "module": "combat"
+  },
+  {
+    "id": "TC-006",
+    "title": "Sustained Aether",
+    "setup": "Max 14; Skeleton costs 2 sustained",
+    "expected": "Usable maximum becomes 12",
+    "module": "abilities"
+  },
+  {
+    "id": "TC-007",
+    "title": "Door trap investigation failure",
+    "setup": "Perception fails; trap roll 10",
+    "expected": "Trap triggers on interaction",
+    "module": "exploration"
+  },
+  {
+    "id": "TC-008",
+    "title": "Tension die step",
+    "setup": "d8 rolls 2",
+    "expected": "Tension becomes d6",
+    "module": "exploration"
+  },
+  {
+    "id": "TC-009",
+    "title": "Room entry refresh",
+    "setup": "Enter a new room with 4 spent Aether",
+    "expected": "Aether refreshes up to usable maximum",
+    "module": "resources"
+  },
+  {
+    "id": "TC-010",
+    "title": "Save and reload combat",
+    "setup": "Save current Seraphine encounter and reload",
+    "expected": "All combatants and next step match",
+    "module": "persistence"
+  }
+]

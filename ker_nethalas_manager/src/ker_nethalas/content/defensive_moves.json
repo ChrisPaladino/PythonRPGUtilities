@@ -1,0 +1,86 @@
+{
+  "player": {
+    "1": {
+      "effect_id": "next_attack_plus_10",
+      "summary": "Your next attack receives +10 to the combat check."
+    },
+    "2": {
+      "effect_id": "reduce_enemy_armor_location_1",
+      "summary": "Reduce opponent Armor by -1 in struck location until end of combat."
+    },
+    "3": {
+      "effect_id": "inflict_bleeding_1",
+      "summary": "Your opponent receives Bleeding (1)."
+    },
+    "4": {
+      "effect_id": "immune_to_conditions_until_next_turn",
+      "summary": "You are immune to all conditions until your next turn, including current ones."
+    },
+    "5": {
+      "effect_id": "enemy_suffers_1_piercing_ignore_armor",
+      "summary": "Your opponent immediately suffers 1 Piercing damage that ignores Armor."
+    },
+    "6": {
+      "effect_id": "next_attack_damage_pool_plus_d6",
+      "summary": "Add +D6 to your Damage Pool for your next attack."
+    },
+    "7": {
+      "effect_id": "advantage_next_attack",
+      "summary": "You gain Advantage on your next attack."
+    },
+    "8": {
+      "effect_id": "enemy_next_defense_minus_20",
+      "summary": "Your opponent's next defensive check is reduced by -20."
+    },
+    "9": {
+      "effect_id": "recover_2_toughness",
+      "summary": "Recover 2 Toughness."
+    },
+    "10": {
+      "effect_id": "next_called_shot_no_disadvantage",
+      "summary": "Your next specific-body-part attack ignores usual Disadvantage."
+    }
+  },
+  "npc": {
+    "1": {
+      "effect_id": "next_attack_plus_10_or_spellward_minus_10",
+      "summary": "Creature next attack gains +10 Combat Skill; if magical, PC Spellward is -10 until creature's next turn."
+    },
+    "2": {
+      "effect_id": "reduce_pc_armor_location_1",
+      "summary": "Reduce PC Armor by -1 in struck location until end of combat."
+    },
+    "3": {
+      "effect_id": "pc_bleeding_1",
+      "summary": "PC receives Bleeding (1)."
+    },
+    "4": {
+      "effect_id": "clear_creature_negative_conditions",
+      "summary": "Creature clears all current negative conditions."
+    },
+    "5": {
+      "effect_id": "pc_suffers_1_piercing_ignore_armor",
+      "summary": "PC receives 1 Piercing damage that ignores Armor."
+    },
+    "6": {
+      "effect_id": "next_damage_action_plus_d6_or_spellward_minus_10",
+      "summary": "Creature next damaging Action gains +D6 damage; if non-damaging, PC Spellward is -10 until creature's next turn."
+    },
+    "7": {
+      "effect_id": "advantage_next_attack_or_spellward_disadvantage",
+      "summary": "Creature gains Advantage on next attack; if magical, PC rolls Spellward with Disadvantage."
+    },
+    "8": {
+      "effect_id": "pc_next_defense_minus_20",
+      "summary": "PC next Dodge, Parry, or Spellward check is reduced by -20."
+    },
+    "9": {
+      "effect_id": "recover_d4_health",
+      "summary": "Creature recovers D4 Health."
+    },
+    "10": {
+      "effect_id": "immediate_new_turn",
+      "summary": "Creature gets a new turn immediately."
+    }
+  }
+}

@@ -1,0 +1,34 @@
+[
+  [
+    "raise_skeleton",
+    "gravecaller",
+    1,
+    "Raise Skeleton",
+    "standard",
+    2,
+    "none",
+    2,
+    0,
+    0,
+    true,
+    "Humanoid or animal corpse",
+    "Create a skeleton minion. The Aether cost remains reserved while the minion exists.",
+    38
+  ],
+  [
+    "evasive_strike",
+    "weapon_master_dagger",
+    1,
+    "Evasive Strike",
+    "standard",
+    1,
+    "melee_attack",
+    0,
+    0,
+    0,
+    false,
+    "Melee weapon equipped",
+    "Make a melee attack; on a hit, gain +10 to the next defensive check.",
+    54
+  ]
+]

@@ -1,0 +1,26 @@
+[
+  [
+    "endurance",
+    "Endurance",
+    20,
+    40,
+    80,
+    "Physical strain, poison, bleeding, and environmental hazards."
+  ],
+  [
+    "resolve",
+    "Resolve",
+    20,
+    40,
+    80,
+    "Fear, mental pressure, despair, and sanity-related effects."
+  ],
+  [
+    "spellward",
+    "Spellward",
+    20,
+    40,
+    80,
+    "Hostile magic and supernatural interference."
+  ]
+]

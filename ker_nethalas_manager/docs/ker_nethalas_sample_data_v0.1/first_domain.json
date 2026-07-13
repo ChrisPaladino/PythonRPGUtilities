@@ -1,0 +1,98 @@
+[
+  [
+    "first_domain",
+    1,
+    "Corpse Pile",
+    "room",
+    true,
+    false,
+    false,
+    false,
+    "Half-spent torch with 10 room uses.",
+    "No encounter or event."
+  ],
+  [
+    "first_domain",
+    2,
+    "Guard Room",
+    "room",
+    true,
+    false,
+    false,
+    false,
+    "Dagger, club, spear, and one random armor item.",
+    "No encounter or event."
+  ],
+  [
+    "first_domain",
+    3,
+    "Another Unfortunate Soul",
+    "room",
+    true,
+    true,
+    true,
+    false,
+    "Recent corpse, 2 cooking ingredients, 10 crafting supplies.",
+    "No event if no enemy."
+  ],
+  [
+    "first_domain",
+    4,
+    "Altar",
+    "room",
+    true,
+    true,
+    true,
+    false,
+    "d4 candles.",
+    "No event."
+  ],
+  [
+    "first_domain",
+    5,
+    "Sorcerer's Stash",
+    "room",
+    true,
+    true,
+    true,
+    false,
+    "3 attunement crystals.",
+    "No event."
+  ],
+  [
+    "first_domain",
+    6,
+    "Voices' Chamber",
+    "room",
+    true,
+    true,
+    true,
+    false,
+    "Potential spoils after Resolve and Reason checks.",
+    "Psychic hazard on entry."
+  ],
+  [
+    "first_domain",
+    7,
+    "Overseer Lair",
+    "room",
+    true,
+    true,
+    true,
+    true,
+    "Overseer rewards and possible loot.",
+    "No random combat check."
+  ],
+  [
+    "first_domain",
+    8,
+    "Exit",
+    "room",
+    true,
+    true,
+    true,
+    false,
+    "Exit to next Domain.",
+    "Cannot return after leaving."
+  ]
+]

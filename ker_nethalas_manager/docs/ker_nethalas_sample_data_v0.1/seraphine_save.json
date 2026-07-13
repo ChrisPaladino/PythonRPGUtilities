@@ -1,0 +1,55 @@
+{
+  "name": "Seraphine",
+  "level": 1,
+  "health_current": 15,
+  "health_max": 15,
+  "toughness_current": 29,
+  "toughness_max": 33,
+  "aether_current": 12,
+  "aether_max": 14,
+  "aether_sustained": 2,
+  "sanity_current": 11,
+  "sanity_max": 12,
+  "exhaustion": 1,
+  "endurance": 40,
+  "resolve": 20,
+  "spellward": 20,
+  "tension_die": "d6",
+  "torch_rooms_remaining": 9,
+  "current_room": "Guard Room doorway",
+  "combat_state": "active",
+  "skills": {
+    "acrobatics": 10,
+    "athletics": 20,
+    "bladed_weapons": 60,
+    "bludgeoning_weapons": 40,
+    "dodge": 40,
+    "medicine": 20,
+    "perception": 50,
+    "reason": 10,
+    "scavenge": 30,
+    "shafted_weapons": 0,
+    "stealth": 10,
+    "thievery": 20,
+    "unarmed_combat": 0
+  },
+  "masteries": [
+    "gravecaller",
+    "weapon_master_dagger"
+  ],
+  "active_minions": [
+    "raised_skeleton"
+  ],
+  "combat_snapshot": {
+    "round": 1,
+    "initiative_winner": "player_side",
+    "seraphine_target": "horror_a",
+    "skeleton_target": "horror_b",
+    "horror_a_health": 7,
+    "horror_b_health": 5,
+    "skeleton_health": 4,
+    "next_step": "enemy_turn"
+  },
+  "content_version": "0.1.0",
+  "rng_seed": 20260713
+}

@@ -1,0 +1,80 @@
+[
+  [
+    "skeleton_rabid_slash",
+    "raised_skeleton",
+    1,
+    4,
+    "Rabid Slash",
+    "physical",
+    "attack",
+    "d4",
+    "slashing",
+    "",
+    "A basic physical slash."
+  ],
+  [
+    "skeleton_ethereal_grasp",
+    "raised_skeleton",
+    5,
+    6,
+    "Ethereal Grasp",
+    "magical",
+    "magic_resistance",
+    "d4",
+    "necrotic",
+    "heal_self_1",
+    "Necrotic touch; heals the skeleton by 1 on a failed resistance."
+  ],
+  [
+    "horror_cursed_slash",
+    "skeletal_horror",
+    1,
+    2,
+    "Cursed Slash",
+    "physical",
+    "attack",
+    "d6",
+    "slashing",
+    "",
+    "A standard weapon attack."
+  ],
+  [
+    "horror_ethereal_grasp",
+    "skeletal_horror",
+    3,
+    4,
+    "Ethereal Grasp",
+    "magical",
+    "endurance",
+    "d6",
+    "necrotic",
+    "heal_half_damage",
+    "Endurance reduces damage; failed resistance also heals the horror."
+  ],
+  [
+    "horror_haunting_wail",
+    "skeletal_horror",
+    5,
+    5,
+    "Haunting Wail",
+    "magical",
+    "resolve",
+    "",
+    "",
+    "stunned_1_on_fail",
+    "All creatures test Resolve or become stunned for one round."
+  ],
+  [
+    "horror_vengeful_onslaught",
+    "skeletal_horror",
+    6,
+    6,
+    "Vengeful Onslaught",
+    "physical",
+    "attack",
+    "d4",
+    "piercing",
+    "free_ethereal_grasp_on_hit",
+    "Physical charge followed by a free magical grasp on a hit."
+  ]
+]

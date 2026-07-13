@@ -1,0 +1,36 @@
+[
+  [
+    "raised_skeleton",
+    "Skeleton",
+    "undead",
+    1,
+    40,
+    20,
+    20,
+    4,
+    "humanoid",
+    "head",
+    "",
+    30,
+    20,
+    "",
+    202
+  ],
+  [
+    "skeletal_horror",
+    "Skeletal Horror",
+    "undead",
+    2,
+    20,
+    20,
+    25,
+    8,
+    "humanoid",
+    "head",
+    "1 chest",
+    40,
+    20,
+    "Frightening",
+    167
+  ]
+]

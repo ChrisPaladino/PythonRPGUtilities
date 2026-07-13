@@ -1,0 +1,93 @@
+[
+  [
+    "acrobatics",
+    "Acrobatics",
+    10,
+    "general",
+    "Balance, rolls, and agile movement."
+  ],
+  [
+    "athletics",
+    "Athletics",
+    10,
+    "general",
+    "Strength, climbing, sprinting, and brute force."
+  ],
+  [
+    "bladed_weapons",
+    "Bladed Weapons",
+    0,
+    "weapon",
+    "Swords, axes, daggers, and similar weapons."
+  ],
+  [
+    "bludgeoning_weapons",
+    "Bludgeoning Weapons",
+    0,
+    "weapon",
+    "Clubs, hammers, maces, and similar weapons."
+  ],
+  [
+    "dodge",
+    "Dodge",
+    10,
+    "defense",
+    "Avoid attacks and disengage from melee."
+  ],
+  [
+    "medicine",
+    "Medicine",
+    0,
+    "general",
+    "Treat wounds and certain conditions with supplies."
+  ],
+  [
+    "perception",
+    "Perception",
+    20,
+    "general",
+    "Notice threats, details, doors, locks, and traps."
+  ],
+  [
+    "reason",
+    "Reason",
+    0,
+    "general",
+    "Interpret clues, symbols, and mysteries."
+  ],
+  [
+    "scavenge",
+    "Scavenge",
+    0,
+    "exploration",
+    "Search a room for useful resources."
+  ],
+  [
+    "shafted_weapons",
+    "Shafted Weapons",
+    0,
+    "weapon",
+    "Spears, polearms, and staves."
+  ],
+  [
+    "stealth",
+    "Stealth",
+    0,
+    "general",
+    "Avoid notice and attempt surprise."
+  ],
+  [
+    "thievery",
+    "Thievery",
+    0,
+    "general",
+    "Pick locks and disarm traps with the right tools."
+  ],
+  [
+    "unarmed_combat",
+    "Unarmed Combat & Fist Weapons",
+    0,
+    "weapon",
+    "Unarmed strikes and fist weapons."
+  ]
+]

@@ -1,0 +1,18 @@
+[
+  [
+    "gravecaller",
+    "Gravecaller",
+    "Necrotic Vitality",
+    "May sacrifice an undead minion to recover wounds or sanity.",
+    "raise_skeleton",
+    38
+  ],
+  [
+    "weapon_master_dagger",
+    "Weapon Master - Dagger",
+    "Dedication",
+    "Dagger skill increases by 10 and dagger attacks add a d4 to the damage pool.",
+    "evasive_strike",
+    54
+  ]
+]

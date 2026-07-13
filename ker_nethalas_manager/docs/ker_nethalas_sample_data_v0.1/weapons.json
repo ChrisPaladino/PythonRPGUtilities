@@ -1,0 +1,41 @@
+[
+  [
+    "dagger",
+    "Dagger",
+    "bladed_weapons",
+    1,
+    "d6",
+    "piercing",
+    0,
+    "Parrying; Quick",
+    "normal",
+    5,
+    208
+  ],
+  [
+    "club",
+    "Club",
+    "bludgeoning_weapons",
+    1,
+    "d6",
+    "bludgeoning",
+    5,
+    "Simple",
+    "normal",
+    5,
+    208
+  ],
+  [
+    "spear",
+    "Spear",
+    "shafted_weapons",
+    1,
+    "d6",
+    "piercing",
+    0,
+    "Defensive; Versatile",
+    "normal",
+    10,
+    209
+  ]
+]
