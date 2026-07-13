@@ -3,6 +3,7 @@ from random import Random
 from ker_nethalas.rules.combat import (
     CreatureAction,
     choose_creature_action,
+    choose_creature_action_for_creature,
     choose_random_target,
     begin_charging_ability,
     get_alive_enemy_target_map,
@@ -107,6 +108,11 @@ def test_creature_action_table_selection() -> None:
     ]
     chosen = choose_creature_action(actions, action_roll=5)
     assert chosen.action_id == "horror_haunting_wail"
+
+
+def test_creature_action_table_loaded_from_enemies_content() -> None:
+    chosen = choose_creature_action_for_creature("skeletal_horror", action_roll=6)
+    assert chosen.action_id == "horror_vengeful_onslaught"
 
 
 def test_minion_always_prompts_for_target_selection() -> None:

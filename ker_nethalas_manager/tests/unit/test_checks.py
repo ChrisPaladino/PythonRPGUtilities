@@ -1,5 +1,10 @@
 from ker_nethalas.core.enums import CheckOutcome, OpposedWinner
-from ker_nethalas.rules.checks import resolve_check, resolve_opposed_check
+from ker_nethalas.rules.checks import (
+    get_critical_effect_text,
+    resolve_check,
+    resolve_opposed_check,
+    resolve_random_difficulty,
+)
 
 
 def test_tc001_core_check_success() -> None:
@@ -46,3 +51,26 @@ def test_both_fail_tie_uses_higher_skill() -> None:
     result = resolve_opposed_check(actor_skill=30, actor_roll=70, target_skill=25, target_roll=70)
     assert result.winner == OpposedWinner.ACTOR
     assert result.reason == "higher_skill_breaks_failure_tie"
+
+
+def test_difficulty_roll_maps_to_normal() -> None:
+    name, modifier = resolve_random_difficulty(4)
+    assert name == "Normal"
+    assert modifier == 0
+
+
+def test_difficulty_roll_maps_to_impossible() -> None:
+    name, modifier = resolve_random_difficulty(8)
+    assert name == "Impossible"
+    assert modifier == -30
+
+
+def test_critical_effect_text_for_perception_success() -> None:
+    text = get_critical_effect_text("perception", CheckOutcome.CRITICAL_SUCCESS)
+    assert text is not None
+    assert "Advantage" in text
+
+
+def test_critical_effect_text_for_non_critical_is_none() -> None:
+    text = get_critical_effect_text("perception", CheckOutcome.SUCCESS)
+    assert text is None

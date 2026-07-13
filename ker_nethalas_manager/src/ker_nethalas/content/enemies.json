@@ -1,0 +1,80 @@
+{
+  "creatures": {
+    "raised_skeleton": {
+      "name": "Skeleton",
+      "actions": [
+        {
+          "action_id": "skeleton_rabid_slash",
+          "roll_min": 1,
+          "roll_max": 4,
+          "name": "Rabid Slash",
+          "action_type": "physical",
+          "defense_or_check": "attack",
+          "damage_die": "d4",
+          "damage_type": "slashing",
+          "secondary_effect": ""
+        },
+        {
+          "action_id": "skeleton_ethereal_grasp",
+          "roll_min": 5,
+          "roll_max": 6,
+          "name": "Ethereal Grasp",
+          "action_type": "magical",
+          "defense_or_check": "magic_resistance",
+          "damage_die": "d4",
+          "damage_type": "necrotic",
+          "secondary_effect": "heal_self_1"
+        }
+      ]
+    },
+    "skeletal_horror": {
+      "name": "Skeletal Horror",
+      "actions": [
+        {
+          "action_id": "horror_cursed_slash",
+          "roll_min": 1,
+          "roll_max": 2,
+          "name": "Cursed Slash",
+          "action_type": "physical",
+          "defense_or_check": "attack",
+          "damage_die": "d6",
+          "damage_type": "slashing",
+          "secondary_effect": ""
+        },
+        {
+          "action_id": "horror_ethereal_grasp",
+          "roll_min": 3,
+          "roll_max": 4,
+          "name": "Ethereal Grasp",
+          "action_type": "magical",
+          "defense_or_check": "endurance",
+          "damage_die": "d6",
+          "damage_type": "necrotic",
+          "secondary_effect": "heal_half_damage"
+        },
+        {
+          "action_id": "horror_haunting_wail",
+          "roll_min": 5,
+          "roll_max": 5,
+          "name": "Haunting Wail",
+          "action_type": "magical",
+          "defense_or_check": "resolve",
+          "damage_die": "",
+          "damage_type": "",
+          "secondary_effect": "stunned_1_on_fail"
+        },
+        {
+          "action_id": "horror_vengeful_onslaught",
+          "roll_min": 6,
+          "roll_max": 6,
+          "name": "Vengeful Onslaught",
+          "action_type": "physical",
+          "defense_or_check": "attack",
+          "damage_die": "d4",
+          "damage_type": "piercing",
+          "secondary_effect": "free_ethereal_grasp_on_hit"
+        }
+      ]
+    }
+  }
+}

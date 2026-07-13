@@ -1,0 +1,56 @@
+{
+  "effects": {
+    "acrobatics": {
+      "critical_success": "Daring Maneuver: Gain +30 to your next action for one round.",
+      "critical_failure": "Catastrophic Tumble: Suffer d6 bludgeoning damage and become Prone."
+    },
+    "athletics": {
+      "critical_success": "Herculean Feat: Next successful attack is a Critical Strike, or next door/container is smashed open automatically (whichever happens first).",
+      "critical_failure": "Overexertion: Gain d4 Exhaustion."
+    },
+    "dodge": {
+      "critical_success": "Elusive Maneuver: Gain +20 to Dodge for the next round.",
+      "critical_failure": "Clumsy Misstep: Receive double damage from the source you were trying to avoid."
+    },
+    "endurance": {
+      "critical_success": "Unwavering Resilience: Recover 1 Health and lose d4 Exhaustion.",
+      "critical_failure": "Overwhelmed by Strain: Gain d4 Exhaustion."
+    },
+    "initiative": {
+      "critical_success": "Snap Reaction: Perform your next attack with Advantage.",
+      "critical_failure": "Taken by Surprise: Lose your first turn."
+    },
+    "medicine": {
+      "critical_success": "Miraculous Recovery: Recover d10 Toughness.",
+      "critical_failure": "Harmful Treatment: Suffer 2d6 bludgeoning damage."
+    },
+    "perception": {
+      "critical_success": "Heightened Awareness: Gain Advantage on your next Perception check.",
+      "critical_failure": "Blind Spot: Gain Disadvantage on your next Perception check."
+    },
+    "resolve": {
+      "critical_success": "Unwavering Will: Recover d4+1 Sanity.",
+      "critical_failure": "Mental Lapse: Lose d4 Sanity."
+    },
+    "reason": {
+      "critical_success": "Brilliant Deduction: Identify one possessed magic item without spending an Attunement Crystal.",
+      "critical_failure": "Mental Block: Increase the Lair/Domain Exit Die by 1 stage."
+    },
+    "scavenge": {
+      "critical_success": "Good Find: Optionally add +5 to your Scavenging table roll.",
+      "critical_failure": "Noisy Search: Roll on the Combat Encounters table."
+    },
+    "spellward": {
+      "critical_success": "Unbreakable Will: Become Resistant to magic damage for the next d4 rounds.",
+      "critical_failure": "Magical Vulnerability: Take double spell damage, or spell consequences last twice as long."
+    },
+    "stealth": {
+      "critical_success": "Ghost in the Shadows: If you attack in the next round, it strikes automatically.",
+      "critical_failure": "Flimsy Footing: Gain Disadvantage on actions in the next round."
+    },
+    "thievery": {
+      "critical_success": "Masterful Thief: Gain Advantage on your next Thievery check.",
+      "critical_failure": "Bungled Attempt: Trigger a missed trap and roll on the Traps table."
+    }
+  }
+}

@@ -28,6 +28,9 @@ Decisions confirmed on 2026-07-13:
 24. Surprise check: player Stealth vs highest enemy Mind, with follower penalty (-10 each); on success initiative is player side and first attack gets +20; on failure apply -20 to subsequent initiative Perception check.
 25. Defensive Move tables: both Player and NPC/Monster D10 tables are implemented as explicit effect mappings, ready for turn-resolution hooks.
 26. Rules tables should default to JSON content files, with code acting as resolvers/validators.
+27. Creature action tables are content-driven per creature in `content/enemies.json`.
+28. Difficulty modifiers are content-driven in `content/difficulty_modifiers.json` and resolved via D8 roll mapping.
+29. Critical success/failure effects are content-driven in `content/critical_effects.json`, keyed by check/skill id.
 
 ## Implementation Impact
 
@@ -44,6 +47,7 @@ Decisions confirmed on 2026-07-13:
 - Combat rules now include implemented attack contest resolution, weapon speed defense penalty, initiative checks, and surprise attempt outcomes.
 - Defensive Move D10 outcomes are now available as resolvers for both player and NPC defenders.
 - Defensive Move data is now loaded from JSON content files to keep rules data separate from engine logic.
+- Enemy actions, difficulty modifiers, and critical effect text are now JSON-backed content, resolved by thin Python helpers.
 
 ## Compliance Note
 
