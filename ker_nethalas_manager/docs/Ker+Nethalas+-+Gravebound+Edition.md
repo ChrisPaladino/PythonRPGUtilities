@@ -284,78 +284,47 @@ Your Reaction penalty is reduced to -10 per each consecutive one after the first
 - 5: The Order of the Silent Wind: The Order of the Silent Wind is a secret society of martial artists dedicated to the pursuit of unarmed combat mastery. Students who join the Order undergo intense physical training and mental discipline, honing their skills in striking, grappling, and evasion techniques. Guided by skilled mentors, members of the Order develop the ability to move silently and neutralize opponents with efficient and precise techniques.
 - 6: The Zenatu Clan: The Zenatu Clan is a close-knit community of warriors who specialize in unarmed combat. Training within the Clan emphasizes physical strength, agility, and mastering a unique style that combines powerful strikes with evasive footwork and fluid movements. Each member of the Clan is assigned a personal mentor, an experienced warrior who imparts their knowledge and expertise, ensuring the traditions and techniques of the Mountain Peak style are passed down through generations.
 
+#### Bulwark
 
+You march into combat as a walking fortress, impervious to your enemies’ futile attempts at bringing you down.
 
-You march into combat as a walking fortress, impervious to your
-enemies’ futile attempts at bringing you down.
-M F: H T. Ignore all Maneuverability penalties
-from Armor. +10 Endurance.
-T 1 - B
-1 Reaction.Cost: 2 Exhaustion
-You see the enemy strike coming, and you’re ready for it. Reduce any
-incoming damage by D4. You must declare the use of this Ability before
-your opponent’s attack roll.
-T 2 - S B
+Mastery Feature: Hard Training. Ignore all Maneuverability penalties from Armor. +10 Endurance.
+
+Tier 1: Brace
+1 Reaction. Cost: 2 Exhaustion
+You see the enemy strike coming, and you’re ready for it. Reduce any incoming damage by D4. You must declare the use of this Ability before your opponent’s attack roll.
+
+Tier 2: Shield Bash
+1 Standard Action. Requires a melee attack check and an equipped shield You slam your opponent with your shield, Dazing them for 2 rounds.
+
+Tier 3: Sword & Board
 1 Standard Action. Requires a melee attack check and an equipped shield
-You slam your opponent with your shield, Dazing them for 2 rounds.
-T 3 - S  B
-1 Standard Action. Requires a melee attack check and an equipped shield
-You overwhelm your opponent, irst with your weapon and then your
-shield. If your weapon strike hits, you can immediately make a free attack
-that deals D4 Bludgeoning damage.
-T 4 - B F
+You overwhelm your opponent, �irst with your weapon and then your shield. If your weapon strike hits, you can immediately make a free attack that deals D4 Bludgeoning damage.
+
+Tier 4: Battle Form
 Passive
-Increase your Toughness by ⅃ permanently. Each time your level is
-increased you must increase your Toughness by +2.
-T 5 - B
+Increase your Toughness by ⅃ permanently. Each time your level is increased you must increase your Toughness by +2.
+
+Tier 5: Bastion
 Passive
 You are Immune to Bludgeoning damage and Resistant to Piercing damage.
-28 Ker Nethalas - Gravebound EditionD6 WHERE DID YOU TRAIN?
-The Ironheart Guild: Located in the heart of Veldonia, the
-Ironheart Guild is a renowned organization of master armorers and
-warriors. They offer comprehensive training in heavy armor and
-1
-defensive abilities, focusing on techniques such as shield-bashing,
-parrying, and advanced weapon techniques suited for heavily
-armored ighters.
-The Eshakon Bastion: A massive fortress perched atop a craggy
-mountain, the Eshakon Bastion serves as a training ground for
-knights and defenders. Its ancient walls echo with the clashing of
-2
-steel as seasoned warriors teach aspiring ighters the art of heavy
-armor combat. Trainees learn to maneuver in cumbersome armor,
-endure punishing blows, and develop impeccable defensive skills.
-The Temple of the Shielded Path: Hidden deep within the dense
-forest of Honopeia, the Temple of the Shielded Path is a secluded
-sanctuary dedicated to the preservation of ancient martial
-3 traditions. Here, monks and sages instruct students in the use of
-heavy armor, emphasizing a harmonious blend of physical and
-spiritual strength. Techniques include meditation, balance training,
-and the development of impeccable relexes.
-The Blacksteel Citadel: Located in the volcanic regions of northern
-Breccia, the Blacksteel Citadel is a stronghold carved out of obsidian
-rock. This ancient order of warriors focuses on the art of forging and
-4 enchanting heavy armor, as well as imparting the skills necessary to
-wield it effectively. Trainees undergo grueling physical conditioning,
-learn the secrets of metallurgy, and study defensive tactics tailored
-for heavy armor users.
-The Valley of the Stalwart: A remote valley nestled between
-towering mountain ranges, this hidden locale serves as a refuge for
-warriors seeking to master the art of heavy armor. Inhabitants of the
-5 valley train in an environment rich with natural obstacles, perfect
-for honing defensive skills. Trainees learn to withstand harsh
-weather conditions, navigate treacherous terrains, and engage in
-combat against formidable adversaries.
-The Order of the Bronze Shields: Founded centuries ago by Thelia
-the Wall, this knightly order is renowned for its unwavering
-dedication to protecting the realm. Housed within a grand fortress,
-the Order of the Bronze Shields specializes in teaching defensive
-6
-strategies and techniques tailored speciically for heavy armor
-users. Trainees undergo rigorous physical training, engage in mock
-battles, and learn to coordinate with fellow knights for effective
-defensive formations.
-Chapter II: Creating Your Survivor 29Duskblade
+
+##### d6: Where did you train?
+
+- 1: The Ironheart Guild: Located in the heart of Veldonia, the Ironheart Guild is a renowned organization of master armorers and warriors. They offer comprehensive training in heavy armor and defensive abilities, focusing on techniques such as shield-bashing, parrying, and advanced weapon techniques suited for heavily
+armored fighters.
+- 2: The Eshakon Bastion: A massive fortress perched atop a craggy mountain, the Eshakon Bastion serves as a training ground for knights and defenders. Its ancient walls echo with the clashing of steel as seasoned warriors teach aspiring fighters the art of heavy armor combat. Trainees learn to maneuver in cumbersome armor, endure punishing blows, and develop impeccable defensive skills.
+- 3: The Temple of the Shielded Path: Hidden deep within the dense forest of Honopeia, the Temple of the Shielded Path is a secluded sanctuary dedicated to the preservation of ancient martial traditions. Here, monks and sages instruct students in the use of heavy armor, emphasizing a harmonious blend of physical and
+spiritual strength. Techniques include meditation, balance training, and the development of impeccable reflexes.
+- 4: The Blacksteel Citadel: Located in the volcanic regions of northern Breccia, the Blacksteel Citadel is a stronghold carved out of obsidian rock. This ancient order of warriors focuses on the art of forging and enchanting heavy armor, as well as imparting the skills necessary to wield it effectively. Trainees undergo grueling physical conditioning, learn the secrets of metallurgy, and study defensive tactics tailored for heavy armor users.
+- 5: The Valley of the Stalwart: A remote valley nestled between towering mountain ranges, this hidden locale serves as a refuge for warriors seeking to master the art of heavy armor. Inhabitants of the valley train in an environment rich with natural obstacles, perfect for honing defensive skills. Trainees learn to withstand  harsh weather conditions, navigate treacherous terrains, and engage in combat against formidable adversaries.
+- 6:  The Order of the Bronze Shields: Founded centuries ago by Theliathe Wall, this knightly order is renowned for its unwavering dedication to protecting the realm. Housed within a grand fortress, the Order of the Bronze Shields specializes in teaching defensive strategies and techniques tailored specifically for heavy armor users. Trainees undergo rigorous physical training, engage in mock battles, and learn to coordinate with fellow knights for effective defensive formations.
+
+
+
+
+
+Duskblade
 You are a master of the art of assassination, appearing swiftly and
 unexpectedly and executing your opponents with superb inesse
 and terrifying precision.
