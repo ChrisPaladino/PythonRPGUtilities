@@ -4,6 +4,16 @@ from functools import lru_cache
 import json
 from pathlib import Path
 
+from ker_nethalas.content.validators import validate_content_payload
+
+
+SUPPORTED_CONTENT_FILES = (
+    "defensive_moves.json",
+    "enemies.json",
+    "difficulty_modifiers.json",
+    "critical_effects.json",
+)
+
 
 def _content_dir() -> Path:
     return Path(__file__).resolve().parent
@@ -13,7 +23,15 @@ def _content_dir() -> Path:
 def load_content_json(filename: str) -> dict:
     path = _content_dir() / filename
     with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+        payload = json.load(handle)
+
+    validate_content_payload(filename, payload)
+    return payload
+
+
+def validate_all_content() -> None:
+    for filename in SUPPORTED_CONTENT_FILES:
+        load_content_json(filename)
 
 
 def get_creature_actions(creature_id: str) -> list[dict]:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import sys
 
+from ker_nethalas.content.repository import validate_all_content
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
@@ -105,6 +106,9 @@ class MainWindow(QMainWindow):
 
 
 def main() -> int:
+    # Fail fast with explicit errors if any content table is malformed.
+    validate_all_content()
+
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()

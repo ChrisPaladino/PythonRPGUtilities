@@ -31,6 +31,10 @@ Decisions confirmed on 2026-07-13:
 27. Creature action tables are content-driven per creature in `content/enemies.json`.
 28. Difficulty modifiers are content-driven in `content/difficulty_modifiers.json` and resolved via D8 roll mapping.
 29. Critical success/failure effects are content-driven in `content/critical_effects.json`, keyed by check/skill id.
+30. Content JSON files are schema-validated at load and on app startup; malformed content fails fast with explicit errors.
+31. Encounter prototype includes explicit `EncounterState` and `CombatantState` models with locked enemy target assignments.
+32. Enemy-turn resolver now executes: creature action roll -> assigned target -> physical/magical resolution -> optional Defensive Move application -> combat log append.
+33. Effect application currently includes core status/modifier effects and placeholder hooks for pending systems (full damage pool, location-aware armor, turn scheduler immediates).
 
 ## Implementation Impact
 
@@ -48,6 +52,8 @@ Decisions confirmed on 2026-07-13:
 - Defensive Move D10 outcomes are now available as resolvers for both player and NPC defenders.
 - Defensive Move data is now loaded from JSON content files to keep rules data separate from engine logic.
 - Enemy actions, difficulty modifiers, and critical effect text are now JSON-backed content, resolved by thin Python helpers.
+- Loader validation now enforces structural integrity of content tables before gameplay starts.
+- Engine now has an integration-level enemy-turn pipeline suitable for scenario tests and UI wiring.
 
 ## Compliance Note
 

@@ -12,6 +12,14 @@ Personal Python desktop companion prototype for Ker Nethalas.
 4. Start desktop shell:
    - `python -m ker_nethalas.interfaces.pyqt_main`
 
+## Windows launchers
+
+From the repository root, you can use:
+
+- `run_app.bat` - Launch the desktop app.
+- `run_tests.bat` - Run unit tests.
+- `validate_content.bat` - Validate all JSON content tables.
+
 ## Current status
 
 - Project scaffold and rules kernel started.
