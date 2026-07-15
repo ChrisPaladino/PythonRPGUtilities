@@ -207,10 +207,10 @@ You consume the souls of your enemies, dealing 2D6 Infernal damage to all oppone
 
 ##### d6: Where did you Train?
 
-- 1: The Infernal Bloodline: Those born with the Infernal Bloodline possess a natural af�inity for demonic energies. They learn to harness the power of the infernal realms, channeling demonic energy to empower their own attacks and abilities. Through intense training and self-discipline, individuals with this bloodline can tap into the raw, chaotic power of demons, infusing their attacks with dark �lames, shadowy tendrils, and other demonic manifestations.
+- 1: The Infernal Bloodline: Those born with the Infernal Bloodline possess a natural affinity for demonic energies. They learn to harness the power of the infernal realms, channeling demonic energy to empower their own attacks and abilities. Through intense training and self-discipline, individuals with this bloodline can tap into the raw, chaotic power of demons, infusing their attacks with dark flames, shadowy tendrils, and other demonic manifestations.
 - 2: The Order of the Abyssal Pact: The Order of the Abyssal Pact is a secretive organization that seeks to harness and control demonic energies. Members of the Order study ancient grimoires, learning to make pacts with demonic entities. They willingly embrace the dark powers bestowed upon them, using demonic energies to enhance their own combat skills and magical abilities.
 - 3: The Hellforge: The Hellforge is a renowned training ground for those who seek to tap into demonic energies. Simply reaching this cursed location is a feat unto itself, and survival is never guaranteed. Once there, they learn to draw upon demonic energies, channeling them into their attacks and abilities, transforming themselves into vessels of dark power.
-- 4: The Soulbrand: The Soulbrand are practitioners who delve into the forbidden arts of summoning and binding demons. Through their rigorous training, they learn to forge a connection with demonic entities, channeling their energies into their own attacks and abilities. These conjurers can manifest ethereal blades, imbue their strikes with demonic �lames, and call upon infernal forces to augment their powers.
+- 4: The Soulbrand: The Soulbrand are practitioners who delve into the forbidden arts of summoning and binding demons. Through their rigorous training, they learn to forge a connection with demonic entities, channeling their energies into their own attacks and abilities. These conjurers can manifest ethereal blades, imbue their strikes with demonic flames, and call upon infernal forces to augment their powers.
 - 5: The Black Gate: The Black Gate is the only known point of access from the physical world into one of the demonic realms. Since most mortals would immediately die if attempting to cross it, aspiring Abyssal Reavers train outside, letting the demonic energies permeate their whole beings while they train and develop new demon-infused techniques and spells.
 - 6: The Demonsong Cult: The Demonsong Cult worships and embraces the powers of the demonic realms. Its members undergo dark rituals and intense training, willingly becoming vessels for demonic energies. Through their connection with demons, they gain heightened strength, speed, and arcane abilities. The Demonsong Cultists blend their own martial skills with the unholy might of demons, using their dark empowerment to unleash devastating attacks and terrifying displays of demonic power.
 
@@ -299,7 +299,7 @@ Tier 2: Shield Bash
 
 Tier 3: Sword & Board
 1 Standard Action. Requires a melee attack check and an equipped shield
-You overwhelm your opponent, �irst with your weapon and then your shield. If your weapon strike hits, you can immediately make a free attack that deals D4 Bludgeoning damage.
+You overwhelm your opponent, first with your weapon and then your shield. If your weapon strike hits, you can immediately make a free attack that deals D4 Bludgeoning damage.
 
 Tier 4: Battle Form
 Passive
@@ -320,236 +320,154 @@ spiritual strength. Techniques include meditation, balance training, and the dev
 - 5: The Valley of the Stalwart: A remote valley nestled between towering mountain ranges, this hidden locale serves as a refuge for warriors seeking to master the art of heavy armor. Inhabitants of the valley train in an environment rich with natural obstacles, perfect for honing defensive skills. Trainees learn to withstand  harsh weather conditions, navigate treacherous terrains, and engage in combat against formidable adversaries.
 - 6:  The Order of the Bronze Shields: Founded centuries ago by Theliathe Wall, this knightly order is renowned for its unwavering dedication to protecting the realm. Housed within a grand fortress, the Order of the Bronze Shields specializes in teaching defensive strategies and techniques tailored specifically for heavy armor users. Trainees undergo rigorous physical training, engage in mock battles, and learn to coordinate with fellow knights for effective defensive formations.
 
+#### Duskblade
 
+You are a master of the art of assassination, appearing swiftly and unexpectedly and executing your opponents with superb finesse and terrifying precision.
 
+Mastery Feature: Sudden Strike. You can target a specific Hit Location without Disavantage when attacking a target unaware of you.
 
+Tier 1: Poisoned Blade
+1 Standard Action (Magical). Cost: 3 Aether
+You summon a blade of pure venom and throw it at your opponent. Target becomes Poisoned (1).
 
-Duskblade
-You are a master of the art of assassination, appearing swiftly and
-unexpectedly and executing your opponents with superb inesse
-and terrifying precision.
-M F: S S. You can target a speciic Hit Location
-without Disavantage when attacking a target unaware of you.
-T 1 - P B
-1 Standard Action (Magical).Cost: 3 Aether
-You summon a blade of pure venom and throw it at your opponent. Target
-becomes Poisoned (1).
-T 2 - W
-1 Standard Action (Magical).Cost: 5 Aether
-You push your will into the target’s mind, enfeebling them. Reduce the
-target’s Combat Skill by -20 when defending for D4+1 rounds.
-T 3 - S
+Tier 2: Weaken
+1 Standard Action (Magical). Cost: 5 Aether
+You push your will into the target’s mind, enfeebling them. Reduce the target’s Combat Skill by -20 when defending for D4+1 rounds.
+
+Tier 3: Sap
 1 Standard Action. Requires a Hard (-20) melee attack check
-You strike your target with the blunt side of your weapon, Stunning them
-for 2 rounds.
-T 4 - R S
+You strike your target with the blunt side of your weapon, Stunning them for 2 rounds.
+
+Tier 4: Ruthless Strike
 1 Standard Action. Requires a melee attack check
-You strike your opponent with cold precision, automatically scoring a
-Critical Strike. This Ability may only be used once per room.
-T 5 - I
-1 Standard Action.Cost: 6 Aether
-You disappear from sight completely, blending with the shadows. Enemies
-cannot target you directly. The effect disappears after you exit the current
-room, or you make an attack. Enemies receive -40 to their Combat Skill
-when attempting to defend from you while invisible.
-30 Ker Nethalas - Gravebound EditionD6 WHERE DID YOU TRAIN?
-The Shadowsong Guild: Operating from Veldonia’s slums district,
-the Shadowsong Guild is a renowned organization that trains
-individuals in the arts of stealth, subterfuge, and assassination.
-1 Aspiring rogues, stalkers, and assassins undergo rigorous training in
-iniltration, lock-picking, trap detection, and silent takedowns. They
-learn to blend seamlessly with their surroundings, strike with
-precision, and vanish without a trace.
-The Whispering Blades Academy: Located in a secluded mountain
-retreat at Ashbright Peaks, the Whispering Blades Academy is a
-prestigious institution dedicated to training elite assassins and
-2
-stealthy rogues. Students receive comprehensive instruction in a
-variety of skills, including silent movement, disguise, poison
-crafting, and the art of surprise attacks.
-The Brotherhood of the Night's Veil: A clandestine order that
-operates in the depths of the Ravenscroft wilderness, the
-Brotherhood of the Night's Veil specializes in training rogue
-operatives skilled in espionage, sabotage, and assassination.
-3 Initiates undergo intense training in iniltration, disguise,
-information gathering, and combat techniques tailored for covert
-operations. The brotherhood's secretive network and extensive
-resources make them a formidable force in the realm of espionage
-and subterfuge.
-The School of Silent Shadows: The School of Silent Shadows is a
-secret training ground for rogues and stalkers who specialize in
-silent takedowns and swift, deadly strikes. Students learn the art of
-stealthy movement, camoulage, evasion, and the use of a wide
-4
-range of specialized tools and gadgets. The school's serene
-environment and natural surroundings provide the perfect
-backdrop for honing their skills in patience, observation, and
-precision.
-The Black Fist: Operating from the dark underbelly of Wyverngate,
-the Black Fist is an underground organization renowned for training
-expert rogues and assassins. Members undergo extensive training in
-5 acrobatics, agility, and unconventional combat techniques. They
-learn to exploit their surroundings, employing poisons, magic and
-any tool available to dispatch targets swiftly and silently, leaving
-behind only whispers of their presence.
-The Temple of the Shrouded Serpent: Hidden within a remote
-desert canyon in the western Shimmerlands, the Temple of the
-Shrouded Serpent is a secretive sanctuary where rogue disciples
-6
-learn the art of deception, subterfuge, and lethal strikes. Here,
-students acquire skills in disguise, misdirection, lock-picking, and
-the use of concealed weapons.
-Chapter II: Creating Your Survivor 31Emissary
-You are the voice of your deity on the mortal plane, and as such
-you have the authority to deliver punishment against their
-enemies and blessings to their children.
-M F: S H. You gain a new Camp Activity:
-Pray. Heal D4 Sanity. You gain 2 Exhaustion. Reduce the Camp Check roll
-by 1.
-T 1 - H W
-1 Standard Action.Cost: 4 Aether, +2 Exhaustion
-You channel your deity’s power through your body, restoring it and healing
-D4 Wounds.
-T 2 - U F
-Free Action.Cost: 4 Aether
-Your certainty on your path allows you to perform combat feats that a
-normal mortal wouldn’t be able to. Increase your next attack roll by 40.
-T 3 - R C
-1 Standard Action.Cost: 4 Aether
-Your deity’s authority restores your body to its original form, removing 1
-condition of your choosing.
-T 4 - D J
-Free Action (Magical).Cost: 2 Aether
-Your deity has deemed your opponent unworthy, negating their Armor for 1
-round.
-T 5 - H F
-1 Standard Action (Magical).Cost: 10 Aether
-A bolt of divine lames strikes your target, dealing 3D10 Holy damage.
-32 Ker Nethalas - Gravebound EditionD6 WHERE DID YOU TRAIN?
-The Sanctum of Justicar's Grace: The Sanctum of Justicar's Grace
-is a revered place of training for those aspiring to become priests of
-Ekoineme, the God of Justice. Here, students immerse themselves in
-1 the study of Ekoineme's teachings, honing their understanding of
-moral principles and the pursuit of fairness. Under the guidance of
-wise mentors, they learn the art of conlict resolution, advocate for
-justice, and uphold the divine tenets of Ekoineme.
-The Flameforge Temple: Located amidst volcanic mountains, the
-Flameforge Temple serves as a sacred training ground for those
-seeking to become priests of Sonlios, the God of Fire. Within the
-2 temple's iery chambers, students study the sacred texts of Sonlios,
-learning to channel the transformative power of ire. They undergo
-rituals of puriication, mastering the art of ire-based ceremonies,
-and cultivating a deep connection with the divine essence of Sonlios.
-The Halls of Resolve: The Halls of Resolve is a revered institution
-where individuals train to become priests of Auna, the Goddess of
-Duty. Here, students dedicate themselves to the study of duty,
-3 responsibility, and unwavering commitment. Under the watchful
-guidance of experienced mentors, they learn to fulill their
-obligations with honor, develop a strong sense of discipline, and
-embrace their divine duty as emissaries of Auna.
-Temple of Victory: Situated on the grounds once belonging to an
-ancient battleield, the Temple of Victory is a renowned training
-ground for those seeking to become priests of Vuntune, the Goddess
-of Victory. Within the temple’s storied halls, students immerse
-4
-themselves in the art of strategic planning, leadership, and the
-pursuit of triumph. They study Vuntune's teachings on tactics,
-analyze historic battles, and learn to inspire others towards glorious
-victories in the name of the goddess.
-The Shrine of Retribution: The Shrine of Retribution is a sacred
-place where individuals train to become priests of Hythos, the God
-of Vengeance. Here, students delve into the mysteries of divine
-retribution, studying the intricacies of justice and the balance
-5
-between vengeance and mercy. Under the tutelage of experienced
-priests (popularly known as “avengers”), they learn the art of
-tracking down wrongdoers, interpreting omens, and invoking the
+You strike your opponent with cold precision, automatically scoring a Critical Strike. This Ability may only be used once per room.
+
+Tier 5: Invisibility
+1 Standard Action. Cost: 6 Aether
+You disappear from sight completely, blending with the shadows. Enemies cannot target you directly. The effect disappears after you exit the current room, or you make an attack. Enemies receive -40 to their Combat Skill when attempting to defend from you while invisible.
+
+##### d6: Where did you train?
+
+- 1: The Shadowsong Guild: Operating from Veldonia’s slums district, the Shadowsong Guild is a renowned organization that trains individuals in the arts of stealth, subterfuge, and assassination. Aspiring rogues, stalkers, and assassins undergo rigorous training in infiltration, lock-picking, trap detection, and silent takedowns. They learn to blend seamlessly with their surroundings, strike with precision, and vanish without a trace.
+- 2: The Whispering Blades Academy: Located in a secluded mountain retreat at Ashbright Peaks, the Whispering Blades Academy is a prestigious institution dedicated to training elite assassins and stealthy rogues. Students receive comprehensive instruction in a variety of skills, including silent movement, disguise, poison crafting, and the art of surprise attacks.
+- 3: The Brotherhood of the Night's Veil: A clandestine order that operates in the depths of the Ravenscroft wilderness, the Brotherhood of the Night's Veil specializes in training rogue operatives skilled in espionage, sabotage, and assassination. Initiates undergo intense training in infiltration, disguise, information gathering, and combat techniques tailored for covert operations. The brotherhood's secretive network and extensive resources make them a formidable force in the realm of espionage and subterfuge.
+- 4: The School of Silent Shadows: The School of Silent Shadows is a secret training ground for rogues and stalkers who specialize in silent takedowns and swift, deadly strikes. Students learn the art of stealthy movement, camouflage, evasion, and the use of a wide range of specialized tools and gadgets. The school's serene environment and natural surroundings provide the perfect backdrop for honing their skills in patience, observation, and precision.
+- 5: The Black Fist: Operating from the dark underbelly of Wyverngate, the Black Fist is an underground organization renowned for training expert rogues and assassins. Members undergo extensive training in acrobatics, agility, and unconventional combat techniques. They learn to exploit their surroundings, employing poisons, magic and any tool available to dispatch targets swiftly and silently, leaving behind only whispers of their presence.
+- 6: The Temple of the Shrouded Serpent: Hidden within a remote desert canyon in the western Shimmerlands, the Temple of the Shrouded Serpent is a secretive sanctuary where rogue disciples learn the art of deception, subterfuge, and lethal strikes. Here, students acquire skills in disguise, misdirection, lock-picking, and the use of concealed weapons.
+
+#### Emissary
+
+You are the voice of your deity on the mortal plane, and as such you have the authority to deliver punishment against their enemies and blessings to their children.
+
+Mastery Feature: Spiritual Healing. You gain a new Camp Activity: Pray. Heal D4 Sanity. You gain 2 Exhaustion. Reduce the Camp Check roll by 1.
+
+Tier 1: Heal Wounds
+1 Standard Action. Cost: 4 Aether, +2 Exhaustion
+You channel your deity’s power through your body, restoring it and healing D4 Wounds.
+
+Tier 2: Unbreakable Faith
+Free Action. Cost: 4 Aether
+Your certainty on your path allows you to perform combat feats that a normal mortal wouldn’t be able to. Increase your next attack roll by 40.
+
+Tier 3: Remove Condition
+1 Standard Action. Cost: 4 Aether
+Your deity’s authority restores your body to its original form, removing 1 condition of your choosing.
+
+Tier 4: Divine Justice
+Free Action (Magical). Cost: 2 Aether
+Your deity has deemed your opponent unworthy, negating their Armor for 1 round.
+
+Tier 5: Holy Flame
+1 Standard Action (Magical). Cost: 10 Aether
+A bolt of divine flames strikes your target, dealing 3D10 Holy damage.
+
+##### d6: Where did you Train?
+
+- 1: The Sanctum of Justicar's Grace: The Sanctum of Justicar's Grace is a revered place of training for those aspiring to become priests of Ekoineme, the God of Justice. Here, students immerse themselves in the study of Ekoineme's teachings, honing their understanding of moral principles and the pursuit of fairness. Under the guidance of wise mentors, they learn the art of conflict resolution, advocate for justice, and uphold the divine tenets of Ekoineme.
+- 2: The Flameforge Temple: Located amidst volcanic mountains, the Flameforge Temple serves as a sacred training ground for those seeking to become priests of Sonlios, the God of Fire. Within the temple's fiery chambers, students study the sacred texts of Sonlios, learning to channel the transformative power of fire. They undergo rituals of purification, mastering the art of fire-based ceremonies, and cultivating a deep connection with the divine essence of Sonlios.
+- 3: The Halls of Resolve: The Halls of Resolve is a revered institution where individuals train to become priests of Auna, the Goddess of Duty. Here, students dedicate themselves to the study of duty, responsibility, and unwavering commitment. Under the watchful guidance of experienced mentors, they learn to fulfill their obligations with honor, develop a strong sense of discipline, and embrace their divine duty as emissaries of Auna.
+- 4: Temple of Victory: Situated on the grounds once belonging to an ancient battlefield, the Temple of Victory is a renowned training ground for those seeking to become priests of Vuntune, the Goddess of Victory. Within the temple’s storied halls, students immerse themselves in the art of strategic planning, leadership, and the pursuit of triumph. They study Vuntune's teachings on tactics, analyze historic battles, and learn to inspire others towards glorious victories in the name of the goddess.
+- 5: The Shrine of Retribution: The Shrine of Retribution is a sacred place where individuals train to become priests of Hythos, the God of Vengeance. Here, students delve into the mysteries of divine retribution, studying the intricacies of justice and the balance between vengeance and mercy. Under the tutelage of experienced priests (popularly known as “avengers”), they learn the art of tracking down wrongdoers, interpreting omens, and invoking the
 power of Hythos to mete out righteous punishment.
-The Shadow's Embrace Cloister: Located in a secluded forest
-shrouded in perpetual darkness, the Shadow's Embrace Cloister is a
-mystical sanctuary where individuals train to become priests of
-Kevona, the Goddess of the Night. Within the cloister's hallowed
-6
-halls, students delve into the depths of the night, embracing its
-mysteries and studying the balance between light and darkness.
-They learn to navigate the shadows, commune with nocturnal
+- 6: The Shadow's Embrace Cloister: Located in a secluded forest shrouded in perpetual darkness, the Shadow's Embrace Cloister is a mystical sanctuary where individuals train to become priests of Kevona, the Goddess of the Night. Within the cloister's hallowed halls, students delve into the depths of the night, embracing its mysteries and studying the balance between light and darkness. They learn to navigate the shadows, commune with nocturnal
 creatures, and unlock the secrets of Kevona's divine realm.
-Chapter II: Creating Your Survivor 33Flamecaster
-You are a master of incendiary arts, harnessing the blazing forces
-of lame to scorch enemies, leaving a trail of smoldering
-destruction in your wake.
-M F: F. You are Restored by Fire damage.
-T 1 - F B
+
+#### Flamecaster
+
+You are a master of incendiary arts, harnessing the blazing forces of flame to scorch enemies, leaving a trail of smoldering destruction in your wake.
+
+Mastery Feature: Fireheart. You are Restored by Fire damage.
+
+Tier 1: Fire Bolt
 1 Standard Action (Magical). Cost: 4 Aether
-You ire a burst of lames from your hand at your opponent, dealing D6 Fire
+You fire a burst of flames from your hand at your opponent, dealing D6 Fire
 damage.
-T 2 - F S
+
+Tier 2: Flame Spray
 1 Standard Action (Magical). Cost: 4 Aether
-A cone of lames shoots from the palm of your hand, spraying all enemies in
+A cone of flames shoots from the palm of your hand, spraying all enemies in
 front of you. Up to ⅃/2 enemies receive D4 Fire damage.
-T 3 - F C
+
+Tier 3: Fire Cage
 1 Standard Action (Magical). Cost: 6 Aether
 Flames rise from the ground, surrounding and trapping one of your
 opponents. The target becomes Restrained, but as a Free Action can attempt
 a Magic Resistance check every round to break free. Every failed attempt
 causes them to suffer 1 Fire damage that cannot be avoided in any way.
-T 4 - S F E
+
+Tier 4: Summon Fire Elemental
 2 Standard Actions. Cost: 4 Aether (Sustained)
-You summon an elemental from the plane of ire to serve you. The Fire
+You summon an elemental from the plane of fire to serve you. The Fire
 Elemental will last until destroyed. Check page 201 to learn more about the
 Fire Elemental’s stats.
-T 5 - F
+
+Tier 5: Fireball
 1 Standard Action (Magical). Cost: 10 Aether
-A ball of lames appears above your head, crashing into your enemies. All
+A ball of flames appears above your head, crashing into your enemies. All
 opponents in the room receive 3D6 Fire damage.
-34 Ker Nethalas - Gravebound EditionD6 WHERE DID YOU TRAIN?
-Flamecaster Juute: Pyromancer Juute is a renowned master of ire
-magic, revered for their ability to command and control the
-destructive power of lames. Students who aspire to become ire
-1 mages seek apprenticeship under Juute, learning to manipulate and
-shape ire with precision. Under their tutelage, disciples study the
-intricacies of ire spells, practice ire manipulation techniques, and
-understand the elemental nature of lames.
-The Ember Sanctum: Tucked away in a secluded volcanic region
-too inhospitable for life, the Ember Sanctum is a sacred place where
-ire mages gather to reine their skills in lamecasting. Within the
-2
-sanctum's scorching halls, students are exposed to intense ire
-rituals, honing their control over lames and mastering the art of
-ire-based spellcasting.
-The Flamebrand Guild: The Flamebrand Guild is an esteemed
-organization that trains individuals in the art of ire magic. From
-adept spellcasters to ambitious lamecasters, members of the guild
-receive comprehensive training in controlling and wielding lames.
-3
-They learn to conjure ireballs, create walls of ire, and unleash
-devastating infernos. The guild provides a platform for collaboration
-and knowledge-sharing among ire mages, fostering growth and
-innovation in ire-based spellcasting.
-The Seventh Circle: Situated amidst the desolate Azari desert, the
-Seventh Circle is a renowned institution dedicated to the study and
-mastery of ire magic. Students learn to conjure and manipulate ire
-4 through focused concentration and visualization, developing
-proiciency in ire-based spells, and understanding the essence of
-heat and combustion through a strong foundation of natural
-philosophy.
-The Order of the Blazing Phoenix: The Order of the Blazing
-Phoenix is a sacred order that embraces the power of ire as a force
-of transformation and puriication; as such, they work closely with
-the cult of Sonlios, God of Fire. Initiated ire mages undergo rigorous
-5 training, attuning themselves to the elemental energies of ire and
-harnessing its might. They study ancient ire magic techniques,
-learning to summon irestorms, breathe streams of ire, and
-manipulate lames to their will. The Order emphasizes discipline,
-control, and the responsible use of ire magic.
-The Burning Citadel: The Burning Citadel serves as a training
-ground for ire mages seeking to master the art of lamecasting.
-Students endure the intense heat and volatile environment of the
-6 citadel as they immerse themselves in the study of ire magic.
-Guided by experienced ire mages, they learn to conjure lames,
-shape them into devastating projectiles, and forge a deep connection
-with the element of ire.
-Chapter II: Creating Your Survivor 35Frostweaver
+
+##### d6: Where did you train?
+
+- 1: Flamecaster Juute: Pyromancer Juute is a renowned master of fire magic, revered for their ability to command and control the destructive power of flames. Students who aspire to become fire mages seek apprenticeship under Juute, learning to manipulate and shape fire with precision. Under their tutelage, disciples study the intricacies of fire spells, practice fire manipulation techniques, and understand the elemental nature of flames.
+- 2: The Ember Sanctum: Tucked away in a secluded volcanic region too inhospitable for life, the Ember Sanctum is a sacred place where fire mages gather to refine their skills in flamecasting. Within the sanctum's scorching halls, students are exposed to intense fire rituals, honing their control over flames and mastering the art of fire-based spellcasting.
+- 3: The Flamebrand Guild: The Flamebrand Guild is an esteemed organization that trains individuals in the art of fire magic. From adept spellcasters to ambitious flamecasters, members of the guild receive comprehensive training in controlling and wielding flames. They learn to conjure fireballs, create walls of fire, and unleash devastating infernos. The guild provides a platform for collaboration and knowledge-sharing among fire mages, fostering growth and innovation in fire-based spellcasting.
+- 4: The Seventh Circle: Situated amidst the desolate Azari desert, the Seventh Circle is a renowned institution dedicated to the study and mastery of fire magic. Students learn to conjure and manipulate fire through focused concentration and visualization, developing proficiency in fire-based spells, and understanding the essence of heat and combustion through a strong foundation of natural philosophy.
+- 5: The Order of the Blazing Phoenix: The Order of the Blazing Phoenix is a sacred order that embraces the power of fire as a force of transformation and purification; as such, they work closely with the cult of Sonlios, God of Fire. Initiated fire mages undergo rigorous training, attuning themselves to the elemental energies of fire and harnessing its might. They study ancient fire magic techniques, learning to summon firestorms, breathe streams of fire, and manipulate flames to their will. The Order emphasizes discipline, control, and the responsible use of fire magic.
+- 6: The Burning Citadel: The Burning Citadel serves as a training ground for fire mages seeking to master the art of flamecasting. Students endure the intense heat and volatile environment of the citadel as they immerse themselves in the study of fire magic. Guided by experienced fire mages, they learn to conjure flames, shape them into devastating projectiles, and forge a deep connection with the element of fire.
+
+#### Frostweaver
+
+Mastery Feature: Relentless Winter. Targets damaged by your Frostweaver spells are Freezing.
+
+Tier 1: Frost Bolt
+1 Standard Action (Magical). Cost: 4 Aether
+A shard of ice emerges from your hands and strikes your opponent in a cascade of ice, dealing D6 Cold damage.
+
+Tier 2: Ice Sheild
+Reaction. Cost: 3 Aether
+You summon a block of ice that covers your arm, shielding you from the incoming attack. +30 Parry against an incoming attack.
+
+Tier 3: Ice Nova
+1 Standard Action (Magical). Cost: 5 Aether
+A burst of ice emerges from you as the epicenter, blasting away all surrounding enemies. Up to ⅃/2 enemies receive D6 Cold damage.
+
+Tier 4: Summon Frost Elemental
+2 Standard Actions. Cost: 4 Aether (Sustained)
+You summon a creature of pure elemental ice to serve you. The Frost Elemental will last until destroyed. Check page 201 to learn more about the Frost Elemental’s stats.
+
+Tier 5: Frost Weapon
+1 Standard Action. Cost: 4 Aether (Sustained)
+You weave a weapon made of pure ice threads that reforms even after breaking, as long as you pay the Sustained cost. The weapon can take any shape you want (and as such having all the usual Traits from its mundane counterpart), and deals D8+1 Cold damage that bypasses Armor. Additional damage bonuses applied to this weapon do not bypass Armor.
+
+##### d6: Where did you train?
+
+- 1: Frostweaver Elara: Frostweaver Elara is a renowned master of frost magic, known for her ability to conjure and control the chilling powers of ice and frost. Students aspiring to become frost mages seek Elara's tutelage, learning to manipulate and shape frost with precision. Under her guidance, disciples study the intricacies of frost spells, practice ice manipulation techniques, and understand the elemental nature of cold.
+- 2: The Frostborne Citadel: Located in the frozen island of Iceshard, the Frostborne Citadel serves as a bastion for those who seek to master the art of frost magic. Within its icy walls, students train under experienced frost mages, honing their control over cold and frost, and studying the principles of frost-based spellcasting.
+- 3: The Iceheart Sect: The Iceheart Sect is a prestigious organization dedicated to the study and mastery of frost magic. Students immerse themselves in the study of frost spells, learning to harness the power of freezing temperatures under the guidance of experienced mentors, while practicing ice manipulation, and understanding the art of frost-based enchantments.
+- 4: The Frostfall Coven: The members of this secretive society of frost mages study ancient texts and delve into the mysteries of manipulating cold and ice. Initiates undergo rigorous training, developing their command over frost spells, learning to create frost shields, and summoning icy allies.
+- 5: The Nexus: The Nexus is a revered training ground for frostweavers who seek to channel the raw power of ice and cold. Within its frigid domain, students endure the biting chill as they study frost-based spellcasting, ice manipulation, and the creation of frozen constructs, all under the watchful eye of seasoned mentors.
+- 6: The Icetrap Monastery: Hidden amidst icy caverns, the Icetrap Monastery is a sanctuary where frost mages study and refine their skills in manipulating cold and frost. Students practice intricate frost spells, learning to shape and control ice with precision. The Icetrap Monastery offers a serene environment for frost mages to deepen their connection to the essence of frost and embrace the power of icy magic, immersing themselves in meditation and seeking harmony with the frozen elements.
+
 Your mastery over ice, cold, and all that is frozen grants you a
 power that few can hope to match. You are a living blizzard, an ice
 storm that falls upon your enemies with the chill of death.
