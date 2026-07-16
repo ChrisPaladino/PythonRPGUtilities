@@ -468,7 +468,84 @@ You weave a weapon made of pure ice threads that reforms even after breaking, as
 - 5: The Nexus: The Nexus is a revered training ground for frostweavers who seek to channel the raw power of ice and cold. Within its frigid domain, students endure the biting chill as they study frost-based spellcasting, ice manipulation, and the creation of frozen constructs, all under the watchful eye of seasoned mentors.
 - 6: The Icetrap Monastery: Hidden amidst icy caverns, the Icetrap Monastery is a sanctuary where frost mages study and refine their skills in manipulating cold and frost. Students practice intricate frost spells, learning to shape and control ice with precision. The Icetrap Monastery offers a serene environment for frost mages to deepen their connection to the essence of frost and embrace the power of icy magic, immersing themselves in meditation and seeking harmony with the frozen elements.
 
-Your mastery over ice, cold, and all that is frozen grants you a
+#### Gravecaller
+
+Everything dies eventually, and your dominion over death means that, with time, everything will serve you. And if they somehow refuse your call, they will be used as tools to fuel your path.
+
+Mastery Feature: Necrotic Vitality. Spend a Standard Action to sacrifice one of your Undead minions, recovering D4 Wounds or 1 Sanity.
+
+Tier 1: Raise Skeleton
+2 Standard Actions. Cost: 2 Aether (Sustained). Requires a Humanoid or Animal corpse
+You animate the bones of a nearby corpse (a recently defeated Humanoid or Animal opponent would do), raising a Skeleton that will fight for you. The Skeleton lasts until destroyed. Check page 202 to learn more about the Skeleton’s stats.
+
+Tier 2: Corpse Explosion
+1 Standard Action. Cost: 2 Aether. Requires a Humanoid or Animal corpse
+Causes a nearby corpse to explode, dealing 2D4 Necrotic damage to all opponents in the room.
+
+Tier 3: Bloodskin
+1 Standard Action. Cost: 2 Health, 4 Aether
+Blood pours from your eyes and ears, forming a thin membrane that covers your body as a second skin. +1 Armor across all your body until end of combat. Can only be used once per combat.
+
+Tier 4: Raise Wight
+2 Standard Actions. Cost: 4 Aether (Sustained)
+You trap a nearby soul, binding it to your service. The Wight will last until destroyed. Check page 203 to learn more about the Wight’s stats.
+
+Tier 5: Necrolord
+Passive
+You are Restored by Necrotic damage. Your Undead minions deal +D6 Necrotic damage and have their Health increased by 2.
+
+##### d6: Where did you train?
+
+- 1: The Crypt of the Ekhan Thuul: Hidden beneath a decrepit cemetery, the Crypt of Ekhan Thuul is a forbidden enclave where dark magic and necromancy are practiced. Necromancers-in-training study the intricacies of raising and controlling the dead, learning from forbidden tomes and ancient rituals.
+- 2: The Tower of Shadowed Knowledge: Rising tall in the wasteland of Jara, the Tower of Shadowed Knowledge is a renowned institution dedicated to the study of dark magic. Within its ominous halls, aspiring necromancers immerse themselves in extensive studies of necromancy and the manipulation of life force, conducting experiments, and refining their ability to command and control undead creatures.
+- 3: The Coven of the Whispering Graves: The Coven of the Whispering Graves is a secretive society of necromancers where practitioners of the dark arts convene to share knowledge and delve into the secrets of raising the dead. Apprentices learn to commune with spirits, harness dark energies, and master the art of necromantic spells and rituals.
+- 4: The Silent: The Silent are a strange group of wandering necromancers that travel the land, searching for something they call the Kerazi. For a price, aspiring necromancers can receive comprehensive training in the manipulation of life and death, including the art of raising and controlling the undead, before the group moves on to new lands.
+- 5: The Necropolis of the Fallen: Built upon an ancient battlefield, the Necropolis of the Fallen is a haunting necromantic site where practitioners of dark arts gather to perfect their craft. Amongst the forgotten mass graves and bleached, ancient bones, necromancers refine their abilities to commune with the dead, raise skeletal warriors, and bend death itself to their will.
+- 6: Bahatu Island: Shrouded in perpetual mist, Bahatu Island is a desolate place where necromancers seeking mastery over the undead converge. With its cursed atmosphere and haunted ruins, the isle offers an ideal training ground for the study of necromancy. Students delve into forbidden texts, learn the secrets of soul manipulation, and practice raising and controlling various types of undead creatures under the guidance of the enigmatic mentors who
+call the place home.
+
+#### Hexmaster
+
+You harness the dark arts to afflict your enemies with debilitating curses and manipulate their life force, sowing despair and weakening your adversaries with every insidious touch of your powers.
+
+Mastery Feature: Unescapable Curse. You deal an additional +1 damage when attacking a target suffering from the Cursed condition.
+
+Tier 1: Sap Vitality
+1 Standard Action (Magical). Cost: 5 Aether
+The target is Cursed, losing 5 Combat Skill every round, up to a maximum of -20.
+
+Tier 2: Enfeeble
+1 Standard Action (Magical). Cost: 3 Aether
+You curse your opponent with devastating weakness. The target is Cursed and receives +1 damage from all sources until the end of battle. This can
+only be used once per target.
+
+Tier 3: Curse Mind
+1 Standard Action (Magical). Cost: 5 Aether
+A malediction takes a hold of your target’s mind. The target is Stunned (2) if they fail the Magic Resistance check, or Dazed (2) if they pass it.
+
+Tier 4: Drain Lifeforce
+1 Standard Action (Magical). Cost: 6 Aether
+Your target’s vitality becomes your own, as you steal their lifeforce. Target suffers 3D6 Necrotic damage, and you heal the same amount of Wounds. This Ability does not work if the target is Restored by Necrotic damage.
+
+Tier 5: Putrefy Armor
+1 Standard Action (Magical). Cost: 6 Aether
+You unleash your most devastating hex upon your target. Choose one of the target's Hit Location: that Location loses 1 Armor every round, until it reaches 0. Once it reaches 0, the target must make a new Magic Resistance check, or Putrefy Armor will jump to a different Hit Location of your choosing.
+
+##### d6: Where did you train?
+
+- 1: The Coven of Shadows: The Coven of Shadows is a secretive group of skilled practitioners who specialize in hexes, curses, and dark magic. Members of the coven study ancient texts and rituals, delving into the darker aspects of magic, and learn to weave potent hexes and curses, inflicting misfortune, debilitating effects, and psychological torment upon their targets.
+- 2: The Hexbane: The Hexbane is an organization dedicated to countering and understanding hexes and curses. Members of the society train in the arts of hex detection, curse removal, and the study of dark magic. They develop an intimate knowledge of various hexes and curses, learning to dismantle their effects and protect others from their malevolent influence.
+- 3:The Root & Petal: The Root & Petal is a renowned institution where individuals train in the dark arts of hexes and curses. Initially created by Queen Alesia three hundred years ago after the death of her husband as the result of being cursed, students within the school delve into forbidden knowledge, learning to manipulate and unleash hexes with devastating effects.
+- 4: The Order of the Bitter Hand: The Order of the Bitter Hand is a secret sect of individuals who specialize in hexes, curses, and dark magic. Members learn to weave intricate curses that afflict their targets with pain, misfortune, or even supernatural afflictions. The Order of the Bitter Hand is known for their relentless pursuit of vengeance and their ability to unleash devastating hexes upon their enemies.
+- 5: The Evening Star: The Evening Star is a clandestine gathering of practitioners who specialize in hexes and curses. Within their hidden sanctuaries, members of the enclaves study the dark arts, learning to tap into the dark energies that fuel hexes and curses. They understand the intricate mechanics of affliction, channeling their dark magic to sow chaos and misery.
+- 6: The Withering Circle: The Withering Circle is a revered order of hexmasters who have dedicated their lives to studying and perfecting the art of hexes and curses. Through years of rigorous training, members learn to tap into the darker realms of magic, manipulating the threads of fate to bring suffering and decay to their targets. They are often hired by unscrupulous noblemen searching to swiftly eliminate their opposition, while at the same time making a point.
+
+
+
+
+
+
+ Your mastery over ice, cold, and all that is frozen grants you a
 power that few can hope to match. You are a living blizzard, an ice
 storm that falls upon your enemies with the chill of death.
 M F: R W. Targets damaged by your
